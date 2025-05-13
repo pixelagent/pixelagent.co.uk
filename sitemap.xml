@@ -1,11 +1,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
-		<loc>http://www.pixelagent.co.uk/index.html</loc>
+		<loc>https://www.pixelagent.co.uk/index.html</loc>
 	</url>
 	<url>
-		<loc>http://www.pixelagent.co.uk/portfolio.html</loc>
+		<loc>https://www.pixelagent.co.uk/portfolio.html</loc>
 	</url>
 	<url>
-		<loc>http://www.pixelagent.co.uk/about.html</loc>
+		<loc>https://www.pixelagent.co.uk/about.html</loc>
+	</url>
+	<url>
+		<loc>https://www.pixelagent.co.uk/software.html</loc>
 	</url>
 </urlset>
