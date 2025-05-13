@@ -49,6 +49,8 @@ def export_collection_as_fbx(collection, export_path):
         bake_space_transform=True,
         mesh_smooth_type='OFF',
         add_leaf_bones=False,
+        axis_forward='-Z',
+        axis_up='Y',
     )
 
     # Cleanup
