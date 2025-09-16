@@ -1,8 +1,5 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
-		<loc>https://www.pixelagent.co.uk/portfolio.html</loc>
-	</url>
-	<url>
 		<loc>https://www.pixelagent.co.uk/about.html</loc>
 	</url>
 	<url>
@@ -13,5 +10,8 @@
 	</url>
 	<url>
 		<loc>https://www.pixelagent.co.uk/games.html</loc>
+	</url>
+	<url>
+		<loc>https://www.pixelagent.co.uk/websites.html</loc>
 	</url>
 </urlset>
