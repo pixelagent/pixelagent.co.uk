@@ -6,12 +6,12 @@
 		<loc>https://www.pixelagent.co.uk/software.html</loc>
 	</url>
 	<url>
-		<loc>https://www.pixelagent.co.uk/html.html</loc>
-	</url>
-	<url>
 		<loc>https://www.pixelagent.co.uk/games.html</loc>
 	</url>
 	<url>
 		<loc>https://www.pixelagent.co.uk/websites.html</loc>
+	</url>
+	<url>
+		<loc>https://www.pixelagent.co.uk/index.html</loc>
 	</url>
 </urlset>
