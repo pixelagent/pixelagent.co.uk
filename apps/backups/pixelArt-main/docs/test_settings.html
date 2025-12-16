@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Manager Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a2e;
+            color: #e0e7ff;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-button {
+            background: #00ff41;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .test-results {
+            background: #1e293b;
+            border: 1px solid #2d3748;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Settings Manager Test</h1>
+        <p>This page tests the new settings manager functionality.</p>
+
+        <button id="testOpenSettings" class="test-button">Open Settings Modal</button>
+        <button id="testCloseSettings" class="test-button">Close Settings Modal</button>
+        <button id="testSaveSettings" class="test-button">Save Settings</button>
+
+        <div class="test-results">
+            <h3>Test Results:</h3>
+            <pre id="testResults">Waiting for tests...</pre>
+        </div>
+    </div>
+
+    <!-- Include the settings manager -->
+    <script src="js/settings-manager.js"></script>
+
+    <!-- Test script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const testResults = document.getElementById('testResults');
+
+            // Test 1: Check if SettingsManager is defined
+            if (typeof SettingsManager !== 'undefined') {
+                testResults.textContent += "✓ SettingsManager is defined\n";
+            } else {
+                testResults.textContent += "✗ SettingsManager is not defined\n";
+            }
+
+            // Test 2: Check if SettingsManager has required methods
+            const requiredMethods = ['init', 'toggleSettings', 'openSettings', 'closeSettings', 'saveSettings'];
+            let allMethodsPresent = true;
+
+            requiredMethods.forEach(method => {
+                if (typeof SettingsManager[method] === 'function') {
+                    testResults.textContent += `✓ SettingsManager.${method} exists\n`;
+                } else {
+                    testResults.textContent += `✗ SettingsManager.${method} is missing\n`;
+                    allMethodsPresent = false;
+                }
+            });
+
+            // Test 3: Check if settings modal exists in DOM
+            const modal = document.getElementById('unified-settings-modal');
+            if (modal) {
+                testResults.textContent += "✓ Settings modal found in DOM\n";
+            } else {
+                testResults.textContent += "✗ Settings modal not found in DOM\n";
+            }
+
+            // Test 4: Check if settings button exists
+            const settingsBtn = document.getElementById('settingsBtn');
+            if (settingsBtn) {
+                testResults.textContent += "✓ Settings button found\n";
+            } else {
+                testResults.textContent += "✗ Settings button not found\n";
+            }
+
+            // Test 5: Check if tab elements exist
+            const tabButtons = document.querySelectorAll('.settings-tab');
+            if (tabButtons.length > 0) {
+                testResults.textContent += `✓ Found ${tabButtons.length} settings tabs\n`;
+            } else {
+                testResults.textContent += "✗ No settings tabs found\n";
+            }
+
+            // Test 6: Check if tab content elements exist
+            const tabContents = document.querySelectorAll('.settings-tab-content');
+            if (tabContents.length > 0) {
+                testResults.textContent += `✓ Found ${tabContents.length} settings tab contents\n`;
+            } else {
+                testResults.textContent += "✗ No settings tab contents found\n";
+            }
+
+            // Set up button event listeners
+            document.getElementById('testOpenSettings').addEventListener('click', function() {
+                if (typeof SettingsManager !== 'undefined' && SettingsManager.openSettings) {
+                    SettingsManager.openSettings();
+                    testResults.textContent += "✓ Open Settings called\n";
+                }
+            });
+
+            document.getElementById('testCloseSettings').addEventListener('click', function() {
+                if (typeof SettingsManager !== 'undefined' && SettingsManager.closeSettings) {
+                    SettingsManager.closeSettings();
+                    testResults.textContent += "✓ Close Settings called\n";
+                }
+            });
+
+            document.getElementById('testSaveSettings').addEventListener('click', function() {
+                if (typeof SettingsManager !== 'undefined' && SettingsManager.saveSettings) {
+                    SettingsManager.saveSettings();
+                    testResults.textContent += "✓ Save Settings called\n";
+                }
+            });
+
+            // Initialize the settings manager
+            if (typeof SettingsManager !== 'undefined' && SettingsManager.init) {
+                SettingsManager.init();
+                testResults.textContent += "✓ SettingsManager initialized\n";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toolbar Submenu Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .test-results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 4px;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .instructions {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Toolbar Submenu Test</h1>
+
+        <div class="instructions">
+            <h3>Test Instructions:</h3>
+            <ol>
+                <li>Click on the "Drawing Tools" menu button - the submenu should open</li>
+                <li>Click on a tool in the submenu - the submenu should close and tool should be selected</li>
+                <li>Click on the "Drawing Tools" menu button again - the submenu should close</li>
+                <li>Click outside the toolbar - any open submenu should close</li>
+                <li>Try the same with "Shapes" and "Selection Tools" menus</li>
+            </ol>
+            <p><strong>Expected behavior:</strong> Submenus should only open/close on click, not on hover</p>
+        </div>
+
+        <div class="test-results">
+            <h3>Test Results:</h3>
+            <div id="results"></div>
+        </div>
+
+        <!-- Simplified toolbar for testing -->
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <div class="tool-btn menu-parent" style="padding: 10px 15px; background: #ddd; cursor: pointer; border-radius: 4px;">
+                Drawing Tools
+                <div class="tool-submenu" style="display: none; position: absolute; background: white; border: 1px solid #ccc; padding: 10px; margin-top: 5px;">
+                    <div class="tool-btn" data-action="tool" data-type="pencil" style="padding: 5px; margin: 2px; background: #f0f0f0;">Pencil</div>
+                    <div class="tool-btn" data-action="tool" data-type="brush" style="padding: 5px; margin: 2px; background: #f0f0f0;">Brush</div>
+                    <div class="tool-btn" data-action="tool" data-type="eraser" style="padding: 5px; margin: 2px; background: #f0f0f0;">Eraser</div>
+                </div>
+            </div>
+
+            <div class="tool-btn menu-parent" style="padding: 10px 15px; background: #ddd; cursor: pointer; border-radius: 4px;">
+                Shapes
+                <div class="tool-submenu" style="display: none; position: absolute; background: white; border: 1px solid #ccc; padding: 10px; margin-top: 5px;">
+                    <div class="tool-btn" data-action="tool" data-type="rect" style="padding: 5px; margin: 2px; background: #f0f0f0;">Rectangle</div>
+                    <div class="tool-btn" data-action="tool" data-type="circle" style="padding: 5px; margin: 2px; background: #f0f0f0;">Circle</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test the JavaScript functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const results = document.getElementById('results');
+
+            // Track which menu parent is currently active
+            let activeMenuParent = null;
+
+            // Handle menu parent click behavior
+            document.querySelectorAll('.tool-btn.menu-parent').forEach(menuParent => {
+                menuParent.addEventListener('click', (e) => {
+                    const submenu = menuParent.querySelector('.tool-submenu');
+                    if (submenu) {
+                        // Close any other open submenus first
+                        document.querySelectorAll('.tool-submenu').forEach(otherSubmenu => {
+                            if (otherSubmenu !== submenu) {
+                                otherSubmenu.classList.remove('visible');
+                                otherSubmenu.style.display = 'none';
+                            }
+                        });
+
+                        // Remove active state from other menu parents
+                        document.querySelectorAll('.tool-btn.menu-parent').forEach(otherParent => {
+                            if (otherParent !== menuParent) {
+                                otherParent.classList.remove('persistent-menu-active');
+                            }
+                        });
+
+                        // Toggle this submenu
+                        const isCurrentlyVisible = submenu.classList.contains('visible');
+                        if (isCurrentlyVisible) {
+                            // Close the submenu
+                            submenu.classList.remove('visible');
+                            submenu.style.display = 'none';
+                            menuParent.classList.remove('persistent-menu-active');
+                            activeMenuParent = null;
+                            addResult('✓ Submenu closed on second click');
+                        } else {
+                            // Open the submenu
+                            submenu.classList.add('visible');
+                            submenu.style.display = 'block';
+                            submenu.style.opacity = '1';
+
+                            // Mark this as the active menu parent
+                            activeMenuParent = menuParent;
+                            menuParent.classList.add('persistent-menu-active');
+                            addResult('✓ Submenu opened on click');
+                        }
+
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                });
+            });
+
+            // Handle clicks on submenu items
+            document.querySelectorAll('.tool-submenu .tool-btn').forEach(submenuItem => {
+                submenuItem.addEventListener('click', (e) => {
+                    const toolType = submenuItem.dataset.type;
+                    addResult(`✓ Tool selected: ${toolType}`);
+
+                    // Close all submenus when a tool is selected
+                    document.querySelectorAll('.tool-submenu').forEach(submenu => {
+                        submenu.classList.remove('visible');
+                        submenu.style.display = 'none';
+                    });
+
+                    // Remove active state from all menu parents
+                    document.querySelectorAll('.tool-btn.menu-parent').forEach(parent => {
+                        parent.classList.remove('persistent-menu-active');
+                    });
+
+                    activeMenuParent = null;
+                });
+            });
+
+            // Close submenus when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.tool-btn.menu-parent') && !e.target.closest('.tool-submenu')) {
+                    document.querySelectorAll('.tool-submenu').forEach(submenu => {
+                        submenu.classList.remove('visible');
+                        submenu.style.display = 'none';
+                    });
+
+                    document.querySelectorAll('.tool-btn.menu-parent').forEach(parent => {
+                        parent.classList.remove('persistent-menu-active');
+                    });
+
+                    activeMenuParent = null;
+                    addResult('✓ Submenu closed when clicking outside');
+                }
+            });
+
+            function addResult(message) {
+                const resultItem = document.createElement('div');
+                resultItem.textContent = message;
+                resultItem.className = message.startsWith('✓') ? 'success' : 'error';
+                results.appendChild(resultItem);
+                results.scrollTop = results.scrollHeight;
+            }
+
+            addResult('Test ready - click on the menu buttons above');
+        });
+    </script>
+</body>
+</html>

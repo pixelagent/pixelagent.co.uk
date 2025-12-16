@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Effects Panel Test</title>
+    <style>
+        .sub-panel-section { display: none; }
+        .sub-panel-section:not(.hidden) { display: block; }
+        .tool-btn.active { background: yellow; }
+    </style>
+</head>
+<body>
+    <h1>Effects Panel Test</h1>
+
+    <div id="effects-container">
+        <button class="tool-btn" data-tool="tool" title="Mirror (X)" data-type="mirror"
+                data-tooltip="**Mirror Tool**" data-content="mirror-options">Mirror</button>
+        <button class="tool-btn" data-tool="tool" title="Dither (D)" data-type="dither"
+                data-tooltip="**Dither Tool**" data-content="dither-options">Dither</button>
+        <button class="tool-btn" data-tool="tool" title="Contrast" data-type="contrast"
+                data-tooltip="**Contrast Tool**" data-content="contrast-options">Contrast</button>
+        <button class="tool-btn" data-tool="tool" title="Filters" data-type="filters"
+                data-tooltip="**Custom Filters**" data-content="filters-list">Filters</button>
+    </div>
+
+    <div id="mirror-options" class="sub-panel-section">
+        <h2>Mirror Options</h2>
+        <p>Mirror tool settings go here</p>
+    </div>
+
+    <div id="dither-options" class="sub-panel-section hidden">
+        <h2>Dither Options</h2>
+        <p>Dither tool settings go here</p>
+    </div>
+
+    <div id="contrast-options" class="sub-panel-section hidden">
+        <h2>Contrast Options</h2>
+        <p>Contrast tool settings go here</p>
+    </div>
+
+    <div id="filters-list" class="sub-panel-section hidden">
+        <h2>Filters List</h2>
+        <p>Filters will be loaded here</p>
+    </div>
+
+    <script src="js/right-panel-manager.js"></script>
+    <script>
+        // Initialize the right panel manager
+        document.addEventListener('DOMContentLoaded', () => {
+            window.rightPanelManager = new RightPanelManager();
+            console.log('RightPanelManager initialized');
+
+            // Test the effects panel functionality
+            setTimeout(() => {
+                console.log('Testing effects panel...');
+                const mirrorBtn = document.querySelector('[data-content="mirror-options"]');
+                const ditherBtn = document.querySelector('[data-content="dither-options"]');
+
+                if (mirrorBtn) {
+                    console.log('Found mirror button');
+                    mirrorBtn.click();
+                }
+
+                if (ditherBtn) {
+                    console.log('Found dither button');
+                    setTimeout(() => ditherBtn.click(), 1000);
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>

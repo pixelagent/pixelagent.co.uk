@@ -1,0 +1,464 @@
+<div class="dropins-container right">
+
+    <div class="tabs panel-tabs">
+        <button class="tab panel-tab active" data-tab="tools" title="Tools" data-content="unified-panel">
+            <i class="fas fa-tools"></i>
+            <span class="tab-name tab-label">Tools</span>
+        </button>
+        <button class="tab panel-tab" data-tab="layers" title="Layers" data-content="layers-panel">
+            <i class="fas fa-layer-group"></i>
+            <span class="tab-name tab-label">Layers</span>
+        </button>
+        <button class="tab panel-tab" data-tab="tilemap" title="Tilemap" data-content="tilemap-panel">
+            <i class="fas fa-th"></i>
+            <span class="tab-name tab-label">Tilemap</span>
+        </button>
+    </div>
+
+
+
+
+    <div class="contents">
+        <aside class="right-panel content" id="unified-panel">
+            <!-- Tools Tab Content - Contains all the original right panel content -->
+            <div class="panel-tab-content active" data-tab-content="tools">
+                <!-- Original right panel content goes here -->
+                <div id="panel-preview" class="panel-section">
+                    <div class="section-header">
+                        <div class="label-group">
+                            <span>Preview</span>
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <div id="preview-container">
+                            <canvas id="previewCanvas"></canvas>
+                            <div id="minimap-overlay"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="panel-transform" class="panel-section">
+                    <div class="section-header">
+                        <div class="label-group">
+                            <span>Transform</span>
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <div id="transform-container">
+                            <button class="tool-btn" data-tool="move" title="Move (M)"><i
+                                    class="fas fa-arrows-alt"></i></button>
+                            <button class="tool-btn" id="rotateBtn" title="RotatecClockwise (L)"><i
+                                    class="fas fa-rotate"></i></button>
+                            <button class="tool-btn" id="flipBtn" title="Flip Horizontal"><i
+                                    class="fas fa-flipboard"></i></button>
+                            <button class="tool-btn" id="alignCenterBtn" title="Aligh Center (S)"><i
+                                    class="fas fa-align-center"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="panel-effects" class="panel-section">
+                    <div class="section-header">
+                        <div class="label-group">
+                            <span>Effects</span>
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <div id="effects-container">
+                            <button class="tool-btn" data-tool="tool" title="Mirror (X)" data-type="mirror"
+                                data-tooltip="**Mirror Tool**"><i class="fas fa-columns"></i></button>
+                            <button class="tool-btn" data-tool="tool" title="Dither (D)" data-type="dither"
+                                data-tooltip="**Dither Tool**"><i class="fas fa-th"></i></button>
+                            <button class="tool-btn" data-tool="tool" title="Contrast" data-type="contrast"
+                                data-tooltip="**Contrast Tool**
+Increase brightness/darkness of pixels"><i class="fas fa-sun"></i></button>
+                            <button class="tool-btn" data-tool="tool" id="filtersBtn" title="Filters"
+                                data-type="filters" data-tooltip="**Custom Filters**
+Invert all colors"><i class="fas fa-magic"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="panel-palette" class="panel-section">
+                    <div class="section-header">
+                        <div class="label-group">
+                            <span>Palette</span>
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <div class="palette-controls">
+                            <button id="saveColorBtn" title="Save Color" class="palette-control-btn">
+                                <i class="fas fa-save"></i>
+                            </button>
+                            <button id="importPaletteUrlBtn" title="Import Palette" class="palette-control-btn">
+                                <i class="fas fa-folder-open"></i>
+                            </button>
+                        </div>
+                        <div class="palette-controls">
+                            <input type="color" id="colorPicker" value="#00ff41" class="color-picker-input">
+                            <input type="text" id="colorHex" value="#00ff41" class="color-hex-input">
+                        </div>
+                        <div id="palette-container" class="palette-grid"></div>
+                    </div>
+                </div>
+
+                <div id="panel-tool-options" class="panel-section">
+                    <div class="section-header">
+                        <div class="label-group">
+                            <span>Tools Options</span>
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <div class="tool-options-control brush-size-control">
+                            <label class="tool-option-label">Brush Size </label>
+                            <div class="slider-value-container">
+                                <div class="slider-container" style="width: 80%;">
+                                    <input type="range" id="brushSizeSlider" min="1" max="20" value="1"
+                                        class="tool-option-slider">
+                                </div>
+                                <div class="value-container" style="width: 20%; text-align: right;">
+                                    <span id="brushSizeDisplay">1</span>px
+                                </div>
+                            </div>
+                            <div class="preset-brush-sizes">
+                                <button class="preset-brush-size" data-size="1">1</button>
+                                <button class="preset-brush-size" data-size="2">2</button>
+                                <button class="preset-brush-size" data-size="3">3</button>
+                                <button class="preset-brush-size" data-size="4">4</button>
+                                <button class="preset-brush-size" data-size="5">5</button>
+                            </div>
+                        </div>
+                        <div class="tool-options-control opacity-control">
+                            <label class="tool-option-label">Opacity</label>
+                            <div class="slider-value-container">
+                                <div class="slider-container" style="width: 80%;">
+                                    <input type="range" id="opacitySlider" min="0" max="100" value="100"
+                                        class="tool-option-slider">
+                                </div>
+                                <div class="value-container" style="width: 20%; text-align: right;">
+                                    <span id="opacityDisplay">100</span>%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tool-options-control blur-control">
+                            <label class="tool-option-label">Brush Blur </label>
+                            <div class="slider-value-container">
+                                <div class="slider-container" style="width: 80%;">
+                                    <input type="range" id="blurSlider" min="0" max="10" value="0"
+                                        class="tool-option-slider">
+                                </div>
+                                <div class="value-container" style="width: 20%; text-align: right;">
+                                    <span id="blurDisplay">0</span>px
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </aside>
+
+
+        <!-- LAYER PANEL (SLIDE OUT) -->
+        <aside class="right-panel content" id="layers-panel">
+            <div id="panel-layers" class="panel-section">
+                <div class="section-header">
+                    <div class="label-group">
+                        <span>Layers</span>
+                    </div>
+                    <div class="layer-controls">
+                        <button class="section-toggle" data-target="panel-layers" title="Toggle Layers Section">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button class="slide-out-btn" id="slide-out-layers-panel" title="Slide Out Layers Panel">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <button id="addLayerBtn" class="layer-control-btn" title="Add Layer">
+                        <i class="fas fa-plus-circle"></i>
+                    </button>
+                    <div id="layers-list" class="layers-list">
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- TILMAP PANEL (SLIDE OUT) -->
+        <aside class="right-panel content" id="tilemap-panel">
+            <div id="panel-tilemap" class="panel-section">
+                <div class="section-header">
+                    <div class="label-group">
+                        <span>Tilemap Preview</span>
+                    </div>
+                    <button class="section-toggle" data-target="panel-tilemap" title="Toggle Tilemap Preview Section">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button class="close-panel-btn" id="close-tilemap-panel" title="Close Tilemap Panel">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="section-body">
+                    <div class="tilemap-container">
+                        <!-- Original tilemap squares -->
+                        <div class="tilemap-grid" id="tilemapGrid">
+                            <!-- Tilemap squares will be generated here -->
+                        </div>
+
+                        <!-- Seamless mode toggle and controls -->
+                        <div class="tilemap-controls">
+                            <button id="toggleSeamlessModeBtn" class="btn" style="width: 100%; margin-bottom: 8px;">
+                                <span id="toggleSeamlessModeText">Enable Seamless Grid</span>
+                            </button>
+                            <button id="clearTilemapBtn" class="btn secondary" style="width: 100%;">Clear All</button>
+                        </div>
+
+                        <div class="tilemap-info">
+                            <small
+                                style="color: var(--text-secondary); display: block; margin-top: 8px; text-align: center;">
+                                Click squares to activate tilemap preview<br>
+                                Enable seamless grid to see 3x3 tiling around canvas<br>
+                                Drawing near edges will wrap to opposite side
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+    </div>
+</div>
+
+<style>
+    :root {
+        --bg-darkest: #0f0f1b;
+        --bg-dark: #1a1a2e;
+        --bg-medium: #16213e;
+        --bg-light: #1e293b;
+        --accent-primary: #00ff41;
+        --accent-secondary: #ff006e;
+        --accent-tertiary: #00d9ff;
+        --text-primary: #e0e7ff;
+        --text-secondary: #94a3b8;
+        --border-color: #2d3748;
+        --border-glow: rgba(0, 255, 65, 0.3);
+        --header-height: 50px;
+        --tools-width: 60px;
+        --right-panel-width: 280px;
+        --tab-height: 50px;
+    }
+
+
+    .right-panel {
+        width: var(--right-panel-width);
+        background: var(--bg-medium);
+        border-left: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        z-index: 15;
+        transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        transform: translateX(0);
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent-primary) var(--bg-dark);
+        padding: 12px 0;
+        box-sizing: border-box;
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+        max-height: none;
+        height: calc(100vh - 50px);
+    }
+
+    .dropins-container {
+        width: var(--right-panel-width);
+        position: fixed;
+        top: 65px;
+        height: calc(100vh - 50px);
+        box-sizing: border-box;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .dropins-container * {
+        box-sizing: border-box;
+    }
+
+    .dropins-container .tabs {
+        position: absolute;
+        width: 4em;
+    }
+
+    .dropins-container .tabs .tab {
+        background-color: #303c48;
+        color: white;
+        padding: 10px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -moz-user-select: none;
+        /* Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+        /* Non-prefixed version, currently
+             supported by Chrome and Opera */
+    }
+
+    .dropins-container .tabs .tab:hover {
+        background-color: #445667;
+    }
+
+    .dropins-container .tabs .tab .shortcut {
+        text-align: center;
+        font-size: 0.8em;
+        margin-bottom: 0.4em;
+    }
+
+    .dropins-container .tabs .tab .tab-name {
+        text-align: center;
+    }
+
+    .dropins-container .tabs .tab .tab-name span {
+        writing-mode: vertical-lr;
+        text-orientation: sideways;
+        white-space: nowrap;
+    }
+
+    .dropins-container .tabs .tab.active {
+        background-color: #596f85;
+    }
+
+    .dropins-container .contents {
+        background-color: #303c48;
+        color: white;
+        padding: 15px;
+        height: 100%;
+    }
+
+    .dropins-container .contents .content {
+        max-height: 100%;
+        display: none;
+        overflow: auto;
+    }
+
+    .dropins-container .contents .content.active {
+        display: block;
+    }
+
+    .dropins-container.right {
+        right: -300px;
+    }
+
+    .dropins-container.right .tabs {
+        left: -4em;
+    }
+
+    .dropins-container.right .tabs .tab {
+        border-radius: 5px 0 0 5px;
+        border-right: 2px solid #445667;
+    }
+
+    .dropins-container.left {
+        left: -300px;
+    }
+
+    .dropins-container.left .tabs {
+        right: -4em;
+    }
+
+    .dropins-container.left .tabs .tab {
+        border-radius: 0 5px 5px 0;
+        border-left: 2px solid #445667;
+    }
+
+    .dropins-container.right.showing {
+        right: 0;
+    }
+
+    .dropins-container.left.showing {
+        left: 0;
+    }
+
+    .dummy-menu {
+        box-sizing: border-box;
+        height: 50px;
+        padding: 15px;
+        background-color: #303c48;
+        text-align: center;
+    }
+
+    .dummy-menu .align-button {
+        padding: 5px 15px;
+        background-color: #596f85;
+        cursor: pointer;
+        color: white;
+        border-radius: 4px;
+    }
+
+    .dummy-menu .align-button:hover {
+        text-decoration: none;
+        background-color: #637c95;
+    }
+
+    html,
+    body {
+        font-family: Roboto, sans-serif;
+        padding: 0;
+        box-sizing: border-box;
+        margin: 0;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Dropins
+    $(".dropins-container .tab").click(function () {
+        selectDropin(this);
+    });
+    function selectDropin(el) {
+        var $el = $(el),
+            container = $el.closest(".dropins-container"),
+            activeTab = container.find(".tab.active"),
+            activeContent = container.find(".content.active"),
+            relContent = container.find("#" + $el.data("content"));
+
+        if ($el.hasClass("active") && container.hasClass("showing")) {
+            $el.removeClass("active");
+            container.removeClass("showing");
+            relContent.removeClass("active");
+        }
+        else {
+            activeContent.removeClass("active");
+            activeTab.removeClass("active");
+
+            relContent.addClass("active");
+            $el.addClass("active");
+
+            if (!container.hasClass("showing"))
+                container.addClass("showing");
+        }
+    }
+
+    var hotkeys = [
+        { key: "1", shift: false, alt: true, description: "Fane 1", func: function () { selectDropin($(".tab[data-content='content1']")); } },
+        { key: "2", shift: false, alt: true, description: "Fane 2", func: function () { selectDropin($(".tab[data-content='content2']")); } },
+        { key: "3", shift: false, alt: true, description: "Fane 3", func: function () { selectDropin($(".tab[data-content='content3']")); } },
+    ];
+
+    $(document).keydown(function (e) {
+        var hotkey = hotkeys.filter(hk => hk.key == e.key.charAt(0).toUpperCase() + e.key.slice(1) && hk.shift == e.shiftKey && hk.alt == e.altKey)[0];
+
+        if (hotkey) {
+            e.preventDefault();
+            hotkey.func();
+        }
+    });
+
+
+</script>

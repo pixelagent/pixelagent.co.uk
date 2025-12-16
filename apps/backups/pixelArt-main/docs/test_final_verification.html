@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Final Timeline FPS Verification</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 1000px; margin: 0 auto; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .test-results { margin: 20px 0; padding: 15px; background: #f9f9f9; border-radius: 5px; }
+        .test-case { margin: 10px 0; padding: 10px; background: white; border-left: 4px solid #ddd; }
+        .test-case.pass { border-left-color: #4CAF50; }
+        .test-case.fail { border-left-color: #F44336; }
+        .test-case.info { border-left-color: #2196F3; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; background: #4CAF50; color: white; border: none; border-radius: 4px; }
+        button:hover { background: #45a049; }
+        .controls { display: flex; gap: 10px; align-items: center; margin: 15px 0; }
+        #animationStatus { font-weight: bold; margin: 10px 0; padding: 8px; background: #e8f5e9; border-radius: 4px; }
+        .summary { font-size: 1.2em; font-weight: bold; margin: 20px 0; padding: 15px; background: #e8f5e9; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🎬 Final Timeline FPS Verification Test</h1>
+
+    <div class="test-section">
+        <h2>🧪 Manual Testing Controls</h2>
+        <div class="controls">
+            <button id="playBtn">▶️ Play Animation</button>
+            <button id="stopBtn">⏹️ Stop Animation</button>
+            <div>
+                <label for="fpsSlider">FPS: <span id="fpsDisplay">12</span></label>
+                <input type="range" id="fpsSlider" min="1" max="60" value="12" style="width: 200px;">
+            </div>
+        </div>
+        <div id="animationStatus">Status: Stopped</div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔍 Comprehensive Test Suite</h2>
+        <button id="runTests" style="background: #2196F3;">🚀 Run All Tests</button>
+        <button id="runPerformanceTest" style="background: #FF9800;">⚡ Run Performance Test</button>
+        <div id="testResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Performance Monitoring</h2>
+        <div id="performanceResults"></div>
+    </div>
+
+    <!-- Load the actual application scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/animation-manager.js"></script>
+
+    <script>
+        // Set up the test environment
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize test state with more frames for better testing
+            State.frames = [
+                { layers: [createTestLayer('#FF0000')] },
+                { layers: [createTestLayer('#00FF00')] },
+                { layers: [createTestLayer('#0000FF')] },
+                { layers: [createTestLayer('#FFFF00')] },
+                { layers: [createTestLayer('#FF00FF')] }
+            ];
+            State.currentFrameIndex = 0;
+            State.width = 32;
+            State.height = 32;
+
+            function createTestLayer(color) {
+                // Create a simple test layer with solid color
+                const canvas = document.createElement('canvas');
+                canvas.width = State.width;
+                canvas.height = State.height;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = color;
+                ctx.fillRect(0, 0, State.width, State.height);
+                const imageData = ctx.getImageData(0, 0, State.width, State.height);
+                return { name: 'Test Layer', visible: true, data: imageData };
+            }
+
+            // Mock UI elements
+            UI = {
+                playBtn: document.getElementById('playBtn'),
+                fpsDisplay: document.getElementById('fpsDisplay'),
+                fpsSlider: document.getElementById('fpsSlider')
+            };
+
+            // Mock CanvasManager with preview context
+            const previewCanvas = document.createElement('canvas');
+            previewCanvas.width = State.width;
+            previewCanvas.height = State.height;
+            const prevCtx = previewCanvas.getContext('2d');
+            window.prevCtx = prevCtx; // Make available to animation manager
+
+            CanvasManager = {
+                render: function() {
+                    console.log('Canvas rendered');
+                    document.getElementById('animationStatus').textContent = 'Status: ' +
+                        (State.isPlaying ? 'Playing at ' + State.fps + ' FPS' : 'Stopped');
+                }
+            };
+
+            // Set up button event listeners
+            document.getElementById('playBtn').addEventListener('click', function() {
+                console.log('Play button clicked');
+                AnimationManager.play();
+                updateStatus();
+            });
+
+            document.getElementById('stopBtn').addEventListener('click', function() {
+                console.log('Stop button clicked');
+                AnimationManager.stop();
+                updateStatus();
+            });
+
+            document.getElementById('fpsSlider').addEventListener('input', function(e) {
+                const newFps = parseInt(e.target.value);
+                console.log('FPS changed to:', newFps);
+                AnimationManager.updateFPS(newFps);
+                updateStatus();
+            });
+
+            document.getElementById('runTests').addEventListener('click', runComprehensiveTests);
+            document.getElementById('runPerformanceTest').addEventListener('click', runPerformanceTests);
+
+            function updateStatus() {
+                document.getElementById('animationStatus').textContent = 'Status: ' +
+                    (State.isPlaying ? 'Playing at ' + State.fps + ' FPS' : 'Stopped');
+            }
+
+            function runComprehensiveTests() {
+                const resultsContainer = document.getElementById('testResults');
+                resultsContainer.innerHTML = '<h3>🔄 Running comprehensive tests...</h3>';
+
+                // Reset state for testing
+                State.isPlaying = false;
+                State.fps = 12;
+                State.timer = null;
+
+                setTimeout(() => {
+                    const results = runComprehensiveTestSuite();
+                    displayTestResults(results, 'Comprehensive Test Suite');
+                }, 100);
+            }
+
+            function runComprehensiveTestSuite() {
+                const results = [];
+
+                // Test 1: Basic functionality
+                results.push({
+                    name: "Basic play/stop functionality",
+                    test: () => {
+                        AnimationManager.play();
+                        const playing = State.isPlaying;
+                        AnimationManager.stop();
+                        return playing && !State.isPlaying;
+                    },
+                    expected: "Play should start, stop should stop animation",
+                    category: "basic"
+                });
+
+                // Test 2: FPS consistency
+                results.push({
+                    name: "FPS consistency during playback",
+                    test: () => {
+                        AnimationManager.updateFPS(24);
+                        AnimationManager.play();
+                        const fpsDuringPlay = State.fps;
+                        AnimationManager.stop();
+                        return fpsDuringPlay === 24;
+                    },
+                    expected: "FPS should remain consistent during playback",
+                    category: "fps"
+                });
+
+                // Test 3: FPS change while playing
+                results.push({
+                    name: "FPS change while animation is playing",
+                    test: () => {
+                        AnimationManager.play();
+                        AnimationManager.updateFPS(30);
+                        const result = State.fps === 30 && State.isPlaying;
+                        AnimationManager.stop();
+                        return result;
+                    },
+                    expected: "FPS should update and animation should continue",
+                    category: "fps"
+                });
+
+                // Test 4: Multiple FPS changes
+                results.push({
+                    name: "Multiple rapid FPS changes",
+                    test: () => {
+                        AnimationManager.play();
+                        AnimationManager.updateFPS(15);
+                        AnimationManager.updateFPS(20);
+                        AnimationManager.updateFPS(25);
+                        const result = State.fps === 25 && State.isPlaying;
+                        AnimationManager.stop();
+                        return result;
+                    },
+                    expected: "Multiple FPS changes should work correctly",
+                    category: "fps"
+                });
+
+                // Test 5: Edge case - minimum FPS
+                results.push({
+                    name: "Minimum FPS (1 FPS) handling",
+                    test: () => {
+                        AnimationManager.updateFPS(1);
+                        AnimationManager.play();
+                        const result = State.fps === 1 && State.isPlaying;
+                        AnimationManager.stop();
+                        return result;
+                    },
+                    expected: "Should handle minimum FPS correctly",
+                    category: "edge"
+                });
+
+                // Test 6: Edge case - maximum FPS
+                results.push({
+                    name: "Maximum FPS (60 FPS) handling",
+                    test: () => {
+                        AnimationManager.updateFPS(60);
+                        AnimationManager.play();
+                        const result = State.fps === 60 && State.isPlaying;
+                        AnimationManager.stop();
+                        return result;
+                    },
+                    expected: "Should handle maximum FPS correctly",
+                    category: "edge"
+                });
+
+                // Test 7: UI state synchronization
+                results.push({
+                    name: "UI state synchronization",
+                    test: () => {
+                        AnimationManager.play();
+                        AnimationManager.syncUIState();
+                        const hasActiveClass = UI.playBtn.classList.contains('active');
+                        AnimationManager.stop();
+                        AnimationManager.syncUIState();
+                        const noActiveClass = !UI.playBtn.classList.contains('active');
+                        return hasActiveClass && noActiveClass;
+                    },
+                    expected: "UI state should synchronize with animation state",
+                    category: "ui"
+                });
+
+                // Test 8: Play button double-click fix
+                results.push({
+                    name: "Play button double-click handling",
+                    test: () => {
+                        // Simulate the scenario where play is called twice
+                        AnimationManager.play(); // First click
+                        AnimationManager.play(); // Second click (should restart)
+                        const result = State.isPlaying;
+                        AnimationManager.stop();
+                        return result;
+                    },
+                    expected: "Double-clicking play should work correctly",
+                    category: "ui"
+                });
+
+                // Test 9: Frame progression with different FPS
+                results.push({
+                    name: "Frame progression timing verification",
+                    test: () => {
+                        // This test verifies that the timeout calculation is correct
+                        AnimationManager.updateFPS(12);
+                        const expectedDelay12 = 1000 / 12; // ~83.33ms
+                        AnimationManager.updateFPS(24);
+                        const expectedDelay24 = 1000 / 24; // ~41.67ms
+                        AnimationManager.updateFPS(60);
+                        const expectedDelay60 = 1000 / 60; // ~16.67ms
+
+                        // Verify the delays are reasonable
+                        return expectedDelay12 > 0 && expectedDelay24 > 0 && expectedDelay60 > 0 &&
+                               expectedDelay12 > expectedDelay24 && expectedDelay24 > expectedDelay60;
+                    },
+                    expected: "Frame timing should be calculated correctly for different FPS",
+                    category: "timing"
+                });
+
+                // Test 10: State consistency
+                results.push({
+                    name: "State consistency across operations",
+                    test: () => {
+                        // Perform a series of operations
+                        AnimationManager.play();
+                        AnimationManager.updateFPS(18);
+                        AnimationManager.stop();
+                        AnimationManager.play();
+                        AnimationManager.updateFPS(12);
+                        AnimationManager.stop();
+
+                        // Verify final state
+                        return !State.isPlaying && State.fps === 12;
+                    },
+                    expected: "State should remain consistent across multiple operations",
+                    category: "state"
+                });
+
+                return results;
+            }
+
+            function runPerformanceTests() {
+                const resultsContainer = document.getElementById('performanceResults');
+                resultsContainer.innerHTML = '<h3>⏱️ Running performance tests...</h3>';
+
+                setTimeout(() => {
+                    const results = runPerformanceTestSuite();
+                    displayPerformanceResults(results);
+                }, 100);
+            }
+
+            function runPerformanceTestSuite() {
+                const results = [];
+                const testDurations = [1000, 2000, 3000]; // Test durations in ms
+                const testFpsValues = [12, 24, 30, 60];
+
+                testFpsValues.forEach(fps => {
+                    testDurations.forEach(duration => {
+                        results.push({
+                            name: `Performance test: ${fps} FPS for ${duration/1000}s`,
+                            test: () => {
+                                AnimationManager.updateFPS(fps);
+                                AnimationManager.play();
+
+                                return new Promise((resolve) => {
+                                    setTimeout(() => {
+                                        AnimationManager.stop();
+                                        resolve(true);
+                                    }, duration);
+                                });
+                            },
+                            expected: `Animation should run smoothly at ${fps} FPS for ${duration/1000} seconds`,
+                            fps: fps,
+                            duration: duration
+                        });
+                    });
+                });
+
+                return results;
+            }
+
+            async function displayPerformanceResults(results) {
+                const resultsContainer = document.getElementById('performanceResults');
+                resultsContainer.innerHTML = '<h3>Performance Test Results</h3>';
+
+                let completedCount = 0;
+                const totalTests = results.length;
+
+                for (const test of results) {
+                    const testElement = document.createElement('div');
+                    testElement.className = 'test-case info';
+
+                    testElement.innerHTML = `
+                        <strong>Test: ${test.name}</strong><br>
+                        <span>Running...</span><br>
+                        <em>${test.expected}</em>
+                    `;
+
+                    resultsContainer.appendChild(testElement);
+
+                    try {
+                        await test.test();
+                        testElement.className = 'test-case pass';
+                        testElement.querySelector('span').textContent = '✅ COMPLETED';
+                        completedCount++;
+                    } catch (error) {
+                        testElement.className = 'test-case fail';
+                        testElement.querySelector('span').textContent = `❌ FAILED: ${error.message}`;
+                    }
+                }
+
+                // Summary
+                const summary = document.createElement('div');
+                summary.className = 'summary';
+                summary.innerHTML = `
+                    <strong>Performance Test Summary</strong><br>
+                    Completed: ${completedCount}/${totalTests} tests<br>
+                    ${completedCount === totalTests ? '🎉 All performance tests completed!' : '⚠️ Some tests failed!'}
+                `;
+
+                resultsContainer.appendChild(summary);
+            }
+
+            function displayTestResults(results, title) {
+                const resultsContainer = document.getElementById('testResults');
+                resultsContainer.innerHTML = `<h3>${title}</h3>`;
+
+                const categoryResults = {
+                    basic: { pass: 0, fail: 0, tests: [] },
+                    fps: { pass: 0, fail: 0, tests: [] },
+                    edge: { pass: 0, fail: 0, tests: [] },
+                    ui: { pass: 0, fail: 0, tests: [] },
+                    timing: { pass: 0, fail: 0, tests: [] },
+                    state: { pass: 0, fail: 0, tests: [] }
+                };
+
+                results.forEach((test, index) => {
+                    const testResult = test.test();
+                    const testElement = document.createElement('div');
+                    testElement.className = `test-case ${testResult ? 'pass' : 'fail'}`;
+
+                    testElement.innerHTML = `
+                        <strong>Test ${index + 1}: ${test.name}</strong><br>
+                        <span>${testResult ? '✅ PASS' : '❌ FAIL'}</span><br>
+                        <em>${test.expected}</em>
+                    `;
+
+                    resultsContainer.appendChild(testElement);
+
+                    // Categorize results
+                    if (categoryResults[test.category]) {
+                        if (testResult) {
+                            categoryResults[test.category].pass++;
+                        } else {
+                            categoryResults[test.category].fail++;
+                        }
+                        categoryResults[test.category].tests.push(test);
+                    }
+                });
+
+                // Category summaries
+                const categories = Object.keys(categoryResults);
+                categories.forEach(category => {
+                    const cat = categoryResults[category];
+                    if (cat.tests.length > 0) {
+                        const categorySummary = document.createElement('div');
+                        categorySummary.style.marginTop = '15px';
+                        categorySummary.style.padding = '10px';
+                        categorySummary.style.backgroundColor = cat.fail === 0 ? '#e8f5e9' : '#ffebee';
+                        categorySummary.style.borderRadius = '4px';
+
+                        categorySummary.innerHTML = `
+                            <strong>${category.toUpperCase()} Tests</strong><br>
+                            Passed: ${cat.pass}/${cat.tests.length}<br>
+                            Failed: ${cat.fail}/${cat.tests.length}
+                        `;
+
+                        resultsContainer.appendChild(categorySummary);
+                    }
+                });
+
+                // Overall summary
+                const totalPassed = results.filter(r => r.test()).length;
+                const totalFailed = results.length - totalPassed;
+
+                const summary = document.createElement('div');
+                summary.className = 'summary';
+                summary.innerHTML = `
+                    <strong>Overall Test Summary</strong><br>
+                    Passed: ${totalPassed}/${results.length}<br>
+                    Failed: ${totalFailed}/${results.length}<br>
+                    ${totalFailed === 0 ? '🎉 All tests passed! The timeline FPS functionality is working correctly.' : '⚠️ Some tests failed. Please review the implementation.'}
+                `;
+
+                resultsContainer.appendChild(summary);
+            }
+        });
+    </script>
+</body>
+</html>

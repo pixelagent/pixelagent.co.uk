@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Notification System Test</h1>
+
+    <div class="test-section">
+        <h2>Test Notifications</h2>
+        <button onclick="testSuccess()">Test Success Notification</button>
+        <button onclick="testError()">Test Error Notification</button>
+        <button onclick="testInfo()">Test Info Notification</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Test File Operations</h2>
+        <button onclick="testSaveNotification()">Test Save Notification</button>
+        <button onclick="testLoadNotification()">Test Load Notification</button>
+        <button onclick="testExportNotification()">Test Export Notification</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Tutorial Completion</h2>
+        <button onclick="testTutorialCompletion()">Test Tutorial Completion Notification</button>
+    </div>
+
+    <!-- Include the notifications.js file -->
+    <script src="js/notifications.js"></script>
+
+    <script>
+        // Test functions
+        function testSuccess() {
+            const notifications = new Notifications();
+            notifications.success('This is a success notification!');
+        }
+
+        function testError() {
+            const notifications = new Notifications();
+            notifications.error('This is an error notification!');
+        }
+
+        function testInfo() {
+            const notifications = new Notifications();
+            notifications.info('This is an info notification!');
+        }
+
+        function testSaveNotification() {
+            const notifications = new Notifications();
+            notifications.success('Project saved successfully!');
+        }
+
+        function testLoadNotification() {
+            const notifications = new Notifications();
+            notifications.success('Project loaded successfully!');
+        }
+
+        function testExportNotification() {
+            const notifications = new Notifications();
+            notifications.success('Spritesheet exported successfully!');
+        }
+
+        function testTutorialCompletion() {
+            const notifications = new Notifications();
+            notifications.success('Tutorial completed! You can now use all features.');
+        }
+    </script>
+</body>
+</html>

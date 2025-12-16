@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Manager Test</title>
+    <style>
+        /* Basic styles for testing */
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a2e;
+            color: white;
+            padding: 20px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal {
+            background: #1a1a2e;
+            border: 1px solid #2d3748;
+            width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            max-width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .settings-tabs {
+            width: 100%;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #2d3748;
+            flex-shrink: 0;
+        }
+
+        .settings-tab {
+            flex: 1;
+            padding: 8px 12px;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .settings-tab:hover {
+            color: #e0e7ff;
+            background: #1e293b;
+        }
+
+        .settings-tab.active {
+            color: #00ff41;
+            border-bottom-color: #00ff41;
+            font-weight: 600;
+        }
+
+        .settings-tab-content {
+            display: none;
+            padding: 10px 0;
+        }
+
+        .settings-tab-content.active {
+            display: block;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            border-top: 1px solid #2d3748;
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            background: #1e293b;
+            color: #e0e7ff;
+            border: 1px solid #2d3748;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .btn.primary {
+            background: #00ff41;
+            color: #000;
+            font-weight: bold;
+            border: none;
+        }
+
+        .btn:hover {
+            background: #16213e;
+            border-color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Settings Manager Test</h1>
+    <button id="openSettingsBtn">Open Settings</button>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="unified-settings-modal">
+        <div class="modal">
+            <header>
+                <div class="modal-title">
+                    <i class="fas fa-cog"></i> Settings
+                </div>
+                <div style="font-size:0.8rem; color:#94a3b8; margin-bottom:15px;">
+                    Configure your Pixel Art Studio preferences
+                </div>
+
+                <!-- Settings Tabs -->
+                <div class="settings-tabs">
+                    <button class="settings-tab active" data-tab="general" id="tab-general">
+                        <i class="fas fa-sliders-h"></i> General
+                    </button>
+                    <button class="settings-tab" data-tab="scene" id="tab-scene">
+                        <i class="fas fa-image"></i> Art
+                    </button>
+                    <button class="settings-tab" data-tab="export" id="tab-export">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                </div>
+            </header>
+
+            <!-- Tab Content -->
+            <div class="settings-tab-content active" data-tab-content="general">
+                <h3>General Settings</h3>
+                <p>This is the general settings tab content.</p>
+            </div>
+
+            <div class="settings-tab-content" data-tab-content="scene">
+                <h3>Scene Settings</h3>
+                <p>This is the scene settings tab content.</p>
+            </div>
+
+            <div class="settings-tab-content" data-tab-content="export">
+                <h3>Export Settings</h3>
+                <p>This is the export settings tab content.</p>
+            </div>
+
+            <footer>
+                <div class="modal-actions">
+                    <button class="btn" id="btn-settings-reset">Reset</button>
+                    <button class="btn" id="btn-settings-close">Close</button>
+                    <button class="btn primary" id="btn-settings-save">Save Settings</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Include the fixed settings manager -->
+    <script src="js/settings-manager.js"></script>
+
+    <script>
+        // Initialize settings manager
+        document.addEventListener('DOMContentLoaded', function() {
+            SettingsManager.init();
+
+            // Add button to open settings
+            document.getElementById('openSettingsBtn').addEventListener('click', function() {
+                SettingsManager.openSettings();
+            });
+
+            console.log('Settings Manager Test Ready');
+        });
+    </script>
+</body>
+</html>

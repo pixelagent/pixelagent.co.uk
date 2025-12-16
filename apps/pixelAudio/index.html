@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Audio SFX Studio Pro</title>
+    <!-- Fonts & Icons -->
+    <link rel="icon" type="image/png" href="/pixelAudio/favicon-96x96.png" sizes="96x96" />
+    <!-- Google Fonts - Press Start 2P -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Custom Font -->
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            src: url('fonts/inter-normal.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Inter';
+            src: url('fonts/inter-bold.woff2') format('woff2');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Press Start 2P';
+            src: local('Press Start 2P'), url('https://fonts.gstatic.com/s/pressstart2p/v15/e3t4euO8T-267oIAQAu6jDQy5uGQE.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+    <!-- Local Font Awesome Implementation -->
+    <link rel="stylesheet" href="fonts/fontawesome-free-6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/tutorials.css">
+
+</head>
+
+<body>
+
+    <!-- TOP HEADER -->
+    <header>
+        <div class="logo-area">
+            <h1>Pixel Audio</h1>
+            <span class="badge">Studio Pro V1.0</span>
+        </div>
+        <div class="header-controls">
+            <button onclick="randomize()" class="tool-btn"><i class="fas fa-random"></i> Randomize</button>
+            <div class="separator"></div>
+            <button id="loadProject" class="header-btn"><i class="fas fa-folder-open"></i> Load</button>
+            <button id="saveProject" class="header-btn primary"><i class="fas fa-save"></i> Save</button>
+            <button id="saveToBrowserBtn" class="header-btn"><i class="fas fa-cloud"></i> Save to Browser</button>
+            <button id="exportMixBtn" class="header-btn action"><i class="fas fa-file-export"></i> Export Mix</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- FAR LEFT ICON RAIL -->
+        <div id="icon-sidebar">
+            <button class="icon-tab-btn" data-panel="layers" data-tooltip-right="Layers">
+                <i class="fas fa-layer-group"></i>
+            </button>
+            <button class="icon-tab-btn" data-panel="presets" data-tooltip-right="Presets">
+                <i class="fas fa-th"></i>
+            </button>
+            <div class="sidebar-spacer"></div>
+            <div class="separator" style="margin: 8px 0;"></div>
+            <button class="icon-tab-btn" data-panel="settings" data-tooltip-right="Settings">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+
+        <!-- MAIN MIDDLE AREA -->
+        <div id="workspace-area">
+
+            <!-- FIXED LEFT TOOLS (SYNTH CONTROLS) -->
+            <div id="fixed-tools-panel">
+                <div class="tools-header">Synthesizer</div>
+
+                <!-- Waveform -->
+                <div class="control-section">
+                    <div class="section-header">
+                        <div class="label-group">
+                            <span>Waveform</span>
+                            <i class="fas fa-circle-question info-icon"
+                                data-tooltip="The raw oscillator shape&#10;&#10;**Square** → Classic 8-bit&#10;**Sawtooth** → Bright&#10;**Triangle** → Mellow&#10;**Sine** → Pure&#10;**Noise** → Explosions"></i>
+                        </div>
+                        <button class="toggle-sect-btn"><i class="fas fa-minus"></i></button>
+                    </div>
+                    <div class="section-body">
+                        <label for="waveform" class="visually-hidden">Waveform Type</label>
+                        <select id="waveform">
+                            <option value="square">Square</option>
+                            <option value="sine">Sine</option>
+                            <option value="triangle">Triangle</option>
+                            <option value="sawtooth">Sawtooth</option>
+                            <option value="noise">Noise</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Envelope -->
+                <div class="control-section">
+                    <div class="section-header">
+                        <div class="label-group">
+                            <span>Envelope</span>
+                            <i class="fas fa-circle-question info-icon"
+                                data-tooltip="ADSR Volume Shape&#10;&#10;**Attack** → rise time&#10;**Sustain** → hold duration&#10;**Punch** → extra peak boost&#10;**Decay** → fade out"></i>
+                        </div>
+                        <button class="toggle-sect-btn"><i class="fas fa-minus"></i></button>
+                    </div>
+                    <div class="section-body">
+                        <div class="control-group">
+                            <label for="attack">Attack <span class="value" id="attackVal">0.00s</span></label>
+                            <input type="range" id="attack" min="0" max="1" step="0.001" value="0">
+                        </div>
+                        <div class="control-group">
+                            <label for="sustain">Sustain <span class="value" id="sustainVal">0.10s</span></label>
+                            <input type="range" id="sustain" min="0" max="2" step="0.01" value="0.1">
+                        </div>
+                        <div class="control-group">
+                            <label for="decay">Decay <span class="value" id="decayVal">0.20s</span></label>
+                            <input type="range" id="decay" min="0" max="2" step="0.01" value="0.2">
+                        </div>
+                        <div class="control-group">
+                            <label for="punch">Punch <span class="value" id="punchVal">0%</span></label>
+                            <input type="range" id="punch" min="0" max="100" step="1" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frequency -->
+                <div class="control-section">
+                    <div class="section-header">
+                        <div class="label-group">
+                            <span>Frequency</span>
+                            <i class="fas fa-circle-question info-icon"
+                                data-tooltip="Pitch Controls&#10;&#10;**Start** → Initial Hz&#10;**Slide** → Pitch change&#10;**Delta** → Acceleration"></i>
+                        </div>
+                        <button class="toggle-sect-btn"><i class="fas fa-minus"></i></button>
+                    </div>
+                    <div class="section-body">
+                        <div class="control-group">
+                            <label for="frequency">Start Hz <span class="value" id="freqVal">440</span></label>
+                            <input type="range" id="frequency" min="20" max="3000" value="440">
+                        </div>
+                        <div class="control-group">
+                            <label for="slide">Slide <span class="value" id="slideVal">0.0</span></label>
+                            <input type="range" id="slide" min="-2" max="2" step="0.01" value="0">
+                        </div>
+                        <div class="control-group">
+                            <label for="deltaSlide">D-Slide <span class="value" id="deltaSlideVal">0.0</span></label>
+                            <input type="range" id="deltaSlide" min="-1" max="1" step="0.01" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vibrato -->
+                <div class="control-section">
+                    <div class="section-header">
+                        <div class="label-group">
+                            <span>Vibrato</span>
+                            <i class="fas fa-circle-question info-icon"
+                                data-tooltip="Pitch Modulation&#10;&#10;**Depth** → Pitch variation %&#10;**Speed** → Wobble rate"></i>
+                        </div>
+                        <button class="toggle-sect-btn"><i class="fas fa-minus"></i></button>
+                    </div>
+                    <div class="section-body">
+                        <div class="control-group checkbox-group">
+                            <input type="checkbox" id="vibratoEnable">
+                            <label for="vibratoEnable">Enable</label>
+                        </div>
+                        <div class="control-group mt-1">
+                            <label for="vibratoDepth">Depth <span class="value" id="vibratoDepthVal">0</span></label>
+                            <input type="range" id="vibratoDepth" min="0" max="100" value="0">
+                        </div>
+                        <div class="control-group mt-1">
+                            <label for="vibratoSpeed">Speed <span class="value" id="vibratoSpeedVal">0</span></label>
+                            <input type="range" id="vibratoSpeed" min="0" max="50" step="0.1" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arpeggio -->
+                <div class="control-section">
+                    <div class="section-header">
+                        <div class="label-group">
+                            <span>Arpeggio</span>
+                            <i class="fas fa-circle-question info-icon"
+                                data-tooltip="Frequency Alternation&#10;&#10;Rapid note switching for 8-bit effects"></i>
+                        </div>
+                        <button class="toggle-sect-btn"><i class="fas fa-minus"></i></button>
+                    </div>
+                    <div class="section-body">
+                        <div class="control-group checkbox-group">
+                            <input type="checkbox" id="arpEnable">
+                            <label for="arpEnable">Enable</label>
+                        </div>
+                        <div class="control-group mt-1">
+                            <label for="arpMult">Mult <span class="value" id="arpMultVal">1.0</span></label>
+                            <input type="range" id="arpMult" min="0.5" max="3" step="0.01" value="1">
+                        </div>
+                        <div class="control-group mt-1">
+                            <label for="arpSpeed">Speed <span class="value" id="arpSpeedVal">0.0</span></label>
+                            <input type="range" id="arpSpeed" min="0" max="1" step="0.001" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duty Cycle -->
+                <div class="control-section" id="duty-section">
+                    <div class="section-header">
+                        <div class="label-group">
+                            <span>Duty Cycle</span>
+                            <i class="fas fa-circle-question info-icon"
+                                data-tooltip="Square Wave Pulse Width&#10;&#10;**Cycle** → Width %"></i>
+                        </div>
+                        <button class="toggle-sect-btn"><i class="fas fa-minus"></i></button>
+                    </div>
+                    <div class="section-body">
+                        <div class="control-group">
+                            <label for="duty">Cycle <span class="value" id="dutyVal">50%</span></label>
+                            <input type="range" id="duty" min="0" max="100" value="50">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer Output -->
+                <div class="control-section">
+                    <div class="section-header">
+                        <div class="label-group">
+                            <span>Layer Output</span>
+                            <i class="fas fa-circle-question info-icon"
+                                data-tooltip="Volume for the selected layer"></i>
+                        </div>
+                        <button class="toggle-sect-btn"><i class="fas fa-minus"></i></button>
+                    </div>
+                    <div class="section-body">
+                        <div class="control-group">
+                            <label for="layerVolume">Volume <span class="value" id="layerVolumeVal">100%</span></label>
+                            <input type="range" id="layerVolume" min="0" max="200" step="1" value="100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTER VERTICAL STACK -->
+            <div id="center-stack">
+
+                <div id="oscilloscope-container">
+                    <div class="vis-header">Oscilloscope</div>
+                    <div class="canvas-holder">
+                        <canvas id="waveform-preview"></canvas>
+                    </div>
+                </div>
+
+                <div id="timeline-container">
+                    <div class="timeline-controls">
+                        <div class="transport">
+                            <button id="playSelected" title="Play Layer"><i class="fas fa-play"></i> SEL</button>
+                            <button id="playTimeline" class="accent-btn" title="Play All"><i
+                                    class="fas fa-play-circle"></i> ALL</button>
+                            <button id="stopTimeline" title="Stop"><i class="fas fa-stop"></i></button>
+                        </div>
+                        <div class="time-settings">
+                            <label><i class="fas fa-clock"></i> <input type="number" id="totalLength" value="5" min="1"
+                                    max="60" step="0.5">s</label>
+                            <span id="timeDisplay">0.00s</span>
+                        </div>
+                        <div class="undo-redo">
+                            <button id="undoBtn" title="Undo"><i class="fas fa-undo"></i></button>
+                            <button id="redoBtn" title="Redo"><i class="fas fa-redo"></i></button>
+                        </div>
+                    </div>
+                    <div class="timeline-canvas-wrapper">
+                        <canvas id="timeline-canvas"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- SLIDING RIGHT PANEL -->
+            <div id="side-panel">
+
+                <!-- LAYERS -->
+                <div id="panel-layers" class="panel-content">
+                    <div class="current-collection-display">
+                        <span class="collection-label">Current Collection:</span>
+                        <select id="collection-dropdown" class="collection-dropdown">
+                            <!-- Collections will be populated by JavaScript -->
+                        </select>
+                    </div>
+                    <div class="panel-title-row">
+                        <div class="panel-title-with-button">
+                            <button onclick="app.layerManager.addLayer()" class="small-btn"><i
+                                    class="fas fa-plus"></i></button>
+                            <h3>Layers</h3>
+                        </div>
+                        <div class="folder-controls">
+                            <button class="folder-btn" id="add-group-btn" title="Add Group">
+                                <i class="fas fa-folder-plus"></i>
+                            </button>
+                            <button class="folder-btn" id="expand-all-btn" title="Expand All">
+                                <i class="fas fa-expand-arrows-alt"></i>
+                            </button>
+                            <button class="folder-btn" id="collapse-all-btn" title="Collapse All">
+                                <i class="fas fa-compress-arrows-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="layersList" class="scroll-list"></div>
+                </div>
+
+                <!-- PRESETS (GROUPED) -->
+                <div id="panel-presets" class="panel-content">
+                    <div class="panel-title-row">
+                        <h3>Presets</h3>
+                    </div>
+
+                    <div class="preset-category">Game FX</div>
+                    <div class="preset-grid">
+                        <button class="preset-btn" onclick="loadPreset('pickup')"><i class="fas fa-coins"></i>
+                            Pickup</button>
+                        <button class="preset-btn" onclick="loadPreset('laser')"><i class="fas fa-bolt"></i>
+                            Laser</button>
+                        <button class="preset-btn" onclick="loadPreset('explosion')"><i class="fas fa-bomb"></i>
+                            Boom</button>
+                        <button class="preset-btn" onclick="loadPreset('powerup')"><i class="fas fa-rocket"></i>
+                            Power</button>
+                        <button class="preset-btn" onclick="loadPreset('hit')"><i class="fas fa-gavel"></i> Hit</button>
+                        <button class="preset-btn" onclick="loadPreset('jump')"><i class="fas fa-angle-double-up"></i>
+                            Jump</button>
+                        <button class="preset-btn" onclick="loadPreset('alarm')"><i class="fas fa-bell"></i>
+                            Alarm</button>
+                    </div>
+
+                    <div class="preset-category">Footsteps</div>
+                    <div class="preset-grid">
+                        <button class="preset-btn" onclick="loadPreset('step_stone')"><i class="fas fa-square"></i>
+                            Stone</button>
+                        <button class="preset-btn" onclick="loadPreset('step_wood')"><i class="fas fa-tree"></i>
+                            Wood</button>
+                        <button class="preset-btn" onclick="loadPreset('step_sand')"><i
+                                class="fas fa-hourglass-start"></i> Sand</button>
+                        <button class="preset-btn" onclick="loadPreset('step_snow')"><i class="fas fa-snowflake"></i>
+                            Snow</button>
+                        <button class="preset-btn" onclick="loadPreset('step_gravel')"><i class="fas fa-shapes"></i>
+                            Gravel</button>
+                    </div>
+
+                    <div class="preset-category">UI & Synth</div>
+                    <div class="preset-grid">
+                        <button class="preset-btn" onclick="loadPreset('click')"><i class="fas fa-mouse-pointer"></i>
+                            Click</button>
+                        <button class="preset-btn" onclick="loadPreset('hover')"><i class="fas fa-hand-pointer"></i>
+                            Hover</button>
+                        <button class="preset-btn" onclick="loadPreset('blip')"><i class="fas fa-dot-circle"></i>
+                            Blip</button>
+                        <button class="preset-btn" onclick="loadPreset('synth_pad')"><i class="fas fa-music"></i>
+                            Pad</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- SETTINGS MODAL - Matching pixelArt format -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal">
+            <header>
+                <div class="modal-title">
+                    <i class="fas fa-cog"></i> Settings
+                </div>
+                <div class="settings-subtitle">
+                    Configure your Pixel Audio Studio preferences
+                </div>
+
+                <div class="settings-tabs">
+                    <button class="settings-tab active" data-tab="general" id="tab-general">
+                        <i class="fas fa-sliders-h"></i> General
+                    </button>
+                    <button class="settings-tab" data-tab="audio" id="tab-audio">
+                        <i class="fas fa-volume-up"></i> Audio
+                    </button>
+                    <button class="settings-tab" data-tab="export" id="tab-export">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                    <button class="settings-tab" data-tab="tutorial" id="tab-tutorial">
+                        <i class="fas fa-graduation-cap"></i> Tutorial
+                    </button>
+                </div>
+            </header>
+
+            <div class="modal-content-wrapper">
+
+                <div class="settings-tab-content active" data-tab-content="general">
+                    <div class="settings-content">
+
+                        <div class="settings-section">
+                            <div class="section-heading">General Settings</div>
+
+                            <div class="property-group">
+                                <label class="setting-label">
+                                    <input type="checkbox" id="settings-show-tooltips" checked>
+                                    <span class="checkmark"></span> Tooltips
+                                </label>
+                                <div class="setting-description">Show helpful tooltips throughout the interface</div>
+
+                                <label class="setting-label">
+                                    <input type="checkbox" id="settings-auto-save" checked>
+                                    <span class="checkmark"></span> Auto Save
+                                </label>
+                                <div class="setting-description">Automatically save your work periodically</div>
+
+                                <label class="setting-label">
+                                    <input type="checkbox" id="settings-darkmode" checked>
+                                    <span class="checkmark"></span> Dark Mode
+                                </label>
+                                <div class="setting-description">Use dark theme for the interface</div>
+                            </div>
+
+                        </div>
+
+                        <div class="settings-section">
+                            <div class="section-heading">Scene Settings</div>
+                            <div class="property-group">
+                                <label class="property-label" for="settings-default-length">
+                                    Length:
+                                    <input type="number" id="settings-default-length" name="settings-default-length" min="0.1" max="10" step="0.1"
+                                        value="1.0"
+                                        style="background: var(--bg-light); border: 1px solid var(--border-color); border-radius: 4px; padding: 6px 10px; font-size: 0.8rem; color: var(--text-primary); width: 100%; margin-top: 6px;">
+                                </label>
+                                 <div class="setting-description">Default Timeline Length (s)</div>
+
+
+                                <label class="property-label" for="settings-theme">
+                                    Theme:
+                                    <select id="settings-theme" name="settings-theme"
+                                        style="background: var(--bg-light); border: 1px solid var(--border-color); border-radius: 4px; padding: 6px 10px; font-size: 0.8rem; color: var(--text-primary); width: 100%; margin-top: 6px;">
+                                        <option value="dark" selected>Dark</option>
+                                        <option value="light">Light</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                <div class="settings-tab-content" data-tab-content="audio">
+                    <div class="settings-content">
+
+                        <div class="settings-section">
+                            <div class="section-heading">Audio Settings</div>
+
+                            <div class="property-group">
+                                <label class="property-label" for="settings-master-volume">
+                                    Volume:
+                                    <input type="range" id="settings-master-volume" name="settings-master-volume" min="0" max="100" value="100"
+                                        style="width: 100%; margin-top: 6px;">
+                                    <span class="range-value" id="master-volume-value">100%</span>
+                                </label>
+                                 <div class="setting-description">Master Volume Control (0-100)</div>
+
+
+                                <label class="setting-label">
+                                    <input type="checkbox" id="settings-auto-play" checked>
+                                    <span class="checkmark"></span> Auto Play on Preset Load
+                                </label>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                <div class="settings-tab-content" data-tab-content="export">
+                    <div class="settings-content">
+
+                        <div class="settings-section">
+                            <div class="section-heading">Export Settings</div>
+
+                            <div class="property-group">
+                                <label class="property-label" for="settings-export-quality">
+                                    Quality:
+                                    <input type="range" id="settings-export-quality" name="settings-export-quality" min="0.1" max="1.0" step="0.1"
+                                        value="1.0" style="width: 100%; margin-top: 6px;">
+                                    <span class="range-value" id="export-quality-value">100%</span>
+                                </label>
+                                 <div class="setting-description">Export quality (0.1-1.0)</div>
+
+                                <label class="property-label" for="settings-export-format">
+                                     Format:
+                                    <select id="settings-export-format" name="settings-export-format" class="settings-select">
+                                        <option value="wav" selected>WAV (Lossless)</option>
+                                        <option value="mp3">MP3 (Compressed)</option>
+                                        <option value="ogg">OGG (Compressed)</option>
+                                        <option value="midi">MIDI (Music Data)</option>
+                                    </select>
+                                </label>
+                                  <div class="setting-description">Export Format (WAV, MP3, OGG, MIDI)</div>
+
+                            </div>
+
+                        </div>
+
+
+
+
+                        <div class="property-group">
+                            <button id="exportDefaultsBtn" class="btn">
+                                <i class="fas fa-cloud-download-alt"></i> Export Defaults
+                            </button>
+                            <button id="saveToBrowserBtn" class="btn">
+                                <i class="fas fa-save"></i> Save to Browser
+                            </button>
+                            <button id="loadFromBrowserBtn" class="btn secondary" >
+                                <i class="fas fa-download"></i> Load from Browser
+                            </button>
+                        </div>
+                        <div class="property-group">
+                            <button id="clearAllContentBtn" class="btn" style="background-color: #ff4444; color: white;">
+                                <i class="fas fa-trash-alt"></i> Clear All Content
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutorial Settings Tab -->
+                <div class="settings-tab-content" data-tab-content="tutorial">
+                    <div class="settings-content">
+                        <!-- Tutorial Settings Group -->
+                        <div class="settings-section">
+                            <div class="section-heading">Tutorial Settings</div>
+                            <div class="property-group">
+                                <label class="setting-label">
+                                    <input type="checkbox" id="settings-enable-tutorials" checked>
+                                    <span class="checkmark"></span> Tutorials
+                                </label>
+                                <div class="setting-description">
+                                    Show interactive tutorials on startup
+                                </div>
+
+                                <label class="setting-label">
+                                    <input type="checkbox" id="settings-show-hints" checked>
+                                    <span class="checkmark"></span> Hints
+                                </label>
+                                <div class="setting-description">
+                                    Display helpful hints and tooltips
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tutorial Actions Group -->
+                        <div class="settings-section">
+                            <div class="section-heading">Tutorial Actions</div>
+                            <div class="property-group">
+                                <button id="startTutorialBtn" class="btn" >
+                                    <i class="fas fa-graduation-cap"></i> Start Tutorial
+                                </button>
+                                <button id="resetTutorialProgressBtn" class="btn secondary">
+                                    <i class="fas fa-redo"></i> Reset Tutorial Progress
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <footer>
+                <div class="modal-actions">
+                    <button class="btn" id="btn-settings-reset">Reset</button>
+                    <button class="btn" id="btn-settings-close">Cancel</button>
+                    <button class="btn primary" id="btn-settings-save">Save Settings</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/audioEngine.js"></script>
+    <script src="js/soundGenerator.js"></script>
+    <script src="js/presets.js"></script>
+    <script src="js/layerManager.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/fileManager.js"></script>
+    <script src="js/collectionManager.js"></script>
+    <script src="js/collectionUI.js"></script>
+    <script src="js/databaseManager.js"></script>
+    <script src="js/tooltip.js"></script>
+    <script src="js/tutorialConfig.js"></script>
+    <script src="js/tutorialSystem.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/settings-manager.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+    <!-- Font verification script -->
+    <script>
+        // Simple font verification
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if Press Start 2P font is loaded
+            const fontTest = document.getElementById('font-test');
+            if (fontTest) {
+                // Test if the font is available by checking computed style
+                const computedStyle = window.getComputedStyle(fontTest);
+                const fontFamily = computedStyle.getPropertyValue('font-family');
+
+                // Show the test element briefly for verification
+                fontTest.style.display = 'block';
+                setTimeout(() => {
+                    fontTest.style.display = 'none';
+                }, 2000);
+
+                console.log('Font verification - Press Start 2P loaded:', fontFamily.includes('Press Start 2P'));
+            }
+        });
+    </script>
+</body>
+
+</html>

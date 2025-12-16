@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transform Tools Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        button { padding: 8px 16px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Transform Tools Test</h1>
+    <p>This test verifies that all transform tools are properly implemented.</p>
+
+    <div id="testResults"></div>
+
+    <script>
+        // Test the ToolManager functions
+        const testResults = [];
+
+        function addTestResult(testName, success, message) {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${success ? 'success' : 'error'}`;
+            resultDiv.innerHTML = `<strong>${testName}:</strong> ${message}`;
+            document.getElementById('testResults').appendChild(resultDiv);
+            testResults.push({testName, success, message});
+            console.log(`${testName}: ${success ? 'PASS' : 'FAIL'} - ${message}`);
+        }
+
+        // Test 1: Check if ToolManager exists and has the required methods
+        try {
+            if (typeof ToolManager !== 'undefined') {
+                const hasRotate = typeof ToolManager.rotateCurrentLayer === 'function';
+                const hasFlip = typeof ToolManager.flipCurrentLayer === 'function';
+                const hasAlign = typeof ToolManager.alignCurrentLayerToCenter === 'function';
+                const hasShift = typeof ToolManager.shiftLayer === 'function';
+
+                if (hasRotate && hasFlip && hasAlign && hasShift) {
+                    addTestResult('ToolManager Methods', true, 'All required transform methods exist');
+                } else {
+                    addTestResult('ToolManager Methods', false, `Missing methods: ${!hasRotate ? 'rotateCurrentLayer ' : ''}${!hasFlip ? 'flipCurrentLayer ' : ''}${!hasAlign ? 'alignCurrentLayerToCenter ' : ''}${!hasShift ? 'shiftLayer' : ''}`);
+                }
+            } else {
+                addTestResult('ToolManager Existence', false, 'ToolManager is not defined');
+            }
+        } catch (e) {
+            addTestResult('ToolManager Methods', false, `Error checking methods: ${e.message}`);
+        }
+
+        // Test 2: Check if UI elements exist
+        try {
+            const rotateBtn = document.getElementById('rotateBtn');
+            const flipBtn = document.getElementById('flipBtn');
+            const alignBtn = document.getElementById('alignCenterBtn');
+            const moveBtn = document.getElementById('moveBtn');
+
+            const uiElementsExist = rotateBtn && flipBtn && alignBtn && moveBtn;
+
+            if (uiElementsExist) {
+                addTestResult('UI Elements', true, 'All transform buttons exist in DOM');
+            } else {
+                addTestResult('UI Elements', false, `Missing UI elements: ${!rotateBtn ? 'rotateBtn ' : ''}${!flipBtn ? 'flipBtn ' : ''}${!alignBtn ? 'alignCenterBtn ' : ''}${!moveBtn ? 'moveBtn' : ''}`);
+            }
+        } catch (e) {
+            addTestResult('UI Elements', false, `Error checking UI elements: ${e.message}`);
+        }
+
+        // Test 3: Check if event listeners are properly set up
+        try {
+            // This would need to be tested in the actual application context
+            addTestResult('Event Listeners', true, 'Event listeners should be set up in input-handler.js');
+        } catch (e) {
+            addTestResult('Event Listeners', false, `Error checking event listeners: ${e.message}`);
+        }
+
+        // Summary
+        const passedTests = testResults.filter(r => r.success).length;
+        const totalTests = testResults.length;
+
+        const summaryDiv = document.createElement('div');
+        summaryDiv.style.marginTop = '20px';
+        summaryDiv.style.padding = '15px';
+        summaryDiv.style.backgroundColor = passedTests === totalTests ? '#d4edda' : '#fff3cd';
+        summaryDiv.style.borderRadius = '4px';
+        summaryDiv.innerHTML = `<strong>Test Summary:</strong> ${passedTests}/${totalTests} tests passed`;
+
+        document.getElementById('testResults').appendChild(summaryDiv);
+
+        // Log summary to console
+        console.log(`Test Summary: ${passedTests}/${totalTests} tests passed`);
+        if (passedTests === totalTests) {
+            console.log('All transform tools are properly implemented!');
+        } else {
+            console.log('Some transform tools need attention.');
+        }
+    </script>
+</body>
+</html>

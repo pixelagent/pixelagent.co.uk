@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Brush Blur</title>
+    <script src="js/config.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/dom.js"></script>
+    <script src="js/tool-manager.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .test-step {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .test-result {
+            font-weight: bold;
+            color: green;
+        }
+        .test-fail {
+            font-weight: bold;
+            color: red;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Brush Blur Test</h1>
+        <p>This test verifies that when the brush tool is selected, the blur value is set to at least 1.</p>
+
+        <div class="test-step">
+            <h3>Test 1: Select brush tool with blur = 0</h3>
+            <p>Initial state: brushBlur = 0</p>
+            <button onclick="testBrushWithZeroBlur()">Run Test</button>
+            <div id="test1-result"></div>
+        </div>
+
+        <div class="test-step">
+            <h3>Test 2: Select brush tool with blur = 1</h3>
+            <p>Initial state: brushBlur = 1</p>
+            <button onclick="testBrushWithOneBlur()">Run Test</button>
+            <div id="test2-result"></div>
+        </div>
+
+        <div class="test-step">
+            <h3>Test 3: Select brush tool with blur = 5</h3>
+            <p>Initial state: brushBlur = 5</p>
+            <button onclick="testBrushWithFiveBlur()">Run Test</button>
+            <div id="test3-result"></div>
+        </div>
+
+        <div class="test-step">
+            <h3>Test 4: Select pencil tool (should not affect blur)</h3>
+            <p>Initial state: brushBlur = 0</p>
+            <button onclick="testPencilTool()">Run Test</button>
+            <div id="test4-result"></div>
+        </div>
+
+        <script>
+            // Mock UI object for testing
+            window.UI = {
+                toolBtns: [],
+                blurSlider: {
+                    value: 0
+                },
+                blurDisplay: {
+                    textContent: '0'
+                }
+            };
+
+            function testBrushWithZeroBlur() {
+                State.brushBlur = 0;
+                UI.blurSlider.value = 0;
+                UI.blurDisplay.textContent = '0';
+
+                console.log('Before selecting brush:', 'brushBlur =', State.brushBlur);
+                ToolManager.setTool('brush');
+                console.log('After selecting brush:', 'brushBlur =', State.brushBlur);
+
+                const resultDiv = document.getElementById('test1-result');
+                if (State.brushBlur >= 1 && UI.blurSlider.value >= 1 && UI.blurDisplay.textContent >= 1) {
+                    resultDiv.innerHTML = '<span class="test-result">✓ PASS: Blur value correctly set to ' + State.brushBlur + '</span>';
+                } else {
+                    resultDiv.innerHTML = '<span class="test-fail">✗ FAIL: Blur value is ' + State.brushBlur + ' (expected >= 1)</span>';
+                }
+            }
+
+            function testBrushWithOneBlur() {
+                State.brushBlur = 1;
+                UI.blurSlider.value = 1;
+                UI.blurDisplay.textContent = '1';
+
+                console.log('Before selecting brush:', 'brushBlur =', State.brushBlur);
+                ToolManager.setTool('brush');
+                console.log('After selecting brush:', 'brushBlur =', State.brushBlur);
+
+                const resultDiv = document.getElementById('test2-result');
+                if (State.brushBlur >= 1) {
+                    resultDiv.innerHTML = '<span class="test-result">✓ PASS: Blur value remains ' + State.brushBlur + '</span>';
+                } else {
+                    resultDiv.innerHTML = '<span class="test-fail">✗ FAIL: Blur value is ' + State.brushBlur + ' (expected >= 1)</span>';
+                }
+            }
+
+            function testBrushWithFiveBlur() {
+                State.brushBlur = 5;
+                UI.blurSlider.value = 5;
+                UI.blurDisplay.textContent = '5';
+
+                console.log('Before selecting brush:', 'brushBlur =', State.brushBlur);
+                ToolManager.setTool('brush');
+                console.log('After selecting brush:', 'brushBlur =', State.brushBlur);
+
+                const resultDiv = document.getElementById('test3-result');
+                if (State.brushBlur === 5) {
+                    resultDiv.innerHTML = '<span class="test-result">✓ PASS: Blur value remains ' + State.brushBlur + '</span>';
+                } else {
+                    resultDiv.innerHTML = '<span class="test-fail">✗ FAIL: Blur value changed to ' + State.brushBlur + ' (expected 5)</span>';
+                }
+            }
+
+            function testPencilTool() {
+                State.brushBlur = 0;
+                UI.blurSlider.value = 0;
+                UI.blurDisplay.textContent = '0';
+
+                console.log('Before selecting pencil:', 'brushBlur =', State.brushBlur);
+                ToolManager.setTool('pencil');
+                console.log('After selecting pencil:', 'brushBlur =', State.brushBlur);
+
+                const resultDiv = document.getElementById('test4-result');
+                if (State.brushBlur === 0) {
+                    resultDiv.innerHTML = '<span class="test-result">✓ PASS: Blur value unchanged at ' + State.brushBlur + ' (pencil tool should not affect blur)</span>';
+                } else {
+                    resultDiv.innerHTML = '<span class="test-fail">✗ FAIL: Blur value changed to ' + State.brushBlur + ' (expected 0)</span>';
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

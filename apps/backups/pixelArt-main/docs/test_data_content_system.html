@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Data-Content System</title>
+    <style>
+        .settings-tab {
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .settings-tab.active {
+            background: #00ff41;
+            color: black;
+        }
+        .settings-tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #666;
+            margin-top: 10px;
+        }
+        .settings-tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Data-Content System</h1>
+
+    <div class="settings-tabs">
+        <button class="settings-tab active" data-content="settings-general" id="tab-general">
+            General
+        </button>
+        <button class="settings-tab" data-content="settings-scene" id="tab-scene">
+            Scene
+        </button>
+        <button class="settings-tab" data-content="settings-export" id="tab-export">
+            Export
+        </button>
+    </div>
+
+    <div class="settings-tab-content active" id="settings-general">
+        <h2>General Settings</h2>
+        <p>This is the general settings content.</p>
+    </div>
+
+    <div class="settings-tab-content" id="settings-scene">
+        <h2>Scene Settings</h2>
+        <p>This is the scene settings content.</p>
+    </div>
+
+    <div class="settings-tab-content" id="settings-export">
+        <h2>Export Settings</h2>
+        <p>This is the export settings content.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.settings-tab');
+            const tabContents = document.querySelectorAll('.settings-tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const contentId = button.dataset.content;
+
+                    // Remove active class from all tabs and content
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // Add active class to clicked tab and corresponding content
+                    button.classList.add('active');
+                    const content = document.getElementById(contentId);
+                    if (content) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+
+            console.log('Test page loaded successfully!');
+            console.log('Tab buttons found:', tabButtons.length);
+            console.log('Tab contents found:', tabContents.length);
+        });
+    </script>
+</body>
+</html>

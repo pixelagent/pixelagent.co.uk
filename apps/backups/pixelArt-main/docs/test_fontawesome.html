@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Awesome Fix Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .icon-test {
+            display: inline-block;
+            width: 50px;
+            text-align: center;
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 3px;
+        }
+        .icon-name {
+            font-size: 10px;
+            color: #666;
+            margin-top: 5px;
+            display: block;
+        }
+    </style>
+
+    <!-- CDN Update with Preload Optimization -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css"></noscript>
+
+    <!-- Fallback Script Implementation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof FontAwesome === 'undefined' || !document.querySelector('.fa')) {
+                console.warn('Font Awesome not loaded, applying fallback styles');
+                const style = document.createElement('style');
+                style.textContent = `
+                    .fa, .fas, .far, .fal, .fat, .fad {
+                        font-family: Arial, sans-serif;
+                        font-weight: normal;
+                        font-style: normal;
+                    }
+                    /* Comprehensive Font Awesome icon fallbacks */
+                    .fa-undo:before { content: "↩"; }
+                    .fa-redo:before { content: "🔄"; }
+                    .fa-minus:before { content: "−"; }
+                    .fa-plus:before { content: "+"; }
+                    .fa-compress-arrows-alt:before { content: "🔍"; }
+                    .fa-folder-open:before { content: "📁"; }
+                    .fa-save:before { content: "💾"; }
+                    .fa-file-export:before { content: "📤"; }
+                    .fa-pencil-alt:before { content: "✏️"; }
+                    .fa-paint-brush:before { content: "🖌️"; }
+                    .fa-eraser:before { content: "🧽"; }
+                    .fa-fill-drip:before { content: "🎨"; }
+                    .fa-columns:before { content: "📊"; }
+                    .fa-th:before { content: "📦"; }
+                    .fa-eye-dropper:before { content: "🖱️"; }
+                    .fa-arrows-alt:before { content: "↔️"; }
+                    .fa-shapes:before { content: "🔺"; }
+                    .fa-slash:before { content: "⧸"; }
+                    .fa-square:before { content: "□"; }
+                    .fa-circle:before { content: "○"; }
+                    .fa-layer-group:before { content: "📄"; }
+                    .fa-magic:before { content: "✨"; }
+                    .fa-play:before { content: "▶"; }
+                    .fa-stop:before { content: "⏹"; }
+                    .fa-copy:before { content: "📋"; }
+                    .fa-trash:before { content: "🗑️"; }
+                    .fa-cloud-download-alt:before { content: "📥"; }
+                    .fa-arrows-alt-h:before { content: "↔"; }
+                    .fa-arrows-alt-v:before { content: "↕"; }
+                    .fa-expand-arrows-alt:before { content: "⤢"; }
+                    .fa-info-circle:before { content: "ℹ️"; }
+                    .fa-plus-circle:before { content: "➕"; }
+                    .fa-chevron-right:before { content: "➡"; }
+                    .fa-cog:before { content: "⚙️"; }
+                    .fa-sliders-h:before { content: "📊"; }
+                    .fa-image:before { content: "🖼️"; }
+                    .fa-download:before { content: "📥"; }
+                    .fa-graduation-cap:before { content: "🎓"; }
+                `;
+                document.head.appendChild(style);
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Font Awesome Fix Test</h1>
+
+    <div class="test-section">
+        <h2>Test 1: Normal Font Awesome Loading</h2>
+        <p>These icons should load normally from CDN:</p>
+        <div style="display: flex; flex-wrap: wrap;">
+            <div class="icon-test"><i class="fas fa-undo"></i><span class="icon-name">fa-undo</span></div>
+            <div class="icon-test"><i class="fas fa-save"></i><span class="icon-name">fa-save</span></div>
+            <div class="icon-test"><i class="fas fa-pencil-alt"></i><span class="icon-name">fa-pencil-alt</span></div>
+            <div class="icon-test"><i class="fas fa-paint-brush"></i><span class="icon-name">fa-paint-brush</span></div>
+            <div class="icon-test"><i class="fas fa-eraser"></i><span class="icon-name">fa-eraser</span></div>
+            <div class="icon-test"><i class="fas fa-play"></i><span class="icon-name">fa-play</span></div>
+            <div class="icon-test"><i class="fas fa-stop"></i><span class="icon-name">fa-stop</span></div>
+            <div class="icon-test"><i class="fas fa-cog"></i><span class="icon-name">fa-cog</span></div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: Fallback Test (Simulated Failure)</h2>
+        <p>This section simulates Font Awesome failure to test fallbacks:</p>
+        <button id="testFallbackBtn" style="padding: 10px 15px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Test Fallback Mode
+        </button>
+        <div id="fallbackTestArea" style="display: none; margin-top: 15px;">
+            <div style="display: flex; flex-wrap: wrap;">
+                <div class="icon-test"><i class="fas fa-undo"></i><span class="icon-name">fa-undo</span></div>
+                <div class="icon-test"><i class="fas fa-save"></i><span class="icon-name">fa-save</span></div>
+                <div class="icon-test"><i class="fas fa-pencil-alt"></i><span class="icon-name">fa-pencil-alt</span></div>
+                <div class="icon-test"><i class="fas fa-paint-brush"></i><span class="icon-name">fa-paint-brush</span></div>
+                <div class="icon-test"><i class="fas fa-eraser"></i><span class="icon-name">fa-eraser</span></div>
+                <div class="icon-test"><i class="fas fa-play"></i><span class="icon-name">fa-play</span></div>
+                <div class="icon-test"><i class="fas fa-stop"></i><span class="icon-name">fa-stop</span></div>
+                <div class="icon-test"><i class="fas fa-cog"></i><span class="icon-name">fa-cog</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: All Icons Used in Pixel Art App</h2>
+        <p>Complete list of all Font Awesome icons used in the application:</p>
+        <div style="display: flex; flex-wrap: wrap;">
+            <div class="icon-test"><i class="fas fa-undo"></i><span class="icon-name">undo</span></div>
+            <div class="icon-test"><i class="fas fa-redo"></i><span class="icon-name">redo</span></div>
+            <div class="icon-test"><i class="fas fa-minus"></i><span class="icon-name">minus</span></div>
+            <div class="icon-test"><i class="fas fa-plus"></i><span class="icon-name">plus</span></div>
+            <div class="icon-test"><i class="fas fa-compress-arrows-alt"></i><span class="icon-name">compress</span></div>
+            <div class="icon-test"><i class="fas fa-folder-open"></i><span class="icon-name">folder</span></div>
+            <div class="icon-test"><i class="fas fa-save"></i><span class="icon-name">save</span></div>
+            <div class="icon-test"><i class="fas fa-file-export"></i><span class="icon-name">export</span></div>
+            <div class="icon-test"><i class="fas fa-pencil-alt"></i><span class="icon-name">pencil</span></div>
+            <div class="icon-test"><i class="fas fa-paint-brush"></i><span class="icon-name">brush</span></div>
+            <div class="icon-test"><i class="fas fa-eraser"></i><span class="icon-name">eraser</span></div>
+            <div class="icon-test"><i class="fas fa-fill-drip"></i><span class="icon-name">fill</span></div>
+            <div class="icon-test"><i class="fas fa-columns"></i><span class="icon-name">columns</span></div>
+            <div class="icon-test"><i class="fas fa-th"></i><span class="icon-name">th</span></div>
+            <div class="icon-test"><i class="fas fa-eye-dropper"></i><span class="icon-name">eyedropper</span></div>
+            <div class="icon-test"><i class="fas fa-arrows-alt"></i><span class="icon-name">arrows</span></div>
+            <div class="icon-test"><i class="fas fa-shapes"></i><span class="icon-name">shapes</span></div>
+            <div class="icon-test"><i class="fas fa-slash"></i><span class="icon-name">slash</span></div>
+            <div class="icon-test"><i class="far fa-square"></i><span class="icon-name">square</span></div>
+            <div class="icon-test"><i class="far fa-circle"></i><span class="icon-name">circle</span></div>
+            <div class="icon-test"><i class="fas fa-layer-group"></i><span class="icon-name">layers</span></div>
+            <div class="icon-test"><i class="fas fa-magic"></i><span class="icon-name">magic</span></div>
+            <div class="icon-test"><i class="fas fa-play"></i><span class="icon-name">play</span></div>
+            <div class="icon-test"><i class="fas fa-stop"></i><span class="icon-name">stop</span></div>
+            <div class="icon-test"><i class="fas fa-copy"></i><span class="icon-name">copy</span></div>
+            <div class="icon-test"><i class="fas fa-trash"></i><span class="icon-name">trash</span></div>
+            <div class="icon-test"><i class="fas fa-cloud-download-alt"></i><span class="icon-name">cloud-download</span></div>
+            <div class="icon-test"><i class="fas fa-arrows-alt-h"></i><span class="icon-name">arrows-h</span></div>
+            <div class="icon-test"><i class="fas fa-arrows-alt-v"></i><span class="icon-name">arrows-v</span></div>
+            <div class="icon-test"><i class="fas fa-expand-arrows-alt"></i><span class="icon-name">expand</span></div>
+            <div class="icon-test"><i class="fas fa-info-circle"></i><span class="icon-name">info</span></div>
+            <div class="icon-test"><i class="fas fa-plus-circle"></i><span class="icon-name">plus-circle</span></div>
+            <div class="icon-test"><i class="fas fa-chevron-right"></i><span class="icon-name">chevron</span></div>
+            <div class="icon-test"><i class="fas fa-cog"></i><span class="icon-name">cog</span></div>
+            <div class="icon-test"><i class="fas fa-sliders-h"></i><span class="icon-name">sliders</span></div>
+            <div class="icon-test"><i class="fas fa-image"></i><span class="icon-name">image</span></div>
+            <div class="icon-test"><i class="fas fa-download"></i><span class="icon-name">download</span></div>
+            <div class="icon-test"><i class="fas fa-graduation-cap"></i><span class="icon-name">graduation</span></div>
+        </div>
+    </div>
+
+    <script>
+        // Test fallback button functionality
+        document.getElementById('testFallbackBtn').addEventListener('click', function() {
+            // Simulate Font Awesome not being available
+            const originalFontAwesome = window.FontAwesome;
+            window.FontAwesome = undefined;
+
+            // Remove existing Font Awesome styles
+            const faStyles = document.querySelectorAll('link[href*="fontawesome"], link[href*="fortawesome"]');
+            faStyles.forEach(style => style.remove());
+
+            // Show fallback test area
+            document.getElementById('fallbackTestArea').style.display = 'block';
+            this.textContent = 'Fallback Mode Active';
+            this.style.background = '#f44336';
+            this.disabled = true;
+
+            // Force re-apply fallback styles
+            const fallbackScript = document.createElement('script');
+            fallbackScript.textContent = `
+                if (typeof FontAwesome === 'undefined' || !document.querySelector('.fa')) {
+                    console.warn('Font Awesome not loaded, applying fallback styles');
+                    const style = document.createElement('style');
+                    style.textContent = \`
+                        .fa, .fas, .far, .fal, .fat, .fad {
+                            font-family: Arial, sans-serif;
+                            font-weight: normal;
+                            font-style: normal;
+                        }
+                        /* Comprehensive Font Awesome icon fallbacks */
+                        .fa-undo:before { content: "↩"; }
+                        .fa-redo:before { content: "🔄"; }
+                        .fa-minus:before { content: "−"; }
+                        .fa-plus:before { content: "+"; }
+                        .fa-compress-arrows-alt:before { content: "🔍"; }
+                        .fa-folder-open:before { content: "📁"; }
+                        .fa-save:before { content: "💾"; }
+                        .fa-file-export:before { content: "📤"; }
+                        .fa-pencil-alt:before { content: "✏️"; }
+                        .fa-paint-brush:before { content: "🖌️"; }
+                        .fa-eraser:before { content: "🧽"; }
+                        .fa-fill-drip:before { content: "🎨"; }
+                        .fa-columns:before { content: "📊"; }
+                        .fa-th:before { content: "📦"; }
+                        .fa-eye-dropper:before { content: "🖱️"; }
+                        .fa-arrows-alt:before { content: "↔️"; }
+                        .fa-shapes:before { content: "🔺"; }
+                        .fa-slash:before { content: "⧸"; }
+                        .fa-square:before { content: "□"; }
+                        .fa-circle:before { content: "○"; }
+                        .fa-layer-group:before { content: "📄"; }
+                        .fa-magic:before { content: "✨"; }
+                        .fa-play:before { content: "▶"; }
+                        .fa-stop:before { content: "⏹"; }
+                        .fa-copy:before { content: "📋"; }
+                        .fa-trash:before { content: "🗑️"; }
+                        .fa-cloud-download-alt:before { content: "📥"; }
+                        .fa-arrows-alt-h:before { content: "↔"; }
+                        .fa-arrows-alt-v:before { content: "↕"; }
+                        .fa-expand-arrows-alt:before { content: "⤢"; }
+                        .fa-info-circle:before { content: "ℹ️"; }
+                        .fa-plus-circle:before { content: "➕"; }
+                        .fa-chevron-right:before { content: "➡"; }
+                        .fa-cog:before { content: "⚙️"; }
+                        .fa-sliders-h:before { content: "📊"; }
+                        .fa-image:before { content: "🖼️"; }
+                        .fa-download:before { content: "📥"; }
+                        .fa-graduation-cap:before { content: "🎓"; }
+                    \`;
+                    document.head.appendChild(style);
+                }
+            `;
+            document.body.appendChild(fallbackScript);
+
+            // Restore original FontAwesome after test
+            setTimeout(() => {
+                window.FontAwesome = originalFontAwesome;
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

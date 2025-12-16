@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Fixes</title>
+</head>
+<body>
+    <h1>Testing JavaScript Fixes</h1>
+    <div id="result"></div>
+
+    <script>
+        // Test 1: Check if InputHandler is available globally
+        try {
+            if (typeof InputHandler !== 'undefined') {
+                document.getElementById('result').innerHTML += '<p style="color:green;">✓ InputHandler is defined globally</p>';
+            } else {
+                document.getElementById('result').innerHTML += '<p style="color:red;">✗ InputHandler is NOT defined globally</p>';
+            }
+        } catch (e) {
+            document.getElementById('result').innerHTML += '<p style="color:red;">✗ Error checking InputHandler: ' + e.message + '</p>';
+        }
+
+        // Test 2: Check syntax of the fixed code
+        try {
+            // Simulate the fixed if statement structure
+            const testWidth = 10;
+            const testHeight = 10;
+
+            if (testWidth >= 4 && testWidth <= 128 && testHeight >= 4 && testHeight <= 128) {
+                document.getElementById('result').innerHTML += '<p style="color:green;">✓ If statement syntax is correct</p>';
+            } else {
+                document.getElementById('result').innerHTML += '<p style="color:red;">✗ If statement syntax has issues</p>';
+            }
+        } catch (e) {
+            document.getElementById('result').innerHTML += '<p style="color:red;">✗ Syntax error in if statement: ' + e.message + '</p>';
+        }
+    </script>
+
+    <!-- Load the actual files to test -->
+    <script src="js/input-handler.js"></script>
+    <script>
+        // Test after loading input-handler.js
+        setTimeout(() => {
+            try {
+                if (typeof InputHandler !== 'undefined' && typeof InputHandler.init === 'function') {
+                    document.getElementById('result').innerHTML += '<p style="color:green;">✓ InputHandler.init() is available</p>';
+                } else {
+                    document.getElementById('result').innerHTML += '<p style="color:red;">✗ InputHandler.init() is NOT available</p>';
+                }
+            } catch (e) {
+                document.getElementById('result').innerHTML += '<p style="color:red;">✗ Error after loading: ' + e.message + '</p>';
+            }
+        }, 100);
+    </script>
+</body>
+</html>

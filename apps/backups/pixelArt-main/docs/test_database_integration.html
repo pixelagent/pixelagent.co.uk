@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Integration Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-step {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .test-result {
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Database Integration Test</h1>
+        <p>This test verifies that the database manager is properly integrated with the file saving system.</p>
+
+        <div class="test-step">
+            <h3>Step 1: Check if DatabaseManager is loaded</h3>
+            <p>Testing if DatabaseManager class is available...</p>
+            <div id="step1-result" class="test-result"></div>
+        </div>
+
+        <div class="test-step">
+            <h3>Step 2: Check if app object has databaseManager</h3>
+            <p>Testing if app.databaseManager is initialized...</p>
+            <div id="step2-result" class="test-result"></div>
+        </div>
+
+        <div class="test-step">
+            <h3>Step 3: Test database save functionality</h3>
+            <p>Testing if saveProjectToDatabase method exists...</p>
+            <div id="step3-result" class="test-result"></div>
+        </div>
+
+        <div class="test-step">
+            <h3>Step 4: Test localStorage fallback</h3>
+            <p>Testing if saveProjectToLocalStorage method exists...</p>
+            <div id="step4-result" class="test-result"></div>
+        </div>
+
+        <button id="run-test">Run Integration Test</button>
+        <button id="clear-storage">Clear Test Storage</button>
+
+        <div id="test-output" style="margin-top: 20px; padding: 10px; background-color: #f0f0f0; border-radius: 4px;"></div>
+    </div>
+
+    <!-- Load required scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/dom.js"></script>
+    <script src="js/databaseManager.js"></script>
+    <script src="js/file-manager.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        // Mock notifications for testing
+        window.Notifications = class {
+            success(message) {
+                console.log('SUCCESS:', message);
+                document.getElementById('test-output').innerHTML += `<p style="color: green;">SUCCESS: ${message}</p>`;
+            }
+            error(message) {
+                console.log('ERROR:', message);
+                document.getElementById('test-output').innerHTML += `<p style="color: red;">ERROR: ${message}</p>`;
+            }
+        };
+
+        // Mock app object for testing
+        window.app = window.app || {
+            notifications: new Notifications()
+        };
+
+        document.getElementById('run-test').addEventListener('click', function() {
+            runIntegrationTest();
+        });
+
+        document.getElementById('clear-storage').addEventListener('click', function() {
+            // Clear test storage
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('pixelArtProject_')) {
+                    localStorage.removeItem(key);
+                }
+            }
+            document.getElementById('test-output').innerHTML += `<p>Test storage cleared</p>`;
+        });
+
+        function runIntegrationTest() {
+            document.getElementById('test-output').innerHTML = '<p>Running integration test...</p>';
+
+            // Step 1: Check if DatabaseManager is loaded
+            try {
+                if (typeof DatabaseManager !== 'undefined') {
+                    document.getElementById('step1-result').innerHTML = '<span class="success">✓ DatabaseManager class is available</span>';
+                    document.getElementById('step1-result').className = 'test-result success';
+                } else {
+                    document.getElementById('step1-result').innerHTML = '<span class="error">✗ DatabaseManager class not found</span>';
+                    document.getElementById('step1-result').className = 'test-result error';
+                }
+            } catch (error) {
+                document.getElementById('step1-result').innerHTML = `<span class="error">✗ Error: ${error.message}</span>`;
+                document.getElementById('step1-result').className = 'test-result error';
+            }
+
+            // Step 2: Check if app object has databaseManager
+            try {
+                if (typeof app !== 'undefined' && app.databaseManager) {
+                    document.getElementById('step2-result').innerHTML = '<span class="success">✓ app.databaseManager is initialized</span>';
+                    document.getElementById('step2-result').className = 'test-result success';
+                } else {
+                    document.getElementById('step2-result').innerHTML = '<span class="error">✗ app.databaseManager not initialized</span>';
+                    document.getElementById('step2-result').className = 'test-result error';
+                }
+            } catch (error) {
+                document.getElementById('step2-result').innerHTML = `<span class="error">✗ Error: ${error.message}</span>`;
+                document.getElementById('step2-result').className = 'test-result error';
+            }
+
+            // Step 3: Test database save functionality
+            try {
+                if (typeof app !== 'undefined' && app.databaseManager && typeof app.databaseManager.saveProjectToDatabase === 'function') {
+                    document.getElementById('step3-result').innerHTML = '<span class="success">✓ saveProjectToDatabase method exists</span>';
+                    document.getElementById('step3-result').className = 'test-result success';
+
+                    // Test with sample data
+                    const testProject = {
+                        version: '3.1',
+                        width: 16,
+                        height: 16,
+                        frames: [],
+                        fps: 12,
+                        timestamp: new Date().toISOString()
+                    };
+
+                    // Test the save functionality
+                    app.databaseManager.saveProjectToDatabase(testProject).then(result => {
+                        document.getElementById('test-output').innerHTML += `<p>Database save test completed: ${result ? 'success' : 'failed'}</p>`;
+                    }).catch(error => {
+                        document.getElementById('test-output').innerHTML += `<p>Database save test error: ${error.message}</p>`;
+                    });
+                } else {
+                    document.getElementById('step3-result').innerHTML = '<span class="error">✗ saveProjectToDatabase method not found</span>';
+                    document.getElementById('step3-result').className = 'test-result error';
+                }
+            } catch (error) {
+                document.getElementById('step3-result').innerHTML = `<span class="error">✗ Error: ${error.message}</span>`;
+                document.getElementById('step3-result').className = 'test-result error';
+            }
+
+            // Step 4: Test localStorage fallback
+            try {
+                if (typeof app !== 'undefined' && app.databaseManager && typeof app.databaseManager.saveProjectToLocalStorage === 'function') {
+                    document.getElementById('step4-result').innerHTML = '<span class="success">✓ saveProjectToLocalStorage method exists</span>';
+                    document.getElementById('step4-result').className = 'test-result success';
+
+                    // Test with sample data
+                    const testProject = {
+                        version: '3.1',
+                        width: 16,
+                        height: 16,
+                        frames: [],
+                        fps: 12,
+                        timestamp: new Date().toISOString()
+                    };
+
+                    // Test the localStorage functionality
+                    const result = app.databaseManager.saveProjectToLocalStorage(testProject);
+                    document.getElementById('test-output').innerHTML += `<p>LocalStorage save test completed: ${result ? 'success' : 'failed'}</p>`;
+
+                    // Check if data was actually stored
+                    let foundTestData = false;
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const key = localStorage.key(i);
+                        if (key && key.startsWith('pixelArtProject_')) {
+                            foundTestData = true;
+                            break;
+                        }
+                    }
+
+                    if (foundTestData) {
+                        document.getElementById('test-output').innerHTML += `<p style="color: green;">✓ Project data found in localStorage</p>`;
+                    } else {
+                        document.getElementById('test-output').innerHTML += `<p style="color: red;">✗ Project data not found in localStorage</p>`;
+                    }
+                } else {
+                    document.getElementById('step4-result').innerHTML = '<span class="error">✗ saveProjectToLocalStorage method not found</span>';
+                    document.getElementById('step4-result').className = 'test-result error';
+                }
+            } catch (error) {
+                document.getElementById('step4-result').innerHTML = `<span class="error">✗ Error: ${error.message}</span>`;
+                document.getElementById('step4-result').className = 'test-result error';
+            }
+        }
+
+        // Initialize the app for testing
+        function initTestApp() {
+            // Initialize basic state
+            window.State = {
+                width: 16,
+                height: 16,
+                frames: [],
+                fps: 12
+            };
+
+            // Initialize app with database manager
+            if (typeof DatabaseManager !== 'undefined') {
+                app.databaseManager = new DatabaseManager(app);
+                document.getElementById('test-output').innerHTML += `<p>DatabaseManager initialized for testing</p>`;
+            }
+        }
+
+        // Run initialization
+        initTestApp();
+    </script>
+</body>
+</html>

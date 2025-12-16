@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Palette & Layer Controls</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .test-section {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            color: #00ff41;
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #00ff41;
+            padding-bottom: 10px;
+        }
+
+        .test-result {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .success {
+            color: #00ff41;
+        }
+
+        .error {
+            color: #ff4444;
+        }
+
+        .info {
+            color: #00d9ff;
+        }
+
+        .test-steps {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+
+        .test-steps li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-section">
+        <div class="test-title">Palette & Layer Controls Test</div>
+
+        <div class="test-steps">
+            <h3>Test Steps:</h3>
+            <ol>
+                <li>Open the main application in a browser</li>
+                <li>Open the right panel by clicking the toggle button</li>
+                <li>Verify that the palette section has the new control buttons with proper styling</li>
+                <li>Verify that the layer section has the new control buttons with proper styling</li>
+                <li>Click the save color button and verify it works</li>
+                <li>Click the import palette button and verify it works</li>
+                <li>Click the add layer button and verify it works</li>
+                <li>Verify that all buttons have proper hover effects</li>
+                <li>Verify that the icons are properly displayed</li>
+            </ol>
+        </div>
+
+        <div class="test-result">
+            <h3>Expected Results:</h3>
+            <ul>
+                <li class="success">✓ Palette control buttons should have the new CSS classes applied</li>
+                <li class="success">✓ Layer control buttons should have the new CSS classes applied</li>
+                <li class="success">✓ All buttons should have proper hover effects</li>
+                <li class="success">✓ Icons should be properly displayed (save icon, folder icon, plus icon)</li>
+                <li class="success">✓ Button functionality should work as expected</li>
+                <li class="success">✓ CSS should be properly organized in the right-panel.css file</li>
+            </ul>
+        </div>
+
+        <div class="test-result">
+            <h3>CSS Changes Made:</h3>
+            <ul>
+                <li class="info">• Added .palette-controls class for palette button container</li>
+                <li class="info">• Added .palette-control-btn class for palette control buttons</li>
+                <li class="info">• Added .color-picker-input class for color picker input</li>
+                <li class="info">• Added .color-hex-input class for color hex input</li>
+                <li class="info">• Added .layer-controls class for layer button container</li>
+                <li class="info">• Added .layer-control-btn class for layer control buttons</li>
+                <li class="info">• Updated HTML to use the new CSS classes</li>
+                <li class="info">• Updated JavaScript to handle the new button classes</li>
+            </ul>
+        </div>
+
+        <div class="test-result">
+            <h3>HTML Changes Made:</h3>
+            <ul>
+                <li class="info">• Updated palette section to use .palette-controls and .palette-control-btn classes</li>
+                <li class="info">• Updated layer section to use .layer-controls and .layer-control-btn classes</li>
+                <li class="info">• Updated icons to use appropriate Font Awesome icons</li>
+                <li class="info">• Maintained all existing functionality</li>
+            </ul>
+        </div>
+
+        <div class="test-result">
+            <h3>JavaScript Changes Made:</h3>
+            <ul>
+                <li class="info">• Added event listeners for .palette-control-btn buttons</li>
+                <li class="info">• Added event listeners for .layer-control-btn buttons</li>
+                <li class="info">• Maintained all existing functionality</li>
+                <li class="info">• Added proper error handling</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <div class="test-title">Visual Test</div>
+
+        <div class="test-result">
+            <h3>Before Changes:</h3>
+            <pre style="background: #111; padding: 10px; border-radius: 4px;">
+<div style="display: flex; gap: 8px; align-items: center;">
+    <button id="saveColorBtn" title="Save Color"
+        style="background:none; border:none; color:var(--accent-primary); cursor:pointer;">
+        <i class="fas fa-plus"></i>
+    </button>
+    <button id="importPaletteUrlBtn" title="Import Palette"
+        style="background:none; border:none; color:var(--text-secondary); cursor:pointer;">
+        <i class="fas fa-cloud-download-alt"></i>
+    </button>
+</div></pre>
+        </div>
+
+        <div class="test-result">
+            <h3>After Changes:</h3>
+            <pre style="background: #111; padding: 10px; border-radius: 4px;">
+<div class="palette-controls">
+    <button id="saveColorBtn" title="Save Color" class="palette-control-btn">
+        <i class="fas fa-save"></i>
+    </button>
+    <button id="importPaletteUrlBtn" title="Import Palette" class="palette-control-btn">
+        <i class="fas fa-folder-open"></i>
+    </button>
+</div></pre>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <div class="test-title">CSS Test</div>
+
+        <div class="test-result">
+            <h3>New CSS Classes Added:</h3>
+            <pre style="background: #111; padding: 10px; border-radius: 4px;">
+/* Palette Controls */
+.palette-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.palette-control-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-size: 12px;
+}
+
+.palette-control-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+/* Color Picker Inputs */
+.color-picker-input {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.color-hex-input {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    width: 70px;
+    padding: 4px;
+    font-family: monospace;
+    font-size: 11px;
+    text-align: center;
+}
+
+/* Layer Controls */
+.layer-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.layer-control-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-size: 12px;
+}
+
+.layer-control-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}</pre>
+        </div>
+    </div>
+
+    <script>
+        // Simple test to verify the page loads correctly
+        console.log('Test page loaded successfully');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM fully loaded and parsed');
+        });
+    </script>
+</body>
+</html>

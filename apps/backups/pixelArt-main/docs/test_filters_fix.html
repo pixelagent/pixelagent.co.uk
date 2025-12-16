@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Filters Fix</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-result { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    </style>
+</head>
+<body>
+    <h1>Testing Filters Fix</h1>
+
+    <h2>Test 1: FilterManager.initFilters() with missing element</h2>
+    <div id="test1-result" class="test-result"></div>
+
+    <h2>Test 2: FilterManager.initFilters() with existing element</h2>
+    <div id="filters-list" style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;"></div>
+    <div id="test2-result" class="test-result"></div>
+
+    <script>
+        // Mock the required dependencies
+        const State = {
+            width: 32,
+            height: 32,
+            frames: [{
+                layers: [{
+                    data: new ImageData(32, 32)
+                }]
+            }],
+            currentFrameIndex: 0,
+            activeLayerIndex: 0
+        };
+
+        const CanvasManager = {
+            render: () => console.log('Canvas rendered')
+        };
+
+        const AnimationManager = {
+            updateTimelineThumb: () => console.log('Timeline thumb updated')
+        };
+
+        const InputHandler = {
+            saveState: () => console.log('State saved')
+        };
+
+        // Load the filter manager
+        const FilterManager = {
+    /**
+     * Apply a filter to the current active layer
+     */
+    applyFilter(filterName) {
+        if (typeof LenaJS === 'undefined') {
+            alert('LenaJS library not loaded. Please check your internet connection.');
+            return;
+        }
+
+        const layer = State.frames[State.currentFrameIndex].layers[State.activeLayerIndex];
+
+        // Create temporary canvas for filter application
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = State.width;
+        tempCanvas.height = State.height;
+        const tempCtx = tempCanvas.getContext('2d');
+
+        // Put current layer data onto temp canvas
+        tempCtx.putImageData(layer.data, 0, 0);
+
+        // Apply LenaJS filter using the correct method
+        try {
+            if (LenaJS[filterName]) {
+                // For filters that work with ImageData directly
+                const imageData = tempCtx.getImageData(0, 0, State.width, State.height);
+                const filteredData = LenaJS[filterName](imageData);
+                tempCtx.putImageData(filteredData, 0, 0);
+            } else {
+                alert(`Filter "${filterName}" is not available in this version of LenaJS.`);
+                return;
+            }
+        } catch (error) {
+            console.error('Error applying filter:', error);
+            alert('Error applying filter. Please try again.');
+            return;
+        }
+
+        // Get filtered data back
+        layer.data = tempCtx.getImageData(0, 0, State.width, State.height);
+
+        // Re-render canvas
+        CanvasManager.render();
+        AnimationManager.updateTimelineThumb(State.currentFrameIndex);
+
+        // Save state for undo/redo
+        if (typeof InputHandler !== 'undefined' && InputHandler.saveState) {
+            InputHandler.saveState();
+        }
+    },
+
+    /**
+     * Initialize filter buttons
+     */
+    initFilters() {
+        const filtersList = document.getElementById('filters-list');
+
+        // Check if filters-list element exists
+        if (!filtersList) {
+            console.warn('filters-list element not found. Filters will not be initialized.');
+            return;
+        }
+
+        filtersList.innerHTML = '';
+
+        // Available LenaJS filters
+        const filters = [
+            { name: 'grayscale', label: 'Grayscale' },
+            { name: 'sepia', label: 'Sepia' },
+            { name: 'invert', label: 'Invert' },
+            { name: 'saturation', label: 'Saturation' },
+            { name: 'sharpen', label: 'Sharpen' },
+            { name: 'gaussian', label: 'Gaussian Blur' },
+            { name: 'bigGaussian', label: 'Big Gaussian Blur' },
+            { name: 'lowpass3', label: 'Low Pass 3x3' },
+            { name: 'lowpass5', label: 'Low Pass 5x5' },
+            { name: 'highpass', label: 'High Pass' },
+            { name: 'laplacian', label: 'Laplacian' },
+            { name: 'sobelHorizontal', label: 'Sobel Horizontal' },
+            { name: 'sobelVertical', label: 'Sobel Vertical' },
+            { name: 'roberts', label: 'Roberts' },
+            { name: 'prewittHorizontal', label: 'Prewitt Horizontal' },
+            { name: 'prewittVertical', label: 'Prewitt Vertical' },
+            { name: 'canny', label: 'Canny Edge Detection' },
+            { name: 'thresholding', label: 'Threshold' },
+            { name: 'red', label: 'Red Channel' },
+            { name: 'green', label: 'Green Channel' },
+            { name: 'blue', label: 'Blue Channel' }
+        ];
+
+        filters.forEach(filter => {
+            const button = document.createElement('button');
+            button.className = 'btn';
+            button.style.width = '100%';
+            button.textContent = filter.label;
+            button.onclick = () => this.applyFilter(filter.name);
+            filtersList.appendChild(button);
+        });
+    }
+};
+
+        // Test 1: Remove the filters-list element and test
+        const originalFiltersList = document.getElementById('filters-list');
+        if (originalFiltersList) {
+            originalFiltersList.remove();
+        }
+
+        try {
+            FilterManager.initFilters();
+            document.getElementById('test1-result').innerHTML = '✅ Test 1 PASSED: No error thrown when filters-list element is missing';
+            document.getElementById('test1-result').className = 'test-result success';
+        } catch (error) {
+            document.getElementById('test1-result').innerHTML = '❌ Test 1 FAILED: ' + error.message;
+            document.getElementById('test1-result').className = 'test-result error';
+        }
+
+        // Test 2: Add back the filters-list element and test
+        const filtersListDiv = document.createElement('div');
+        filtersListDiv.id = 'filters-list';
+        filtersListDiv.style.border = '1px solid #ccc';
+        filtersListDiv.style.padding = '10px';
+        filtersListDiv.style.margin = '10px 0';
+        document.body.appendChild(filtersListDiv);
+
+        try {
+            FilterManager.initFilters();
+            const buttons = document.querySelectorAll('#filters-list button');
+            if (buttons.length > 0) {
+                document.getElementById('test2-result').innerHTML = `✅ Test 2 PASSED: ${buttons.length} filter buttons created successfully`;
+                document.getElementById('test2-result').className = 'test-result success';
+            } else {
+                document.getElementById('test2-result').innerHTML = '❌ Test 2 FAILED: No filter buttons were created';
+                document.getElementById('test2-result').className = 'test-result error';
+            }
+        } catch (error) {
+            document.getElementById('test2-result').innerHTML = '❌ Test 2 FAILED: ' + error.message;
+            document.getElementById('test2-result').className = 'test-result error';
+        }
+    </script>
+</body>
+</html>

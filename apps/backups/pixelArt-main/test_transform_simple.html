@@ -1,0 +1,406 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Transform Options Test</title>
+    <link rel="stylesheet" href="fonts/fontawesome-free-6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --bg-light: #2a2a3e;
+            --text-primary: #e6e6e6;
+            --text-secondary: #a8a8b3;
+            --accent-blue: #00d9ff;
+            --accent-purple: #a855f7;
+            --accent-green: #00ff41;
+            --border-color: #3a3a4e;
+            --hover-bg: #2a2a3e;
+            --active-bg: #3a3a4e;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .test-section {
+            background-color: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            color: var(--accent-blue);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            color: var(--accent-purple);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* SIMPLE ALIGN OPTIONS */
+        .align-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .align-btn {
+            background-color: var(--bg-light);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .align-btn:hover {
+            background-color: var(--hover-bg);
+            border-color: var(--accent-blue);
+        }
+
+        .align-btn.active {
+            background-color: var(--active-bg);
+            border-color: var(--accent-green);
+        }
+
+        .align-btn input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .align-icon {
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            margin-bottom: 6px;
+        }
+
+        .align-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* SIMPLE ROTATE OPTIONS */
+        .rotate-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .rotate-btn {
+            background-color: var(--bg-light);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .rotate-btn:hover {
+            background-color: var(--hover-bg);
+            border-color: var(--accent-purple);
+        }
+
+        .rotate-btn.active {
+            background-color: var(--active-bg);
+            border-color: var(--accent-green);
+        }
+
+        .rotate-btn input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .rotate-icon {
+            font-size: 1.5rem;
+            color: var(--accent-purple);
+            margin-bottom: 8px;
+        }
+
+        .rotate-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .rotate-description {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* VISUAL PREVIEW */
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            width: 60px;
+            height: 45px;
+            margin: 0 auto 8px;
+        }
+
+        .preview-cell {
+            background-color: #111;
+            border-radius: 2px;
+        }
+
+        .preview-cell.highlight {
+            background-color: var(--accent-blue);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1><i class="fas fa-arrows-up-down-left-right"></i> Simple Transform Options</h1>
+
+    <div class="container">
+        <!-- SIMPLE ALIGN OPTIONS -->
+        <div class="test-section">
+            <h2><i class="fa-solid fa-arrows-to-dot"></i> Align Options</h2>
+
+            <div class="align-options">
+                <!-- Top Left -->
+                <label class="align-btn active">
+                    <input type="radio" name="align" value="top-left" checked="">
+                    <div class="preview-grid">
+                        <div class="preview-cell highlight"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                    </div>
+                    <div class="align-icon"><i class="fas fa-arrow-up-left"></i></div>
+                    <div class="align-label">Top Left</div>
+                </label>
+
+                <!-- Top Center -->
+                <label class="align-btn">
+                    <input type="radio" name="align" value="top-center">
+                    <div class="preview-grid">
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell highlight"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                    </div>
+                    <div class="align-icon"><i class="fas fa-arrow-up"></i></div>
+                    <div class="align-label">Top</div>
+                </label>
+
+                <!-- Top Right -->
+                <label class="align-btn">
+                    <input type="radio" name="align" value="top-right">
+                    <div class="preview-grid">
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell highlight"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                    </div>
+                    <div class="align-icon"><i class="fas fa-arrow-up-right"></i></div>
+                    <div class="align-label">Top Right</div>
+                </label>
+
+                <!-- Left -->
+                <label class="align-btn">
+                    <input type="radio" name="align" value="left">
+                    <div class="preview-grid">
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell highlight"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                    </div>
+                    <div class="align-icon"><i class="fas fa-arrow-left"></i></div>
+                    <div class="align-label">Left</div>
+                </label>
+
+                <!-- Center -->
+                <label class="align-btn">
+                    <input type="radio" name="align" value="center">
+                    <div class="preview-grid">
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell highlight"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                    </div>
+                    <div class="align-icon"><i class="fas fa-crosshairs"></i></div>
+                    <div class="align-label">Center</div>
+                </label>
+
+                <!-- Right -->
+                <label class="align-btn">
+                    <input type="radio" name="align" value="right">
+                    <div class="preview-grid">
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell highlight"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                    </div>
+                    <div class="align-icon"><i class="fas fa-arrow-right"></i></div>
+                    <div class="align-label">Right</div>
+                </label>
+
+                <!-- Bottom Left -->
+                <label class="align-btn">
+                    <input type="radio" name="align" value="bottom-left">
+                    <div class="preview-grid">
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell highlight"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                    </div>
+                    <div class="align-icon"><i class="fas fa-arrow-down-left"></i></div>
+                    <div class="align-label">Bottom Left</div>
+                </label>
+
+                <!-- Bottom Center -->
+                <label class="align-btn">
+                    <input type="radio" name="align" value="bottom-center">
+                    <div class="preview-grid">
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell highlight"></div>
+                        <div class="preview-cell"></div>
+                    </div>
+                    <div class="align-icon"><i class="fas fa-arrow-down"></i></div>
+                    <div class="align-label">Bottom</div>
+                </label>
+
+                <!-- Bottom Right -->
+                <label class="align-btn">
+                    <input type="radio" name="align" value="bottom-right">
+                    <div class="preview-grid">
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell"></div>
+                        <div class="preview-cell highlight"></div>
+                    </div>
+                    <div class="align-icon"><i class="fas fa-arrow-down-right"></i></div>
+                    <div class="align-label">Bottom Right</div>
+                </label>
+            </div>
+        </div>
+
+        <!-- SIMPLE ROTATE OPTIONS -->
+        <div class="test-section">
+            <h2><i class="fas fa-rotate"></i> Rotate Options</h2>
+
+            <div class="rotate-options">
+                <!-- Clockwise -->
+                <label class="rotate-btn active">
+                    <input type="radio" name="rotate" value="clockwise" checked="">
+                    <div class="rotate-icon"><i class="fas fa-undo"></i></div>
+                    <div class="rotate-label">Clockwise 90°</div>
+                    <div class="rotate-description">Rotate content clockwise</div>
+                </label>
+
+                <!-- Counter-Clockwise -->
+                <label class="rotate-btn">
+                    <input type="radio" name="rotate" value="counter-clockwise">
+                    <div class="rotate-icon"><i class="fas fa-redo"></i></div>
+                    <div class="rotate-label">Counter-Clockwise 90°</div>
+                    <div class="rotate-description">Rotate content counter-clockwise</div>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add active state when options are selected
+        document.querySelectorAll('.align-btn input, .rotate-btn input').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Remove active class from siblings
+                const parent = this.closest('.align-options') || this.closest('.rotate-options');
+                parent.querySelectorAll('.align-btn, .rotate-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                // Add active class to selected
+                if (this.checked) {
+                    this.closest('.align-btn')?.classList.add('active');
+                    this.closest('.rotate-btn')?.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize active states
+        document.querySelectorAll('.align-btn, .rotate-btn').forEach(btn => {
+            const radio = btn.querySelector('input[type="radio"]');
+            if (radio && radio.checked) {
+                btn.classList.add('active');
+            }
+        });
+    </script>
+
+</body></html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minimize/Maximize Test</title>
+    <style>
+        /* Basic styles for testing */
+        .panel-section {
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .panel-section.minimized .section-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0;
+            opacity: 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid #555;
+        }
+
+        .section-body {
+            padding: 10px;
+        }
+
+        .section-toggle {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 10px;
+            padding: 2px 6px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Minimize/Maximize Test</h2>
+
+    <div class="panel-section" id="test-panel">
+        <div class="section-header">
+            <span>Test Panel</span>
+            <button class="section-toggle" data-target="test-container" onclick="toggleSection('test-container')">
+                <i class="fas fa-minus">-</i>
+            </button>
+        </div>
+        <div class="section-body">
+            <div id="test-container">
+                <p>This is the content that should be hidden when minimized.</p>
+                <p>If the fix works, clicking the button should toggle this content.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Toggle panel section - updated to work with dropins-container
+         */
+        function toggleSection(sectionId) {
+            // Find the section in the entire document (not just dropins-container)
+            const section = document.getElementById(sectionId);
+            if (!section) {
+                console.warn(`Section not found: ${sectionId}`);
+                return;
+            }
+
+            // Find the parent panel-section element to toggle the minimized class
+            const panelSection = section.closest('.panel-section');
+            if (panelSection) {
+                panelSection.classList.toggle('minimized');
+            } else {
+                // Fallback to original behavior if no panel-section parent found
+                section.classList.toggle('minimized');
+            }
+
+            // Find the toggle button that controls this section
+            const button = document.querySelector(`[data-target="${sectionId}"]`);
+            if (button) {
+                const icon = button.querySelector('i');
+                // Check if the panel section is minimized (or the section itself if no parent)
+                const isMinimized = panelSection ? panelSection.classList.contains('minimized') : section.classList.contains('minimized');
+                if (isMinimized) {
+                    icon.textContent = '+';
+                } else {
+                    icon.textContent = '-';
+                }
+            } else {
+                console.warn(`Toggle button not found for section: ${sectionId}`);
+            }
+        }
+
+        console.log("Test file created. The minimize/maximize functionality should now work correctly.");
+        console.log("When you click the button, the content should toggle visibility and the icon should change between + and -");
+    </script>
+</body>
+</html>

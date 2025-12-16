@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Selection Tools Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #00ff41;
+            border-bottom: 2px solid #00ff41;
+            padding-bottom: 10px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border-left: 4px solid #00d9ff;
+        }
+        .test-section h2 {
+            color: #333;
+            margin-top: 0;
+        }
+        .test-steps {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+        .test-steps li {
+            margin: 8px 0;
+        }
+        .success {
+            color: #00ff41;
+            font-weight: bold;
+        }
+        .warning {
+            color: #ff9800;
+            font-weight: bold;
+        }
+        .code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Pixel Art Studio Pro - Selection Tools Test</h1>
+
+        <div class="test-section">
+            <h2>✅ Implementation Summary</h2>
+            <p>All requested features have been successfully implemented:</p>
+            <ul class="test-steps">
+                <li><span class="success">✅</span> Created <span class="code">Selection Tools</span> menu with Rectangular, Circular, and Lasso tools</li>
+                <li><span class="success">✅</span> Added <span class="code">Lighten/Darken</span> tool with keyboard shortcut (K)</li>
+                <li><span class="success">✅</span> Organized toolbar layout to reduce clutter</li>
+                <li><span class="success">✅</span> Implemented selection functionality with pixel copying</li>
+                <li><span class="success">✅</span> Added proper CSS styling for new tools</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 New Features Added</h2>
+
+            <h3>1. Selection Tools Menu</h3>
+            <p><span class="code">Rectangular Selection (1)</span> - Draw rectangular selections with marching ants</p>
+            <p><span class="code">Circular Selection (2)</span> - Draw circular/elliptical selections</p>
+            <p><span class="code">Lasso Selection (3)</span> - Draw freehand selections</p>
+
+            <h3>2. Lighten/Darken Tool</h3>
+            <p><span class="code">Lighten/Darken (K)</span> - Adjust brightness of the entire layer</p>
+            <p>Click the tool or press K, then enter a factor (1.0 = normal, >1 = lighten, <1 = darken)</p>
+
+            <h3>3. Toolbar Organization</h3>
+            <p>Added proper spacing and visual hierarchy</p>
+            <p>Selection tools grouped in a dropdown menu</p>
+            <p>Lighten/Darken tool added with distinctive styling</p>
+        </div>
+
+        <div class="test-section">
+            <h2>🔧 Technical Implementation</h2>
+
+            <h3>Files Modified:</h3>
+            <ul class="test-steps">
+                <li><span class="code">index.html</span> - Added new toolbar elements</li>
+                <li><span class="code">tool-manager.js</span> - Added selection tool logic and brightness adjustment</li>
+                <li><span class="code">input-handler.js</span> - Added keyboard shortcuts and tool handling</li>
+                <li><span class="code">styles.css</span> - Added styling for new tools</li>
+            </ul>
+
+            <h3>Key Methods Added:</h3>
+            <ul class="test-steps">
+                <li><span class="code">startSelection(x, y)</span> - Initialize selection</li>
+                <li><span class="code">updateSelection(x, y)</span> - Update selection during drag</li>
+                <li><span class="code">endSelection()</span> - Finalize selection and copy pixels</li>
+                <li><span class="code">drawRectSelection()</span> - Draw rectangular selection</li>
+                <li><span class="code">drawCircleSelection()</span> - Draw circular selection</li>
+                <li><span class="code">drawLassoSelection()</span> - Draw lasso selection</li>
+                <li><span class="code">copySelectedPixels()</span> - Copy selected pixels to buffer</li>
+                <li><span class="code">adjustBrightness(factor)</span> - Lighten/darken functionality</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🚀 Usage Instructions</h2>
+
+            <h3>Selection Tools:</h3>
+            <ol class="test-steps">
+                <li>Click the mouse pointer icon to open the Selection Tools menu</li>
+                <li>Choose Rectangular, Circular, or Lasso selection</li>
+                <li>Click and drag on the canvas to make your selection</li>
+                <li>Release to finalize - selected pixels will be copied to buffer</li>
+                <li>Use Ctrl+C to copy to clipboard (notification will show)</li>
+            </ol>
+
+            <h3>Lighten/Darken Tool:</h3>
+            <ol class="test-steps">
+                <li>Click the adjust icon (sun/moon) or press K</li>
+                <li>Enter a brightness factor when prompted</li>
+                <li>1.2 = lighten, 0.8 = darken, 1.0 = no change</li>
+                <li>The entire active layer will be adjusted</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h2>📋 Keyboard Shortcuts</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="background: #f0f0f0;">
+                    <th style="padding: 8px; text-align: left; border-bottom: 2px solid #ddd;">Key</th>
+                    <th style="padding: 8px; text-align: left; border-bottom: 2px solid #ddd;">Tool</th>
+                    <th style="padding: 8px; text-align: left; border-bottom: 2px solid #ddd;">Description</th>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;"><span class="code">1</span></td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">Rectangular Selection</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">Draw rectangular selections</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;"><span class="code">2</span></td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">Circular Selection</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">Draw circular/elliptical selections</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;"><span class="code">3</span></td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">Lasso Selection</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">Draw freehand selections</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;"><span class="code">K</span></td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">Lighten/Darken</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">Adjust layer brightness</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="test-section">
+            <h2>🎨 Visual Features</h2>
+            <ul class="test-steps">
+                <li>Selection tools show <span class="success">green marching ants</span> during selection</li>
+                <li>Lighten/Darken tool has <span class="success">gradient background</span> animation</li>
+                <li>Selection tools menu has <span class="success">smooth hover effects</span></li>
+                <li>All tools integrate seamlessly with existing toolbar</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0; padding: 20px; background: #f0f0f0; border-radius: 8px;">
+            <p style="margin: 0; color: #666;">🎉 All features implemented successfully!</p>
+            <p style="margin: 5px 0 0 0; color: #999; font-size: 14px;">Ready to test in the main application.</p>
+        </div>
+    </div>
+</body>
+</html>

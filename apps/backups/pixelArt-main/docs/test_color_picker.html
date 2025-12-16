@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Color Picker</title>
+    <script src="js/config.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/dom.js"></script>
+    <script src="js/color-manager.js"></script>
+    <script src="js/tool-manager.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .test-step {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .test-result {
+            font-weight: bold;
+            color: green;
+        }
+        .test-fail {
+            font-weight: bold;
+            color: red;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #testCanvas {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Color Picker Test</h1>
+        <p>This test verifies that the color picker tool correctly reads pixel colors from the canvas.</p>
+
+        <div class="test-step">
+            <h3>Test Canvas</h3>
+            <canvas id="testCanvas" width="100" height="100"></canvas>
+            <button onclick="setupTestCanvas()">Setup Test Canvas</button>
+        </div>
+
+        <div class="test-step">
+            <h3>Test 1: Pick color from red pixel</h3>
+            <button onclick="testPickRedColor()">Pick Red Color (10,10)</button>
+            <div id="test1-result"></div>
+        </div>
+
+        <div class="test-step">
+            <h3>Test 2: Pick color from green pixel</h3>
+            <button onclick="testPickGreenColor()">Pick Green Color (50,50)</button>
+            <div id="test2-result"></div>
+        </div>
+
+        <div class="test-step">
+            <h3>Test 3: Pick color from blue pixel</h3>
+            <button onclick="testPickBlueColor()">Pick Blue Color (10,50)</button>
+            <div id="test3-result"></div>
+        </div>
+
+        <div class="test-step">
+            <h3>Test 4: Pick color from transparent pixel</h3>
+            <button onclick="testPickTransparentColor()">Pick Transparent Color (50,10)</button>
+            <div id="test4-result"></div>
+        </div>
+
+        <script>
+            // Mock UI object for testing
+            window.UI = {
+                toolBtns: [],
+                colorPicker: {
+                    value: '#000000'
+                },
+                colorHex: {
+                    textContent: '#000000'
+                },
+                opacitySlider: {
+                    value: '1.00'
+                }
+            };
+
+            // Mock palette container
+            window.UI.paletteContainer = {
+                innerHTML: '',
+                appendChild: function(element) {
+                    this.innerHTML += element.outerHTML;
+                }
+            };
+
+            function setupTestCanvas() {
+                const canvas = document.getElementById('testCanvas');
+                const ctx = canvas.getContext('2d');
+
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw colored squares
+                ctx.fillStyle = '#FF0000'; // Red
+                ctx.fillRect(5, 5, 10, 10);
+
+                ctx.fillStyle = '#00FF00'; // Green
+                ctx.fillRect(45, 45, 10, 10);
+
+                ctx.fillStyle = '#0000FF'; // Blue
+                ctx.fillRect(5, 45, 10, 10);
+
+                // Leave (45,5) area transparent
+
+                console.log('Test canvas setup complete');
+                return ctx;
+            }
+
+            function testPickRedColor() {
+                // Setup canvas first
+                const testCtx = setupTestCanvas();
+
+                // Mock the composition canvas
+                const compositionCanvas = document.createElement('canvas');
+                compositionCanvas.id = 'layer-composition';
+                compositionCanvas.width = 100;
+                compositionCanvas.height = 100;
+                document.body.appendChild(compositionCanvas);
+                const compCtx = compositionCanvas.getContext('2d');
+
+                // Copy test canvas to composition canvas
+                compCtx.drawImage(document.getElementById('testCanvas'), 0, 0);
+
+                // Reset state
+                State.color = '#000000';
+                State.opacity = 1.0;
+                UI.colorPicker.value = '#000000';
+                UI.colorHex.textContent = '#000000';
+                UI.opacitySlider.value = '1.00';
+
+                console.log('Before picking red color:', 'State.color =', State.color);
+                ToolManager.pickColor(10, 10);
+                console.log('After picking red color:', 'State.color =', State.color);
+
+                const resultDiv = document.getElementById('test1-result');
+                if (State.color.toUpperCase() === '#FF0000') {
+                    resultDiv.innerHTML = '<span class="test-result">✓ PASS: Color correctly picked as ' + State.color + '</span>';
+                } else {
+                    resultDiv.innerHTML = '<span class="test-fail">✗ FAIL: Color picked as ' + State.color + ' (expected #FF0000)</span>';
+                }
+
+                // Clean up
+                document.body.removeChild(compositionCanvas);
+            }
+
+            function testPickGreenColor() {
+                // Setup canvas first
+                const testCtx = setupTestCanvas();
+
+                // Mock the composition canvas
+                const compositionCanvas = document.createElement('canvas');
+                compositionCanvas.id = 'layer-composition';
+                compositionCanvas.width = 100;
+                compositionCanvas.height = 100;
+                document.body.appendChild(compositionCanvas);
+                const compCtx = compositionCanvas.getContext('2d');
+
+                // Copy test canvas to composition canvas
+                compCtx.drawImage(document.getElementById('testCanvas'), 0, 0);
+
+                // Reset state
+                State.color = '#000000';
+                State.opacity = 1.0;
+                UI.colorPicker.value = '#000000';
+                UI.colorHex.textContent = '#000000';
+                UI.opacitySlider.value = '1.00';
+
+                console.log('Before picking green color:', 'State.color =', State.color);
+                ToolManager.pickColor(50, 50);
+                console.log('After picking green color:', 'State.color =', State.color);
+
+                const resultDiv = document.getElementById('test2-result');
+                if (State.color.toUpperCase() === '#00FF00') {
+                    resultDiv.innerHTML = '<span class="test-result">✓ PASS: Color correctly picked as ' + State.color + '</span>';
+                } else {
+                    resultDiv.innerHTML = '<span class="test-fail">✗ FAIL: Color picked as ' + State.color + ' (expected #00FF00)</span>';
+                }
+
+                // Clean up
+                document.body.removeChild(compositionCanvas);
+            }
+
+            function testPickBlueColor() {
+                // Setup canvas first
+                const testCtx = setupTestCanvas();
+
+                // Mock the composition canvas
+                const compositionCanvas = document.createElement('canvas');
+                compositionCanvas.id = 'layer-composition';
+                compositionCanvas.width = 100;
+                compositionCanvas.height = 100;
+                document.body.appendChild(compositionCanvas);
+                const compCtx = compositionCanvas.getContext('2d');
+
+                // Copy test canvas to composition canvas
+                compCtx.drawImage(document.getElementById('testCanvas'), 0, 0);
+
+                // Reset state
+                State.color = '#000000';
+                State.opacity = 1.0;
+                UI.colorPicker.value = '#000000';
+                UI.colorHex.textContent = '#000000';
+                UI.opacitySlider.value = '1.00';
+
+                console.log('Before picking blue color:', 'State.color =', State.color);
+                ToolManager.pickColor(10, 50);
+                console.log('After picking blue color:', 'State.color =', State.color);
+
+                const resultDiv = document.getElementById('test3-result');
+                if (State.color.toUpperCase() === '#0000FF') {
+                    resultDiv.innerHTML = '<span class="test-result">✓ PASS: Color correctly picked as ' + State.color + '</span>';
+                } else {
+                    resultDiv.innerHTML = '<span class="test-fail">✗ FAIL: Color picked as ' + State.color + ' (expected #0000FF)</span>';
+                }
+
+                // Clean up
+                document.body.removeChild(compositionCanvas);
+            }
+
+            function testPickTransparentColor() {
+                // Setup canvas first
+                const testCtx = setupTestCanvas();
+
+                // Mock the composition canvas
+                const compositionCanvas = document.createElement('canvas');
+                compositionCanvas.id = 'layer-composition';
+                compositionCanvas.width = 100;
+                compositionCanvas.height = 100;
+                document.body.appendChild(compositionCanvas);
+                const compCtx = compositionCanvas.getContext('2d');
+
+                // Copy test canvas to composition canvas
+                compCtx.drawImage(document.getElementById('testCanvas'), 0, 0);
+
+                // Reset state
+                State.color = '#000000';
+                State.opacity = 1.0;
+                UI.colorPicker.value = '#000000';
+                UI.colorHex.textContent = '#000000';
+                UI.opacitySlider.value = '1.00';
+
+                console.log('Before picking transparent color:', 'State.color =', State.color);
+                ToolManager.pickColor(50, 10); // This should be transparent
+                console.log('After picking transparent color:', 'State.color =', State.color);
+
+                const resultDiv = document.getElementById('test4-result');
+                if (State.color === '#000000') {
+                    resultDiv.innerHTML = '<span class="test-result">✓ PASS: Transparent color correctly ignored, color remains ' + State.color + '</span>';
+                } else {
+                    resultDiv.innerHTML = '<span class="test-fail">✗ FAIL: Transparent color picked as ' + State.color + ' (expected no change)</span>';
+                }
+
+                // Clean up
+                document.body.removeChild(compositionCanvas);
+            }
+        </script>
+    </div>
+</body>
+</html>

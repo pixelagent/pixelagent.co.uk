@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Move Tool Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .info { background-color: #e7f3ff; color: #004085; }
+        button { padding: 8px 16px; margin: 5px; cursor: pointer; }
+        canvas { border: 1px solid #ccc; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Move Tool Test</h1>
+    <p>This test verifies that the enhanced move tool is working correctly.</p>
+
+    <div id="testResults"></div>
+
+    <div style="margin-top: 20px;">
+        <h3>Manual Test Instructions:</h3>
+        <ol>
+            <li>Open the main application</li>
+            <li>Draw some content on a layer</li>
+            <li>Click the Move tool button in the transform panel</li>
+            <li>Click and drag on the canvas to move the content</li>
+            <li>Verify that you see a semi-transparent preview during dragging</li>
+            <li>Verify that the content moves when you release the mouse</li>
+            <li>Verify that the Move tool button stays highlighted (active)</li>
+            <li>Verify that you see a notification when the move is complete</li>
+        </ol>
+    </div>
+
+    <script>
+        // Test the enhanced move tool functionality
+        const testResults = [];
+
+        function addTestResult(testName, success, message) {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${success ? 'success' : error ? 'error' : 'info'}`;
+            resultDiv.innerHTML = `<strong>${testName}:</strong> ${message}`;
+            document.getElementById('testResults').appendChild(resultDiv);
+            testResults.push({testName, success, message});
+            console.log(`${testName}: ${success ? 'PASS' : 'FAIL'} - ${message}`);
+        }
+
+        // Test 1: Check if showMovePreview method exists
+        try {
+            if (typeof ToolManager !== 'undefined' && typeof ToolManager.showMovePreview === 'function') {
+                addTestResult('Move Preview Method', true, 'showMovePreview method exists');
+            } else {
+                addTestResult('Move Preview Method', false, 'showMovePreview method is missing');
+            }
+        } catch (e) {
+            addTestResult('Move Preview Method', false, `Error checking method: ${e.message}`);
+        }
+
+        // Test 2: Check if move tool enhancements are in place
+        try {
+            const moveToolCode = ToolManager.move.toString();
+            if (moveToolCode.includes('showMovePreview') && moveToolCode.includes('State.tool === \'move\'')) {
+                addTestResult('Move Tool Enhancement', true, 'Move tool has preview functionality');
+            } else {
+                addTestResult('Move Tool Enhancement', false, 'Move tool preview functionality not found');
+            }
+        } catch (e) {
+            addTestResult('Move Tool Enhancement', false, `Error checking move tool: ${e.message}`);
+        }
+
+        // Test 3: Check if end method clears preview
+        try {
+            const endToolCode = ToolManager.end.toString();
+            if (endToolCode.includes('pCtx.clearRect') && endToolCode.includes('pCtx.setLineDash')) {
+                addTestResult('Preview Cleanup', true, 'Move tool cleans up preview after operation');
+            } else {
+                addTestResult('Preview Cleanup', false, 'Preview cleanup not found');
+            }
+        } catch (e) {
+            addTestResult('Preview Cleanup', false, `Error checking cleanup: ${e.message}`);
+        }
+
+        // Test 4: Check if UI indicators are implemented
+        try {
+            const setToolCode = ToolManager.setTool.toString();
+            if (setToolCode.includes('transform-container') && setToolCode.includes('active')) {
+                addTestResult('UI Indicators', true, 'Transform tool UI indicators implemented');
+            } else {
+                addTestResult('UI Indicators', false, 'UI indicators not properly implemented');
+            }
+        } catch (e) {
+            addTestResult('UI Indicators', false, `Error checking UI indicators: ${e.message}`);
+        }
+
+        // Summary
+        const passedTests = testResults.filter(r => r.success).length;
+        const totalTests = testResults.length;
+
+        const summaryDiv = document.createElement('div');
+        summaryDiv.style.marginTop = '20px';
+        summaryDiv.style.padding = '15px';
+        summaryDiv.style.backgroundColor = passedTests === totalTests ? '#d4edda' : '#fff3cd';
+        summaryDiv.style.borderRadius = '4px';
+        summaryDiv.innerHTML = `<strong>Test Summary:</strong> ${passedTests}/${totalTests} tests passed`;
+
+        document.getElementById('testResults').appendChild(summaryDiv);
+
+        // Log summary to console
+        console.log(`Test Summary: ${passedTests}/${totalTests} tests passed`);
+        if (passedTests === totalTests) {
+            console.log('Move tool enhancements are properly implemented!');
+        } else {
+            console.log('Some move tool features need attention.');
+        }
+    </script>
+</body>
+</html>

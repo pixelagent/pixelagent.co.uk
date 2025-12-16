@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Effects Panel Test</title>
+    <link rel="stylesheet" href="fonts/fontawesome-free-6.5.0/css/all.min.css">
+    <style>
+        /* Basic styles for testing */
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a2e;
+            color: white;
+            padding: 20px;
+        }
+
+        .panel-section {
+            background: #16213e;
+            border: 1px solid #2d3748;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: #1e293b;
+            padding: 12px;
+            border-bottom: 1px solid #2d3748;
+        }
+
+        .section-body {
+            padding: 12px;
+        }
+
+        #effects-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .tool-btn {
+            background: #1e293b;
+            border: 1px solid #2d3748;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tool-btn:hover {
+            background: #25334a;
+        }
+
+        .tool-btn.active {
+            background: #00ff41;
+            color: black;
+            border-color: #00ff41;
+        }
+
+        .sub-panel-section {
+            background: #1e293b;
+            border: 1px solid #2d3748;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 8px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .test-info {
+            background: #00ff41;
+            color: black;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Effects Panel Tab System Test</h1>
+
+    <div class="test-info">
+        <strong>Test Instructions:</strong> Click each button below. Only one content section should be visible at a time.
+    </div>
+
+    <div id="panel-effects" class="panel-section">
+        <div class="section-header">
+            <h2>Effects Panel</h2>
+        </div>
+        <div class="section-body">
+            <div id="effects-container">
+                <button class="tool-btn" data-tool="tool" title="Mirror (X)" data-type="mirror"
+                    data-tooltip="**Mirror Tool**" data-content="mirror-options"><i class="fas fa-columns"></i> Mirror</button>
+                <button class="tool-btn" data-tool="tool" title="Dither (D)" data-type="dither"
+                    data-tooltip="**Dither Tool**" data-content="dither-options"><i class="fas fa-th"></i> Dither</button>
+                <button class="tool-btn" data-tool="tool" title="Contrast" data-type="contrast"
+                    data-tooltip="**Contrast Tool**" data-content="contrast-options"><i class="fas fa-sun"></i> Contrast</button>
+                <button class="tool-btn" data-tool="tool" id="filtersBtn" title="Filters"
+                    data-type="filters" data-tooltip="**Custom Filters**" data-content="filters-list"><i class="fas fa-magic"></i> Filters</button>
+            </div>
+
+            <div id="mirror-options" class="sub-panel-section">
+                <h3>Mirror Options</h3>
+                <p>This is the mirror options panel. It should only be visible when the Mirror button is active.</p>
+            </div>
+
+            <div id="dither-options" class="sub-panel-section hidden">
+                <h3>Dither Options</h3>
+                <p>This is the dither options panel. It should only be visible when the Dither button is active.</p>
+            </div>
+
+            <div id="contrast-options" class="sub-panel-section hidden">
+                <h3>Contrast Options</h3>
+                <p>This is the contrast options panel. It should only be visible when the Contrast button is active.</p>
+            </div>
+
+            <div id="filters-list" class="sub-panel-section hidden">
+                <h3>Filters List</h3>
+                <p>This is the filters list panel. It should only be visible when the Filters button is active.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-info">
+        <strong>Expected Behavior:</strong>
+        <ul>
+            <li>Only one content section should be visible at a time</li>
+            <li>The active button should have a green background</li>
+            <li>Clicking a different button should hide the current content and show the new content</li>
+            <li>All buttons should work together as a tab system</li>
+        </ul>
+    </div>
+
+    <script>
+        // Simplified version of the RightPanelManager for testing
+        class EffectsTabManager {
+            constructor() {
+                this.activeEffectsTab = 'mirror'; // Default active tab
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                // Set initial active tab
+                this.setActiveEffectsTab(this.activeEffectsTab);
+            }
+
+            setActiveEffectsTab(tabType) {
+                // Hide all sub-panels
+                const allPanels = document.querySelectorAll('#panel-effects .sub-panel-section');
+                allPanels.forEach(panel => {
+                    panel.classList.add('hidden');
+                });
+
+                // Show selected panel
+                const selectedPanel = document.getElementById(this.getPanelId(tabType));
+                if (selectedPanel) {
+                    selectedPanel.classList.remove('hidden');
+                }
+
+                // Update button highlighting
+                const allButtons = document.querySelectorAll('#effects-container [data-type]');
+                allButtons.forEach(button => {
+                    if (button.dataset.type === tabType) {
+                        button.classList.add('active');
+                    } else {
+                        button.classList.remove('active');
+                    }
+                });
+
+                this.activeEffectsTab = tabType;
+            }
+
+            getPanelId(effectType) {
+                const panelMap = {
+                    'mirror': 'mirror-options',
+                    'dither': 'dither-options',
+                    'contrast': 'contrast-options',
+                    'filters': 'filters-list'
+                };
+                return panelMap[effectType];
+            }
+
+            bindEvents() {
+                // Effects panel button clicks
+                document.addEventListener('click', (e) => {
+                    const effectButton = e.target.closest('[data-type]');
+                    if (effectButton && effectButton.closest('#effects-container')) {
+                        e.preventDefault();
+                        const effectType = effectButton.dataset.type;
+                        this.setActiveEffectsTab(effectType);
+                    }
+                });
+            }
+        }
+
+        // Initialize the effects tab manager
+        document.addEventListener('DOMContentLoaded', () => {
+            window.effectsTabManager = new EffectsTabManager();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Fix Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .test-result {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .settings-display {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Tutorial System Fix Test</h1>
+        <p>This test verifies that the tutorial system respects the settings from SettingsManager.</p>
+
+        <div class="test-section">
+            <div class="test-title">Test 1: SettingsManager Integration</div>
+            <div class="test-result" id="test1-result">
+                Testing if SettingsManager is properly integrated with TutorialSystem...
+            </div>
+        </div>
+
+        <div class="test-section">
+            <div class="test-title">Test 2: Tutorial Auto-Start Logic</div>
+            <div class="test-result" id="test2-result">
+                Testing if tutorial auto-start respects SettingsManager settings...
+            </div>
+        </div>
+
+        <div class="test-section">
+            <div class="test-title">Test 3: Settings State Verification</div>
+            <div class="settings-display">
+                <strong>Current Settings:</strong>
+                <div id="settings-display"></div>
+            </div>
+            <div class="test-result" id="test3-result">
+                Verifying settings state consistency...
+            </div>
+        </div>
+
+        <div class="test-section">
+            <div class="test-title">Manual Test Controls</div>
+            <button onclick="testTutorialWithSettingsDisabled()">Test with Tutorials Disabled</button>
+            <button onclick="testTutorialWithSettingsEnabled()">Test with Tutorials Enabled</button>
+            <button onclick="resetAndTest()">Reset Settings and Test</button>
+            <div class="test-result" id="manual-test-result" style="margin-top: 10px;"></div>
+        </div>
+    </div>
+
+    <!-- Load the required scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/tutorialConfig.js"></script>
+    <script src="js/settings-manager.js"></script>
+    <script src="js/tutorialSystem.js"></script>
+
+    <script>
+        // Mock app object
+        const app = {
+            tutorialConfig: tutorialConfig
+        };
+
+        // Initialize SettingsManager
+        SettingsManager.init();
+
+        // Test functions
+        function runTests() {
+            test1();
+            test2();
+            test3();
+        }
+
+        function test1() {
+            const resultElement = document.getElementById('test1-result');
+
+            try {
+                // Check if SettingsManager exists and has the expected structure
+                if (typeof SettingsManager !== 'undefined' && SettingsManager.settings) {
+                    resultElement.textContent = '✅ SettingsManager is available and has settings property';
+                    resultElement.className = 'test-result success';
+                } else {
+                    resultElement.textContent = '❌ SettingsManager is not properly initialized';
+                    resultElement.className = 'test-result error';
+                }
+            } catch (error) {
+                resultElement.textContent = '❌ Error testing SettingsManager: ' + error.message;
+                resultElement.className = 'test-result error';
+            }
+        }
+
+        function test2() {
+            const resultElement = document.getElementById('test2-result');
+
+            try {
+                // Create a mock tutorial system to test the logic
+                const mockTutorialSystem = {
+                    app: app,
+                    config: app.tutorialConfig,
+                    autoStartTutorialIfEnabled: function() {
+                        // This should use SettingsManager.settings.enableTutorials
+                        let tutorialsEnabled = false;
+
+                        if (typeof SettingsManager !== 'undefined') {
+                            tutorialsEnabled = SettingsManager.settings.enableTutorials;
+                        }
+
+                        return tutorialsEnabled;
+                    }
+                };
+
+                const currentSetting = SettingsManager.settings.enableTutorials;
+                const autoStartResult = mockTutorialSystem.autoStartTutorialIfEnabled();
+
+                if (autoStartResult === currentSetting) {
+                    resultElement.textContent = `✅ Auto-start logic correctly respects SettingsManager (tutorials ${currentSetting ? 'enabled' : 'disabled'})`;
+                    resultElement.className = 'test-result success';
+                } else {
+                    resultElement.textContent = `❌ Auto-start logic does not match SettingsManager (Settings: ${currentSetting}, Logic: ${autoStartResult})`;
+                    resultElement.className = 'test-result error';
+                }
+            } catch (error) {
+                resultElement.textContent = '❌ Error testing auto-start logic: ' + error.message;
+                resultElement.className = 'test-result error';
+            }
+        }
+
+        function test3() {
+            const resultElement = document.getElementById('test3-result');
+            const settingsDisplay = document.getElementById('settings-display');
+
+            try {
+                // Display current settings
+                settingsDisplay.innerHTML = `
+                    <div><strong>enableTutorials:</strong> ${SettingsManager.settings.enableTutorials}</div>
+                    <div><strong>showTutorialHints:</strong> ${SettingsManager.settings.showTutorialHints}</div>
+                `;
+
+                // Test settings consistency
+                const settings = SettingsManager.getSettings();
+                if (settings.enableTutorials === SettingsManager.settings.enableTutorials) {
+                    resultElement.textContent = '✅ Settings state is consistent';
+                    resultElement.className = 'test-result success';
+                } else {
+                    resultElement.textContent = '❌ Settings state is inconsistent';
+                    resultElement.className = 'test-result error';
+                }
+            } catch (error) {
+                resultElement.textContent = '❌ Error testing settings state: ' + error.message;
+                resultElement.className = 'test-result error';
+            }
+        }
+
+        // Manual test functions
+        function testTutorialWithSettingsDisabled() {
+            const resultElement = document.getElementById('manual-test-result');
+
+            // Save current setting
+            const originalSetting = SettingsManager.settings.enableTutorials;
+
+            try {
+                // Disable tutorials
+                SettingsManager.settings.enableTutorials = false;
+
+                // Create tutorial system
+                const tutorialSystem = new TutorialSystem(app);
+
+                // Test if it respects the disabled setting
+                const autoStartResult = tutorialSystem.autoStartTutorialIfEnabled();
+
+                if (!autoStartResult) {
+                    resultElement.textContent = '✅ Tutorial correctly did NOT auto-start when disabled in settings';
+                    resultElement.className = 'test-result success';
+                } else {
+                    resultElement.textContent = '❌ Tutorial incorrectly auto-started when disabled in settings';
+                    resultElement.className = 'test-result error';
+                }
+            } catch (error) {
+                resultElement.textContent = '❌ Error in manual test: ' + error.message;
+                resultElement.className = 'test-result error';
+            } finally {
+                // Restore original setting
+                SettingsManager.settings.enableTutorials = originalSetting;
+            }
+        }
+
+        function testTutorialWithSettingsEnabled() {
+            const resultElement = document.getElementById('manual-test-result');
+
+            // Save current setting
+            const originalSetting = SettingsManager.settings.enableTutorials;
+
+            try {
+                // Enable tutorials
+                SettingsManager.settings.enableTutorials = true;
+
+                // Create tutorial system
+                const tutorialSystem = new TutorialSystem(app);
+
+                // Test if it respects the enabled setting
+                const autoStartResult = tutorialSystem.autoStartTutorialIfEnabled();
+
+                if (autoStartResult) {
+                    resultElement.textContent = '✅ Tutorial correctly WOULD auto-start when enabled in settings';
+                    resultElement.className = 'test-result success';
+                } else {
+                    resultElement.textContent = '❌ Tutorial incorrectly did NOT auto-start when enabled in settings';
+                    resultElement.className = 'test-result error';
+                }
+            } catch (error) {
+                resultElement.textContent = '❌ Error in manual test: ' + error.message;
+                resultElement.className = 'test-result error';
+            } finally {
+                // Restore original setting
+                SettingsManager.settings.enableTutorials = originalSetting;
+            }
+        }
+
+        function resetAndTest() {
+            const resultElement = document.getElementById('manual-test-result');
+
+            try {
+                // Reset settings to defaults
+                SettingsManager.resetSettings();
+
+                // Create tutorial system
+                const tutorialSystem = new TutorialSystem(app);
+
+                // Test auto-start with default settings (should be enabled)
+                const autoStartResult = tutorialSystem.autoStartTutorialIfEnabled();
+
+                if (autoStartResult && SettingsManager.settings.enableTutorials) {
+                    resultElement.textContent = '✅ After reset, tutorial auto-start respects default enabled setting';
+                    resultElement.className = 'test-result success';
+                } else {
+                    resultElement.textContent = '❌ After reset, tutorial auto-start does not match settings';
+                    resultElement.className = 'test-result error';
+                }
+            } catch (error) {
+                resultElement.textContent = '❌ Error in reset test: ' + error.message;
+                resultElement.className = 'test-result error';
+            }
+        }
+
+        // Run tests when page loads
+        window.addEventListener('load', function() {
+            // Give SettingsManager a moment to initialize
+            setTimeout(runTests, 500);
+        });
+    </script>
+</body>
+</html>

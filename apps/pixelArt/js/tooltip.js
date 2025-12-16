@@ -1,0 +1,183 @@
+// js/tooltip.js
+class Tooltip {
+    constructor() {
+        this.tooltip = null;
+        this.currentTarget = null;
+        this.hideTimer = null;
+        this.createTooltip();
+    }
+
+    createTooltip() {
+        // ... (keep standard create logic)
+        this.tooltip = document.createElement('div');
+        this.tooltip.className = 'custom-tooltip';
+        Object.assign(this.tooltip.style, {
+            position: 'absolute', background: 'rgba(10, 10, 30, 0.96)',
+            color: '#e0e7ff', padding: '12px 16px', borderRadius: '10px',
+            fontSize: '13.5px', fontFamily: "'Inter', sans-serif", lineHeight: '1.6',
+            pointerEvents: 'none', zIndex: '99999', opacity: '0',
+            transition: 'opacity 0.22s ease, transform 0.22s ease',
+            transform: 'translateY(8px)', maxWidth: '320px',
+            boxShadow: '0 10px 40px rgba(0, 255, 65, 0.35)',
+            border: '1px solid rgba(0, 255, 65, 0.5)',
+            backdropFilter: 'blur(12px)', whiteSpace: 'pre-line', wordWrap: 'break-word'
+        });
+        document.body.appendChild(this.tooltip);
+
+        this.tooltip.addEventListener('mouseenter', () => {
+            clearTimeout(this.hideTimer);
+            this.tooltip.style.pointerEvents = 'auto';
+        });
+        this.tooltip.addEventListener('mouseleave', () => {
+            this.hide();
+        });
+    }
+
+    show(text, element) {
+        clearTimeout(this.hideTimer);
+        this.currentTarget = element;
+        this.tooltip.innerHTML = text
+            .replace(/\n/g, '<br>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#00ff41">$1</strong>')
+            .replace(/--(.*?)--/g, '<em style="color:#00d9ff">$1</em>');
+
+        this.tooltip.style.opacity = '1';
+        this.tooltip.style.transform = 'translateY(0)';
+        this.tooltip.style.pointerEvents = 'auto';
+        this.positionTooltip(element);
+    }
+
+    positionTooltip(element) {
+        const rect = element.getBoundingClientRect();
+        const tooltipRect = this.tooltip.getBoundingClientRect();
+        let top = rect.bottom + 10 + window.scrollY;
+        let left = rect.left + rect.width / 2 + window.scrollX - tooltipRect.width / 2;
+        if (top + tooltipRect.height > window.innerHeight + window.scrollY - 10) {
+            top = rect.top + window.scrollY - tooltipRect.height - 10;
+        }
+        if (left < 10) left = 10;
+        if (left + tooltipRect.width > window.innerWidth - 10) {
+            left = window.innerWidth - tooltipRect.width - 10;
+        }
+        this.tooltip.style.top = top + 'px';
+        this.tooltip.style.left = left + 'px';
+    }
+
+    hide() {
+        this.hideTimer = setTimeout(() => {
+            this.tooltip.style.opacity = '0';
+            this.tooltip.style.transform = 'translateY(8px)';
+            this.tooltip.style.pointerEvents = 'none';
+            this.currentTarget = null;
+        }, 100);
+    }
+}
+
+const tooltip = new Tooltip();
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if tooltips should be enabled based on settings
+    const shouldShowTooltips = () => {
+        // Check Config first for tooltip settings
+        if (typeof Config !== 'undefined' && Config.settings && Config.settings.tooltips) {
+            return Config.settings.tooltips.enabled;
+        }
+        
+        // Fallback to SettingsManager if Config not available
+        if (typeof SettingsManager !== 'undefined') {
+            return SettingsManager.settings.showTooltips;
+        }
+        
+        // Default to false if no config found (to respect user's request)
+        return false;
+    };
+
+    // Function to update tooltip event listeners based on setting
+    const updateTooltipListeners = () => {
+        const enabled = shouldShowTooltips();
+        document.querySelectorAll('[data-tooltip]').forEach(el => {
+            // Remove existing event listeners
+            const clone = el.cloneNode(true);
+            el.parentNode.replaceChild(clone, el);
+
+            if (enabled) {
+                clone.style.cursor = 'help';
+                clone.addEventListener('mouseenter', () => {
+                    const text = clone.getAttribute('data-tooltip');
+                    if (text) tooltip.show(text, clone);
+                });
+                clone.addEventListener('mouseleave', () => {
+                    if (!tooltip.tooltip.matches(':hover')) {
+                        tooltip.hide();
+                    }
+                });
+            } else {
+                clone.style.cursor = '';
+            }
+        });
+    };
+
+    // Initial setup
+    updateTooltipListeners();
+
+    // Listen for settings changes if SettingsManager exists
+    if (typeof SettingsManager !== 'undefined') {
+        // Override the applySettings method to update tooltips
+        const originalApplySettings = SettingsManager.applySettings;
+        SettingsManager.applySettings = function() {
+            originalApplySettings.call(this);
+            updateTooltipListeners();
+        };
+    }
+
+    // Setup selection descriptions using efficient event delegation
+    const setupSelectionDescriptions = () => {
+        const selectnoteElement = document.getElementById('selectnote');
+        if (!selectnoteElement) return;
+        
+        const header = selectnoteElement.querySelector('header');
+        if (!header) return;
+        
+        // Store original header content
+        const originalHeaderContent = header.innerHTML;
+        
+        // Use event delegation on the move-container for better performance
+        const moveContainer = document.querySelector('.move-container.tool-buttons');
+        if (moveContainer) {
+            moveContainer.addEventListener('mouseover', (e) => {
+                const button = e.target.closest('.tool-btn[data-type^="select-"]');
+                if (button) {
+                    const dataContent = button.getAttribute('data-content');
+                    if (dataContent) {
+                        header.innerHTML = '<strong>' + dataContent + '</strong>';
+                    }
+                }
+            }, { passive: true });
+            
+            moveContainer.addEventListener('mouseout', (e) => {
+                // Only reset if we're leaving the container entirely, not just moving between buttons
+                if (!e.relatedTarget || !e.relatedTarget.closest('.move-container.tool-buttons')) {
+                    header.innerHTML = originalHeaderContent;
+                }
+            }, { passive: true });
+        }
+    };
+ 
+    // Initial setup for selection descriptions
+    setupSelectionDescriptions();
+ 
+    // Re-setup when content changes (for dynamic content)
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.addedNodes.length) {
+                setupSelectionDescriptions();
+            }
+        });
+    });
+ 
+    // Observe the transform panel for dynamic changes
+    const transformPanel = document.getElementById('move-options');
+    if (transformPanel) {
+        observer.observe(transformPanel, { childList: true, subtree: true });
+    }
+});

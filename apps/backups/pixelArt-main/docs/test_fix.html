@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Panel Tab Content Fix</title>
+    <style>
+        .panel-tab-content {
+            border: 1px solid red;
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Testing Panel Tab Content Fix</h1>
+
+    <div id="test-results"></div>
+
+    <script>
+        // Simulate the structure from index.html
+        const testHTML = `
+            <aside class="content" id="layers-panel">
+                <div class="panel-tab-content" data-tab-content="layers">
+                    <div class="panel-section">
+                        <div class="section-header">
+                            <span>Layers</span>
+                        </div>
+                        <div class="section-body">
+                            <button id="addLayerBtn">Add Layer</button>
+                            <div id="layers-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        `;
+
+        // Create a test container
+        const testContainer = document.createElement('div');
+        testContainer.innerHTML = testHTML;
+        document.body.appendChild(testContainer);
+
+        // Test the selectPanelTab logic
+        function testPanelTabContent() {
+            const results = [];
+
+            // Test 1: Check if panel-tab-content exists
+            const panelTabContent = testContainer.querySelector('.panel-tab-content');
+            if (panelTabContent) {
+                results.push('✅ Test 1 PASSED: panel-tab-content element found');
+            } else {
+                results.push('❌ Test 1 FAILED: panel-tab-content element not found');
+            }
+
+            // Test 2: Check if it has the correct data attribute
+            if (panelTabContent && panelTabContent.dataset.tabContent === 'layers') {
+                results.push('✅ Test 2 PASSED: data-tab-content attribute is correct');
+            } else {
+                results.push('❌ Test 2 FAILED: data-tab-content attribute is missing or incorrect');
+            }
+
+            // Test 3: Simulate the selectPanelTab function logic
+            const mockTabElement = {
+                dataset: { content: 'layers-panel' }
+            };
+
+            const relContent = testContainer.querySelector('#' + mockTabElement.dataset.content);
+            if (relContent) {
+                results.push('✅ Test 3 PASSED: Target panel found by ID');
+            } else {
+                results.push('❌ Test 3 FAILED: Target panel not found by ID');
+            }
+
+            const targetPanelContent = relContent ? relContent.querySelector('.panel-tab-content') : null;
+            if (targetPanelContent) {
+                results.push('✅ Test 4 PASSED: panel-tab-content found inside target panel');
+            } else {
+                results.push('❌ Test 4 FAILED: panel-tab-content not found inside target panel');
+            }
+
+            return results;
+        }
+
+        // Run tests and display results
+        const testResults = testPanelTabContent();
+        const resultsContainer = document.getElementById('test-results');
+        testResults.forEach(result => {
+            const p = document.createElement('p');
+            p.textContent = result;
+            resultsContainer.appendChild(p);
+        });
+
+        // Overall status
+        const passedTests = testResults.filter(result => result.includes('PASSED')).length;
+        const totalTests = testResults.length;
+        const statusP = document.createElement('p');
+        statusP.style.fontWeight = 'bold';
+        statusP.style.marginTop = '20px';
+        statusP.textContent = `Overall: ${passedTests}/${totalTests} tests passed`;
+        resultsContainer.appendChild(statusP);
+
+        if (passedTests === totalTests) {
+            statusP.style.color = 'green';
+        } else {
+            statusP.style.color = 'red';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lighten/Darken Features Test - Complete Implementation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #00ff41;
+            border-bottom: 2px solid #00ff41;
+            padding-bottom: 10px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border-left: 4px solid #00d9ff;
+        }
+        .test-section h2 {
+            color: #333;
+            margin-top: 0;
+        }
+        .test-steps {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+        .test-steps li {
+            margin: 8px 0;
+        }
+        .success {
+            color: #00ff41;
+            font-weight: bold;
+        }
+        .warning {
+            color: #ff9800;
+            font-weight: bold;
+        }
+        .code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Lighten/Darken Features Test - Complete Implementation</h1>
+
+        <div class="test-section">
+            <h2>🎯 New Lighten/Darken Features Implemented</h2>
+            <ul class="test-steps">
+                <li><span class="success">✅</span> Added dedicated panel section for Lighten/Darken tool</li>
+                <li><span class="success">✅</span> Added brightness factor slider (0.1 to 2.0 range)</li>
+                <li><span class="success">✅</span> Added quick preset buttons (Darken, Slight Darken, Normal, Slight Lighten, Lighten)</li>
+                <li><span class="success">✅</span> Modified tool to work like eraser - applies brightness directly to pixels</li>
+                <li><span class="success">✅</span> Added section toggle button for Lighten/Darken panel</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🔧 Panel Section Implementation</h2>
+
+            <h3>HTML Structure:</h3>
+            <ul class="test-steps">
+                <li>Added <span class="code"><div id="panel-lighten-darken" class="panel-section hidden"></span></li>
+                <li>Added section title with toggle button</li>
+                <li>Added brightness factor slider with display</li>
+                <li>Added visual scale indicators (0.1 Dark to 2.0 Light)</li>
+                <li>Added preset buttons container with 5 preset options</li>
+            </ul>
+
+            <h3>CSS Styling:</h3>
+            <ul class="test-steps">
+                <li>Added <span class="code">.brightness-preset</span> button styling</li>
+                <li>Added hover and active states for preset buttons</li>
+                <li>Added custom slider styling with gradient background</li>
+                <li>Added panel section styling with proper borders</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>📋 JavaScript Implementation</h2>
+
+            <h3>Input Handler Additions:</h3>
+            <ul class="test-steps">
+                <li>Added <span class="code">setupBrightnessControls()</span> method</li>
+                <li>Added <span class="code">setupBrightnessPresets()</span> method</li>
+                <li>Added brightness factor state initialization</li>
+                <li>Added slider event listener with real-time updates</li>
+                <li>Added preset button click handlers</li>
+            </ul>
+
+            <h3>Tool Manager Modifications:</h3>
+            <ul class="test-steps">
+                <li>Modified <span class="code">plot()</span> method to accept <span class="code">isLightenDarken</span> parameter</li>
+                <li>Added <span class="code">applyBrightnessToPixel()</span> method for pixel-level brightness adjustment</li>
+                <li>Added <span class="code">drawBrightnessLine()</span> method for line drawing with brightness</li>
+                <li>Modified <span class="code">start()</span> method to handle lighten/darken tool</li>
+                <li>Modified <span class="code">move()</span> method to handle lighten/darken tool</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🚀 Expected Behavior After Implementation</h2>
+            <ol class="test-steps">
+                <li>Select Lighten/Darken tool from toolbar (K key)</li>
+                <li>Lighten/Darken panel appears in right-hand panel</li>
+                <li>Adjust brightness slider or click preset buttons to set brightness factor</li>
+                <li>Click and drag on canvas to apply brightness adjustment directly to pixels</li>
+                <li>Tool works like eraser - affects existing pixels, not adding new color</li>
+                <li>Brightness adjustments are applied in real-time during dragging</li>
+                <li>Section can be toggled with +/- button like other panels</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h2>🧪 How to Test All Features</h2>
+            <ol class="test-steps">
+                <li>Open the main application in a browser</li>
+                <li><strong>Test Panel Visibility:</strong>
+                    <ul>
+                        <li>Click the Lighten/Darken tool button (or press K)</li>
+                        <li>Verify the Lighten/Darken panel appears in the right-hand panel</li>
+                        <li>Click the toggle button (-) to collapse the panel</li>
+                        <li>Click the toggle button (+) to expand the panel again</li>
+                    </ul>
+                </li>
+                <li><strong>Test Brightness Controls:</strong>
+                    <ul>
+                        <li>Adjust the brightness slider and verify the display updates</li>
+                        <li>Click each preset button and verify:
+                            <ul>
+                                <li>Slider position updates</li>
+                                <li>Display value updates</li>
+                                <li>Active button state changes</li>
+                                <li>Notification appears with correct effect name</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Test Lighten/Darken Tool Functionality:</strong>
+                    <ul>
+                        <li>Draw some colored pixels on the canvas first</li>
+                        <li>Select the Lighten/Darken tool</li>
+                        <li>Set a brightness factor (try both darkening and lightening)</li>
+                        <li>Click and drag over the colored pixels</li>
+                        <li>Verify the pixels change brightness according to the selected factor</li>
+                        <li>Try different factors and verify the effects</li>
+                        <li>Test that transparent pixels are not affected</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h2>🎨 Technical Details</h2>
+            <ul class="test-steps">
+                <li>Brightness factor range: <span class="code">0.1</span> (very dark) to <span class="code">2.0</span> (very light)</li>
+                <li>Default brightness factor: <span class="code">1.0</span> (normal, no change)</li>
+                <li>Preset factors: <span class="code">0.5, 0.8, 1.0, 1.2, 1.5</span></li>
+                <li>Brightness adjustment formula: <span class="code">pixel_value * factor</span> (clamped to 0-255)</li>
+                <li>Tool behavior: Works like eraser but modifies brightness instead of removing pixels</li>
+                <li>Brush size: Uses standard brush size from tool options</li>
+                <li>Line drawing: Uses Bresenham's algorithm for smooth lines</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>💡 Usage Tips</h2>
+            <ul class="test-steps">
+                <li>Use lower factors (<1.0) to darken pixels</li>
+                <li>Use higher factors (>1.0) to lighten pixels</li>
+                <li>Factor of 1.0 applies no change (normal)</li>
+                <li>Works best on non-transparent pixels</li>
+                <li>Can be used with different brush sizes for different effect strengths</li>
+                <li>Preset buttons provide quick access to common brightness levels</li>
+                <li>Slider allows fine-tuning of brightness adjustment</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0; padding: 20px; background: #f0f0f0; border-radius: 8px;">
+            <p style="margin: 0; color: #666;">🎉 Lighten/Darken tool fully implemented!</p>
+            <p style="margin: 5px 0 0 0; color: #999; font-size: 14px;">Tool now works like eraser, applying brightness adjustments directly to existing pixels.</p>
+        </div>
+    </div>
+</body>
+</html>
