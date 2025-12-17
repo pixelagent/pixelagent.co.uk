@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 4711.98 400">
+  <!-- Generator: Adobe Illustrator 30.1.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 136)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #6a5acd;
+      }
+
+      .st1 {
+        fill: #87ceeb;
+      }
+
+      .st2 {
+        fill: #483d8b;
+      }
+
+      .st3 {
+        fill: #fff;
+        isolation: isolate;
+        opacity: .8;
+      }
+    </style>
+  </defs>
+  <g id="background">
+    <rect class="st1" y="0" width="4711.98" height="400"/>
+    <path class="st0" d="M0,200l471.2-100,471.2,50,471.2-70,471.2,40,471.2-60,471.2,40,471.2-50,471.2,30,471.2-40,471.2,20v340H0v-200Z"/>
+  </g>
+  <g id="middle-ground">
+    <path class="st2" d="M0,250l706.8-100,706.8,50,706.8-80,706.8,60,706.8-80,706.8,60,471.2-40v280H0v-150Z"/>
+  </g>
+  <g id="foreground">
+    <ellipse class="st3" cx="2413.3" cy="90" rx="80" ry="40"/>
+    <ellipse class="st3" cx="200" cy="80" rx="80" ry="40"/>
+    <ellipse class="st3" cx="250" cy="70" rx="60" ry="30"/>
+    <ellipse class="st3" cx="600" cy="100" rx="100" ry="50"/>
+    <ellipse class="st3" cx="680" cy="90" rx="70" ry="35"/>
+    <ellipse class="st3" cx="1000" cy="60" rx="90" ry="45"/>
+    <ellipse class="st3" cx="1070" cy="50" rx="60" ry="30"/>
+    <ellipse class="st3" cx="1400" cy="90" rx="80" ry="40"/>
+    <ellipse class="st3" cx="1460" cy="80" rx="60" ry="30"/>
+    <ellipse class="st3" cx="2463.3" cy="80" rx="60" ry="30"/>
+    <ellipse class="st3" cx="2813.3" cy="110" rx="100" ry="50"/>
+    <ellipse class="st3" cx="2893.3" cy="100" rx="70" ry="35"/>
+    <ellipse class="st3" cx="3213.3" cy="70" rx="90" ry="45"/>
+    <ellipse class="st3" cx="3283.3" cy="60" rx="60" ry="30"/>
+    <ellipse class="st3" cx="3613.3" cy="100" rx="80" ry="40"/>
+    <ellipse class="st3" cx="3673.3" cy="90" rx="60" ry="30"/>
+  </g>
+</svg>

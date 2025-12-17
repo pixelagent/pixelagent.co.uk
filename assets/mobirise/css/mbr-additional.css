@@ -1539,6 +1539,14 @@ a {
   cursor: pointer;
   margin-bottom: 2rem;
 }
+.cid-v5z7CJP6NY .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.cid-v5z7CJP6NY .item {
+  padding: 0;
+  margin: 0;
+}
 .cid-v5z7CJP6NY .item-wrapper {
   position: relative;
   border-radius: 4px;
@@ -1556,6 +1564,9 @@ a {
   .cid-v5z7CJP6NY .item-wrapper .item-content {
     padding: 1rem;
   }
+}
+.cid-v5z7CJP6NY .item-wrapper {
+  background: transparent;
 }
 .cid-v5z7CJP6NY .mbr-section-btn {
   margin-top: auto !important;

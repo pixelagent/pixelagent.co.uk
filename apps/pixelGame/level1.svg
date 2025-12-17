@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 3822.32 989.86">
+  <!-- Generator: Adobe Illustrator 30.1.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 136)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #fff;
+        stroke: #000;
+        stroke-miterlimit: 10;
+      }
+
+      .st1 {
+        fill: green;
+      }
+
+      .st2 {
+        fill: gold;
+      }
+    </style>
+  </defs>
+  <g id="border">
+    <rect id="_x3C_Rectangle_x3E_" class="st0" x=".5" width="3821.32" height="989.36"/>
+  </g>
+  <g id="platforms">
+    <rect x="1487.93" y="658.8" width="1560.25" height="20"/>
+    <rect x="1687.93" y="578.8" width="100" height="20"/>
+    <rect x="1887.93" y="528.8" width="100" height="20"/>
+    <rect x="3083.59" y="532.89" width="541.71" height="150"/>
+    <rect x="58.94" y="662.89" width="800" height="20"/>
+    <rect x="258.94" y="582.89" width="100" height="20"/>
+    <rect x="458.94" y="532.89" width="100" height="20"/>
+    <rect x="908.34" y="532.89" width="541.71" height="150"/>
+  </g>
+  <g id="collectables">
+    <rect class="st2" x="1737.93" y="548.8" width="20" height="20"/>
+    <rect class="st2" x="1937.93" y="498.8" width="20" height="20"/>
+    <rect class="st2" x="308.94" y="552.89" width="20" height="20"/>
+    <rect class="st2" x="508.94" y="502.89" width="20" height="20"/>
+  </g>
+  <g id="checkpoints">
+    <rect class="st1" x="3567.7" y="478.8" width="30" height="50"/>
+  </g>
+</svg>
