@@ -5,19 +5,30 @@
     <style>
       .st0 {
         fill: #fff;
+      }
+
+      .st0, .st1, .st2 {
         stroke: #000;
         stroke-miterlimit: 10;
       }
 
-      .st1 {
+      .st3 {
         fill: green;
       }
 
+      .st1 {
+        fill: #396;
+      }
+
       .st2 {
+        fill: #3f6;
+      }
+
+      .st4 {
         fill: red;
       }
 
-      .st3 {
+      .st5 {
         fill: gold;
       }
     </style>
@@ -33,15 +44,29 @@
     <rect x="914.51" y="638.93" width="800" height="20"/>
   </g>
   <g id="collectables">
-    <rect class="st3" x="242.51" y="588.93" width="20" height="20"/>
-    <rect class="st3" x="442.51" y="548.93" width="20" height="20"/>
-    <rect class="st3" x="642.51" y="508.93" width="20" height="20"/>
+    <rect class="st5" x="242.51" y="588.93" width="20" height="20"/>
+    <rect class="st5" x="442.51" y="548.93" width="20" height="20"/>
+    <rect class="st5" x="642.51" y="508.93" width="20" height="20"/>
   </g>
   <g id="checkpoints">
-    <rect class="st1" x="1603.14" y="588.93" width="30" height="50"/>
+    <rect class="st3" x="1603.14" y="588.93" width="30" height="50"/>
   </g>
   <g id="enemies">
-    <rect class="st2" x="933.46" y="618.93" width="20" height="20"/>
-    <rect class="st2" x="731.86" y="658.93" width="20" height="20"/>
+    <rect class="st4" x="933.46" y="618.93" width="20" height="20"/>
+    <rect class="st4" x="731.86" y="658.93" width="20" height="20"/>
+  </g>
+  <g id="scenes">
+    <rect class="st1" x="751.86" y="408.89" width="103.14" height="186"/>
+  </g>
+  <g id="npcs">
+    <g id="npc">
+      <g id="show">
+        <rect class="st1" x="2068.33" y="597.5" width="28.35" height="56.69"/>
+      </g>
+      <g id="hide" class="st6">
+        <rect x="2065.71" y="567.91" width="35.01" height="25.6"/>
+        <path class="st4" d="M2080.51,583.43h1.83v-4.85h-1.83v-1.48h5.42v1.48h-1.83v4.85h1.83v1.48h-5.42v-1.48Z"/>
+      </g>
+    </g>
   </g>
 </svg>
