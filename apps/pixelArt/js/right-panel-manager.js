@@ -127,6 +127,21 @@ class RightPanelManager {
             }
         });
 
+        // Handle filters button specifically (in case it's not caught by the above)
+        document.addEventListener('click', (e) => {
+            const filtersButton = e.target.closest('#filtersBtn');
+            if (filtersButton) {
+                e.preventDefault();
+                this.setActiveEffectsTab('filters');
+
+                // Ensure the filters-options panel is visible
+                const filtersOptionsPanel = document.getElementById('filters-options');
+                if (filtersOptionsPanel) {
+                    filtersOptionsPanel.classList.remove('hidden');
+                }
+            }
+        });
+
         // Transform panel button clicks
         document.addEventListener('click', (e) => {
             const transformButton = e.target.closest('[data-content]');
@@ -141,10 +156,20 @@ class RightPanelManager {
 
         // Handle toggle section buttons
         document.addEventListener('click', (e) => {
-            // Check if the click target is a toggle button or a child of a toggle button
-            const toggleButton = e.target.closest('.toggle-sect-btn') || e.target.closest('.section-toggle');
-            if (toggleButton) {
-                const targetId = toggleButton.dataset.target;
+            // Check if the click target is a toggle button, child of a toggle button, or a section header
+            const toggleElement = e.target.closest('.toggle-sect-btn') || e.target.closest('.section-toggle') || e.target.closest('.section-header');
+            if (toggleElement) {
+                let targetId;
+                if (toggleElement.classList.contains('section-header')) {
+                    // If clicked on section-header, find the toggle button inside it
+                    const button = toggleElement.querySelector('.section-toggle');
+                    if (button) {
+                        targetId = button.dataset.target;
+                    }
+                } else {
+                    // For toggle buttons
+                    targetId = toggleElement.dataset.target;
+                }
                 if (targetId) {
                     this.toggleSection(targetId);
                 }
@@ -255,7 +280,7 @@ function initTabbedInterface() {
     // Set up tab clicking for main panel tabs
     const panelTabs = document.querySelectorAll('.panel-tab');
     panelTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
+        tab.addEventListener('click', function () {
             selectPanelTab(this);
         });
     });
@@ -285,7 +310,7 @@ function selectPanelTab(el) {
         console.error('Content not found for tab:', el.dataset.content);
         return;
     }
-    
+
 
     // Find the panel-tab-content element inside the targeted aside
     const targetPanelContent = relContent.querySelector('.panel-tab-content');
@@ -294,7 +319,7 @@ function selectPanelTab(el) {
         //console.error('Panel tab content not found inside:', el.dataset.content);
         return;
     }
-  
+
 
     // Hide ALL tab contents first
     const allTabContents = container.querySelectorAll('.panel-tab-content');

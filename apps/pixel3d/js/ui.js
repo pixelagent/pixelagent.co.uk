@@ -1,5 +1,3 @@
-import * as THREE from 'three';
-
 export class UI {
     constructor(app) {
         this.app = app;
@@ -200,15 +198,6 @@ export class UI {
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
-            // Don't interfere with arrow keys when in translate mode (let main app handle them)
-            if (this.app.selectedObject && this.app.transformControl &&
-                this.app.transformControl.mode === 'translate') {
-                const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'PageUp', 'PageDown'];
-                if (arrowKeys.includes(e.key)) {
-                    return; // Let the main app handle arrow key movement
-                }
-            }
 
             // Handle undo/redo shortcuts first
             if ((e.ctrlKey || e.metaKey) && !e.shiftKey) {
@@ -869,9 +858,6 @@ export class UI {
         // Always render the properties panel first to create the inputs
         this.renderPropertiesPanel(selectedObject);
 
-        // Update camera info display
-        this.updateCameraInfoDisplay();
-
         if (!selectedObject) {
             return;
         }
@@ -903,7 +889,7 @@ export class UI {
         this.propsContent.innerHTML = '';
 
         if (!selectedObject) {
-            this.propsContent.innerHTML = '<div class="empty-state">Select an object to edit properties</div>';
+            this.propsContent.innerHTML = '<div class="empty-state"> <p>Click on an object to edit properties</p><br> <p>Right click to deselect an object</p></div>';
             return;
         }
 
@@ -1086,65 +1072,6 @@ export class UI {
             lColGroup.appendChild(lColInput);
             this.propsContent.appendChild(lColGroup);
         }
-    }
-
-    // Update camera info display
-    updateCameraInfoDisplay() {
-        if (!this.app.camera) return;
-
-        // Create camera info container if it doesn't exist
-        let cameraInfoContainer = document.getElementById('camera-info-container');
-        if (!cameraInfoContainer) {
-            cameraInfoContainer = document.createElement('div');
-            cameraInfoContainer.id = 'camera-info-container';
-            cameraInfoContainer.className = 'camera-info-container';
-            cameraInfoContainer.style.marginTop = '15px';
-            cameraInfoContainer.style.padding = '10px';
-            cameraInfoContainer.style.backgroundColor = 'rgba(0, 217, 255, 0.05)';
-            cameraInfoContainer.style.border = '1px solid rgba(0, 217, 255, 0.2)';
-            cameraInfoContainer.style.borderRadius = '6px';
-            cameraInfoContainer.style.fontSize = '0.8rem';
-
-            // Insert after the properties content
-            const propsContent = document.getElementById('props-content');
-            if (propsContent && propsContent.parentNode) {
-                propsContent.parentNode.insertBefore(cameraInfoContainer, propsContent.nextSibling);
-            }
-        }
-
-        // Update camera info content
-        const cameraType = this.app.cameraManager ? this.app.cameraManager.currentCameraType : 'unknown';
-        const cameraPos = this.app.camera.position;
-        const cameraRot = this.app.camera.rotation;
-
-        // Get camera direction
-        const cameraDirection = new THREE.Vector3();
-        this.app.camera.getWorldDirection(cameraDirection);
-
-        cameraInfoContainer.innerHTML = `
-            <div style="font-weight: bold; color: #00d9ff; margin-bottom: 5px; display: flex; align-items: center;">
-                <i class="fas fa-camera" style="margin-right: 6px;"></i>
-                Camera Info (${cameraType.charAt(0).toUpperCase() + cameraType.slice(1)})
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;">
-                <div>
-                    <div style="color: #94a3b8; font-size: 0.7rem;">Position:</div>
-                    <div style="font-family: monospace;">X: ${cameraPos.x.toFixed(2)}</div>
-                    <div style="font-family: monospace;">Y: ${cameraPos.y.toFixed(2)}</div>
-                    <div style="font-family: monospace;">Z: ${cameraPos.z.toFixed(2)}</div>
-                </div>
-                <div>
-                    <div style="color: #94a3b8; font-size: 0.7rem;">Looking:</div>
-                    <div style="font-family: monospace;">X: ${cameraDirection.x.toFixed(2)}</div>
-                    <div style="font-family: monospace;">Y: ${cameraDirection.y.toFixed(2)}</div>
-                    <div style="font-family: monospace;">Z: ${cameraDirection.z.toFixed(2)}</div>
-                </div>
-            </div>
-            <div style="margin-top: 8px; padding: 6px; background: rgba(0, 217, 255, 0.1); border-radius: 4px; font-size: 0.7rem; color: #94a3b8;">
-                <i class="fas fa-info-circle" style="margin-right: 4px;"></i>
-                Arrow keys move objects relative to this camera view
-            </div>
-        `;
     }
 
     // Add PBR Material Properties (Metallic and Roughness)

@@ -4,50 +4,65 @@
   <defs>
     <style>
       .st0 {
+        stroke-miterlimit: 10;
+        stroke-width: 1px;
+      }
+
+      .st0, .st1, .st2, .st3 {
+        fill: #bd8666;
+      }
+
+      .st0, .st1, .st2, .st3, .st4, .st5 {
+        stroke: #000;
+      }
+
+      .st1 {
+        stroke-miterlimit: 10;
+        stroke-width: 1px;
+      }
+
+      .st2 {
+        stroke-miterlimit: 10;
+        stroke-width: 1px;
+      }
+
+      .st6 {
         fill: #396;
         stroke: #fff;
       }
 
-      .st0, .st1, .st2, .st3 {
+      .st6, .st3, .st4, .st5 {
         stroke-miterlimit: 10;
       }
 
-      .st1 {
-        fill: #bd8666;
-      }
-
-      .st1, .st2, .st3 {
-        stroke: #000;
-      }
-
-      .st4 {
+      .st7 {
         fill: green;
       }
 
-      .st5, .st2 {
+      .st8, .st4 {
         fill: #3f6;
       }
 
-      .st3 {
+      .st5 {
         fill: none;
       }
 
-      .st6 {
+      .st9 {
         fill: gold;
       }
 
-      .st7 {
+      .st10 {
         display: none;
       }
     </style>
   </defs>
   <g id="border">
-    <rect id="_x3C_Rectangle_x3E_" class="st3" x=".5" y="0" width="3821.32" height="989.36"/>
+    <rect id="_x3C_Rectangle_x3E_" class="st5" x=".5" y="0" width="3821.32" height="989.36"/>
   </g>
   <g id="scenes">
-    <rect class="st0" x="553.36" y="171.27" width="731.86" height="215.93"/>
-    <rect class="st0" x="1614.88" y="171.27" width="731.86" height="215.93"/>
-    <rect class="st0" x="2622.59" y="168.34" width="731.86" height="215.93"/>
+    <rect class="st6" x="553.36" y="171.27" width="731.86" height="215.93"/>
+    <rect class="st6" x="1614.88" y="171.27" width="731.86" height="215.93"/>
+    <rect class="st6" x="2622.59" y="168.34" width="731.86" height="215.93"/>
   </g>
   <g id="platforms">
     <rect x="1487.93" y="658.8" width="1560.25" height="20"/>
@@ -58,33 +73,35 @@
     <rect x="258.94" y="582.89" width="100" height="20"/>
     <rect x="458.94" y="532.89" width="100" height="20"/>
     <rect x="908.34" y="532.89" width="541.71" height="150"/>
+    <rect x="846.5" y="597.89" width="100" height="20"/>
+    <rect x="888.5" y="560.13" width="100" height="20"/>
   </g>
   <g id="collectables">
-    <rect class="st6" x="1737.93" y="548.8" width="20" height="20"/>
-    <rect class="st6" x="1937.93" y="498.8" width="20" height="20"/>
-    <rect class="st6" x="308.94" y="552.89" width="20" height="20"/>
-    <rect class="st6" x="508.94" y="502.89" width="20" height="20"/>
+    <rect class="st9" x="1737.93" y="548.8" width="20" height="20"/>
+    <rect class="st9" x="1937.93" y="498.8" width="20" height="20"/>
+    <rect class="st9" x="308.94" y="552.89" width="20" height="20"/>
+    <rect class="st9" x="508.94" y="502.89" width="20" height="20"/>
   </g>
   <g id="checkpoints">
-    <rect class="st4" x="3567.7" y="478.8" width="30" height="50"/>
+    <rect class="st7" x="3567.7" y="478.8" width="30" height="50"/>
   </g>
   <g id="npcs">
     <g id="npc">
       <g id="show">
-        <rect class="st2" x="2068.33" y="597.5" width="28.35" height="56.69"/>
+        <rect class="st4" x="2068.33" y="597.5" width="28.35" height="56.69"/>
       </g>
-      <g id="hide" class="st7">
+      <g id="hide" class="st10">
         <rect x="2065.71" y="567.91" width="35.01" height="25.6"/>
-        <path class="st5" d="M2080.51,583.43h1.83v-4.85h-1.83v-1.48h5.42v1.48h-1.83v4.85h1.83v1.48h-5.42v-1.48Z"/>
+        <path class="st8" d="M2080.51,583.43h1.83v-4.85h-1.83v-1.48h5.42v1.48h-1.83v4.85h1.83v1.48h-5.42v-1.48Z"/>
       </g>
     </g>
   </g>
   <g id="boxes">
-    <rect class="st1" x="1601" y="618.89" width="39" height="39"/>
-    <rect class="st1" x="1614.88" y="579.3" width="39" height="39"/>
-    <rect class="st1" x="1556.96" y="618.89" width="39" height="39" transform="translate(271.74 -452.69) rotate(17.86)"/>
-    <rect class="st1" x="1595.38" y="534.26" width="39" height="39" transform="translate(-92.11 579.51) rotate(-19.79)"/>
-    <rect class="st1" x="638.54" y="526.08" width="39" height="39" transform="translate(199.02 -175.51) rotate(17.86)"/>
-    <rect class="st1" x="589.46" y="501.54" width="39" height="39" transform="translate(-21.96 26.82) rotate(-2.48)"/>
+    <rect class="st3" x="1601" y="618.89" width="39" height="39"/>
+    <rect class="st3" x="1614.88" y="579.3" width="39" height="39"/>
+    <rect class="st1" x="1556.94" y="618.92" width="39" height="39" transform="translate(485.3 1943.09) rotate(-72.14)"/>
+    <rect class="st2" x="1595.38" y="534.31" width="39" height="39" transform="translate(-92.13 579.47) rotate(-19.79)"/>
+    <rect class="st1" x="638.52" y="526.09" width="39" height="39" transform="translate(-63.09 1004.58) rotate(-72.14)"/>
+    <rect class="st0" x="589.48" y="501.52" width="39" height="39" transform="translate(-21.97 26.84) rotate(-2.48)"/>
   </g>
 </svg>

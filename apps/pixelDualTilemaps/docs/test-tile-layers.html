@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Independent Tile Layers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .test-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .test-section {
+            border: 1px solid #444;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        button {
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #005a9e;
+        }
+        .log {
+            background: #000;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.pass {
+            background: #0a4f0a;
+            border: 1px solid #0f7f0f;
+        }
+        .status.fail {
+            background: #4f0a0a;
+            border: 1px solid #7f0f0f;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Independent Tile Layers</h1>
+    
+    <div class="test-container">
+        <div class="test-section">
+            <h3>Test 1: Basic Layer Independence</h3>
+            <button onclick="testBasicIndependence()">Run Test</button>
+            <div id="test1-status"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Test 2: Multi-Layer Independence</h3>
+            <button onclick="testMultiLayerIndependence()">Run Test</button>
+            <div id="test2-status"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Test 3: Tool State Independence</h3>
+            <button onclick="testToolStateIndependence()">Run Test</button>
+            <div id="test3-status"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Test Log</h3>
+        <div id="log" class="log"></div>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+
+    <script>
+        // Mock the required classes and objects for testing
+        const Config = {
+            TILE_DIM: 64,
+            CANVAS_SIZE: 512
+        };
+        
+        const State = {
+            layers: [],
+            currentTool: 'pencil',
+            currentColor: '#282828',
+            brushSize: 0,
+            opacity: 1.0
+        };
+        
+        // Mock TileStateManager
+        class TileStateManager {
+            constructor() {
+                this.tileStates = new Map();
+            }
+            
+            initializeTileStorage() {
+                for (let i = 0; i < 16; i++) {
+                    this.tileStates.set(i, new TileState(i));
+                }
+            }
+            
+            getTileState(tileIndex) {
+                return this.tileStates.get(tileIndex) || null;
+            }
+            
+            saveTileCanvasState(tileIndex, canvasElements) {
+                // Mock implementation
+            }
+            
+            restoreTileCanvasState(tileIndex, canvasElements) {
+                // Mock implementation
+            }
+            
+            saveTileLayerData(tileIndex, layerData) {
+                const tileState = this.getTileState(tileIndex);
+                if (!tileState) return;
+                
+                // Create deep copy
+                tileState.layerData = layerData.map(layer => ({
+                    id: layer.id,
+                    name: layer.name,
+                    visible: layer.visible,
+                    opacity: layer.opacity,
+                    canvasData: layer.canvasData
+                }));
+            }
+            
+            getTileLayerData(tileIndex) {
+                const tileState = this.getTileState(tileIndex);
+                
+                if (!tileState || !tileState.layerData) {
+                    return null;
+                }
+                
+                // Return deep copy
+                return tileState.layerData.map(layer => ({
+                    id: layer.id,
+                    name: layer.name,
+                    visible: layer.visible,
+                    opacity: layer.opacity,
+                    canvasData: layer.canvasData
+                }));
+            }
+            
+            saveTileToolState(tileIndex, toolState) {
+                const tileState = this.getTileState(tileIndex);
+                if (!tileState) return;
+                
+                tileState.toolState = { ...toolState };
+            }
+            
+            getTileToolState(tileIndex) {
+                const tileState = this.getTileState(tileIndex);
+                return tileState ? { ...tileState.toolState } : null;
+            }
+        }
+        
+        class TileState {
+            constructor(tileIndex) {
+                this.tileIndex = tileIndex;
+                this.layerData = null;
+                this.toolState = {
+                    currentTool: 'pencil',
+                    currentColor: '#282828',
+                    brushSize: 0,
+                    opacity: 1.0
+                };
+            }
+        }
+        
+        // Include the DualGridManager code (simplified for testing)
+        class DualGridManager {
+            constructor() {
+                this.selectedTile = null;
+                this.tileStateManager = new TileStateManager();
+                this.tileStateManager.initializeTileStorage();
+            }
+            
+            ensureStateLayersInitialized() {
+                if (!State.layers) {
+                    State.layers = [];
+                }
+            }
+            
+            saveCurrentTileState() {
+                if (this.selectedTile === null) return;
+                
+                const tileIndex = parseInt(this.selectedTile.dataset.index);
+                
+                this.ensureStateLayersInitialized();
+                
+                // Save layer data
+                if (State.layers) {
+                    const layerData = State.layers.map(layer => ({
+                        id: layer.id,
+                        name: layer.name,
+                        visible: layer.visible,
+                        opacity: layer.opacity,
+                        canvasData: layer.canvasData || null
+                    }));
+                    
+                    this.tileStateManager.saveTileLayerData(tileIndex, layerData);
+                }
+                
+                // Save tool state
+                const toolState = {
+                    currentTool: State.currentTool || 'pencil',
+                    currentColor: State.currentColor || '#282828',
+                    brushSize: State.brushSize || 0,
+                    opacity: State.opacity || 1.0
+                };
+                this.tileStateManager.saveTileToolState(tileIndex, toolState);
+                
+                log(`Saved state for tile ${tileIndex}`);
+            }
+            
+            async restoreTileState(tileIndex) {
+                let layerData = this.tileStateManager.getTileLayerData(tileIndex);
+                
+                // If no saved layer data exists, create default layer
+                if (!layerData) {
+                    layerData = [{
+                        id: Date.now(),
+                        name: 'Layer 1',
+                        visible: true,
+                        opacity: 1.0,
+                        canvasData: null
+                    }];
+                    log(`Created default layer for fresh tile ${tileIndex}`);
+                }
+                
+                this.ensureStateLayersInitialized();
+                
+                // Clear and restore layers
+                State.layers = [];
+                layerData.forEach(layerData => {
+                    State.layers.push({
+                        id: layerData.id,
+                        name: layerData.name,
+                        visible: layerData.visible,
+                        opacity: layerData.opacity,
+                        canvasData: layerData.canvasData
+                    });
+                });
+                
+                // Restore tool state
+                const toolState = this.tileStateManager.getTileToolState(tileIndex);
+                if (toolState) {
+                    State.currentTool = toolState.currentTool;
+                    State.currentColor = toolState.currentColor;
+                    State.brushSize = toolState.brushSize;
+                    State.opacity = toolState.opacity;
+                }
+                
+                log(`Restored state for tile ${tileIndex} with ${State.layers.length} layers`);
+            }
+            
+            selectTile(tileIndex) {
+                // Save current tile
+                if (this.selectedTile) {
+                    this.saveCurrentTileState();
+                }
+                
+                // Select new tile
+                this.selectedTile = { dataset: { index: tileIndex } };
+                
+                // Restore new tile
+                this.restoreTileState(tileIndex);
+            }
+        }
+        
+        let dualGridManager;
+        let testResults = [];
+        
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.textContent += `[${timestamp}] ${message}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        function clearLog() {
+            document.getElementById('log').textContent = '';
+        }
+        
+        function showStatus(testId, passed, message) {
+            const statusDiv = document.getElementById(`test${testId}-status`);
+            statusDiv.className = `status ${passed ? 'pass' : 'fail'}`;
+            statusDiv.textContent = message;
+            testResults.push({ test: testId, passed, message });
+        }
+        
+        // Test 1: Basic Layer Independence
+        async function testBasicIndependence() {
+            log('=== Test 1: Basic Layer Independence ===');
+            dualGridManager = new DualGridManager();
+            
+            // Select tile 0 and add a layer
+            dualGridManager.selectTile(0);
+            State.layers = [{
+                id: 1,
+                name: 'Background',
+                visible: true,
+                opacity: 1.0,
+                canvasData: 'data:image/png;base64,tile0data'
+            }];
+            log('Tile 0: Added "Background" layer');
+            
+            // Select tile 1
+            dualGridManager.selectTile(1);
+            log('Switched to Tile 1');
+            
+            // Check if tile 1 has independent layers
+            const tile1Layers = dualGridManager.tileStateManager.getTileLayerData(1);
+            if (tile1Layers && tile1Layers.length === 1 && tile1Layers[0].name === 'Layer 1') {
+                log('✓ Tile 1 has default layer (not contaminated by Tile 0)');
+                
+                // Go back to tile 0
+                dualGridManager.selectTile(0);
+                if (State.layers.length === 1 && State.layers[0].name === 'Background') {
+                    log('✓ Tile 0 still has its original layer');
+                    showStatus(1, true, 'PASSED: Tiles have independent layer data');
+                } else {
+                    log('✗ Tile 0 layer data was corrupted');
+                    showStatus(1, false, 'FAILED: Tile 0 layer data corrupted');
+                }
+            } else {
+                log('✗ Tile 1 was contaminated with Tile 0 data');
+                showStatus(1, false, 'FAILED: Cross-contamination detected');
+            }
+        }
+        
+        // Test 2: Multi-Layer Independence
+        async function testMultiLayerIndependence() {
+            log('\n=== Test 2: Multi-Layer Independence ===');
+            
+            // Tile 0: Multiple layers
+            dualGridManager.selectTile(0);
+            State.layers = [
+                { id: 1, name: 'Background', visible: true, opacity: 1.0, canvasData: 'bg' },
+                { id: 2, name: 'Foreground', visible: true, opacity: 0.8, canvasData: 'fg' }
+            ];
+            log('Tile 0: Created 2 layers');
+            
+            // Tile 1: Single layer
+            dualGridManager.selectTile(1);
+            State.layers = [
+                { id: 3, name: 'Single Layer', visible: true, opacity: 1.0, canvasData: 'single' }
+            ];
+            log('Tile 1: Created 1 layer');
+            
+            // Verify independence
+            const tile0Layers = dualGridManager.tileStateManager.getTileLayerData(0);
+            const tile1Layers = dualGridManager.tileStateManager.getTileLayerData(1);
+            
+            if (tile0Layers.length === 2 && tile1Layers.length === 1) {
+                log('✓ Tiles maintain different number of layers');
+                
+                // Switch back and verify
+                dualGridManager.selectTile(0);
+                if (State.layers.length === 2) {
+                    log('✓ Tile 0 still has 2 layers');
+                    
+                    dualGridManager.selectTile(1);
+                    if (State.layers.length === 1) {
+                        log('✓ Tile 1 still has 1 layer');
+                        showStatus(2, true, 'PASSED: Multi-layer independence maintained');
+                    } else {
+                        showStatus(2, false, 'FAILED: Tile 1 layer count changed');
+                    }
+                } else {
+                    showStatus(2, false, 'FAILED: Tile 0 layer count changed');
+                }
+            } else {
+                showStatus(2, false, 'FAILED: Layer counts not preserved');
+            }
+        }
+        
+        // Test 3: Tool State Independence
+        async function testToolStateIndependence() {
+            log('\n=== Test 3: Tool State Independence ===');
+            
+            // Tile 0: Different tool settings
+            dualGridManager.selectTile(0);
+            State.currentTool = 'brush';
+            State.currentColor = '#ff0000';
+            State.brushSize = 10;
+            log('Tile 0: Set brush tool, red color, size 10');
+            
+            // Tile 1: Different tool settings
+            dualGridManager.selectTile(1);
+            State.currentTool = 'pencil';
+            State.currentColor = '#0000ff';
+            State.brushSize = 2;
+            log('Tile 1: Set pencil tool, blue color, size 2');
+            
+            // Verify independence
+            const tile0ToolState = dualGridManager.tileStateManager.getTileToolState(0);
+            const tile1ToolState = dualGridManager.tileStateManager.getTileToolState(1);
+            
+            if (tile0ToolState.currentTool === 'brush' && 
+                tile0ToolState.currentColor === '#ff0000' &&
+                tile0ToolState.brushSize === 10 &&
+                tile1ToolState.currentTool === 'pencil' &&
+                tile1ToolState.currentColor === '#0000ff' &&
+                tile1ToolState.brushSize === 2) {
+                log('✓ Tool states are independent');
+                
+                // Switch back and verify
+                dualGridManager.selectTile(0);
+                if (State.currentTool === 'brush' && State.currentColor === '#ff0000') {
+                    log('✓ Tile 0 tool state preserved');
+                    
+                    dualGridManager.selectTile(1);
+                    if (State.currentTool === 'pencil' && State.currentColor === '#0000ff') {
+                        log('✓ Tile 1 tool state preserved');
+                        showStatus(3, true, 'PASSED: Tool state independence maintained');
+                    } else {
+                        showStatus(3, false, 'FAILED: Tile 1 tool state corrupted');
+                    }
+                } else {
+                    showStatus(3, false, 'FAILED: Tile 0 tool state corrupted');
+                }
+            } else {
+                showStatus(3, false, 'FAILED: Tool states not independent');
+            }
+        }
+        
+        // Initialize
+        window.onload = function() {
+            log('Test suite loaded. Click buttons to run tests.');
+        };
+    </script>
+</body>
+</html>

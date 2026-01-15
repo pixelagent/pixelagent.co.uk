@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Schema Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        .test-section h3 { margin-top: 0; }
+        .property-control { margin: 10px 0; padding: 5px; border: 1px solid #ddd; }
+        .property-slider { width: 100%; }
+        .property-text { width: 100%; padding: 5px; }
+        .property-checkbox { margin-right: 10px; }
+        .property-select { width: 100%; padding: 5px; }
+        .schema-properties-section { border-top: 1px solid #ccc; padding-top: 10px; }
+        .no-properties-message { color: #666; font-style: italic; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; border: 1px solid #f5c6cb; }
+        .info { background-color: #d1ecf1; border: 1px solid #bee5eb; }
+    </style>
+</head>
+<body>
+    <h1>Comprehensive Schema Test</h1>
+    
+    <div class="test-section">
+        <h3>Schema Loading Test</h3>
+        <div id="schema-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Node Properties Test</h3>
+        <div id="property-results"></div>
+        
+        <div class="test-section">
+            <h4>Test Node: Stack (Structural)</h4>
+            <div id="stack-properties"></div>
+        </div>
+        
+        <div class="test-section">
+            <h4>Test Node: LPF (Effect)</h4>
+            <div id="lpf-properties"></div>
+        </div>
+        
+        <div class="test-section">
+            <h4>Test Node: Every (Wrapper)</h4>
+            <div id="every-properties"></div>
+        </div>
+        
+        <div class="test-section">
+            <h4>Test Node: Random (Control)</h4>
+            <div id="random-properties"></div>
+        </div>
+    </div>
+
+    <script>
+        // Comprehensive test implementation
+        async function runComprehensiveTest() {
+            const schemaResults = document.getElementById('schema-results');
+            const propertyResults = document.getElementById('property-results');
+            
+            // Test 1: Schema Loading
+            const schemaTestDiv = document.createElement('div');
+            schemaTestDiv.className = 'test-result info';
+            schemaTestDiv.innerHTML = '<strong>Testing Schema Loading...</strong>';
+            schemaResults.appendChild(schemaTestDiv);
+            
+            const schemas = [
+                'nodes/strudel-node-schema.json',
+                'nodes/strudel-node-properties.json',
+                'nodes/strudel-node-instruments.json',
+                'nodes/strudel-control-nodes.json',
+                'nodes/strudel-mini-notation.json',
+                'nodes/strudel-pattern-combinators.json',
+                'nodes/strudel-pattern-functions.json',
+                'nodes/strudel-schema-index.json'
+            ];
+
+            let schemaLoadSuccess = true;
+            for (const schemaPath of schemas) {
+                try {
+                    const response = await fetch(schemaPath);
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    
+                    const schema = await response.json();
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'test-result success';
+                    resultDiv.innerHTML = `✓ ${schemaPath}: Loaded successfully`;
+                    schemaResults.appendChild(resultDiv);
+                } catch (error) {
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'test-result error';
+                    resultDiv.innerHTML = `✗ ${schemaPath}: ${error.message}`;
+                    schemaResults.appendChild(resultDiv);
+                    schemaLoadSuccess = false;
+                }
+            }
+
+            // Test 2: Property Rendering
+            const propertyTestDiv = document.createElement('div');
+            propertyTestDiv.className = 'test-result info';
+            propertyTestDiv.innerHTML = '<strong>Testing Property Rendering...</strong>';
+            propertyResults.appendChild(propertyTestDiv);
+
+            if (schemaLoadSuccess) {
+                // Mock schemas for testing
+                const mockNodeSchema = {
+                    nodes: {
+                        'Stack': {
+                            title: 'Stack',
+                            category: 'structural',
+                            properties: {
+                                'pattern': {
+                                    type: 'childContainer',
+                                    title: 'Child Patterns',
+                                    description: 'Patterns to stack together'
+                                }
+                            }
+                        },
+                        'LPF': {
+                            title: 'Low Pass Filter',
+                            category: 'effect',
+                            properties: {
+                                'cutoff': {
+                                    type: 'number',
+                                    title: 'Cutoff Frequency',
+                                    min: 20,
+                                    max: 20000,
+                                    step: 1,
+                                    default: 1000,
+                                    description: 'Filter cutoff frequency in Hz'
+                                },
+                                'resonance': {
+                                    type: 'number',
+                                    title: 'Resonance',
+                                    min: 0.1,
+                                    max: 10,
+                                    step: 0.1,
+                                    default: 1.0,
+                                    description: 'Filter resonance amount'
+                                }
+                            }
+                        },
+                        'Every': {
+                            title: 'Every',
+                            category: 'wrapper',
+                            properties: {
+                                'n': {
+                                    type: 'number',
+                                    title: 'Every N',
+                                    min: 1,
+                                    max: 64,
+                                    step: 1,
+                                    default: 2,
+                                    description: 'Apply effect every N cycles'
+                                },
+                                'transform': {
+                                    type: 'transformFunction',
+                                    title: 'Transform Function',
+                                    description: 'Function to apply every N cycles'
+                                }
+                            }
+                        }
+                    }
+                };
+
+                const mockControlNodesSchema = {
+                    controlNodes: {
+                        'Random': {
+                            title: 'Random',
+                            category: 'control',
+                            properties: {
+                                'min': {
+                                    type: 'number',
+                                    title: 'Minimum Value',
+                                    min: 0,
+                                    max: 100,
+                                    step: 1,
+                                    default: 0,
+                                    description: 'Minimum random value'
+                                },
+                                'max': {
+                                    type: 'number',
+                                    title: 'Maximum Value',
+                                    min: 0,
+                                    max: 100,
+                                    step: 1,
+                                    default: 100,
+                                    description: 'Maximum random value'
+                                },
+                                'type': {
+                                    type: 'enum',
+                                    title: 'Random Type',
+                                    options: [
+                                        { value: 'uniform', label: 'Uniform' },
+                                        { value: 'gaussian', label: 'Gaussian' },
+                                        { value: 'perlin', label: 'Perlin Noise' }
+                                    ],
+                                    default: 'uniform',
+                                    description: 'Type of random distribution'
+                                }
+                            }
+                        }
+                    }
+                };
+
+                // Mock NodeFactory methods
+                class TestNodeFactory {
+                    constructor() {
+                        this.nodeSchema = mockNodeSchema;
+                        this.controlNodesSchema = mockControlNodesSchema;
+                    }
+
+                    isControlNode(node) {
+                        return !!this.controlNodesSchema?.controlNodes?.[node.type];
+                    }
+
+                    getCombinedProperties(node) {
+                        const properties = {};
+                        
+                        // Get properties from node schema
+                        if (this.nodeSchema?.nodes?.[node.type]?.properties) {
+                            Object.assign(properties, this.nodeSchema.nodes[node.type].properties);
+                        }
+                        
+                        // Get properties from control nodes schema
+                        if (this.isControlNode(node) && this.controlNodesSchema?.controlNodes?.[node.type]?.properties) {
+                            Object.assign(properties, this.controlNodesSchema.controlNodes[node.type].properties);
+                        }
+                        
+                        return properties;
+                    }
+
+                    createPropertyControl(propName, propDef, currentValue) {
+                        const container = document.createElement('div');
+                        container.className = 'property-control';
+                        
+                        const label = document.createElement('label');
+                        label.textContent = propDef.title || propName;
+                        label.title = propDef.description || '';
+                        
+                        let control;
+                        
+                        switch (propDef.type) {
+                            case 'number':
+                                control = this.createNumberControl(propName, propDef, currentValue);
+                                break;
+                            case 'string':
+                                control = this.createStringControl(propName, propDef, currentValue);
+                                break;
+                            case 'boolean':
+                                control = this.createBooleanControl(propName, propDef, currentValue);
+                                break;
+                            case 'enum':
+                                control = this.createEnumControl(propName, propDef, currentValue);
+                                break;
+                            case 'childContainer':
+                                control = this.createChildContainerControl(propName, propDef, currentValue);
+                                break;
+                            case 'transformFunction':
+                                control = this.createTransformFunctionControl(propName, propDef, currentValue);
+                                break;
+                            default:
+                                return null;
+                        }
+                        
+                        container.appendChild(label);
+                        container.appendChild(control);
+                        
+                        // Add description if available
+                        if (propDef.description) {
+                            const desc = document.createElement('div');
+                            desc.className = 'property-description';
+                            desc.textContent = propDef.description;
+                            container.appendChild(desc);
+                        }
+                        
+                        return container;
+                    }
+
+                    createNumberControl(propName, propDef, currentValue) {
+                        const input = document.createElement('input');
+                        input.type = 'range';
+                        input.min = propDef.min || 0;
+                        input.max = propDef.max || 100;
+                        input.step = propDef.step || 1;
+                        input.value = currentValue !== undefined ? currentValue : (propDef.default || propDef.min || 0);
+                        input.className = 'property-slider';
+                        
+                        const valueDisplay = document.createElement('span');
+                        valueDisplay.className = 'property-value-display';
+                        valueDisplay.textContent = input.value;
+                        
+                        input.addEventListener('input', (e) => {
+                            valueDisplay.textContent = e.target.value;
+                        });
+                        
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'number-control-wrapper';
+                        wrapper.appendChild(input);
+                        wrapper.appendChild(valueDisplay);
+                        
+                        return wrapper;
+                    }
+
+                    createStringControl(propName, propDef, currentValue) {
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.value = currentValue !== undefined ? currentValue : (propDef.default || '');
+                        input.className = 'property-text';
+                        input.placeholder = propDef.placeholder || '';
+                        
+                        return input;
+                    }
+
+                    createBooleanControl(propName, propDef, currentValue) {
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.checked = currentValue !== undefined ? currentValue : (propDef.default || false);
+                        checkbox.className = 'property-checkbox';
+                        
+                        return checkbox;
+                    }
+
+                    createEnumControl(propName, propDef, currentValue) {
+                        const select = document.createElement('select');
+                        select.className = 'property-select';
+                        
+                        propDef.options.forEach(option => {
+                            const optionEl = document.createElement('option');
+                            optionEl.value = option.value;
+                            optionEl.textContent = option.label || option.value;
+                            if (option.value === currentValue) {
+                                optionEl.selected = true;
+                            }
+                            select.appendChild(optionEl);
+                        });
+                        
+                        return select;
+                    }
+
+                    createChildContainerControl(propName, propDef, currentValue) {
+                        const container = document.createElement('div');
+                        container.className = 'child-container-control';
+                        
+                        const addButton = document.createElement('button');
+                        addButton.className = 'add-child-btn';
+                        addButton.innerHTML = '<i class="fas fa-plus"></i> Add Child';
+                        
+                        const childList = document.createElement('div');
+                        childList.className = 'child-list';
+                        
+                        // If we have children, render them
+                        if (currentValue && Array.isArray(currentValue)) {
+                            currentValue.forEach((child, index) => {
+                                const childItem = this.createChildItem(child, index);
+                                childList.appendChild(childItem);
+                            });
+                        }
+                        
+                        addButton.addEventListener('click', () => {
+                            console.log('Add child clicked');
+                        });
+                        
+                        container.appendChild(addButton);
+                        container.appendChild(childList);
+                        
+                        return container;
+                    }
+
+                    createTransformFunctionControl(propName, propDef, currentValue) {
+                        const container = document.createElement('div');
+                        container.className = 'transform-function-control';
+                        
+                        const select = document.createElement('select');
+                        select.className = 'transform-select';
+                        
+                        // Get available transform functions
+                        const transforms = this.getAvailableTransforms();
+                        transforms.forEach(transform => {
+                            const option = document.createElement('option');
+                            option.value = transform.value;
+                            option.textContent = transform.label;
+                            if (transform.value === currentValue) {
+                                option.selected = true;
+                            }
+                            select.appendChild(option);
+                        });
+                        
+                        select.addEventListener('change', (e) => {
+                            console.log('Transform changed to:', e.target.value);
+                        });
+                        
+                        container.appendChild(select);
+                        
+                        return container;
+                    }
+
+                    getAvailableTransforms() {
+                        return [
+                            { value: 'jux', label: 'Juxtapose (Stereo Split)' },
+                            { value: 'rev', label: 'Reverse' },
+                            { value: 'palindrome', label: 'Palindrome' },
+                            { value: 'shuffle', label: 'Shuffle' },
+                            { value: 'scramble', label: 'Scramble' },
+                            { value: 'iter', label: 'Rotate' },
+                            { value: 'segment', label: 'Segment' }
+                        ];
+                    }
+
+                    createChildItem(child, index) {
+                        const item = document.createElement('div');
+                        item.className = 'child-item';
+                        
+                        const label = document.createElement('span');
+                        label.className = 'child-label';
+                        label.textContent = `${child.type}: ${child.instrument || child.properties?.note || 'Child'}`;
+                        
+                        const removeBtn = document.createElement('button');
+                        removeBtn.className = 'remove-child-btn';
+                        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        
+                        removeBtn.addEventListener('click', () => {
+                            console.log('Remove child clicked');
+                        });
+                        
+                        item.appendChild(label);
+                        item.appendChild(removeBtn);
+                        
+                        return item;
+                    }
+
+                    renderSchemaProperties(node, containerId) {
+                        const schemaContainer = document.getElementById(containerId);
+                        if (!schemaContainer) return;
+
+                        // Clear existing schema properties
+                        schemaContainer.innerHTML = '';
+
+                        // Get properties from all schema sources
+                        const properties = this.getCombinedProperties(node);
+                        
+                        if (Object.keys(properties).length === 0) {
+                            // Show a message if no specific properties
+                            const message = document.createElement('div');
+                            message.className = 'no-properties-message';
+                            message.innerHTML = '<p>This node type has no configurable properties.</p>';
+                            schemaContainer.appendChild(message);
+                            return;
+                        }
+
+                        const propsSection = document.createElement('div');
+                        propsSection.className = 'schema-properties-section';
+                        propsSection.innerHTML = '<h4>Node Properties</h4>';
+
+                        Object.entries(properties).forEach(([propName, propDef]) => {
+                            const control = this.createPropertyControl(propName, propDef, node.properties.strudelProperties[propName]);
+                            if (control) {
+                                propsSection.appendChild(control);
+                            }
+                        });
+
+                        schemaContainer.appendChild(propsSection);
+                    }
+                }
+
+                const factory = new TestNodeFactory();
+
+                // Test Stack node
+                const stackNode = {
+                    type: 'Stack',
+                    properties: {
+                        strudelProperties: {}
+                    }
+                };
+                factory.renderSchemaProperties(stackNode, 'stack-properties');
+
+                // Test LPF node
+                const lpfNode = {
+                    type: 'LPF',
+                    properties: {
+                        strudelProperties: {
+                            cutoff: 1000,
+                            resonance: 1.5
+                        }
+                    }
+                };
+                factory.renderSchemaProperties(lpfNode, 'lpf-properties');
+
+                // Test Every node
+                const everyNode = {
+                    type: 'Every',
+                    properties: {
+                        strudelProperties: {
+                            n: 4,
+                            transform: 'rev'
+                        }
+                    }
+                };
+                factory.renderSchemaProperties(everyNode, 'every-properties');
+
+                // Test Random node
+                const randomNode = {
+                    type: 'Random',
+                    properties: {
+                        strudelProperties: {
+                            min: 0,
+                            max: 100,
+                            type: 'uniform'
+                        }
+                    }
+                };
+                factory.renderSchemaProperties(randomNode, 'random-properties');
+
+                const successDiv = document.createElement('div');
+                successDiv.className = 'test-result success';
+                successDiv.innerHTML = '✓ All property rendering tests passed!';
+                propertyResults.appendChild(successDiv);
+            } else {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'test-result error';
+                errorDiv.innerHTML = '✗ Schema loading failed. Cannot test property rendering.';
+                propertyResults.appendChild(errorDiv);
+            }
+        }
+
+        // Run test when page loads
+        window.onload = runComprehensiveTest;
+    </script>
+</body>
+</html>

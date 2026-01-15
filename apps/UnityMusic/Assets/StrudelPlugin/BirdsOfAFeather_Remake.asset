@@ -1,0 +1,704 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3563e4bd7def44a91aa75ebde68bc6dc, type: 3}
+  m_Name: BirdsOfAFeather_Remake
+  m_EditorClassIdentifier: 
+  exampleTitle: BIRDS OF A FEATHER (REMAKE)
+  author: saga_3k
+  description: Birds of a Feather remake using Strudel
+  beatsPerMinute: 105
+  timeSignature: 4/4
+  samples: []
+  instruments:
+  - instrumentName: m1
+    instrumentType: 3
+    soundType: 16
+    bank: default
+    scale: 4
+    octave: 2
+    noteDuration: 1.5
+    attack: 0.025
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 1000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0.6
+    roomSize: 2
+    gain: 1.5
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 5
+    pattern: '[D@3 A@2 ~ D@2] [Cs@2 ~ A@2 ~ Cs@2]'
+    rhythm: 12,24
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Main melody with kalimba sound
+  - instrumentName: m2
+    instrumentType: 3
+    soundType: 16
+    bank: default
+    scale: 4
+    octave: 2
+    noteDuration: 1.5
+    attack: 0.025
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 1000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0.6
+    roomSize: 2
+    gain: 2
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 5
+    pattern: '[D@3 A@2 ~ D@2] [Cs@2 ~ A@2 ~ Cs@2]'
+    rhythm: 12,24
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Melody with kalimba and guitar layers
+  - instrumentName: m2_guitar
+    instrumentType: 3
+    soundType: 14
+    bank: default
+    scale: 4
+    octave: 2
+    noteDuration: 1
+    attack: 0.01
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 20000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0.6
+    roomSize: 2
+    gain: 1
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 5
+    pattern: '[D@3 A@2 ~ D@2] [Cs@2 ~ A@2 ~ Cs@2]'
+    rhythm: 12,24
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Guitar layer for melody 2
+  - instrumentName: dr
+    instrumentType: 1
+    soundType: 8
+    bank: LinnDrum
+    scale: 0
+    octave: 4
+    noteDuration: 1
+    attack: 0.01
+    decay: 0.3
+    sustain: 0.2
+    release: 0.2
+    lpf: 20000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0.3
+    roomSize: 2
+    gain: 1
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 6
+    pattern: bd:<1 0>(<3 1>,8,<0 2>:1.3), ~ sd:<15>:2.5
+    rhythm: 2
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Main drum pattern with kick and snare
+  - instrumentName: dr_hh
+    instrumentType: 1
+    soundType: 8
+    bank: LinnDrum
+    scale: 0
+    octave: 4
+    noteDuration: 1
+    attack: 0.01
+    decay: 0.3
+    sustain: 0.2
+    release: 0.2
+    lpf: 9000
+    hpf: 1000
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0.3
+    roomSize: 2
+    gain: 1
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 6
+    pattern: LinnDrum_hh(<3 2>,8)
+    rhythm: 1 1 1 1
+    velocity: .8 .6
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Hi-hat pattern
+  - instrumentName: dr_sh
+    instrumentType: 1
+    soundType: 8
+    bank: RolandTR808
+    scale: 0
+    octave: 4
+    noteDuration: 1
+    attack: 0.01
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 20000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0.6
+    roomSize: 2
+    gain: 1.5
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 6
+    pattern: sh*8
+    rhythm: 8
+    velocity: .8 .5
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Shaker pattern
+  - instrumentName: chord
+    instrumentType: 4
+    soundType: 18
+    bank: default
+    scale: 4
+    octave: 4
+    noteDuration: 1
+    attack: 0.01
+    decay: 1.5
+    sustain: 0.2
+    release: 0.25
+    lpf: 2500
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0.45
+    delayTime: 0.1
+    delayFeedback: 0.3
+    room: 0.6
+    roomSize: 2
+    gain: 1.5
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 3
+    pattern: '[[0,2,4,6] ~!3] ~ ~ ~, [-1,0,2,4] ~!3] ~ ~ ~, [1,3,5,7] ~!3]  ~ ~ ~,
+      [-2,0,1,3] ~!3]  ~ [[-2,-1,1,3] ~!3] ~'
+    rhythm: 1 1 1 1
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Chord progression with piano
+  - instrumentName: bass1note
+    instrumentType: 2
+    soundType: 12
+    bank: default
+    scale: 4
+    octave: 1
+    noteDuration: 1
+    attack: 0.2
+    decay: 0.4
+    sustain: 0.2
+    release: 0.12
+    lpf: 800
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0.45
+    delayTime: 0.1
+    delayFeedback: 0.3
+    room: 0.6
+    roomSize: 2
+    gain: 1.3
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 4
+    pattern: <0 -1 1 -2>/2
+    rhythm: 1 1 1 1
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Bass root note progression
+  - instrumentName: bassline
+    instrumentType: 2
+    soundType: 20
+    bank: default
+    scale: 4
+    octave: 2
+    noteDuration: 1
+    attack: 0.2
+    decay: 0.5
+    sustain: 0.2
+    release: 0.12
+    lpf: 1000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0.45
+    delayTime: 0.1
+    delayFeedback: 0.3
+    room: 0.6
+    roomSize: 2
+    gain: 1.5
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 4
+    pattern: <[D2!28 Cs2!4] B1*32 [E2!28 D2!4] A1*32>/2
+    rhythm: 1 1 1 1
+    velocity: rand.range(.7,1)
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Fast bassline with guitar
+  - instrumentName: chordOrg
+    instrumentType: 4
+    soundType: 29
+    bank: default
+    scale: 4
+    octave: 2
+    noteDuration: 1
+    attack: 0.01
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 20000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0.45
+    delayTime: 0.1
+    delayFeedback: 0.3
+    room: 0.6
+    roomSize: 2
+    gain: 0.6
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 3
+    pattern: <[0,2,4,6], [-1,0,2,4], [1,3,5,7], [-2,0,1,3]>/2
+    rhythm: 1 1 1 1
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Chord progression with organ
+  - instrumentName: chordArp
+    instrumentType: 3
+    soundType: 13
+    bank: default
+    scale: 4
+    octave: 4
+    noteDuration: 0.08
+    attack: 0.01
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 20000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0.45
+    delayTime: 0.1
+    delayFeedback: 0.3
+    room: 0.6
+    roomSize: 2
+    gain: 1.8
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 5
+    pattern: <[0 2 4 6]*8, [-1 0 2 4]*8, [1 3 5 7]*8, [-2 0 1 3]*8>/2
+    rhythm: 1 1 1 1
+    velocity: saw.range(.8,1)
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Chord arpeggio with guitar
+  sections:
+  - sectionName: intro
+    cycleCount: 2
+    instrumentNames:
+    - m1
+    - dr
+    sampleNames: []
+    effects: []
+    patternMask: 1 1 1 1
+    lpf: 20000
+    gain: 1
+    description: Intro section with melody and drums
+  - sectionName: verse1
+    cycleCount: 8
+    instrumentNames:
+    - m1
+    - dr
+    - chord
+    - bass1note
+    sampleNames: []
+    effects: []
+    patternMask: 1 1 1 1
+    lpf: 20000
+    gain: 1
+    description: Verse 1 with full harmony
+  - sectionName: verse2
+    cycleCount: 8
+    instrumentNames:
+    - m1
+    - dr
+    - chord
+    - bass1note
+    - bassline
+    sampleNames: []
+    effects: []
+    patternMask: 1 1 1 1
+    lpf: 20000
+    gain: 1
+    description: Verse 2 with added bassline
+  - sectionName: chorus1
+    cycleCount: 8
+    instrumentNames:
+    - m2
+    - dr
+    - chord
+    - bass1note
+    - bassline
+    - chordArp
+    sampleNames: []
+    effects: []
+    patternMask: 1 1 1 1
+    lpf: 20000
+    gain: 1
+    description: Chorus 1 with melody 2 and arpeggio
+  - sectionName: chorus2
+    cycleCount: 8
+    instrumentNames:
+    - m2
+    - dr
+    - chord
+    - bass1note
+    - bassline
+    - chordOrg
+    - chordArp
+    sampleNames: []
+    effects: []
+    patternMask: 1 1 1 1
+    lpf: 20000
+    gain: 1
+    description: Chorus 2 with organ layer
+  - sectionName: bridge
+    cycleCount: 4
+    instrumentNames:
+    - m2
+    - dr
+    - chord
+    - bass1note
+    - bassline
+    - chordOrg
+    - chordArp
+    sampleNames: []
+    effects: []
+    patternMask: 1 1 1 1
+    lpf: 20000
+    gain: 1
+    description: Bridge section
+  - sectionName: outro
+    cycleCount: 4
+    instrumentNames:
+    - m2
+    - dr
+    - bass1note
+    - bassline
+    - chordOrg
+    sampleNames: []
+    effects: []
+    patternMask: 1 1 1 1
+    lpf: 20000
+    gain: 1
+    description: Outro section
+  arrangements:
+  - arrangementName: FullSong
+    sections:
+    - sectionName: intro
+      cycleCount: 2
+      tempoMultiplier: 1
+      transition: cut
+      description: 
+    - sectionName: verse1
+      cycleCount: 8
+      tempoMultiplier: 1
+      transition: cut
+      description: 
+    - sectionName: verse2
+      cycleCount: 8
+      tempoMultiplier: 1
+      transition: cut
+      description: 
+    - sectionName: chorus1
+      cycleCount: 8
+      tempoMultiplier: 1
+      transition: cut
+      description: 
+    - sectionName: chorus2
+      cycleCount: 8
+      tempoMultiplier: 1
+      transition: cut
+      description: 
+    - sectionName: bridge
+      cycleCount: 4
+      tempoMultiplier: 1
+      transition: cut
+      description: 
+    - sectionName: outro
+      cycleCount: 4
+      tempoMultiplier: 1
+      transition: cut
+      description: 
+    description: Complete song arrangement
+  strudelCode: "// BIRDS OF A FEATHER (REMAKE)\n// by saga_3k\n// @license CC BY-NC-SA\n\nsetcps(105/60/4)
+    \n\n// melody (1 bar loop)\nlet m1 = \nnote('<[D@3 A@2 ~ D@2] [Cs@2 ~ A@2 ~ Cs@2]>'.add('12,24')).s('gm_kalimba:3').legato(1.5).fast(2)\n.attack(.025).release(.2).lp(1000)\n.room('.6:2').postgain(1.5).color('#4dbcf4')._pitchwheel({edo:12,hapRadius:3,thickness:3,circle:1})\n\n//
+    melody with guitar layer (1 bar loop)\nlet m2 = \nnote('<[D@3 A@2 ~ D@2] [Cs@2
+    ~ A@2 ~ Cs@2]>'.add('12,24'))\n.layer(\nx=>x.s('gm_kalimba:3').legato(1.5).attack(.025).release(.2).lp(1000).room('.6:2').postgain(2),\nx=>x.s('gm_acoustic_guitar_steel:6').clip(1.5).release(.2).room('.6:2').postgain(1)\n).fast(2)\n\n//
+    drum pattern (1 bar loop)\nlet dr =\nstack( s('[bd:<1 0>(<3 1>,8,<0 2>:1.3)]
+    , [~ sd:<15>:2.5]').note('B1').bank('LinnDrum')\n.decay(.3).room('.3:2').fast(2),\n\ns('[LinnDrum_hh(<3
+    2>,8)]').hp('1000').lp('9000').decay(.3).velocity(['.8 .6']).room('.3:2').fast(2),\ns('sh*8').note('B1').bank('RolandTR808').room('.6:2').velocity('[.8
+    .5]!4').postgain(1.5).fast(2))._pianoroll({vertical:0,flipTime:1,fill:0,labels:1})\n\n//
+    chord progression (8 bar loop)\nlet chord =\nn('<[[0,2,4,6] ~!3] ~ ~ ~\n[[-1,0,2,4]
+    ~!3] ~ ~ ~ \n[[1,3,5,7] ~!3]  ~ ~ ~\n[[-2,0,1,3] ~!3]  ~ [[-2,-1,1,3] ~!3] ~
+    \n>').scale('D:major').s('gm_epiano1:6')  //gm_epiano1:6 or gm_bandoneon:6\n.decay(1.5).release(.25).lp(2500).delay('.45:.1:.3').room('.6:2')\n.postgain(1.5).fast(2)\n\n//
+    bass root note (8 bar loop)\nlet bass1note =\nn('<0 -1 1 -2>/2').scale('D1:major').s('gm_lead_8_bass_lead:1')\n.lp(800).clip(.1).attack(.2).release(.12)\n.delay('.45:.1:.3').room('.6:2')\n.postgain(1.3)._pianoroll({labels:1})\n\n//
+    bassline fast guitar (8 bar loop)\nlet bassline =\nnote('<[D2!28 Cs2!4] B1*32
+    [E2!28 D2!4] A1*32>/2').s('gm_electric_bass_pick')\n.decay(.5).velocity(rand.range(.7,1).fast(4))\n.lp(1000).compressor('-20:20:10:.002:.02').room('.6:2')\n.postgain(1.5).color('white')._scope({thickness:2})\n\n//
+    chord progession organ layer (8 bar loop)\nlet chordOrg =\nn('<[0,2,4,6]\n[-1,0,2,4]\n[1,3,5,7]\n[-2,0,1,3]\n>/2').scale('D2:major').s('gm_church_organ:4')\n.legato(1).delay('.45:.1:.3').room('.6:2')\n.postgain(.6)._pianoroll({labels:1,fill:0,strikeActive:1})\n\n//
+    chord progession arp layer (8 bar loop)\nlet chordArp =\nn('<[0 2 4 6]*8\n[-1
+    0 2 4]*8\n[1 3 5 7]*8\n[-2 0 1 3]*8\n>/2').scale('D4:major').s('gm_electric_guitar_jazz:<2
+    3>')\n.legato(.08).delay('.45:.1:.3').room('.6:2').velocity(saw.range(.8,1).fast(4))\n.juxBy(1,rev())\n.postgain(1.8)\n\n//
+    arrangement\n$:arrange(\n  [2,stack(m1,dr)],\n  [8,s_polymeter(m1,dr,chord,bass1note)],\n 
+    [8,s_polymeter(m1,dr,chord,bass1note,bassline)],\n  [8,s_polymeter(m2,dr,chord,bass1note,bassline,chordArp)],\n 
+    [8,s_polymeter(m2,dr,chord,bass1note,bassline,chordOrg,chordArp)],\n  [4,s_polymeter(m2,dr,chord,bass1note,bassline,chordOrg,chordArp)],\n 
+    [4,s_polymeter(m2,arrange([2,dr],[2,silence]).fast(4),bass1note,bassline,chordOrg)]\n 
+    )\n//.color('<pink cyan green orange>').punchcard({labels:1,vertical:1,flipTime:1,fill:0,strokeActive:1,filpValue:1,fontFamily:'teletext'})"
+  references:
+    version: 2
+    RefIds: []

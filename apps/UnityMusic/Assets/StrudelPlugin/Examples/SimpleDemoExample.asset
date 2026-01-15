@@ -1,0 +1,193 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f30fce7508643a4b02fa2b6e53f305, type: 3}
+  m_Name: SimpleDemoExample
+  m_EditorClassIdentifier: 
+  exampleTitle: Simple Demo
+  author: Strudel Plugin
+  description: A simple demo example with basic patterns
+  beatsPerMinute: 120
+  timeSignature: 4/4
+  samples: []
+  instruments:
+  - instrumentName: piano
+    instrumentType: 6
+    soundType: 5
+    bank: default
+    scale: 0
+    octave: 4
+    noteDuration: 1
+    attack: 0.01
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 20000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0
+    roomSize: 0.5
+    gain: 1
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 0
+    pattern: c d e f g a b c
+    rhythm: 1 1 1 1 1 1 1 1
+    velocity: 1 1 1 1 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Simple ascending C major scale
+  - instrumentName: drums
+    instrumentType: 1
+    soundType: 8
+    bank: default
+    scale: 0
+    octave: 4
+    noteDuration: 1
+    attack: 0.01
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 20000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0
+    roomSize: 0.5
+    gain: 1
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 0
+    pattern: c2 ~ d2 ~
+    rhythm: 1 1 1 1
+    velocity: 1 0 1 0
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Simple kick-snare pattern
+  - instrumentName: bass
+    instrumentType: 2
+    soundType: 7
+    bank: default
+    scale: 0
+    octave: 2
+    noteDuration: 1
+    attack: 0.01
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 20000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0
+    roomSize: 0.5
+    gain: 1
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 0
+    pattern: c g a g
+    rhythm: 2 2 2 2
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Simple bass line
+  sections:
+  - sectionName: main
+    cycleCount: 8
+    instrumentNames:
+    - piano
+    - drums
+    - bass
+    sampleNames: []
+    effects: []
+    patternMask: 1 1 1 1 1 1 1 1
+    lpf: 20000
+    gain: 1
+    description: Main section with all instruments
+  arrangements:
+  - arrangementName: Main Arrangement
+    sections:
+    - sectionName: main
+      cycleCount: 16
+      tempoMultiplier: 1
+      transition: cut
+      description: Play main section for 16 cycles
+    description: Simple arrangement with main section
+  strudelCode: "-- Simple Strudel Demo Code\n-- This demonstrates basic pattern syntax\n\n--
+    Define instruments\npiano = sound \"piano\" | n \"c4 d4 e4 f4 g4 a4 b4 c5\" |
+    # gain 0.8\nbass = sound \"bass\" | n \"c2 g2 a2 g2\" | # gain 1.0\ndrums = sound
+    \"drum\" | n \"c2 ~ d2 ~\" | # gain 1.2\n\n-- Create patterns\nmelody = slow
+    2 $ piano\nbassline = fast 2 $ bass\nbeat = drums\n\n-- Combine patterns\nmainPattern
+    = stack [\n  melody,\n  bassline,\n  beat\n]\n\n-- Play the pattern\nmainPattern"
+  references:
+    version: 2
+    RefIds: []

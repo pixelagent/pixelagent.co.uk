@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instrument Selection Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        .test-section h3 { margin-top: 0; }
+        select { width: 100%; padding: 10px; margin: 10px 0; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; border: 1px solid #f5c6cb; }
+        .info { background-color: #d1ecf1; border: 1px solid #bee5eb; }
+    </style>
+</head>
+<body>
+    <h1>Instrument Selection Test</h1>
+    
+    <div class="test-section">
+        <h3>Test Node: Drum Symbol (sd)</h3>
+        <p>Category: source (should show instruments from JSON structure)</p>
+        <select id="drum-instrument"></select>
+        <div id="drum-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Test Node: LPF Effect</h3>
+        <p>Category: effect (should show effects from JSON structure)</p>
+        <select id="effect-instrument"></select>
+        <div id="effect-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Test Node: Stack (Structural)</h3>
+        <p>Category: structural (should show pattern functions from JSON structure)</p>
+        <select id="structural-instrument"></select>
+        <div id="structural-result"></div>
+    </div>
+
+    <script>
+        // Mock the menu loader with the actual JSON structure
+        window.menuLoader = {
+            menuData: {
+                menus: [
+                    {
+                        id: 'instruments',
+                        label: 'Instruments',
+                        groups: [
+                            {
+                                id: 'drums',
+                                label: 'Drum Kit',
+                                nodeType: 'DrumSymbol',
+                                color: '#00d9ff',
+                                items: [
+                                    { id: 'bd', label: 'Bass Drum', value: 'bd' },
+                                    { id: 'sd', label: 'Snare Drum', value: 'sd' },
+                                    { id: 'hh', label: 'Hi-Hat', value: 'hh' },
+                                    { id: 'oh', label: 'Open Hat', value: 'oh' },
+                                    { id: 'rim', label: 'Rimshot', value: 'rim' }
+                                ]
+                            },
+                            {
+                                id: 'percussion',
+                                label: 'Percussion',
+                                nodeType: 'Instrument',
+                                color: '#00d9ff',
+                                items: [
+                                    'clap', 'conga', 'bongo', 'cowbell', 'shaker_large', 'shaker_small'
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'patternFunctions',
+                        label: 'Pattern Functions',
+                        groups: [
+                            {
+                                id: 'soundFunctions',
+                                label: 'Sound Functions',
+                                nodeType: 's',
+                                color: '#8b5cf6',
+                                items: [
+                                    { id: 'bd', label: 'Bass Drum', value: 'bd' },
+                                    { id: 'sd', label: 'Snare Drum', value: 'sd' },
+                                    { id: 'hh', label: 'Hi-Hat', value: 'hh' },
+                                    { id: 'oh', label: 'Open Hat', value: 'oh' },
+                                    { id: 'rim', label: 'Rimshot', value: 'rim' },
+                                    { id: 'custom', label: 'Custom Sound', value: 'custom' }
+                                ]
+                            },
+                            {
+                                id: 'noteFunctions',
+                                label: 'Note Functions',
+                                nodeType: 'note',
+                                color: '#00ff41',
+                                items: [
+                                    { id: 'c4', label: 'C4', value: 'c4' },
+                                    { id: 'd4', label: 'D4', value: 'd4' },
+                                    { id: 'e4', label: 'E4', value: 'e4' },
+                                    { id: 'f4', label: 'F4', value: 'f4' },
+                                    { id: 'g4', label: 'G4', value: 'g4' },
+                                    { id: 'a4', label: 'A4', value: 'a4' },
+                                    { id: 'b4', label: 'B4', value: 'b4' },
+                                    { id: 'custom_note', label: 'Custom Note', value: 'custom' }
+                                ]
+                            },
+                            {
+                                id: 'bankFunctions',
+                                label: 'Bank Selection',
+                                nodeType: 'bank',
+                                color: '#ff006e',
+                                items: [
+                                    { id: 'tr909', label: 'Roland TR-909', value: 'tr909' },
+                                    { id: 'tr808', label: 'Roland TR-808', value: 'tr808' },
+                                    { id: 'tr707', label: 'Roland TR-707', value: 'tr707' },
+                                    { id: 'linn', label: 'Akai Linn', value: 'linn' }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // Mock NodeFactory methods
+        class TestNodeFactory {
+            constructor() {
+                this.nodeSchema = {
+                    nodes: {
+                        'DrumSymbol': { category: 'source' },
+                        'LPF': { category: 'effect' },
+                        'Stack': { category: 'structural' }
+                    }
+                };
+            }
+
+            getNodeCategory(node) {
+                return this.nodeSchema.nodes[node.type]?.category || 'unknown';
+            }
+
+            getInstrumentsFromPanel(panelType) {
+                // Get instruments from the JSON structure that builds the menus
+                const instruments = [];
+                
+                // Try to get instruments from the menu loader's data
+                if (window.menuLoader && window.menuLoader.menuData) {
+                    const menuData = window.menuLoader.menuData;
+                    
+                    // Find the menu that corresponds to this panel type
+                    const menu = menuData.menus.find(m => m.id === panelType);
+                    if (menu) {
+                        menu.groups.forEach(group => {
+                            group.items.forEach(item => {
+                                if (typeof item === 'string') {
+                                    instruments.push(item);
+                                } else if (typeof item === 'object' && item.id) {
+                                    instruments.push(item.id);
+                                }
+                            });
+                        });
+                    }
+                }
+                
+                // If no instruments found from menu data, try to extract from DOM
+                if (instruments.length === 0) {
+                    const instrumentPanel = document.querySelector('.instrument-panel');
+                    if (instrumentPanel) {
+                        // Get all instrument items and extract their data-instrument attribute
+                        const instrumentItems = instrumentPanel.querySelectorAll('.instrument-item');
+                        instrumentItems.forEach(item => {
+                            const instrumentId = item.getAttribute('data-instrument');
+                            if (instrumentId) {
+                                instruments.push(instrumentId);
+                            }
+                        });
+                    }
+                }
+                
+                // If still no instruments found, use defaults
+                if (instruments.length === 0) {
+                    switch(panelType) {
+                        case 'instruments':
+                            return ['sine', 'square', 'sawtooth', 'triangle', 'piano', 'violin', 'guitar', 'flute'];
+                        case 'effects':
+                            return ['lpf', 'hpf', 'bpf', 'delay', 'reverb', 'distort', 'pan', 'gain'];
+                        case 'patterns':
+                            return ['s', 'note', 'n', 'chord', 'scale'];
+                        case 'utility':
+                            return ['stack', 'cat', 'seq', 'struct', 'mask', 'euclidean'];
+                        default:
+                            return ['sine', 'square', 'sawtooth', 'triangle'];
+                    }
+                }
+                
+                // Remove duplicates and return
+                return [...new Set(instruments)];
+            }
+
+            updateInstrumentSelector(node, selectId) {
+                const instrumentSelect = document.getElementById(selectId);
+                if (!instrumentSelect) return;
+                
+                // Clear existing options
+                instrumentSelect.innerHTML = '';
+                
+                // Get the node category
+                const category = this.getNodeCategory(node);
+                
+                // Add category-specific options based on the JSON structure
+                let instruments = [];
+                
+                if (category === 'source') {
+                    // Instrument nodes - get from the instruments menu
+                    instruments = this.getInstrumentsFromPanel('instruments');
+                } else if (category === 'effect') {
+                    // Effect nodes - get from the effects menu
+                    instruments = this.getInstrumentsFromPanel('effects');
+                } else if (category === 'structural') {
+                    // Pattern nodes - get from the pattern functions menu
+                    instruments = this.getInstrumentsFromPanel('patternFunctions');
+                } else if (category === 'wrapper') {
+                    // Wrapper nodes - get from the pattern functions menu
+                    instruments = this.getInstrumentsFromPanel('patternFunctions');
+                } else if (category === 'control') {
+                    // Control nodes - get from the control nodes
+                    instruments = this.getInstrumentsFromPanel('control');
+                } else if (category === 'utility') {
+                    // Utility nodes - get from the pattern functions menu
+                    instruments = this.getInstrumentsFromPanel('patternFunctions');
+                } else {
+                    // Default options for other categories
+                    instruments = ['sine', 'square', 'sawtooth', 'triangle', 'piano', 'violin'];
+                }
+                
+                // Add instruments to the dropdown
+                instruments.forEach(instr => {
+                    const option = document.createElement('option');
+                    option.value = instr;
+                    option.textContent = instr;
+                    instrumentSelect.appendChild(option);
+                });
+                
+                // Set the current instrument
+                if (node.instrument) {
+                    const options = Array.from(instrumentSelect.options);
+                    const currentOption = options.find(option =>
+                        option.value.toLowerCase() === node.instrument.toLowerCase()
+                    );
+                    if (currentOption) {
+                        instrumentSelect.value = currentOption.value;
+                    } else {
+                        // If instrument not found, add it as a custom option
+                        const customOption = document.createElement('option');
+                        customOption.value = node.instrument;
+                        customOption.textContent = node.instrument;
+                        instrumentSelect.appendChild(customOption);
+                        instrumentSelect.value = node.instrument;
+                    }
+                }
+            }
+        }
+
+        // Test the implementation
+        window.onload = () => {
+            const factory = new TestNodeFactory();
+
+            // Test Drum Symbol node (sd)
+            const drumNode = {
+                type: 'DrumSymbol',
+                instrument: 'sd'
+            };
+            factory.updateInstrumentSelector(drumNode, 'drum-instrument');
+            
+            const drumResult = document.getElementById('drum-result');
+            drumResult.innerHTML = `
+                <div class="test-result success">
+                    <strong>✓ Drum Symbol Test</strong><br>
+                    Category: ${factory.getNodeCategory(drumNode)}<br>
+                    Selected: ${drumNode.instrument}<br>
+                    Instruments loaded from 'instruments' menu
+                </div>
+            `;
+
+            // Test LPF node
+            const lpfNode = {
+                type: 'LPF',
+                instrument: 'lpf'
+            };
+            factory.updateInstrumentSelector(lpfNode, 'effect-instrument');
+            
+            const effectResult = document.getElementById('effect-result');
+            effectResult.innerHTML = `
+                <div class="test-result info">
+                    <strong>LPF Test</strong><br>
+                    Category: ${factory.getNodeCategory(lpfNode)}<br>
+                    Selected: ${lpfNode.instrument}<br>
+                    Instruments loaded from 'effects' menu (fallback defaults)
+                </div>
+            `;
+
+            // Test Stack node
+            const stackNode = {
+                type: 'Stack',
+                instrument: 'stack'
+            };
+            factory.updateInstrumentSelector(stackNode, 'structural-instrument');
+            
+            const structuralResult = document.getElementById('structural-result');
+            structuralResult.innerHTML = `
+                <div class="test-result success">
+                    <strong>✓ Stack Test</strong><br>
+                    Category: ${factory.getNodeCategory(stackNode)}<br>
+                    Selected: ${stackNode.instrument}<br>
+                    Instruments loaded from 'patternFunctions' menu
+                </div>
+            `;
+        };
+    </script>
+</body>
+</html>

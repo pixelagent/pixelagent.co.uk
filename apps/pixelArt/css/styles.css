@@ -304,7 +304,7 @@ canvas {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow: scroll;
     background-image:
         linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
@@ -1339,6 +1339,7 @@ input[type="color"]:focus {
     gap: 4px;
 }
 
+/* Color swatch */
 .color-swatch {
     width: 32px;
     height: 32px;
@@ -1520,6 +1521,18 @@ input[type="color"]:focus {
     background: var(--bg-dark);
     border-color: var(--accent-primary);
     color: var(--accent-primary);
+}
+
+/* Special styling for the load default presets button */
+#loadDefaultPresetsBtn {
+    background: var(--accent-tertiary);
+    color: #000;
+}
+
+#loadDefaultPresetsBtn:hover {
+    background: var(--accent-primary);
+    color: #000;
+    transform: scale(1.05);
 }
 
 /* Presets Container */

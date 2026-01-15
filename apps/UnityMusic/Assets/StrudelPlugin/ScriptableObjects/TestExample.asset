@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1234567890abcdef1234567890abcdef, type: 3}
+  m_Name: TestExample
+  m_EditorClassIdentifier: 
+  exampleTitle: Test Example
+  author: Test Author
+  description: Simple test example for play buttons
+  beatsPerMinute: 120
+  timeSignature: 4/4
+  samples: []
+  instruments:
+  - instrumentName: test_synth
+    instrumentType: 0
+    soundType: 0
+    bank: default
+    scale: 0
+    octave: 4
+    noteDuration: 1
+    attack: 0.1
+    decay: 0.3
+    sustain: 0.5
+    release: 0.2
+    lpf: 1000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0
+    roomSize: 0.5
+    gain: 0.8
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 0
+    pattern: c d e f
+    rhythm: 1 1 1 1
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Simple test synth pattern
+  sections:
+  - sectionName: test_section
+    cycleCount: 4
+    instrumentNames:
+    - test_synth
+    sampleNames: []
+    effects: []
+    patternMask: 1 1 1 1
+    lpf: 20000
+    gain: 1
+    description: Test section with simple synth
+  arrangements:
+  - arrangementName: TestArrangement
+    sections:
+    - sectionName: test_section
+      cycleCount: 4
+      tempoMultiplier: 1
+      transition: cut
+      description: 
+    description: Simple test arrangement
+  strudelCode: '// Simple test pattern
+
+    let test = s(''c d e f'').note().sound(''sawtooth'').gain(0.8);
+
+    test.cpm(30);'
+  references:
+    version: 2
+    RefIds: []

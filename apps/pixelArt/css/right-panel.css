@@ -622,11 +622,21 @@
 }
 
 #addLayerBtn {
-    background: none;
-    border: none;
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
     color: var(--accent-primary);
     cursor: pointer;
     font-size: 16px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-left: auto;
+    transition: all 0.2s ease;
+}
+
+#addLayerBtn:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
 }
 
 #addLayerBtn i::before {

@@ -96,11 +96,6 @@ export class CameraManager {
         this.updateCameraSelectionDisplay();
         this.updateZoomControlsVisibility();
 
-        // Update camera helper
-        if (this.app.addCameraHelper) {
-            this.app.addCameraHelper();
-        }
-
         // Close popout menu
         const popoutMenu = document.getElementById('camera-popout-menu');
         if (popoutMenu) {
@@ -140,11 +135,6 @@ export class CameraManager {
         this.updateCameraTypeDisplay();
         this.updateCameraSelectionDisplay();
         this.updateZoomControlsVisibility();
-
-        // Update camera helper
-        if (this.app.addCameraHelper) {
-            this.app.addCameraHelper();
-        }
 
         // Close popout menu
         const popoutMenu = document.getElementById('camera-popout-menu');

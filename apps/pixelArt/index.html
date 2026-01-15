@@ -42,6 +42,13 @@
             color: white;
             border-radius: 4px;
         }
+        
+        /* High-resolution selection canvas for smooth marching ants */
+        #selection-canvas {
+            image-rendering: -webkit-optimize-contrast !important;
+            image-rendering: crisp-edges !important;
+            /* Override any pixelated rendering */
+        }
     </style>
 
 
@@ -128,9 +135,38 @@ Draw circles and ellipses"><i class="far fa-circle"></i></div>
                 </div>
             </div>
             <!-- Selection Tool -->
-            <button class="tool-btn" id="selectBtn" title="Select ()"><i class="fas fa-mouse-pointer"></i></button>
+            <div class="tool-btn menu-parent" id="selectBtn" title="Select ()" data-tooltip="**Select**
+Hover to see all available selection tools">
+                <i class="fas fa-mouse-pointer"></i>
+                <div class="tool-submenu">
+                    <div class="tool-btn" data-action="tool" data-type="select-rect" title="Rectangular selection (R)">
+                        <div class="icon-stack">
+                            <i class="fas fa-mouse-pointer base-icon"></i>
+                            <i class="far fa-square overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="tool-btn" data-action="tool" data-type="select-circle" title="Circular selection (C)">
+                        <div class="icon-stack">
+                            <i class="fas fa-mouse-pointer base-icon"></i>
+                            <i class="far fa-circle overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="tool-btn" data-action="tool" data-type="select-lasso" title="Lasso selection (H)">
+                        <div class="icon-stack">
+                            <i class="fas fa-mouse-pointer base-icon"></i>
+                            <i class="fas fa-draw-polygon overlay-icon"></i>
+                        </div>
+                    </div>
+                    <div class="tool-btn" data-action="tool" data-type="select-shape" title="Shape selection (Z)">
+                        <div class="icon-stack">
+                            <i class="fas fa-mouse-pointer base-icon"></i>
+                            <i class="fa-solid fa-bacterium overlay-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <!-- Move Tool -->
+            <!-- Selection Tool -->
             <button class="tool-btn" id="moveBtn" title="Move ()"><i class="fa-solid fa-hand"></i></button>
 
             <div class="toolbar-spacer"></div>
@@ -398,6 +434,9 @@ Draw circles and ellipses"><i class="far fa-circle"></i></div>
                                             <div class="brush-presets-actions">
                                                 <button id="addPresetBtn" class="preset-action-btn" title="Add New Preset">
                                                     <i class="fas fa-plus"></i>
+                                                </button>
+                                                <button id="loadDefaultPresetsBtn" class="preset-action-btn" title="Load Default Presets">
+                                                    <i class="fas fa-download"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -743,7 +782,7 @@ Draw circles and ellipses"><i class="far fa-circle"></i></div>
 
                                 </div>
 
-                                <div id="filters-options" class="sub-panel-section">
+                                <div id="filters-options" class="sub-panel-section hidden">
                                     <div class="section-title">
                                         <span>Filter Options</span>
                                         <div style="font-size:10px; color:var(--text-secondary); margin-top:4px;">
@@ -811,16 +850,16 @@ Draw circles and ellipses"><i class="far fa-circle"></i></div>
 
                             <div id="move-options" class="sub-panel-section">
                                 <div class="section-title">
-                                    <span>Move Options</span>
+                                    <span>Selection Options</span>
                                     <div style="font-size:10px; color:var(--text-secondary); margin-top:4px;">
-                                        Move instructions
+                                        Selection instructions
                                     </div>
                                 </div>
 
                                 <div class="move-container tool-buttons">
 
                                         <div class="tool-btn" data-action="tool" data-type="select-rect" data-tooltip="**Rectangular Selection**
-                                        Draw rectangular selections" data-title="Rectangular selection (R)">
+                                        Draw rectangular selections" >
                                             <div class="icon-stack">
                                                 <i class="fas fa-mouse-pointer base-icon"></i>
                                                 <i class="far fa-square overlay-icon"></i>
@@ -828,7 +867,7 @@ Draw circles and ellipses"><i class="far fa-circle"></i></div>
                                          
                                          </div>
                                         <div class="tool-btn" data-action="tool" data-type="select-circle" data-tooltip="**Circular Selection**
-                                        Draw circular selections" data-title="Circular selection (C)">
+                                        Draw circular selections" >
                                             <div class="icon-stack">
                                                 <i class="fas fa-mouse-pointer base-icon"></i>
                                                 <i class="far fa-circle overlay-icon"></i>
@@ -837,7 +876,7 @@ Draw circles and ellipses"><i class="far fa-circle"></i></div>
                                        
                                         </div>
                                         <div class="tool-btn" data-action="tool" data-type="select-lasso" data-tooltip="**Lasso Selection**
-                                        Draw freehand selections" data-title="Lasso selection (H)">
+                                        Draw freehand selections" >
                                             <div class="icon-stack">
                                                 <i class="fas fa-mouse-pointer base-icon"></i>
                                                 <i class="fas fa-draw-polygon overlay-icon"></i>
@@ -845,7 +884,7 @@ Draw circles and ellipses"><i class="far fa-circle"></i></div>
                                            
                                         </div>
                                          <div class="tool-btn" data-action="tool" data-type="select-shape" data-tooltip="**Shape Selection**
-                                        Click shape for selections" data-title="Shape selection (Z)">
+                                        Click shape for selections" >
                                             <div class="icon-stack">
                                                 <i class="fas fa-mouse-pointer base-icon"></i>
                                                 <i class="fa-solid fa-bacterium  overlay-icon"></i>
@@ -1386,6 +1425,10 @@ Draw circles and ellipses"><i class="far fa-circle"></i></div>
                                         <div class="shortcut-key">3</div>
                                         <div class="shortcut-description">Lasso Selection</div>
                                     </div>
+                                    <div class="shortcut-item">
+                                        <div class="shortcut-key">4</div>
+                                        <div class="shortcut-description">Shape Selection</div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -1795,6 +1838,7 @@ Draw circles and ellipses"><i class="far fa-circle"></i></div>
         <script src="js/brushpresets-manager.js"></script>
         <script src="js/right-panel-manager.js"></script>
         <script src="js/tool-manager.js"></script>
+        <script src="js/selectionToolManager.js"></script>
         <script src="js/canvas-manager.js"></script>
         <script src="js/layer-manager.js"></script>
         <script src="js/animation-manager.js"></script>
@@ -1815,7 +1859,7 @@ Draw circles and ellipses"><i class="far fa-circle"></i></div>
             document.addEventListener('DOMContentLoaded', function() {
                 const toolButtons = document.querySelectorAll('.tool-btn[data-title]');
                 const titleDiv = document.getElementById('title');
-                
+                 
                 toolButtons.forEach(button => {
                     button.addEventListener('mouseover', function() {
                         const title = this.getAttribute('data-title');
@@ -1823,20 +1867,11 @@ Draw circles and ellipses"><i class="far fa-circle"></i></div>
                             titleDiv.textContent = title;
                         }
                     });
-                    
+                     
                     button.addEventListener('mouseout', function() {
                         if (titleDiv) {
                             titleDiv.textContent = '';
                         }
-                    });
-                });
-                
-                // Add highlight functionality for buttons in the move-options section
-                const moveOptionsButtons = document.querySelectorAll('#move-options .tool-btn');
-                moveOptionsButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        moveOptionsButtons.forEach(btn => btn.classList.remove('selected'));
-                        this.classList.add('selected');
                     });
                 });
             });

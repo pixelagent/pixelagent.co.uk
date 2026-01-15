@@ -108,6 +108,7 @@ Hover to see all available shapes">
 Great for floors"><i class="fas fa-vector-square"></i></div>
                     <div class="tool-btn" data-action="addShape" data-type="torus" data-tooltip="**Torus**
 Donut shape"><i class="fas fa-life-ring"></i></div>
+                    <!---
                     <div class="tool-btn" data-action="addShape" data-type="tetrahedron" data-tooltip="**Tetrahedron**">
                         <i class="fas fa-gem"></i>
                     </div>
@@ -120,6 +121,8 @@ Donut shape"><i class="fas fa-life-ring"></i></div>
                     </div>
                     <div class="tool-btn" data-action="addShape" data-type="torusknot" data-tooltip="**Torus Knot**
 Complex twisted shape"><i class="fas fa-bezier-curve"></i></div>
+
+                -->
                 </div>
             </div>
 
@@ -188,10 +191,7 @@ Sky and ground lighting"><i class="fas fa-adjust"></i></div>
                 --Keyboard: H--"><i class="fas fa-hand-paper"></i></button>
                 <button class="btn icon-only" id="mode-translate" title="Translate (G)" data-tooltip="**Translate Mode**
                 Move objects in 3D space
-                --Keyboard: G--
-                --Arrow Keys: Move selected object--
-                --Shift+Arrows: Move faster--
-                --PageUp/PageDown: Move up/down--"><i class="fas fa-arrows-alt"></i></button>
+                --Keyboard: G--"><i class="fas fa-arrows-alt"></i></button>
                 <button class="btn icon-only" id="mode-rotate" title="Rotate (R)" data-tooltip="**Rotate Mode**
                 Rotate objects around axes
                 --Keyboard: R--"><i class="fas fa-sync-alt"></i></button>
@@ -218,6 +218,11 @@ Sky and ground lighting"><i class="fas fa-adjust"></i></div>
                 --Keyboard: +--"><i class="fas fa-search-plus"></i></button>
             </div>
             <div id="canvas-container" style="width: 100%; height: 100%;"></div>
+            
+            <!-- Deselect Info Box -->
+            <div id="deselect-info" class="deselect-info" style="display: none;">
+                <i class="fas fa-info-circle"></i> Right-click empty space to deselect
+            </div>
         </div>
 
         <!-- Floating Toggle -->
@@ -242,7 +247,11 @@ Sky and ground lighting"><i class="fas fa-adjust"></i></div>
                 <div class="panel-header-title"><i class="fas fa-sliders-h"></i> Properties</div>
             </div>
             <div id="props-content" class="panel-content">
-                <div class="empty-state">Select an object to edit properties</div>
+                <div class="empty-state">
+                    <p>Click on an object to edit properties</p>
+                    <br>
+                    <p>Right click to deselect an object</p>
+               </div>
             </div>
 
             <!-- Materials Section (hidden by default) -->

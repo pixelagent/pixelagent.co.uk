@@ -1,0 +1,514 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6eca69eef6e74d0fa8002dcecbff488, type: 3}
+  m_Name: Grimes_Music4Machines
+  m_EditorClassIdentifier: 
+  exampleTitle: Grimes - Music 4 Machines (cover)
+  author: KAIXI
+  description: THIS IS MUSIC FOR MACHINES - an intro to live coding on strudel
+  beatsPerMinute: 135
+  timeSignature: 4/4
+  samples:
+  - sampleName: vox
+    fileName: vox_chorus.wav
+    url: https://raw.githubusercontent.com/kai-xi/music4machines/main/samples/
+    bank: RolandTR909
+    defaultGain: 1
+    description: Vocal samples from the original Grimes song
+  instruments:
+  - instrumentName: drums
+    instrumentType: 1
+    soundType: 0
+    bank: default
+    scale: 0
+    octave: 4
+    noteDuration: 1
+    attack: 0.01
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 20000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0
+    roomSize: 0.5
+    gain: 1
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 6
+    pattern: bd bd bd bd, - sd - sd, - cp - cp, - hh - hh - hh - hh
+    rhythm: 1 1 1 1, 1 1 1 1, 1 1 1 1, 1 1 1 1 1 1 1 1
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Main drum pattern with kick, snare, clap, and hi-hat
+  - instrumentName: bass
+    instrumentType: 2
+    soundType: 12
+    bank: default
+    scale: 0
+    octave: 1
+    noteDuration: 1
+    attack: 0.01
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 200
+    hpf: 20
+    lpq: 0.7
+    lpenv: 5
+    lpa: 0.5
+    lps: 0.8
+    lpd: 0.1
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0
+    roomSize: 0.5
+    gain: 1
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 4
+    pattern: c2 g1 eb1 f1 c2 g1 eb1 f1
+    rhythm: 4 4 4 4 4 4 4 4
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Bass line with filter envelope
+  - instrumentName: synth_arpeggio
+    instrumentType: 3
+    soundType: 9
+    bank: default
+    scale: 0
+    octave: 2
+    noteDuration: 1
+    attack: 0.01
+    decay: 0.95
+    sustain: 0.2
+    release: 0.2
+    lpf: 5000
+    hpf: 20
+    lpq: 0.7
+    lpenv: -3
+    lpa: 0.2
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0.3
+    delayTime: 0.225
+    delayFeedback: 0.45
+    room: 0.8
+    roomSize: 2
+    gain: 1
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 2
+    pattern: c3 c4 eb5 c3 c4 d5 c3 bb4, g2 g3 bb4 g2 g3 a4 g2 g4, eb2 eb3 g4 eb2
+      eb3 f4 eb2 g4, f2 f3 g4 f2 f3 a4 f2 a4
+    rhythm: 8 8 8 8 8 8 8 8, 8 8 8 8 8 8 8 8, 8 8 8 8 8 8 8 8, 8 8 8 8 8 8 8 8
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Arpeggiated synth with delay and reverb
+  - instrumentName: synth_bass
+    instrumentType: 2
+    soundType: 12
+    bank: default
+    scale: 0
+    octave: 0
+    noteDuration: 1
+    attack: 0.1
+    decay: 0.25
+    sustain: 0.2
+    release: 0.25
+    lpf: 2250
+    hpf: 20
+    lpq: 0.7
+    lpenv: 2
+    lpa: 0.03
+    lps: 0
+    lpd: 0.3
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0
+    roomSize: 0.5
+    gain: 0.5
+    pan: 0
+    lpr: 0.2
+    slow: 1
+    clip: 1
+    patternType: 4
+    pattern: c3 c4 - c3 c4 - c3 -, g2 g3 - g2 g3 - g2 -, eb2 eb3 - eb2 eb3 - eb2
+      -, f2 f3 - f2 f3 - f2 -
+    rhythm: 8 8 8 8 8 8 8 8, 8 8 8 8 8 8 8 8, 8 8 8 8 8 8 8 8, 8 8 8 8 8 8 8 8
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Synth bass with filter envelope
+  - instrumentName: synth_lead
+    instrumentType: 3
+    soundType: 9
+    bank: default
+    scale: 0
+    octave: 1
+    noteDuration: 1
+    attack: 0.01
+    decay: 0.95
+    sustain: 0.2
+    release: 0.2
+    lpf: 20000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0.3
+    delayTime: 0.225
+    delayFeedback: 0.45
+    room: 0.4
+    roomSize: 2
+    gain: 0.6
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 5
+    pattern: '- - eb5 - - d5 - bb4, - - bb4 - - a4 - g4, - - g4 - - f4 - g4, - -
+      g4 - - a4 - a4'
+    rhythm: 8 8 8 8 8 8 8 8, 8 8 8 8 8 8 8 8, 8 8 8 8 8 8 8 8, 8 8 8 8 8 8 8 8
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Lead synth with delay and reverb
+  - instrumentName: intro_vocals
+    instrumentType: 0
+    soundType: 8
+    bank: default
+    scale: 0
+    octave: 4
+    noteDuration: 1
+    attack: 0.01
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 20000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 1
+    late: 0
+    delay: 0
+    delayTime: 0.25
+    delayFeedback: 0.4
+    room: 0.3
+    roomSize: 2
+    gain: 1
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 0
+    pattern: 1 0 0 0 0 0 0 0
+    rhythm: 1 1 1 1
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Intro vocal sample
+  - instrumentName: vocals01
+    instrumentType: 0
+    soundType: 8
+    bank: default
+    scale: 0
+    octave: 4
+    noteDuration: 1
+    attack: 0.25
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 20000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0
+    end: 0.3125
+    late: 0
+    delay: 0.25
+    delayTime: 0.45
+    delayFeedback: 0.4
+    room: 0.2
+    roomSize: 2
+    gain: 1
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 0
+    pattern: 1 0 0 0 0 0 0 0
+    rhythm: 1 1 1 1
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: First vocal line
+  - instrumentName: vocals02
+    instrumentType: 0
+    soundType: 8
+    bank: default
+    scale: 0
+    octave: 4
+    noteDuration: 1
+    attack: 0.25
+    decay: 0.4
+    sustain: 0.2
+    release: 0.2
+    lpf: 20000
+    hpf: 20
+    lpq: 0.7
+    lpenv: 0
+    lpa: 0
+    lps: 0
+    lpd: 0
+    slice: 0
+    begin: 0.25
+    end: 0.625
+    late: 0
+    delay: 0.25
+    delayTime: 0.45
+    delayFeedback: 0.4
+    room: 0.2
+    roomSize: 2
+    gain: 1
+    pan: 0
+    lpr: 0
+    slow: 1
+    clip: 1
+    patternType: 0
+    pattern: 0 0 0 0 1 0 0 0
+    rhythm: 1 1 1 1
+    velocity: 1 1 1 1
+    shape: 0.5
+    detune: 
+    nodePattern:
+      elements: []
+      globalModifiers: 
+    useNodePattern: 0
+    useAdvancedPattern: 0
+    notes: []
+    rhythms: []
+    velocities: []
+    description: Second vocal line
+  sections:
+  - sectionName: section00
+    cycleCount: 8
+    instrumentNames:
+    - intro_vocals
+    sampleNames: []
+    effects: []
+    patternMask: 1 0 0 0 0 0 0 0
+    lpf: 20000
+    gain: 1
+    description: Intro section with vocal sample
+  - sectionName: section01
+    cycleCount: 8
+    instrumentNames:
+    - drums
+    - bass
+    - synth_arpeggio
+    - synth_bass
+    - synth_lead
+    sampleNames: []
+    effects: []
+    patternMask: 1 1 1 1
+    lpf: 20000
+    gain: 1
+    description: Main section with full instrumentation
+  - sectionName: section02
+    cycleCount: 8
+    instrumentNames:
+    - drums
+    - bass
+    - synth_arpeggio
+    - synth_bass
+    - synth_lead
+    - vocals01
+    - vocals02
+    sampleNames: []
+    effects: []
+    patternMask: 1 0 0 0 0 0 0 0, 0 0 0 0 1 0 0 0
+    lpf: 20000
+    gain: 1
+    description: Section with vocals added
+  - sectionName: end
+    cycleCount: 8
+    instrumentNames:
+    - vocals01
+    sampleNames: []
+    effects: []
+    patternMask: 1 0 0 0 0 0 0 0
+    lpf: 20000
+    gain: 1
+    description: Ending section
+  arrangements:
+  - arrangementName: FullSong
+    sections:
+    - sectionName: section00
+      cycleCount: 8
+      tempoMultiplier: 1
+      transition: cut
+      description: 
+    - sectionName: section01
+      cycleCount: 8
+      tempoMultiplier: 1
+      transition: cut
+      description: 
+    - sectionName: section02
+      cycleCount: 8
+      tempoMultiplier: 1
+      transition: cut
+      description: 
+    - sectionName: end
+      cycleCount: 8
+      tempoMultiplier: 1
+      transition: cut
+      description: 
+    description: Complete song arrangement
+  strudelCode: "// Grimes - Music 4 Machines (cover)\n// by KAIXI\n// THIS IS MUSIC
+    FOR MACHINES\n\nlet cpm = 135/4;\n\nsamples({\n  vox: 'vox_chorus.wav',\n}, 'https://raw.githubusercontent.com/kai-xi/music4machines/main/samples/');\n\nlet
+    drums = stack(\n  sound(`\n    <bd>*4,\n    <- sd>*4,\n    <- cp:3>*4\n  `).bank(\"RolandTR909\"),\n 
+    sound(\"<- hh>*8\").bank(\"RolandTR909\").gain(.2),\n  sound(\"<sh>*8\").bank(\"RolandTR808\").gain(.25)\n);\n\nlet
+    bass = cat(\n  \"<c2>*4\",\n  \"<g1>*4\",\n  \"<eb1>*4\",\n  \"<eb1!2 f1!2>*4\",\n 
+    \"<c2>*4\",\n  \"<g1!2 bb1!2>*4\",\n  \"<eb1>*4\",\n  \"<f1>*4\"\n).note()\n 
+    .n(3).sound(\"gm_synth_bass_1\")\n  .lpf(200).lpenv(5).lpa(.5).lps(.8).lpd(.1);\n\nlet
+    synth_arpeggio = cat(\n  \"<c3 c4 eb5 c3 c4 d5 c3 bb4>*8\",\n  \"<g2 g3 bb4 g2
+    g3 a4 g2 g4>*8\",\n  \"<eb2 eb3 g4 eb2 eb3 f4 eb2 g4>*8\",\n  \"<eb2 eb3 g4 eb2
+    eb3 f4 f2 g4>*8\",\n  \"<c3 c4 eb5 c3 c4 d5 c3 bb4>*8\",\n  \"<g2 g3 bb4 g2 bb4
+    c5 bb2 g4>*8\",\n  \"<eb2 eb3 g4 eb2 eb3 f4 eb2 g4>*8\",\n  \"<f2 f3 g4 f2 f3
+    a4 f2 a4>*8\",\n).note()\n  .n(1).sound(\"gm_pad_poly\")\n  .decay(.95).lpf(5000).lpenv(-3).lpa(.2)\n 
+    .delay(\".3:.225:.45\")\n  .room(.8).rsize(2);\n\nlet synth_bass = cat(\n  \"<c3
+    c4 - c3 c4 - c3 ->*8\",\n  \"<g2 g3 - g2 g3 - g2 ->*8\",\n  \"<eb2 eb3 - eb2
+    eb3 - eb2 ->*8\",\n  \"<eb2 eb3 - eb2 eb3 - f2 ->*8\",\n  \"<c3 c4 - c3 c4 -
+    c3 ->*8\",\n  \"<g2 g3 - g2 g3 - bb2 ->*8\",\n  \"<eb2 eb3 - eb2 eb3 - eb2 ->*8\",\n 
+    \"<f2 f3 - f2 f3 - f2 ->*8\"\n).note()\n  .n(0).sound(\"gm_synth_bass_1\")\n 
+    .attack(.1).decay(.25).release(.25)\n  .lpf(2250).lpenv(2).lpa(.03).lpr(.2).lpd(.3)\n 
+    .gain(.5);\n\nlet synth_lead = cat(\n  \"<- - eb5 - - d5 - bb4>*8\",\n  \"<-
+    - bb4 - - a4 - g4>*8\",\n  \"<- - g4 - - f4 - g4>*8\",\n  \"<- - g4 - - a4 -
+    a4>*8\",\n).note()\n  .n(1).sound(\"gm_pad_metallic\")\n  .decay(.95).delay(\".3:.225:.45\")\n 
+    .room(.4).rsize(2).gain(.6);\n\nlet intro_vocals = s(\"vox\").room(.3).rsize(2);\nlet
+    vocals01 = s(\"vox\").begin(0).end(.25 + (.25 * .25 * .5))\n  .attack(.25).delay(\".25:.45:.4\").room(.2).rsize(2);\nlet
+    vocals02 = s(\"vox\").begin(.25).end(.5 + (.25 * .25 * .5))\n  .attack(.25).delay(\".25:.45:.4\").room(.2).rsize(2);\n\nlet
+    section00 = stack(intro_vocals.mask(\"<1 0 0 0 0 0 0 0>\"));\nlet section01 =
+    stack(drums, bass, synth_arpeggio, synth_bass, synth_lead);\nlet section02 =
+    stack(drums, bass, synth_arpeggio, synth_bass, synth_lead,\n  vocals01.mask(\"<1
+    0 0 0 0 0 0 0>\"),\n  vocals02.mask(\"<0 0 0 0 1 0 0 0>\"));\nlet end = stack(vocals01.mask(\"<1
+    0 0 0 0 0 0 0>\"));\n\narrange(\n  [8, section00],\n  [8, section01],\n  [8,
+    section02],\n  [8, end]\n).cpm(cpm);"
+  references:
+    version: 2
+    RefIds: []
