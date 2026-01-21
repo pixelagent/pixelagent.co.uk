@@ -34,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let animationId;
     let parallaxManager;
     let uiManager;
+    
+    // Camera variables for level scrolling
+    let camera = {
+        x: 0,
+        y: 0
+    };
 
     // Simple physics variables
     let playerVelocity = { x: 0, y: 0 };
@@ -113,6 +119,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Calculate scale factor to fit vertically
                 const scale = canvas.height / svgHeight;
                 const scaledWidth = svgWidth * scale;
+
+                // Parse border layer (defines level bounds)
+                const borderElement = svgDoc.querySelector('#border rect');
+                if (borderElement) {
+                    // Some SVGs omit an explicit x/y on the border rect — default to 0 when missing
+                    const borderXAttr = borderElement.getAttribute('x');
+                    const borderYAttr = borderElement.getAttribute('y');
+                    const borderX = borderXAttr !== null ? parseFloat(borderXAttr) * scale : 0;
+                    const borderY = borderYAttr !== null ? parseFloat(borderYAttr) * scale : 0;
+                    const borderWidth = parseFloat(borderElement.getAttribute('width')) * scale;
+                    const borderHeight = parseFloat(borderElement.getAttribute('height')) * scale;
+
+                    // camera is in outer scope - set total level width/height in world pixels
+                    camera.levelWidth = borderX + borderWidth;
+                    camera.levelHeight = borderY + borderHeight;
+                } else {
+                    // fallback to SVG viewBox width/height if no border layer is present
+                    camera.levelWidth = scaledWidth;
+                    camera.levelHeight = canvas.height;
+                }
+
+                // Parse startpoint (if provided in the level SVG) and place player there
+                const startElement = svgDoc.querySelector('#startpoint rect');
+                if (startElement) {
+                    const startXAttr = startElement.getAttribute('x');
+                    const startYAttr = startElement.getAttribute('y');
+                    const startX = startXAttr !== null ? parseFloat(startXAttr) * scale : 0;
+                    const startY = startYAttr !== null ? parseFloat(startYAttr) * scale : 0;
+
+                    // Place player in world coordinates at the startpoint
+                    player.position.x = startX;
+                    player.position.y = startY;
+
+                    // Initialize camera so player is visible (clamped to level bounds)
+                    camera.x = Math.max(0, Math.min(player.position.x - canvas.width / 2, Math.max(0, camera.levelWidth - canvas.width)));
+                    camera.y = Math.max(0, Math.min(player.position.y - canvas.height / 2, Math.max(0, camera.levelHeight - canvas.height)));
+                }
 
                 // Parse platforms
                 platforms = [];
@@ -382,22 +425,31 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 
-        // Update and draw parallax background
-        parallaxManager.update(player, keys);
-        parallaxManager.draw();
+        // Update and draw parallax background (use camera to decouple from NPCs)
+        parallaxManager.update(player, keys, camera);
+        parallaxManager.draw(camera);
 
         // Draw background elements with textures and Rough.js outlines
         backgrounds.forEach(background => {
+            // Apply camera offset
+            const drawX = background.position.x - camera.x;
+            const drawY = background.position.y - camera.y; // vertical camera offset
+
             // Fill with texture first
             if (textureManager && textureManager.getPattern('background')) {
-                ctx.fillStyle = textureManager.getPattern('background');
+                const pattern = textureManager.getPattern('background');
+                if (pattern && typeof pattern.setTransform === 'function' && typeof camera !== 'undefined') {
+                    // Align pattern to world coordinates so it doesn't "slide" when camera moves
+                    pattern.setTransform(new DOMMatrix().translate(-camera.x, -camera.y));
+                }
+                ctx.fillStyle = pattern;
             } else {
                 ctx.fillStyle = textureManager ? textureManager.getFallbackColor('background') : '#f0f0f0';
             }
-            ctx.fillRect(background.position.x, background.position.y, background.width, background.height);
+            ctx.fillRect(drawX, drawY, background.width, background.height);
 
             // Add Rough.js sketch outline
-            roughCanvas.rectangle(background.position.x, background.position.y, background.width, background.height, {
+            roughCanvas.rectangle(drawX, drawY, background.width, background.height, {
                 fill: 'transparent',
                 stroke: 'rgba(0, 0, 0, 0.2)',
                 strokeWidth: 2,
@@ -409,16 +461,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Draw scenes with textures and Rough.js outlines
         scenes.forEach(scene => {
+            const drawX = scene.position.x - camera.x;
             // Fill with texture first
             if (textureManager && textureManager.getPattern('scene')) {
-                ctx.fillStyle = textureManager.getPattern('scene');
+                const pattern = textureManager.getPattern('scene');
+                if (pattern && typeof pattern.setTransform === 'function' && typeof camera !== 'undefined') {
+                    pattern.setTransform(new DOMMatrix().translate(-camera.x, -camera.y));
+                }
+                ctx.fillStyle = pattern;
             } else {
                 ctx.fillStyle = 'rgba(100, 200, 100, 0.7)';
             }
-            ctx.fillRect(scene.position.x, scene.position.y, scene.width, scene.height);
+            const drawY = scene.position.y - camera.y;
+            ctx.fillRect(drawX, drawY, scene.width, scene.height);
 
             // Add Rough.js sketch outline
-            roughCanvas.rectangle(scene.position.x, scene.position.y, scene.width, scene.height, {
+            roughCanvas.rectangle(drawX, drawY, scene.width, scene.height, {
                 fill: 'transparent',
                 stroke: 'rgba(0, 0, 0, 0.2)',
                 strokeWidth: 2,
@@ -430,16 +488,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Draw boxes with textures and Rough.js outlines
         boxes.forEach(box => {
+            const drawX = box.position.x - camera.x;
             // Fill with texture first
             if (textureManager && textureManager.getPattern('box')) {
-                ctx.fillStyle = textureManager.getPattern('box');
+                const pattern = textureManager.getPattern('box');
+                if (pattern && typeof pattern.setTransform === 'function' && typeof camera !== 'undefined') {
+                    pattern.setTransform(new DOMMatrix().translate(-camera.x, -camera.y));
+                }
+                ctx.fillStyle = pattern;
             } else {
                 ctx.fillStyle = textureManager ? textureManager.getFallbackColor('box') : '#8B4513';
             }
-            ctx.fillRect(box.position.x, box.position.y, box.width, box.height);
+            const drawY = box.position.y - camera.y;
+            ctx.fillRect(drawX, drawY, box.width, box.height);
 
             // Add Rough.js sketch outline
-            roughCanvas.rectangle(box.position.x, box.position.y, box.width, box.height, {
+            roughCanvas.rectangle(drawX, drawY, box.width, box.height, {
                 fill: 'transparent',
                 stroke: 'rgba(0, 0, 0, 0.3)',
                 strokeWidth: 2,
@@ -451,16 +515,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Draw platforms with textures and Rough.js outlines
         platforms.forEach(platform => {
+            const drawX = platform.position.x - camera.x;
             // Fill with texture first
             if (textureManager && textureManager.getPattern('platform')) {
-                ctx.fillStyle = textureManager.getPattern('platform');
+                const pattern = textureManager.getPattern('platform');
+                // If the pattern supports setTransform, align it to world coordinates so it remains static
+                if (pattern && typeof pattern.setTransform === 'function' && typeof camera !== 'undefined') {
+                    pattern.setTransform(new DOMMatrix().translate(-camera.x, -camera.y));
+                }
+                ctx.fillStyle = pattern;
             } else {
                 ctx.fillStyle = textureManager ? textureManager.getFallbackColor('platform') : '#000';
             }
-            ctx.fillRect(platform.position.x, platform.position.y, platform.width, platform.height);
+            const drawY = platform.position.y - camera.y;
+            ctx.fillRect(drawX, drawY, platform.width, platform.height);
 
             // Add Rough.js sketch outline
-            roughCanvas.rectangle(platform.position.x, platform.position.y, platform.width, platform.height, {
+            roughCanvas.rectangle(drawX, drawY, platform.width, platform.height, {
                 fill: 'transparent',
                 stroke: 'rgba(0, 0, 0, 0.3)',
                 strokeWidth: 3,
@@ -472,12 +543,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Draw collectables with Rough.js outlines only
         collectables.forEach(collectable => {
+            const drawX = collectable.position.x - camera.x;
             // Fill with gold first
             ctx.fillStyle = 'gold';
-            ctx.fillRect(collectable.position.x, collectable.position.y, collectable.width, collectable.height);
+            const drawY = collectable.position.y - camera.y;
+            ctx.fillRect(drawX, drawY, collectable.width, collectable.height);
 
             // Add Rough.js sketch outline
-            roughCanvas.circle(collectable.position.x + collectable.width/2, collectable.position.y + collectable.height/2, collectable.width, {
+            roughCanvas.circle(drawX + collectable.width/2, drawY + collectable.height/2, collectable.width, {
                 fill: 'transparent',
                 stroke: '#FFD700',
                 strokeWidth: 2,
@@ -490,16 +563,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Draw checkpoints with textures and Rough.js outlines
         checkpoints.forEach(checkpoint => {
             if (!checkpoint.claimed) {
+                const drawX = checkpoint.position.x - camera.x;
                 // Fill with texture first
                 if (textureManager && textureManager.getPattern('checkpoint')) {
                     ctx.fillStyle = textureManager.getPattern('checkpoint');
                 } else {
                     ctx.fillStyle = textureManager ? textureManager.getFallbackColor('checkpoint') : 'green';
                 }
-                ctx.fillRect(checkpoint.position.x, checkpoint.position.y, checkpoint.width, checkpoint.height);
+                ctx.fillRect(drawX, checkpoint.position.y, checkpoint.width, checkpoint.height);
 
                 // Add Rough.js sketch outline
-                roughCanvas.rectangle(checkpoint.position.x, checkpoint.position.y, checkpoint.width, checkpoint.height, {
+                roughCanvas.rectangle(drawX, checkpoint.position.y, checkpoint.width, checkpoint.height, {
                     fill: 'transparent',
                     stroke: '#228B22',
                     strokeWidth: 3,
@@ -512,12 +586,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Draw enemies with Rough.js outlines only
         enemies.forEach(enemy => {
+            const drawX = enemy.position.x - camera.x;
             // Fill with red first
             ctx.fillStyle = 'red';
-            ctx.fillRect(enemy.position.x, enemy.position.y, enemy.width, enemy.height);
+            const drawY = enemy.position.y - camera.y;
+            ctx.fillRect(drawX, drawY, enemy.width, enemy.height);
 
             // Add Rough.js sketch outline
-            roughCanvas.rectangle(enemy.position.x, enemy.position.y, enemy.width, enemy.height, {
+            roughCanvas.rectangle(drawX, drawY, enemy.width, enemy.height, {
                 fill: 'transparent',
                 stroke: '#8B0000',
                 strokeWidth: 2,
@@ -529,12 +605,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Draw NPCs with color fills and Rough.js outlines
         npcs.forEach(npc => {
+            const drawX = npc.showLayer.x - camera.x;
             // Draw show layer (always visible) - fill with color first
             ctx.fillStyle = 'rgba(200, 100, 200, 0.8)';
-            ctx.fillRect(npc.showLayer.x, npc.showLayer.y, npc.showLayer.width, npc.showLayer.height);
+            const drawY = npc.showLayer.y - camera.y;
+            ctx.fillRect(drawX, drawY, npc.showLayer.width, npc.showLayer.height);
 
             // Add Rough.js sketch outline
-            roughCanvas.rectangle(npc.showLayer.x, npc.showLayer.y, npc.showLayer.width, npc.showLayer.height, {
+            roughCanvas.rectangle(drawX, drawY, npc.showLayer.width, npc.showLayer.height, {
                 fill: 'transparent',
                 stroke: 'white',
                 strokeWidth: 2,
@@ -545,11 +623,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Draw hide layer if it should be shown
             if (npc.showHideLayer && npc.hideLayer) {
+                const hideDrawX = npc.hideLayer.x - camera.x;
+                const hideDrawY = npc.hideLayer.y - camera.y;
                 ctx.fillStyle = 'rgba(100, 200, 100, 0.8)';
-                ctx.fillRect(npc.hideLayer.x, npc.hideLayer.y, npc.hideLayer.width, npc.hideLayer.height);
+                ctx.fillRect(hideDrawX, hideDrawY, npc.hideLayer.width, npc.hideLayer.height);
 
                 // Add Rough.js sketch outline
-                roughCanvas.rectangle(npc.hideLayer.x, npc.hideLayer.y, npc.hideLayer.width, npc.hideLayer.height, {
+                roughCanvas.rectangle(hideDrawX, hideDrawY, npc.hideLayer.width, npc.hideLayer.height, {
                     fill: 'transparent',
                     stroke: '#228B22',
                     strokeWidth: 1,
@@ -565,19 +645,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
                     ctx.fillText(npc.hideLayer.text,
-                                npc.hideLayer.x + npc.hideLayer.width / 2,
+                                hideDrawX + npc.hideLayer.width / 2,
                                 npc.hideLayer.y + npc.hideLayer.height / 2);
                 }
             }
         });
 
         // Draw player using SVG with no container borders
+        const playerDrawX = player.position.x - camera.x;
+        const playerDrawY = player.position.y - camera.y;
         if (playerSvgLoaded) {
             // Draw the SVG directly to canvas
-            ctx.drawImage(playerSvg, player.position.x, player.position.y, player.width, player.height);
+            ctx.drawImage(playerSvg, playerDrawX, playerDrawY, player.width, player.height);
 
             // Add Rough.js sketch outline around the player
-            roughCanvas.rectangle(player.position.x, player.position.y, player.width, player.height, {
+            roughCanvas.rectangle(playerDrawX, playerDrawY, player.width, player.height, {
                 fill: 'transparent',
                 stroke: '#00008B',
                 strokeWidth: 2,
@@ -588,10 +670,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // Fallback to blue rectangle if SVG not loaded yet
             ctx.fillStyle = 'blue';
-            ctx.fillRect(player.position.x, player.position.y, player.width, player.height);
+            ctx.fillRect(playerDrawX, playerDrawY, player.width, player.height);
 
             // Add Rough.js sketch outline
-            roughCanvas.rectangle(player.position.x, player.position.y, player.width, player.height, {
+            roughCanvas.rectangle(playerDrawX, playerDrawY, player.width, player.height, {
                 fill: 'transparent',
                 stroke: '#00008B',
                 strokeWidth: 2,
@@ -604,7 +686,52 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update player position
         isJumping = updatePlayer(keys, playerVelocity, gravity, isJumping, groundLevel, canvas, gameConfig, platforms);
 
-        // Update enemies
+        // Camera/world scrolling using a deadzone around the player's position
+        // Ensure camera.levelWidth/height are initialized
+        if (typeof camera.levelWidth === 'undefined') camera.levelWidth = canvas.width;
+        if (typeof camera.levelHeight === 'undefined') camera.levelHeight = canvas.height;
+
+        const border = 200; // deadzone half-width/height in pixels
+
+        // Compute deadzone edges in world coordinates
+        const leftEdgeWorld = camera.x + (canvas.width / 2 - border);
+        const rightEdgeWorld = camera.x + (canvas.width / 2 + border);
+        const topEdgeWorld = camera.y + (canvas.height / 2 - border);
+        const bottomEdgeWorld = camera.y + (canvas.height / 2 + border);
+
+        // Horizontal camera follow (only move camera, do NOT mutate world objects or player position)
+        if (player.position.x > rightEdgeWorld) {
+            const desiredShift = player.position.x - rightEdgeWorld;
+            const maxShift = Math.max(0, camera.levelWidth - canvas.width - camera.x);
+            const shift = Math.min(desiredShift, maxShift);
+            if (shift > 0) {
+                camera.x += shift;
+            }
+        } else if (player.position.x < leftEdgeWorld) {
+            const desiredShift = leftEdgeWorld - player.position.x;
+            const shift = Math.min(desiredShift, camera.x);
+            if (shift > 0) {
+                camera.x -= shift;
+            }
+        }
+
+        // Vertical camera follow
+        if (player.position.y > bottomEdgeWorld) {
+            const desiredShiftY = player.position.y - bottomEdgeWorld;
+            const maxShiftY = Math.max(0, camera.levelHeight - canvas.height - camera.y);
+            const shiftY = Math.min(desiredShiftY, maxShiftY);
+            if (shiftY > 0) camera.y += shiftY;
+        } else if (player.position.y < topEdgeWorld) {
+            const desiredShiftY = topEdgeWorld - player.position.y;
+            const shiftY = Math.min(desiredShiftY, camera.y);
+            if (shiftY > 0) camera.y -= shiftY;
+        }
+
+        // Clamp camera to level bounds
+        camera.x = Math.max(0, Math.min(camera.x, Math.max(0, camera.levelWidth - canvas.width)));
+        camera.y = Math.max(0, Math.min(camera.y, Math.max(0, camera.levelHeight - canvas.height)));
+
+        // Update enemies (they operate in world coordinates)
         updateEnemies(enemies, gameConfig.enemy, canvas);
 
         // Update box physics

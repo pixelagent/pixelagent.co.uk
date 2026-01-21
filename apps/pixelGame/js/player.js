@@ -15,7 +15,8 @@ function initPlayer(config) {
 }
 
 // Update player position
-function updatePlayer(keys, playerVelocity, gravity, isJumping, groundLevel, canvas, gameConfig, platforms) {
+// Note: accepts optional `camera` so we can clamp player in world coordinates instead of canvas coords
+function updatePlayer(keys, playerVelocity, gravity, isJumping, groundLevel, canvas, gameConfig, platforms, camera) {
     // Apply gravity
     const onSurface = canPlayerJump(player, groundLevel, platforms);
     if (!onSurface) {
@@ -39,32 +40,37 @@ function updatePlayer(keys, playerVelocity, gravity, isJumping, groundLevel, can
         }
     }
 
-    // Update player position
+    // Update player position (world coordinates)
     player.position.x += playerVelocity.x;
     player.position.y += playerVelocity.y;
 
-    // Boundary checks
+    // Boundary checks in world coordinates
     if (player.position.x < 0) {
         player.position.x = 0;
         playerVelocity.x = 0;
     }
-    if (player.position.x >= canvas.width - player.width) {
-        player.position.x = canvas.width - player.width;
-        playerVelocity.x = 0;
+
+    // If camera + level width is provided, clamp player to level bounds
+    if (camera && typeof camera.levelWidth === 'number') {
+        const maxX = Math.max(0, camera.levelWidth - player.width);
+        if (player.position.x > maxX) {
+            player.position.x = maxX;
+            playerVelocity.x = 0;
+        }
     }
 
     // Check for platform collisions
     const platformResult = checkPlatformCollisions(player, playerVelocity, platforms, isJumping);
     isJumping = platformResult.isJumping;
 
-    // Prevent falling through bottom
+    // Prevent falling through bottom (world ground)
     if (player.position.y > groundLevel) {
         player.position.y = groundLevel;
         playerVelocity.y = 0;
         isJumping = false;
     }
 
-    // Update ground level
+    // Update ground level (keep this local only)
     groundLevel = canvas.height - player.height;
 
     // Reset isJumping if player is on ground and not moving upward

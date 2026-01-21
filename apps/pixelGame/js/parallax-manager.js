@@ -16,22 +16,20 @@ class ParallaxManager {
         this.backgroundImg.src = 'assets/backgrounds/background.svg';
     }
     
-    update(player, keys) {
+    // Accept camera so parallax can be positioned relative to camera.x
+    update(player, keys, camera) {
         // Calculate scale factor to fit vertically
         const scale = this.canvas.height / 400;
         const scaledWidth = 2000 * scale;
         
-        // Update background position based on player movement
-        // The key fix: continue parallax even when the level starts moving
-        // by tracking the player's movement relative to the camera
+        // If camera is provided, compute player movement relative to camera
+        const playerMovement = camera ? (player.position.x - camera.x) - this.lastPlayerX : player.position.x - this.lastPlayerX;
+        this.lastPlayerX = camera ? (player.position.x - camera.x) : player.position.x;
         
-        const playerMovement = player.position.x - this.lastPlayerX;
-        this.lastPlayerX = player.position.x;
-        
-        // Always update parallax based on player movement, regardless of position
-        if (keys.rightKey.pressed) {
+        // Update background position based on player movement; ignore NPCs entirely
+        if (playerMovement > 0) {
             this.backgroundX -= this.gameConfig.backgroundSpeed;
-        } else if (keys.leftKey.pressed) {
+        } else if (playerMovement < 0) {
             this.backgroundX += this.gameConfig.backgroundSpeed;
         }
         
@@ -42,8 +40,9 @@ class ParallaxManager {
             this.backgroundX = -scaledWidth + (this.backgroundX % scaledWidth);
         }
     }
-    
-    draw() {
+
+    // Accept camera so the draw position accounts for vertical/horizontal camera offsets
+    draw(camera) {
         if (!this.backgroundImg || !this.backgroundImg.complete) {
             return;
         }
@@ -53,8 +52,11 @@ class ParallaxManager {
         const scaledWidth = 2000 * scale;
         
         // Draw two instances of the background for seamless looping
-        this.ctx.drawImage(this.backgroundImg, this.backgroundX, 0, scaledWidth, this.canvas.height);
-        this.ctx.drawImage(this.backgroundImg, this.backgroundX + scaledWidth, 0, scaledWidth, this.canvas.height);
+        // Apply camera offsets so textures stay aligned with world objects
+        const drawX = this.backgroundX - (camera ? camera.x * 0.5 : 0); // parallax factor
+        const drawY = camera ? -camera.y * 0.1 : 0;
+        this.ctx.drawImage(this.backgroundImg, drawX, drawY, scaledWidth, this.canvas.height);
+        this.ctx.drawImage(this.backgroundImg, drawX + scaledWidth, drawY, scaledWidth, this.canvas.height);
     }
     
     reset() {
