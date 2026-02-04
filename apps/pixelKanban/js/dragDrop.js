@@ -1,5 +1,6 @@
 /**
  * Enhanced Drag and Drop functionality for Kanban Board
+ * Fixed version with better cross-browser support
  */
 class DragDropManager {
     constructor(kanbanBoard) {
@@ -10,14 +11,156 @@ class DragDropManager {
     }
 
     init() {
+        this.setupGlobalListeners();
         this.setupDragAndDrop();
     }
 
-    setupDragAndDrop() {
-        // Set up drag events for all task cards
-        this.updateDragListeners();
+    setupGlobalListeners() {
+        // Global drag and drop event listeners
+        document.addEventListener('dragstart', this.handleGlobalDragStart.bind(this), false);
+        document.addEventListener('dragend', this.handleGlobalDragEnd.bind(this), false);
+        document.addEventListener('dragover', this.handleGlobalDragOver.bind(this), false);
+        document.addEventListener('dragleave', this.handleGlobalDragLeave.bind(this), false);
+        document.addEventListener('drop', this.handleGlobalDrop.bind(this), false);
+    }
 
-        // Set up drop zones for all columns
+    handleGlobalDragStart(e) {
+        // Only handle task card drags
+        if (!e.target.classList.contains('task-card')) return;
+        
+        this.draggedElement = e.target;
+        this.draggedElement.classList.add('dragging');
+        
+        // Create placeholder
+        this.createPlaceholder(this.draggedElement);
+        
+        // Set drag data
+        e.dataTransfer.setData('text/plain', this.draggedElement.dataset.taskId);
+        e.dataTransfer.effectAllowed = 'move';
+        
+        // Hide the dragged element after a short delay (but keep it visible during drag)
+        setTimeout(() => {
+            if (this.draggedElement) {
+                this.draggedElement.style.opacity = '0.5';
+            }
+        }, 0);
+    }
+
+    handleGlobalDragEnd(e) {
+        // Handle null target gracefully
+        if (!e.target || !e.target.classList) return;
+        if (!e.target.classList.contains('task-card')) return;
+        
+        if (this.draggedElement) {
+            this.draggedElement.classList.remove('dragging');
+            this.draggedElement.style.opacity = '1';
+        }
+
+        // Remove placeholder
+        this.removePlaceholder();
+
+        // Remove all drag-over classes
+        document.querySelectorAll('.drag-over').forEach(el => {
+            el.classList.remove('drag-over');
+        });
+
+        this.draggedElement = null;
+        this.placeholder = null;
+    }
+
+    handleGlobalDragOver(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+
+        const target = e.target;
+        
+        // Handle column hover
+        const column = target.closest('.column-content');
+        if (column) {
+            document.querySelectorAll('.column-content').forEach(col => {
+                if (col !== column) {
+                    col.classList.remove('drag-over');
+                }
+            });
+            column.classList.add('drag-over');
+        }
+    }
+
+    handleGlobalDragLeave(e) {
+        const target = e.target;
+        
+        // Only remove if we're actually leaving the column
+        const column = target.closest('.column-content');
+        if (column && !column.contains(e.relatedTarget)) {
+            column.classList.remove('drag-over');
+        }
+    }
+
+    handleGlobalDrop(e) {
+        e.preventDefault();
+
+        const target = e.target;
+        const column = target.closest('.column-content');
+        
+        // Remove drag-over states
+        if (column) {
+            column.classList.remove('drag-over');
+        }
+        document.querySelectorAll('.column-content').forEach(col => {
+            col.classList.remove('drag-over');
+        });
+
+        // Get task ID from drag data
+        const taskId = parseInt(e.dataTransfer.getData('text/plain'));
+        if (!taskId) return;
+
+        // Determine new status from column
+        let newStatus = null;
+        if (column) {
+            newStatus = column.id.replace('-tasks', '');
+        }
+
+        // Move task if we have valid data
+        if (taskId && newStatus && this.kanbanBoard) {
+            this.kanbanBoard.moveTask(taskId, newStatus);
+        }
+
+        // Clean up - safely call handleGlobalDragEnd if draggedElement is not null
+        if (this.draggedElement) {
+            this.handleGlobalDragEnd({ target: this.draggedElement });
+        } else {
+            // Just remove any drag-over classes
+            document.querySelectorAll('.drag-over').forEach(el => {
+                el.classList.remove('drag-over');
+            });
+        }
+    }
+
+    createPlaceholder(element) {
+        if (!element) return;
+        
+        this.removePlaceholder();
+        
+        this.placeholder = document.createElement('div');
+        this.placeholder.className = 'task-placeholder';
+        this.placeholder.style.height = `${element.offsetHeight}px`;
+        
+        // Insert placeholder after the dragged element
+        if (element.parentNode) {
+            element.parentNode.insertBefore(this.placeholder, element.nextSibling);
+        }
+    }
+
+    removePlaceholder() {
+        if (this.placeholder && this.placeholder.parentNode) {
+            this.placeholder.parentNode.removeChild(this.placeholder);
+        }
+        this.placeholder = null;
+    }
+
+    setupDragAndDrop() {
+        // Initial setup
+        this.updateDragListeners();
         this.updateDropZones();
     }
 
@@ -26,7 +169,6 @@ class DragDropManager {
         taskCards.forEach(card => {
             card.addEventListener('dragstart', this.handleDragStart.bind(this));
             card.addEventListener('dragend', this.handleDragEnd.bind(this));
-            card.addEventListener('dragover', this.handleDragOver.bind(this));
         });
     }
 
@@ -42,17 +184,15 @@ class DragDropManager {
     handleDragStart(e) {
         this.draggedElement = e.target;
         this.draggedElement.classList.add('dragging');
-
+        
         // Create placeholder
         this.placeholder = document.createElement('div');
         this.placeholder.className = 'task-placeholder';
         this.placeholder.style.height = `${this.draggedElement.offsetHeight}px`;
-
-        // Set drag data
+        
         e.dataTransfer.setData('text/plain', e.target.dataset.taskId);
         e.dataTransfer.effectAllowed = 'move';
-
-        // Add visual feedback
+        
         setTimeout(() => {
             if (this.draggedElement.parentNode) {
                 this.draggedElement.parentNode.insertBefore(this.placeholder, this.draggedElement.nextSibling);
@@ -62,8 +202,7 @@ class DragDropManager {
 
     handleDragEnd(e) {
         this.draggedElement.classList.remove('dragging');
-
-        // Remove placeholder
+        
         if (this.placeholder && this.placeholder.parentNode) {
             this.placeholder.parentNode.removeChild(this.placeholder);
         }
@@ -71,7 +210,6 @@ class DragDropManager {
         this.draggedElement = null;
         this.placeholder = null;
 
-        // Remove all drag-over classes
         document.querySelectorAll('.drag-over').forEach(el => {
             el.classList.remove('drag-over');
         });
@@ -82,39 +220,14 @@ class DragDropManager {
         e.dataTransfer.dropEffect = 'move';
 
         const target = e.currentTarget;
-
-        // Add visual feedback to drop zones
         if (target.classList.contains('column-content')) {
             target.classList.add('drag-over');
-        }
-
-        // Handle reordering within the same column
-        if (target.classList.contains('task-card') && target !== this.draggedElement) {
-            const rect = target.getBoundingClientRect();
-            const midpoint = rect.top + rect.height / 2;
-
-            if (e.clientY < midpoint) {
-                // Insert before target
-                if (this.placeholder && this.placeholder.parentNode) {
-                    this.placeholder.parentNode.removeChild(this.placeholder);
-                }
-                target.parentNode.insertBefore(this.placeholder, target);
-            } else {
-                // Insert after target
-                if (this.placeholder && this.placeholder.parentNode) {
-                    this.placeholder.parentNode.removeChild(this.placeholder);
-                }
-                target.parentNode.insertBefore(this.placeholder, target.nextSibling);
-            }
         }
     }
 
     handleDragLeave(e) {
         const target = e.currentTarget;
-
-        // Remove visual feedback when leaving drop zones
         if (target.classList.contains('column-content')) {
-            // Only remove if we're actually leaving the column (not moving to a child)
             if (!target.contains(e.relatedTarget)) {
                 target.classList.remove('drag-over');
             }
@@ -134,8 +247,10 @@ class DragDropManager {
         if (target.classList.contains('column-content')) {
             newStatus = target.id.replace('-tasks', '');
         } else {
-            // Dropped on another task card - use its column
-            newStatus = target.closest('.column-content').id.replace('-tasks', '');
+            const closestColumn = target.closest('.column-content');
+            if (closestColumn) {
+                newStatus = closestColumn.id.replace('-tasks', '');
+            }
         }
 
         // Move task to new status
@@ -143,7 +258,6 @@ class DragDropManager {
             this.kanbanBoard.moveTask(taskId, newStatus);
         }
 
-        // Clean up
         this.handleDragEnd(e);
     }
 

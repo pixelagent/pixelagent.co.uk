@@ -5,6 +5,7 @@ class UserManager {
     constructor() {
         this.users = [];
         this.nextUserId = 1;
+        this.currentUserId = null; // Track current logged in user
         this.init();
     }
 
@@ -26,6 +27,10 @@ class UserManager {
 
         this.users.push(user);
         this.saveUsers();
+        
+        // Set as current user
+        this.currentUserId = user.id;
+        
         return user;
     }
 
@@ -111,22 +116,52 @@ class UserManager {
 
     saveUser() {
         const form = document.getElementById('user-form');
-        const formData = new FormData(form);
+        const userId = form.dataset.userId || form.getAttribute('data-user-id');
+        
+        // Get form values directly
         const userData = {
-            name: formData.get('user-name'),
-            email: formData.get('user-email'),
-            role: formData.get('user-role')
+            name: document.getElementById('user-name').value,
+            email: document.getElementById('user-email').value,
+            role: document.getElementById('user-role').value
         };
 
-        const userId = form.dataset.userId;
         if (userId) {
             this.updateUser(parseInt(userId), userData);
         } else {
-            this.createUser(userData);
+            const newUser = this.createUser(userData);
+            // Set as current user for task assignment
+            this.currentUserId = newUser.id;
         }
 
         this.closeUserModal();
         this.showNotification(`User ${userId ? 'updated' : 'created'} successfully`, 'success');
+        
+        // Refresh the assignee dropdown in kanban board
+        if (window.kanbanBoard) {
+            window.kanbanBoard.populateAssigneeDropdown();
+        }
+        
+        // Refresh users list in settings if open
+        if (window.settingsManager) {
+            window.settingsManager.renderUsersList();
+        }
+    }
+
+    // Get current user
+    getCurrentUser() {
+        if (this.currentUserId) {
+            return this.users.find(u => u.id === this.currentUserId);
+        }
+        return null;
+    }
+
+    // Set current user
+    setCurrentUser(userId) {
+        const user = this.users.find(u => u.id === userId);
+        if (user) {
+            this.currentUserId = userId;
+            this.showNotification(`Switched to ${user.name}`, 'info');
+        }
     }
 
     // User List Management (for future expansion)
@@ -139,6 +174,7 @@ class UserManager {
     saveUsers() {
         localStorage.setItem('kanban-users', JSON.stringify(this.users));
         localStorage.setItem('kanban-next-user-id', this.nextUserId.toString());
+        console.log('Users saved to localStorage:', this.users);
     }
 
     loadUsers() {

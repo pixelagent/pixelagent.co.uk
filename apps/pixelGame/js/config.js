@@ -12,7 +12,7 @@ const gameConfig = {
         velocity: { x: 0, y: 0 },
         width: 45,
         height: 60,
-        speed: 5,
+        speed: 7,
         jumping: false,
         jumpHeight: 9, // Jump height power variable
         crouchHeight: 40
@@ -57,22 +57,28 @@ const gameConfig = {
         'player': 'blue'
     },
     
-    // NPC messages configuration
+    // NPC messages configuration - reference ink JSON and playback options
+    // Each entry is an array for the level. You may optionally place a first element with only a `repeat` field
+    // to apply the repeat rule to all following options in that array. Example:
+    // 1: [ { repeat: { type: 'times', count: 4 } }, { path: 'storyA.json' }, { path: 'storyB.json' } ]
     npcMessages: {
         1: [
-            "Hello there! Welcome to level 1. Collect all the gold coins to proceed!",
-            "Watch out for enemies! They'll reduce your lives.",
-            "Use arrow keys to move and space to jump!"
+            { repeat: { type: 'times', count: 4 } },
+            { path: 'assets/dialogue/Story/Chapter_01/The Basket.json' },
+            { path: 'assets/dialogue/Story/Chapter_01/The River\'s Gift.json' },
+            { path: 'assets/dialogue/Story/Chapter_01/The Basket.json' }
         ],
         2: [
-            "Level 2 is more challenging! Be careful with the platforms.",
-            "Remember, you can crouch with the S key!",
-            "The checkpoint is at the end - reach it to complete the level!"
+            { repeat: { type: 'times', count: 4 } },
+            { path: 'assets/dialogue/Story/Chapter_01/The Basket.json' },
+            { path: 'assets/dialogue/Story/Chapter_01/The River\'s Gift.json' },
+            { path: 'assets/dialogue/Story/Chapter_01/The Basket.json' }
         ],
         3: [
-            "Final level! This one has more complex platforms.",
-            "You're doing great! Almost there!",
-            "Collect all coins to get the best score!"
+            { repeat: { type: 'times', count: 4 } },
+            { path: 'assets/dialogue/Story/Chapter_03/Flight into the Desert.json' },
+            { path: 'assets/dialogue/Story/Chapter_02/The Hidden Name.json' },
+            { path: 'assets/dialogue/Story/Chapter_01/The Basket.json' }
         ]
     }
 };

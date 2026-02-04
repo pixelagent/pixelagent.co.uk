@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/modal.css">
     <link rel="stylesheet" href="css/settings.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="fonts/fontawesome-free-6.5.0/css/all.min.css">
 </head>
 
 <body>
@@ -21,7 +23,10 @@
         </div>
 
         <div class="header-controls">
-            <button id="import-sheets-btn" class="btn"><i class="fas fa-file-import"></i> Import from Sheets</button>
+            <button id="messages-btn" class="btn icon-only" title="Messages">
+                <i class="fas fa-comment-alt"></i>
+            </button>
+            <button id="import-sheets-btn" class="btn"><i class="fas fa-file-import"></i> Import</button>
             <button id="add-user-btn" class="btn"><i class="fas fa-user-plus"></i> Add User</button>
             <button id="settings-btn" class="btn icon-only" title="Settings"><i class="fas fa-cog"></i></button>
         </div>
@@ -36,7 +41,7 @@
                     <span class="task-count" id="backlog-count">0</span>
                 </div>
                 <div class="column-content" id="backlog-tasks" data-status="backlog"></div>
-                <button class="add-task-btn" data-status="backlog">+ Add a card</button>
+                <button class="add-task-btn" data-status="backlog"><i class="fas fa-plus"></i> Add a card</button>
             </div>
 
             <div class="kanban-column">
@@ -45,7 +50,7 @@
                     <span class="task-count" id="todo-count">0</span>
                 </div>
                 <div class="column-content" id="todo-tasks" data-status="todo"></div>
-                <button class="add-task-btn" data-status="todo">+ Add a card</button>
+                <button class="add-task-btn" data-status="todo"><i class="fas fa-plus"></i> Add a card</button>
             </div>
 
             <div class="kanban-column">
@@ -54,7 +59,7 @@
                     <span class="task-count" id="in-progress-count">0</span>
                 </div>
                 <div class="column-content" id="in-progress-tasks" data-status="in-progress"></div>
-                <button class="add-task-btn" data-status="in-progress">+ Add a card</button>
+                <button class="add-task-btn" data-status="in-progress"><i class="fas fa-plus"></i> Add a card</button>
             </div>
 
             <div class="kanban-column">
@@ -63,7 +68,7 @@
                     <span class="task-count" id="done-count">0</span>
                 </div>
                 <div class="column-content" id="done-tasks" data-status="done"></div>
-                <button class="add-task-btn" data-status="done">+ Add a card</button>
+                <button class="add-task-btn" data-status="done"><i class="fas fa-plus"></i> Add a card</button>
             </div>
         </div>
     </div>
@@ -110,6 +115,83 @@
                     <div class="form-group">
                         <label for="task-due-date">Due Date</label>
                         <input type="date" id="task-due-date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-bg-color">Background Color</label>
+                        <div class="color-picker-row">
+                            <input type="color" id="task-bg-color" value="#2d2d2d">
+                            <select id="task-bg-color-preset">
+                                <option value="">Custom</option>
+                                <option value="#2d2d2d">Default</option>
+                                <option value="#3d5a80">Blue</option>
+                                <option value="#457b9d">Light Blue</option>
+                                <option value="#6b4c4c">Brown</option>
+                                <option value="#4c6b5c">Green</option>
+                                <option value="#6b4c6b">Purple</option>
+                                <option value="#4c5c6b">Gray</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Attachments Section -->
+                    <div class="form-group">
+                        <label>Attachments</label>
+                        <div id="attachments-list" class="attachments-list">
+                            <!-- Attachments will be listed here -->
+                        </div>
+                        <div class="attachment-actions">
+                            <button type="button" class="btn btn-sm" id="add-image-btn" title="Add Image">
+                                <i class="fas fa-image"></i> Image
+                            </button>
+                            <button type="button" class="btn btn-sm" id="add-video-btn" title="Add Video">
+                                <i class="fas fa-video"></i> Video
+                            </button>
+                            <button type="button" class="btn btn-sm" id="add-audio-btn" title="Add Audio">
+                                <i class="fas fa-music"></i> Audio
+                            </button>
+                            <button type="button" class="btn btn-sm" id="add-doc-btn" title="Add Document">
+                                <i class="fas fa-file"></i> Doc
+                            </button>
+                            <button type="button" class="btn btn-sm" id="add-link-btn" title="Add Link">
+                                <i class="fas fa-link"></i> Link
+                            </button>
+                        </div>
+                        <!-- Hidden inputs for each attachment type -->
+                        <div class="attachment-input-group" id="new-image-group" style="display:none;">
+                            <input type="url" id="new-image-url" placeholder="Enter image URL...">
+                            <button type="button" class="btn btn-sm add-attachment-btn" data-type="image" data-input="new-image-url">Add</button>
+                        </div>
+                        <div class="attachment-input-group" id="new-video-group" style="display:none;">
+                            <input type="url" id="new-video-url" placeholder="Enter video URL...">
+                            <button type="button" class="btn btn-sm add-attachment-btn" data-type="video" data-input="new-video-url">Add</button>
+                        </div>
+                        <div class="attachment-input-group" id="new-audio-group" style="display:none;">
+                            <input type="url" id="new-audio-url" placeholder="Enter audio URL...">
+                            <button type="button" class="btn btn-sm add-attachment-btn" data-type="audio" data-input="new-audio-url">Add</button>
+                        </div>
+                        <div class="attachment-input-group" id="new-doc-group" style="display:none;">
+                            <input type="url" id="new-doc-url" placeholder="Enter document URL...">
+                            <button type="button" class="btn btn-sm add-attachment-btn" data-type="doc" data-input="new-doc-url">Add</button>
+                        </div>
+                        <div class="attachment-input-group" id="new-link-group" style="display:none;">
+                            <input type="url" id="new-link-url" placeholder="Enter link URL...">
+                            <button type="button" class="btn btn-sm add-attachment-btn" data-type="link" data-input="new-link-url">Add</button>
+                        </div>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div class="form-group">
+                        <label>Comments</label>
+                        <div id="comments-list" class="comments-list">
+                            <!-- Comments will be listed here -->
+                        </div>
+                        <div class="comment-add">
+                            <textarea id="new-comment-text" rows="2" placeholder="Add a comment..."></textarea>
+                            <button type="button" class="btn primary" id="add-comment-btn">
+                                <i class="fas fa-paper-plane"></i> Comment
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -219,13 +301,231 @@
         </div>
     </div>
 
+    <!-- SETTINGS MODAL -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal" style="width: 600px;">
+            <header>
+                <div class="modal-title">
+                    <i class="fas fa-cog"></i> Settings
+                </div>
+                <button class="modal-close" id="settings-modal-close">&times;</button>
+            </header>
+
+            <div class="modal-content">
+                <!-- Tabs -->
+                <div class="settings-tabs">
+                    <button class="settings-tab active" data-tab="boards">Boards</button>
+                    <button class="settings-tab" data-tab="users">Users</button>
+                    <button class="settings-tab" data-tab="panels">Panels</button>
+                    <button class="settings-tab" data-tab="comments">Comments</button>
+                </div>
+
+                <!-- Boards Tab -->
+                <div class="settings-tab-content active" id="tab-boards">
+                    <h4>Board Management</h4>
+                    <div class="board-actions">
+                        <button class="btn" id="save-board-btn"><i class="fas fa-save"></i> Save</button>
+                        <button class="btn" id="auto-save-btn"><i class="fas fa-save"></i> Auto-Save</button>
+                        <button class="btn" id="export-json-btn"><i class="fas fa-file-export"></i> Export JSON</button>
+                        <button class="btn" id="import-json-btn"><i class="fas fa-file-import"></i> Import JSON</button>
+                        <input type="file" id="import-json-input" accept=".json" style="display:none">
+                    </div>
+                    <h4 style="margin-top: 20px;">Saved Boards</h4>
+                    <div id="saved-boards-list" class="saved-boards-list">
+                        <!-- Dynamically populated -->
+                    </div>
+                    <div class="board-actions" style="margin-top: 16px;">
+                        <input type="text" id="new-board-name" placeholder="New board name...">
+                        <button class="btn primary" id="create-board-btn">Create Board</button>
+                    </div>
+                </div>
+
+                <!-- Users Tab -->
+                <div class="settings-tab-content" id="tab-users">
+                    <h4>User Management</h4>
+                    <div class="form-group">
+                        <label>Default User (for new tasks)</label>
+                        <select id="default-user-select">
+                            <option value="">No default user</option>
+                        </select>
+                    </div>
+                    <div id="users-list" class="users-list">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+                <!-- Panels Tab -->
+                <div class="settings-tab-content" id="tab-panels">
+                    <h4>Panel Configuration</h4>
+                    <div class="form-group">
+                        <label>Number of Panels</label>
+                        <select id="panel-count">
+                            <option value="3">3 Panels</option>
+                            <option value="4" selected>4 Panels</option>
+                            <option value="5">5 Panels</option>
+                            <option value="6">6 Panels</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Panel Names</label>
+                        <div id="panel-names-config" class="panel-names-config">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Date Format</label>
+                        <select id="date-format">
+                            <option value="uk">UK (DD/MM/YYYY)</option>
+                            <option value="us">US (MM/DD/YYYY)</option>
+                        </select>
+                    </div>
+                    <button class="btn primary" id="save-panels-config">Apply Changes</button>
+                </div>
+
+                <!-- Comments Tab -->
+                <div class="settings-tab-content" id="tab-comments">
+                    <h4>My Comments</h4>
+                    <div class="form-group">
+                        <label>Select User</label>
+                        <select id="comments-user-select">
+                            <option value="">Select a user...</option>
+                        </select>
+                    </div>
+                    <div id="user-comments-list" class="user-comments-list">
+                        <p class="empty-message">Select a user to view their comments</p>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <div class="modal-actions">
+                    <button class="btn" id="settings-cancel-btn">Close</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- EMAIL MODAL -->
+    <div class="modal-overlay" id="email-modal">
+        <div class="modal">
+            <header>
+                <div class="modal-title">
+                    <i class="fas fa-envelope"></i> <span id="email-modal-title">Send Email</span>
+                </div>
+                <button class="modal-close" id="email-modal-close">&times;</button>
+            </header>
+
+            <div class="modal-content">
+                <form id="email-form">
+                    <div class="form-group">
+                        <label for="email-to">To</label>
+                        <input type="email" id="email-to" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email-subject">Subject</label>
+                        <input type="text" id="email-subject" placeholder="Email subject...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email-body">Message</label>
+                        <textarea id="email-body" rows="5" placeholder="Write your message..."></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <footer>
+                <div class="modal-actions">
+                    <button class="btn" id="email-cancel-btn">Cancel</button>
+                    <a class="btn primary" id="email-send-btn" href="#" target="_blank">Open Email Client</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- GALLERY MODAL -->
+    <div class="modal-overlay" id="gallery-modal">
+        <div class="modal" style="max-width: 900px;">
+            <header>
+                <div class="modal-title">
+                    <i class="fas fa-images"></i> <span id="gallery-modal-title">Attachments</span>
+                </div>
+                <button class="modal-close" id="gallery-modal-close">&times;</button>
+            </header>
+
+            <div class="modal-content">
+                <div id="gallery-content" class="gallery-content">
+                    <!-- Gallery items will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMMENT EDIT MODAL -->
+    <div class="modal-overlay" id="comment-edit-modal">
+        <div class="modal">
+            <header>
+                <div class="modal-title">
+                    <i class="fas fa-edit"></i> Edit Comment
+                </div>
+                <button class="modal-close" id="comment-edit-modal-close">&times;</button>
+            </header>
+
+            <div class="modal-content">
+                <div class="form-group">
+                    <label for="comment-edit-assignee">Assignee</label>
+                    <select id="comment-edit-assignee">
+                        <option value="">Unassigned</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="comment-edit-text">Comment</label>
+                    <textarea id="comment-edit-text" rows="4"></textarea>
+                </div>
+            </div>
+
+            <footer>
+                <div class="modal-actions">
+                    <button class="btn" id="comment-edit-cancel-btn">Cancel</button>
+                    <button class="btn primary" id="comment-edit-save-btn">Save</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
     <!-- SCRIPTS -->
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="js/kanban.js"></script>
     <script src="js/userManager.js"></script>
     <script src="js/googleSheets.js"></script>
     <script src="js/dragDrop.js"></script>
+    <script src="js/boardManager.js"></script>
     <script src="js/notifications.js"></script>
+    <script src="js/settingsManager.js"></script>
 </body>
 
 </html>
+
+<!-- MESSAGES SIDEBAR -->
+<div class="sidebar-overlay" id="messages-overlay"></div>
+<aside class="sidebar" id="messages-sidebar">
+    <header>
+        <div class="sidebar-title">
+            <i class="fas fa-comment-alt"></i> Messages
+        </div>
+        <button class="sidebar-close" id="messages-sidebar-close">&times;</button>
+    </header>
+    
+    <div class="sidebar-content">
+        <div class="form-group">
+            <label for="messages-user-select">Select User</label>
+            <select id="messages-user-select">
+                <option value="">Select a user...</option>
+            </select>
+        </div>
+        
+        <div id="messages-list" class="messages-list">
+            <p class="empty-message">Select a user to view their comments</p>
+        </div>
+    </div>
+</aside>

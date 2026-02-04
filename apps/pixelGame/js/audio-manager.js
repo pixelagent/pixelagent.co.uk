@@ -12,30 +12,38 @@ class AudioManager {
         
         console.log('Initializing AudioManager...');
         
-        // Initialize all sound effects
-        this.sounds.collectable = new Howl({
-            src: ['https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3'],
-            volume: 0.5,
-            preload: true,
-            onload: () => console.log('Collectable sound loaded'),
-            onloaderror: () => console.error('Failed to load collectable sound')
-        });
+        // Initialize all sound effects (use local assets/audio/ - no CDN needed)
+        const localCollectableCandidates = ['assets/audio/collectable.mp3'];
+        const localCheckpointCandidates = ['assets/audio/checkpoint.mp3'];
+        const localNpcCandidates = ['assets/audio/npc.mp3'];
 
-        this.sounds.checkpoint = new Howl({
-            src: ['https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3'],
-            volume: 0.7,
-            preload: true,
-            onload: () => console.log('Checkpoint sound loaded'),
-            onloaderror: () => console.error('Failed to load checkpoint sound')
-        });
+        const collectableSrcFallback = 'assets/audio/collectable.mp3';
+        const checkpointSrcFallback = 'assets/audio/checkpoint.mp3';
+        const npcSrcFallback = 'assets/audio/npc.mp3';
 
-        this.sounds.npc = new Howl({
-            src: ['https://assets.mixkit.co/sfx/preview/mixkit-positive-notification-951.mp3'],
-            volume: 0.6,
-            preload: true,
-            onload: () => console.log('NPC sound loaded'),
-            onloaderror: () => console.error('Failed to load NPC sound')
-        });
+
+        // Try each local candidate in order; on error try next, finally fall back to CDN.
+        function tryCreateHowlWithCandidates(key, candidates, fallback, volume) {
+            const tryNext = (idx) => {
+                if (idx >= candidates.length) {
+                    this.sounds[key] = new Howl({ src:[fallback], volume, preload:true, onload: () => console.log(`${key} sound loaded (fallback)`), onloaderror: () => console.error('Failed to load ' + key + ' sound') });
+                    return;
+                }
+                const url = candidates[idx];
+                this.sounds[key] = new Howl({
+                    src: [url],
+                    volume,
+                    preload: true,
+                    onload: () => console.log(`${key} sound loaded (local: ${url})`),
+                    onloaderror: () => { console.warn(`${key} local sound failed (${url}), trying next`); tryNext(idx+1); }
+                });
+            };
+            tryNext(0);
+        }
+
+        tryCreateHowlWithCandidates.call(this, 'collectable', localCollectableCandidates, collectableSrcFallback, 0.5);
+        tryCreateHowlWithCandidates.call(this, 'checkpoint', localCheckpointCandidates, checkpointSrcFallback, 0.7);
+        tryCreateHowlWithCandidates.call(this, 'npc', localNpcCandidates, npcSrcFallback, 0.6);
 
         this.initialized = true;
         console.log('AudioManager initialized successfully');
