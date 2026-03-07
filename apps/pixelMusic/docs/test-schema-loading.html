@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schema Loading Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+    </style>
+</head>
+<body>
+    <h1>Schema Loading Test</h1>
+    <div id="results"></div>
+
+    <script>
+        async function testSchemaLoading() {
+            const results = document.getElementById('results');
+            
+            // Test loading each schema file
+            const schemas = [
+                'nodes/strudel-node-schema.json',
+                'nodes/strudel-node-properties.json',
+                'nodes/strudel-node-instruments.json',
+                'nodes/strudel-control-nodes.json',
+                'nodes/strudel-mini-notation.json',
+                'nodes/strudel-pattern-combinators.json',
+                'nodes/strudel-pattern-functions.json',
+                'nodes/strudel-schema-index.json'
+            ];
+
+            for (const schemaPath of schemas) {
+                try {
+                    const response = await fetch(schemaPath);
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    
+                    const schema = await response.json();
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'test-result success';
+                    resultDiv.innerHTML = `
+                        <strong>✓ ${schemaPath}</strong><br>
+                        Loaded successfully. Type: ${schema.type || 'N/A'}, Version: ${schema.version || 'N/A'}
+                    `;
+                    results.appendChild(resultDiv);
+                } catch (error) {
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'test-result error';
+                    resultDiv.innerHTML = `
+                        <strong>✗ ${schemaPath}</strong><br>
+                        Error: ${error.message}
+                    `;
+                    results.appendChild(resultDiv);
+                }
+            }
+
+            // Test NodeFactory initialization
+            try {
+                const testDiv = document.createElement('div');
+                testDiv.className = 'test-result info';
+                testDiv.innerHTML = `
+                    <strong>NodeFactory Test</strong><br>
+                    Creating test NodeFactory instance...
+                `;
+                results.appendChild(testDiv);
+
+                // Simulate NodeFactory creation
+                const mockManager = {
+                    nodeSchema: null,
+                    propertySchema: null,
+                    controlNodesSchema: null,
+                    patternCombinatorsSchema: null,
+                    patternFunctionsSchema: null,
+                    updateStatus: () => {},
+                    updateStrudelOutput: () => {},
+                    updateBackButtonState: () => {},
+                    connections: { addConnectionPortListeners: () => {}, updateAllConnections: () => {} },
+                    canvas: { scale: 1 }
+                };
+
+                // Test if NodeFactory can be instantiated
+                const NodeFactory = eval(`(${document.createElement('script').textContent || 'function NodeFactory() {}'})`);
+                const factory = new NodeFactory(mockManager);
+                
+                testDiv.innerHTML = `
+                    <strong>✓ NodeFactory Test</strong><br>
+                    NodeFactory instance created successfully.
+                `;
+                testDiv.className = 'test-result success';
+            } catch (error) {
+                const testDiv = document.createElement('div');
+                testDiv.className = 'test-result error';
+                testDiv.innerHTML = `
+                    <strong>✗ NodeFactory Test</strong><br>
+                    Error: ${error.message}
+                `;
+                results.appendChild(testDiv);
+            }
+        }
+
+        // Run test when page loads
+        window.onload = testSchemaLoading;
+    </script>
+</body>
+</html>

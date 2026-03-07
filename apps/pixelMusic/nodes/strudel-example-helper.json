@@ -1,0 +1,2367 @@
+{
+  "schemaVersion": "1.0.0",
+  "description": "Complete example patterns and values for all node properties",
+  
+  "nodes": {
+    "Instrument": {
+      "sound": {
+        "examples": [
+          {"value": "bd", "description": "Bass drum sound"},
+          {"value": "sd", "description": "Snare drum sound"},
+          {"value": "hh", "description": "Hi-hat sound"},
+          {"value": "piano", "description": "Acoustic piano"},
+          {"value": "kalimba", "description": "Kalimba (thumb piano)"},
+          {"value": "sawtooth", "description": "Sawtooth wave synth"},
+          {"value": "bass0", "description": "Bass synth sound"},
+          {"value": "casio", "description": "Casio keyboard samples"}
+        ]
+      },
+      "n": {
+        "examples": [
+          {"value": "0", "description": "First variant of the sample"},
+          {"value": "2", "description": "Third variant of the sample"},
+          {"value": "<0 1 2 3>", "description": "Cycle through first 4 variants"},
+          {"value": "irand(8)", "description": "Random variant from 0-7"}
+        ]
+      },
+      "note": {
+        "examples": [
+          {"value": "c4", "description": "Middle C"},
+          {"value": "<c4 e4 g4>", "description": "C major triad arpeggio"},
+          {"value": "<c4 d4 e4 f4 g4>", "description": "C major scale"},
+          {"value": "<c3 e3 g3 c4>", "description": "Octave spread chord"},
+          {"value": "[c4, e4, g4]", "description": "Random notes from C major triad"}
+        ]
+      },
+      "gain": {
+        "examples": [
+          {"value": "1", "description": "Unity gain (normal volume)"},
+          {"value": "0.5", "description": "Half volume"},
+          {"value": "<1 0.8 0.6 0.4>", "description": "Descending volume pattern"},
+          {"value": "rand.range(0.5, 1)", "description": "Random volume between 50-100%"},
+          {"value": "sine.range(0.3, 1)", "description": "Sine wave volume modulation"}
+        ]
+      },
+      "pan": {
+        "examples": [
+          {"value": "0.5", "description": "Center pan (mono)"},
+          {"value": "<0 1 0.5 -1>", "description": "Cycle through left, right, center, full left"},
+          {"value": "sine.slow(2)", "description": "Slow sine wave panning"},
+          {"value": "brand", "description": "Binary random pan (0 or 1)"},
+          {"value": "brandBy(0.2)", "description": "Binary random pan with 20% chance of 1"},
+          {"value": "perlin.range(-1, 1)", "description": "Smooth perlin noise panning"}
+        ]
+      },
+      "attack": {
+        "examples": [
+          {"value": "0.01", "description": "Fast attack (percussive)"},
+          {"value": "0.5", "description": "Slow attack (pad-like)"},
+          {"value": "<0.01 0.1 0.3>", "description": "Varying attack times"},
+          {"value": "rand.range(0.01, 0.3)", "description": "Random attack variation"}
+        ]
+      },
+      "decay": {
+        "examples": [
+          {"value": "0.1", "description": "Short decay"},
+          {"value": "0.5", "description": "Medium decay"},
+          {"value": "<0.1 0.3 0.5 0.7>", "description": "Progressive decay lengths"}
+        ]
+      },
+      "sustain": {
+        "examples": [
+          {"value": "0.7", "description": "High sustain level"},
+          {"value": "0.3", "description": "Low sustain level"},
+          {"value": "<1 0.5 0.3 0>", "description": "Descending sustain pattern"}
+        ]
+      },
+      "release": {
+        "examples": [
+          {"value": "0.1", "description": "Quick release (staccato)"},
+          {"value": "1.0", "description": "Long release (smooth)"},
+          {"value": "<0.1 0.5 1.0>", "description": "Varying release times"}
+        ]
+      },
+      "vowel": {
+        "examples": [
+          {"value": "a", "description": "Vowel 'ah' formant filter"},
+          {"value": "e", "description": "Vowel 'eh' formant filter"},
+          {"value": "<a e i o u>", "description": "Cycle through vowels"},
+          {"value": "[a, e, i]", "description": "Random vowel selection"}
+        ]
+      },
+      "lpf": {
+        "examples": [
+          {"value": "1000", "description": "Muffled sound (1kHz cutoff)"},
+          {"value": "8000", "description": "Open sound (8kHz cutoff)"},
+          {"value": "<500 1000 2000 4000>", "description": "Sweeping filter cutoff"},
+          {"value": "sine.range(200, 2000).slow(4)", "description": "Slow filter sweep"},
+          {"value": "perlin.range(500, 3000)", "description": "Organic filter movement"}
+        ]
+      },
+      "hpf": {
+        "examples": [
+          {"value": "100", "description": "Remove sub-bass (100Hz)"},
+          {"value": "500", "description": "Thin out low end (500Hz)"},
+          {"value": "<100 300 500>", "description": "Progressive high-pass filtering"}
+        ]
+      },
+      "bpf": {
+        "examples": [
+          {"value": "1000", "description": "Telephone-like narrow band"},
+          {"value": "<500 1000 2000>", "description": "Changing bandpass center"},
+          {"value": "sine.range(300, 3000).slow(2)", "description": "Sweeping bandpass filter"}
+        ]
+      },
+      "delay": {
+        "examples": [
+          {"value": "0.25", "description": "Quarter note delay"},
+          {"value": "0.5", "description": "Half note delay"},
+          {"value": "<0.125 0.25 0.5>", "description": "Varying delay times"},
+          {"value": "0.33", "description": "Dotted rhythm delay"}
+        ]
+      },
+      "delayfb": {
+        "examples": [
+          {"value": "0.3", "description": "Light feedback (few repeats)"},
+          {"value": "0.6", "description": "Moderate feedback"},
+          {"value": "0.9", "description": "Heavy feedback (many repeats)"}
+        ]
+      },
+      "delayt": {
+        "examples": [
+          {"value": "0.125", "description": "Eighth note delay time"},
+          {"value": "0.25", "description": "Quarter note delay time"},
+          {"value": "<0.125 0.25 0.5>", "description": "Rhythmic delay variations"}
+        ]
+      },
+      "reverb": {
+        "examples": [
+          {"value": "0.2", "description": "Small room reverb"},
+          {"value": "0.5", "description": "Medium hall reverb"},
+          {"value": "0.8", "description": "Large cathedral reverb"},
+          {"value": "<0 0.3 0.6>", "description": "Building reverb effect"}
+        ]
+      },
+      "room": {
+        "examples": [
+          {"value": "0.2", "description": "Small room size"},
+          {"value": "0.5", "description": "Medium room size"},
+          {"value": "0.8", "description": "Large hall size"}
+        ]
+      },
+      "distort": {
+        "examples": [
+          {"value": "0.2", "description": "Light warmth/saturation"},
+          {"value": "0.5", "description": "Moderate distortion"},
+          {"value": "0.8", "description": "Heavy distortion"},
+          {"value": "<0 0.3 0.6 0.9>", "description": "Increasing distortion pattern"}
+        ]
+      },
+      "crush": {
+        "examples": [
+          {"value": "8", "description": "8-bit lo-fi sound"},
+          {"value": "4", "description": "4-bit extreme degradation"},
+          {"value": "<16 8 4 2>", "description": "Progressive bit reduction"},
+          {"value": "irand(12)", "description": "Random bit depth variation"}
+        ]
+      },
+      "shape": {
+        "examples": [
+          {"value": "0.2", "description": "Subtle waveshaping"},
+          {"value": "0.5", "description": "Moderate waveshaping"},
+          {"value": "0.9", "description": "Heavy waveshaping distortion"}
+        ]
+      },
+      "speed": {
+        "examples": [
+          {"value": "1", "description": "Normal playback speed"},
+          {"value": "2", "description": "Double speed (octave up)"},
+          {"value": "0.5", "description": "Half speed (octave down)"},
+          {"value": "<1 1.5 2 0.75>", "description": "Varying playback speeds"},
+          {"value": "rand.range(0.8, 1.2)", "description": "Subtle speed variations"}
+        ]
+      },
+      "vibrato": {
+        "examples": [
+          {"value": "0.02", "description": "Subtle vibrato"},
+          {"value": "0.05", "description": "Moderate vibrato"},
+          {"value": "0.1", "description": "Wide vibrato"}
+        ]
+      },
+      "vibdepth": {
+        "examples": [
+          {"value": "0.02", "description": "Light vibrato depth"},
+          {"value": "0.05", "description": "Medium vibrato depth"},
+          {"value": "0.1", "description": "Deep vibrato"}
+        ]
+      },
+      "tremolo": {
+        "examples": [
+          {"value": "0.3", "description": "Subtle tremolo"},
+          {"value": "0.6", "description": "Moderate tremolo"},
+          {"value": "0.9", "description": "Deep tremolo"}
+        ]
+      },
+      "tremdepth": {
+        "examples": [
+          {"value": "0.3", "description": "Subtle amplitude modulation"},
+          {"value": "0.6", "description": "Moderate amplitude modulation"},
+          {"value": "0.9", "description": "Deep amplitude modulation"}
+        ]
+      }
+    },
+
+    "DrumSymbol": {
+      "symbol": {
+        "examples": [
+          {"value": "bd", "description": "Bass drum / kick"},
+          {"value": "sd", "description": "Snare drum"},
+          {"value": "hh", "description": "Closed hi-hat"},
+          {"value": "oh", "description": "Open hi-hat"},
+          {"value": "rim", "description": "Rim shot"},
+          {"value": "lt", "description": "Low tom"},
+          {"value": "mt", "description": "Mid tom"},
+          {"value": "ht", "description": "High tom"},
+          {"value": "rd", "description": "Ride cymbal"},
+          {"value": "cr", "description": "Crash cymbal"}
+        ]
+      },
+      "bank": {
+        "examples": [
+          {"value": "RolandTR909", "description": "Classic 909 sound (house/techno)"},
+          {"value": "RolandTR808", "description": "Classic 808 sound (hip-hop)"},
+          {"value": "RolandTR707", "description": "Digital 80s sound"},
+          {"value": "AkaiLinn", "description": "LinnDrum classic sound"},
+          {"value": "RhythmAce", "description": "Vintage analog sound"},
+          {"value": "ViscoSpaceDrum", "description": "Experimental space drum"}
+        ]
+      },
+      "dec": {
+        "examples": [
+          {"value": "0.1", "description": "Short, punchy decay"},
+          {"value": "0.5", "description": "Medium decay length"},
+          {"value": "1.5", "description": "Long, sustained decay"},
+          {"value": "<0.1 0.3 0.5>", "description": "Varying decay lengths"}
+        ]
+      }
+    },
+
+    "Note": {
+      "notes": {
+        "examples": [
+          {"value": "c4 e4 g4", "description": "C major triad"},
+          {"value": "<c3 e3 g3 c4>", "description": "C major chord with octave"},
+          {"value": "[c4, e4, g4]", "description": "Random notes from C major triad"},
+          {"value": "c4 d4 e4 f4 g4", "description": "C major scale"},
+          {"value": "<[c4 e4] [d4 f4] [e4 g4]>", "description": "Alternating intervals"}
+        ]
+      }
+    },
+
+    "SoundPattern": {
+      "pattern": {
+        "examples": [
+          {"value": "bd sd hh oh", "description": "Basic four-on-floor pattern"},
+          {"value": "bd ~ sd ~", "description": "Pattern with rests"},
+          {"value": "<bd sd> hh*4", "description": "Alternating kick/snare with fast hi-hats"},
+          {"value": "[bd sd, hh*8]", "description": "Layered drum pattern"}
+        ]
+      }
+    },
+
+    "SoundSynth": {
+      "synth": {
+        "examples": [
+          {"value": "sawtooth", "description": "Bright, rich harmonic synth"},
+          {"value": "sine", "description": "Pure, smooth sine wave"},
+          {"value": "square", "description": "Hollow, retro square wave"},
+          {"value": "triangle", "description": "Soft, mellow triangle wave"}
+        ]
+      }
+    },
+
+    "Repeater": {
+      "amount": {
+        "examples": [
+          {"value": "4", "description": "Repeat 4 times per cycle"},
+          {"value": "8", "description": "Repeat 8 times per cycle"},
+          {"value": "16", "description": "Repeat 16 times per cycle (fast)"},
+          {"value": "<2 4 8>", "description": "Varying repeat amounts"}
+        ]
+      },
+      "slow": {
+        "examples": [
+          {"value": "2", "description": "Play at half speed (2x slower)"},
+          {"value": "4", "description": "Play at quarter speed (4x slower)"},
+          {"value": "<2 3 4>", "description": "Variable slow-down pattern"}
+        ]
+      },
+      "fast": {
+        "examples": [
+          {"value": "2", "description": "Play at double speed (2x faster)"},
+          {"value": "4", "description": "Play at quadruple speed (4x faster)"},
+          {"value": "<2 3 4>", "description": "Variable speed-up pattern"}
+        ]
+      }
+    },
+
+    "Generator": {
+      "type": {
+        "examples": [
+          {"value": "irand", "description": "Random integer values"},
+          {"value": "rand", "description": "Random float values (0-1)"},
+          {"value": "range", "description": "Random values in a range"}
+        ]
+      }
+    },
+
+    "Output": {
+      "gain": {
+        "examples": [
+          {"value": "1", "description": "Unity gain (normal)"},
+          {"value": "0.5", "description": "Half volume"},
+          {"value": "1.5", "description": "50% louder"}
+        ]
+      },
+      "mute": {
+        "examples": [
+          {"value": "true", "description": "Mute this output"},
+          {"value": "false", "description": "Unmute this output"}
+        ]
+      },
+      "solo": {
+        "examples": [
+          {"value": "true", "description": "Solo this output (mute others)"},
+          {"value": "false", "description": "Disable solo mode"}
+        ]
+      }
+    },
+
+    "Stack": {
+      "examples": [
+        {"value": "stack(s('bd'), s('hh'))", "description": "Layer kick and hi-hat"},
+        {"value": "stack(s('bd').gain(0.8), s('sd').every(2, fast(2)), s('hh*4'))", "description": "Complex layered pattern with transforms"}
+      ]
+    },
+
+    "Sequence": {
+      "examples": [
+        {"value": "cat(s('bd sd'), s('hh oh'))", "description": "Sequential pattern: bd-sd then hh-oh"},
+        {"value": "seq(s('bd*4'), s('sd*2'), s('hh*8'))", "description": "Three sequential sections"}
+      ]
+    },
+
+    "Group": {
+      "mode": {
+        "examples": [
+          {"value": "parallel", "description": "Play all patterns simultaneously"},
+          {"value": "alternate", "description": "Alternate between patterns each cycle"}
+        ]
+      }
+    },
+
+    "Envelope": {
+      "attack": {
+        "examples": [
+          {"value": "0.01", "description": "Instant attack (percussive)"},
+          {"value": "0.5", "description": "Slow fade-in (pad-like)"},
+          {"value": "1.0", "description": "Very slow swell"}
+        ]
+      },
+      "decay": {
+        "examples": [
+          {"value": "0.1", "description": "Quick decay to sustain"},
+          {"value": "0.5", "description": "Medium decay"},
+          {"value": "1.0", "description": "Long decay"}
+        ]
+      },
+      "sustain": {
+        "examples": [
+          {"value": "0", "description": "No sustain (pluck)"},
+          {"value": "0.5", "description": "Half sustain level"},
+          {"value": "1.0", "description": "Full sustain (organ-like)"}
+        ]
+      },
+      "release": {
+        "examples": [
+          {"value": "0.1", "description": "Quick release (staccato)"},
+          {"value": "0.5", "description": "Medium release"},
+          {"value": "2.0", "description": "Long release (sustained)"}
+        ]
+      }
+    },
+
+    "Gain": {
+      "amount": {
+        "examples": [
+          {"value": "1", "description": "Unity gain (100%)"},
+          {"value": "0.5", "description": "Half volume (50%)"},
+          {"value": "1.5", "description": "Amplified (150%)"},
+          {"value": "<1 0.8 0.6 0.4>", "description": "Descending volume pattern"}
+        ]
+      }
+    },
+
+    "Pan": {
+      "position": {
+        "examples": [
+          {"value": "0", "description": "Hard left"},
+          {"value": "0.5", "description": "Center"},
+          {"value": "1", "description": "Hard right"},
+          {"value": "<0 1>", "description": "Alternating left/right"},
+          {"value": "sine.slow(4)", "description": "Slow sine wave panning"}
+        ]
+      }
+    },
+
+    "Speed": {
+      "factor": {
+        "examples": [
+          {"value": "1", "description": "Normal speed"},
+          {"value": "2", "description": "Double speed (octave up)"},
+          {"value": "0.5", "description": "Half speed (octave down)"},
+          {"value": "<1 1.5 2>", "description": "Ascending speed pattern"}
+        ]
+      }
+    },
+
+    "Room": {
+      "size": {
+        "examples": [
+          {"value": "0.1", "description": "Tiny room"},
+          {"value": "0.5", "description": "Medium hall"},
+          {"value": "0.9", "description": "Large cathedral"},
+          {"value": "<0 0.3 0.6 0.9>", "description": "Growing room size"}
+        ]
+      }
+    },
+
+    "LPF": {
+      "frequency": {
+        "examples": [
+          {"value": "500", "description": "Very muffled (500Hz)"},
+          {"value": "2000", "description": "Warm filtering (2kHz)"},
+          {"value": "8000", "description": "Open sound (8kHz)"},
+          {"value": "<500 1000 2000 4000>", "description": "Sweeping filter cutoff"},
+          {"value": "sine.range(200, 3000).slow(2)", "description": "Slow LFO filter sweep"}
+        ]
+      }
+    },
+
+    "HPF": {
+      "frequency": {
+        "examples": [
+          {"value": "100", "description": "Remove sub-bass (100Hz)"},
+          {"value": "500", "description": "Thin out sound (500Hz)"},
+          {"value": "2000", "description": "Very thin (2kHz)"},
+          {"value": "<100 500 1000>", "description": "Progressive high-pass"}
+        ]
+      }
+    },
+
+    "Delay": {
+      "time": {
+        "examples": [
+          {"value": "0.125", "description": "Eighth note delay"},
+          {"value": "0.25", "description": "Quarter note delay"},
+          {"value": "0.5", "description": "Half note delay"},
+          {"value": "<0.125 0.25 0.5>", "description": "Varying delay times"}
+        ]
+      },
+      "feedback": {
+        "examples": [
+          {"value": "0.2", "description": "Light feedback (1-2 repeats)"},
+          {"value": "0.5", "description": "Medium feedback (3-4 repeats)"},
+          {"value": "0.8", "description": "Heavy feedback (many repeats)"}
+        ]
+      }
+    },
+
+    "Reverb": {
+      "room": {
+        "examples": [
+          {"value": "0.1", "description": "Small room reverb"},
+          {"value": "0.5", "description": "Medium hall reverb"},
+          {"value": "0.9", "description": "Massive cathedral reverb"}
+        ]
+      }
+    },
+
+    "Distort": {
+      "amount": {
+        "examples": [
+          {"value": "0.1", "description": "Subtle warmth"},
+          {"value": "0.5", "description": "Moderate overdrive"},
+          {"value": "0.9", "description": "Heavy distortion"}
+        ]
+      }
+    },
+
+    "Crush": {
+      "bits": {
+        "examples": [
+          {"value": "16", "description": "Clean (no reduction)"},
+          {"value": "8", "description": "8-bit retro sound"},
+          {"value": "4", "description": "4-bit lo-fi"},
+          {"value": "1", "description": "Extreme 1-bit"}
+        ]
+      }
+    },
+
+    "Shape": {
+      "amount": {
+        "examples": [
+          {"value": "0.1", "description": "Subtle harmonic enhancement"},
+          {"value": "0.5", "description": "Moderate waveshaping"},
+          {"value": "0.9", "description": "Heavy waveshaping distortion"}
+        ]
+      }
+    },
+
+    "Vowel": {
+      "vowel": {
+        "examples": [
+          {"value": "a", "description": "Open 'ah' sound"},
+          {"value": "e", "description": "'eh' formant"},
+          {"value": "i", "description": "Bright 'ee' sound"},
+          {"value": "o", "description": "'oh' formant"},
+          {"value": "u", "description": "Dark 'oo' sound"}
+        ]
+      }
+    },
+
+    "Chop": {
+      "amount": {
+        "examples": [
+          {"value": "2", "description": "Chop into 2 parts"},
+          {"value": "4", "description": "Chop into 4 parts"},
+          {"value": "8", "description": "Chop into 8 parts (granular)"},
+          {"value": "16", "description": "Very granular chopping"}
+        ]
+      }
+    },
+
+    "Stutter": {
+      "amount": {
+        "examples": [
+          {"value": "2", "description": "Double each event"},
+          {"value": "4", "description": "Quadruple each event"},
+          {"value": "8", "description": "8x stutter (glitch effect)"}
+        ]
+      }
+    },
+
+    "Often": {
+      "probability": {
+        "examples": [
+          {"value": "0.7", "description": "70% chance of applying transform"},
+          {"value": "0.8", "description": "80% chance (very likely)"},
+          {"value": "0.9", "description": "90% chance (almost always)"}
+        ]
+      }
+    },
+
+    "Sometimes": {
+      "probability": {
+        "examples": [
+          {"value": "0.5", "description": "50% chance of applying transform"},
+          {"value": "0.4", "description": "40% chance"},
+          {"value": "0.6", "description": "60% chance"}
+        ]
+      }
+    },
+
+    "Rarely": {
+      "probability": {
+        "examples": [
+          {"value": "0.25", "description": "25% chance of applying transform"},
+          {"value": "0.1", "description": "10% chance (very rare)"},
+          {"value": "0.3", "description": "30% chance"}
+        ]
+      }
+    },
+
+    "Chance": {
+      "type": {
+        "examples": [
+          {"value": "often", "description": "High probability (70%)"},
+          {"value": "sometimes", "description": "Medium probability (50%)"},
+          {"value": "rarely", "description": "Low probability (25%)"},
+          {"value": "every", "description": "Every N cycles"}
+        ]
+      },
+      "probability": {
+        "examples": [
+          {"value": "0.5", "description": "50% chance"},
+          {"value": "0.75", "description": "75% chance"},
+          {"value": "0.25", "description": "25% chance"}
+        ]
+      },
+      "interval": {
+        "examples": [
+          {"value": "4", "description": "Every 4 cycles"},
+          {"value": "2", "description": "Every 2 cycles"},
+          {"value": "8", "description": "Every 8 cycles"}
+        ]
+      }
+    },
+
+    "LFO": {
+      "waveform": {
+        "examples": [
+          {"value": "sine", "description": "Smooth sine wave modulation"},
+          {"value": "saw", "description": "Rising sawtooth modulation"},
+          {"value": "square", "description": "On/off square wave modulation"},
+          {"value": "tri", "description": "Triangle wave modulation"}
+        ]
+      },
+      "rate": {
+        "examples": [
+          {"value": "0.5", "description": "Slow modulation (0.5 Hz)"},
+          {"value": "2", "description": "Medium modulation (2 Hz)"},
+          {"value": "8", "description": "Fast modulation (8 Hz)"}
+        ]
+      },
+      "depth": {
+        "examples": [
+          {"value": "0.2", "description": "Subtle modulation"},
+          {"value": "0.5", "description": "Moderate modulation"},
+          {"value": "1.0", "description": "Full modulation depth"}
+        ]
+      }
+    },
+
+    "Range": {
+      "min": {
+        "examples": [
+          {"value": "0", "description": "Start from zero"},
+          {"value": "100", "description": "Minimum value of 100"},
+          {"value": "500", "description": "For filter frequency ranges"}
+        ]
+      },
+      "max": {
+        "examples": [
+          {"value": "1", "description": "Normalized 0-1 range"},
+          {"value": "1000", "description": "Map to 0-1000"},
+          {"value": "5000", "description": "For filter frequency ranges"}
+        ]
+      }
+    },
+
+    "Random": {
+      "min": {
+        "examples": [
+          {"value": "0", "description": "Start from zero"},
+          {"value": "2", "description": "Minimum random value"},
+          {"value": "50", "description": "For higher random ranges"}
+        ]
+      },
+      "max": {
+        "examples": [
+          {"value": "8", "description": "Random 0-7"},
+          {"value": "16", "description": "Random 0-15"},
+          {"value": "128", "description": "MIDI note range"}
+        ]
+      }
+    },
+
+    "Pitch": {
+      "semitones": {
+        "examples": [
+          {"value": "0", "description": "No pitch change"},
+          {"value": "7", "description": "Perfect fifth up"},
+          {"value": "-12", "description": "Octave down"},
+          {"value": "<0 3 7 12>", "description": "Major chord intervals"}
+        ]
+      },
+      "octaves": {
+        "examples": [
+          {"value": "0", "description": "No octave shift"},
+          {"value": "1", "description": "One octave up"},
+          {"value": "-1", "description": "One octave down"},
+          {"value": "<0 1 -1>", "description": "Octave modulation"}
+        ]
+      }
+    },
+
+    "Transform": {
+      "type": {
+        "examples": [
+          {"value": "chop", "description": "Granular time slicing"},
+          {"value": "stutter", "description": "Repeat events"},
+          {"value": "rev", "description": "Reverse pattern"},
+          {"value": "palindrome", "description": "Forward then backward"},
+          {"value": "slow", "description": "Slow down pattern"},
+          {"value": "fast", "description": "Speed up pattern"}
+        ]
+      },
+      "amount": {
+        "examples": [
+          {"value": "0.25", "description": "Subtle transformation"},
+          {"value": "0.5", "description": "Moderate transformation"},
+          {"value": "1.0", "description": "Full transformation"}
+        ]
+      },
+      "speed": {
+        "examples": [
+          {"value": "0.5", "description": "Half speed"},
+          {"value": "1", "description": "Normal speed"},
+          {"value": "2", "description": "Double speed"}
+        ]
+      }
+    },
+
+    "Jux": {
+      "examples": [
+        {
+          "value": "s('bd sd').jux(x => x, x => x.pan(1))",
+          "description": "Split stereo with right channel panned"
+        },
+        {
+          "value": "s('hh').jux(x => x.speed(1), x => x.speed(1.5))",
+          "description": "Different speeds on each channel"
+        }
+      ]
+    },
+
+    "Rev": {
+      "examples": [
+        {
+          "value": "s('bd sd hh oh').rev()",
+          "description": "Reverse the drum pattern"
+        },
+        {
+          "value": "n('0 1 2 3 4 5 6 7').rev()",
+          "description": "Play scale backwards"
+        }
+      ]
+    },
+
+    "Palindrome": {
+      "examples": [
+        {
+          "value": "s('bd sd').palindrome()",
+          "description": "Play bd-sd-sd-bd"
+        },
+        {
+          "value": "n('0 1 2').palindrome()",
+          "description": "Play 0-1-2-2-1-0"
+        }
+      ]
+    },
+
+    "Shuffle": {
+      "seed": {
+        "examples": [
+          {
+            "value": "0",
+            "description": "Random shuffle (seed 0)"
+          },
+          {
+            "value": "42",
+            "description": "Reproducible shuffle with seed 42"
+          },
+          {
+            "value": "100",
+            "description": "Different shuffle pattern"
+          }
+        ]
+      }
+    },
+
+    "Perlin": {
+      "frequency": {
+        "examples": [
+          {
+            "value": "0.01",
+            "description": "Very slow, smooth changes"
+          },
+          {
+            "value": "0.1",
+            "description": "Medium speed organic movement"
+          },
+          {
+            "value": "0.5",
+            "description": "Faster perlin noise"
+          }
+        ]
+      },
+      "amplitude": {
+        "examples": [
+          {
+            "value": "0.3",
+            "description": "Subtle noise amplitude"
+          },
+          {
+            "value": "0.5",
+            "description": "Medium noise amplitude"
+          },
+          {
+            "value": "1.0",
+            "description": "Full noise amplitude"
+          }
+        ]
+      }
+    },
+
+    "StepSeq": {
+      "steps": {
+        "examples": [
+          {
+            "value": "0 1 2 3",
+            "description": "Simple ascending sequence"
+          },
+          {
+            "value": "<0 2> <1 3>",
+            "description": "Alternating step patterns"
+          },
+          {
+            "value": "[0 1] 2 ~ 3",
+            "description": "Complex step sequence with rest"
+          }
+        ]
+      },
+      "length": {
+        "examples": [
+          {
+            "value": "4",
+            "description": "4-step sequence"
+          },
+          {
+            "value": "8",
+            "description": "8-step sequence"
+          },
+          {
+            "value": "16",
+            "description": "16-step sequence"
+          }
+        ]
+      }
+    },
+
+    "Combinator": {
+      "stack": {
+        "examples": [
+          {
+            "value": "stack(s('bd'), s('hh'))",
+            "description": "Play kick and hi-hat simultaneously"
+          },
+          {
+            "value": "stack(s('bd').n('<0 1 2>'), s('sd').every(2, fast(2)))",
+            "description": "Complex layered pattern"
+          },
+          {
+            "value": "stack(s('bd'), s('sd'), s('hh*4'))",
+            "description": "Three-layer drum pattern"
+          }
+        ]
+      },
+      "cat": {
+        "examples": [
+          {
+            "value": "cat(s('bd'), s('sd'))",
+            "description": "Play kick, then snare in sequence"
+          },
+          {
+            "value": "cat(s('bd*4'), s('hh*8'), s('sd*2'))",
+            "description": "Sequential pattern with different densities"
+          },
+          {
+            "value": "cat(s('bd sd'), s('hh oh'), s('rim'))",
+            "description": "Three sequential sections"
+          }
+        ]
+      },
+      "seq": {
+        "examples": [
+          {
+            "value": "seq(s('bd'), s('sd'), s('hh'))",
+            "description": "Sequential pattern (alias for cat)"
+          }
+        ]
+      },
+      "struct": {
+        "examples": [
+          {
+            "value": "s('bd').struct('x ~ x ~')",
+            "description": "Apply rhythmic structure (on-off-on-off)"
+          },
+          {
+            "value": "s('hh').struct('x x x x ~ x x ~')",
+            "description": "Complex hi-hat rhythm"
+          },
+          {
+            "value": "s('bd sd').struct('<[x*<1 2> [~@3 x]] x>')",
+            "description": "Complex nested structure pattern"
+          }
+        ]
+      },
+      "mask": {
+        "examples": [
+          {
+            "value": "s('bd sd').mask('1 0 1 1')",
+            "description": "Binary mask pattern (1=play, 0=silence)"
+          },
+          {
+            "value": "s('hh').mask('<1 0>')",
+            "description": "Alternating mask"
+          }
+        ]
+      },
+      "euclidean": {
+        "examples": [
+          {
+            "value": "s('bd').euclidean(3, 8)",
+            "description": "3 hits distributed over 8 steps"
+          },
+          {
+            "value": "s('sd').euclidean(5, 16)",
+            "description": "5 hits distributed over 16 steps"
+          },
+          {
+            "value": "s('hh').euclidean(7, 16, 2)",
+            "description": "7 hits over 16 steps, rotated by 2"
+          }
+        ]
+      },
+      "off": {
+        "examples": [
+          {
+            "value": "s('bd').off(0.25, x => x.speed(2))",
+            "description": "Echo effect offset by 1/4 cycle, pitched up"
+          },
+          {
+            "value": "s('sd').off(0.125, x => x.gain(0.5))",
+            "description": "Quiet echo offset by 1/8 cycle"
+          },
+          {
+            "value": "n('0 2 4').off(0.5, x => x.add(7))",
+            "description": "Delayed harmony a fifth above"
+          }
+        ]
+      },
+      "every": {
+        "examples": [
+          {
+            "value": "s('bd').every(4, fast(2))",
+            "description": "Double speed every 4th cycle"
+          },
+          {
+            "value": "s('hh').every(3, x => x.speed(0.5))",
+            "description": "Half speed every 3rd cycle"
+          },
+          {
+            "value": "s('sd').every(2, x => x.gain(1.5))",
+            "description": "Louder every 2nd cycle"
+          }
+        ]
+      },
+      "whenmod": {
+        "examples": [
+          {
+            "value": "s('bd').whenmod(8, 6, fast(2))",
+            "description": "Fast on 6th and 7th out of every 8 cycles"
+          },
+          {
+            "value": "s('sd').whenmod(4, 2, x => x.gain(1.5))",
+            "description": "Louder on 2nd-3rd out of every 4 cycles"
+          }
+        ]
+      },
+      "superimpose": {
+        "examples": [
+          {
+            "value": "s('bd sd').superimpose(x => x.speed(2))",
+            "description": "Layer original with double-speed version"
+          },
+          {
+            "value": "n('0 1 2 3').superimpose(x => x.add(7))",
+            "description": "Layer original with fifth above"
+          }
+        ]
+      },
+      "layer": {
+        "examples": [
+          {
+            "value": "s('bd sd').layer(x => x.speed(2), x => x.slow(2))",
+            "description": "Layer double-speed and half-speed versions"
+          },
+          {
+            "value": "n('0 1 2').layer(x => x.add(4), x => x.add(7))",
+            "description": "Layer with fourth and fifth above"
+          }
+        ]
+      },
+      "jux": {
+        "examples": [
+          {
+            "value": "s('bd sd').jux(x => x, x => x.pan(1))",
+            "description": "Split stereo with right channel panned"
+          },
+          {
+            "value": "n('0 1 2 3').jux(x => x, x => x.add(7))",
+            "description": "Different pitches on each channel"
+          }
+        ]
+      },
+      "rev": {
+        "examples": [
+          {
+            "value": "s('bd sd hh oh').rev()",
+            "description": "Reverse the drum pattern"
+          },
+          {
+            "value": "n('0 1 2 3').rev()",
+            "description": "Play scale backwards"
+          }
+        ]
+      },
+      "palindrome": {
+        "examples": [
+          {
+            "value": "s('bd sd').palindrome()",
+            "description": "Play bd-sd-sd-bd"
+          },
+          {
+            "value": "n('0 1 2').palindrome()",
+            "description": "Play 0-1-2-2-1-0"
+          }
+        ]
+      },
+      "shuffle": {
+        "examples": [
+          {
+            "value": "s('bd sd hh oh').shuffle()",
+            "description": "Randomly reorder drum pattern"
+          },
+          {
+            "value": "n('0 1 2 3').shuffle(42)",
+            "description": "Reorder with seed 42"
+          }
+        ]
+      },
+      "scramble": {
+        "examples": [
+          {
+            "value": "s('bd sd hh oh').scramble(0.5)",
+            "description": "Partially scramble drum pattern"
+          },
+          {
+            "value": "n('0 1 2 3').scramble(0.8)",
+            "description": "Highly scramble notes"
+          }
+        ]
+      },
+      "ply": {
+        "examples": [
+          {
+            "value": "s('bd').ply(4)",
+            "description": "Play kick 4 times with offsets"
+          },
+          {
+            "value": "n('0 1 2').ply(3)",
+            "description": "Multiply notes 3 times"
+          }
+        ]
+      }
+    },
+
+    "s": {
+      "pattern": {
+        "examples": [
+          {
+            "value": "bd sd hh oh",
+            "description": "Basic drum pattern"
+          },
+          {
+            "value": "piano guitar bass",
+            "description": "Instrument sequence"
+          },
+          {
+            "value": "<bd sd> hh*4",
+            "description": "Alternating kick/snare with fast hi-hats"
+          }
+        ]
+      }
+    },
+
+    "note": {
+      "pattern": {
+        "examples": [
+          {
+            "value": "c4 e4 g4",
+            "description": "C major triad"
+          },
+          {
+            "value": "<c3 e3 g3 c4>",
+            "description": "C major chord with octave"
+          },
+          {
+            "value": "[c4, e4, g4]",
+            "description": "Random notes from C major triad"
+          },
+          {
+            "value": "c4 d4 e4 f4 g4",
+            "description": "C major scale"
+          }
+        ]
+      }
+    },
+
+    "bank": {
+      "bankName": {
+        "examples": [
+          {
+            "value": "tr909",
+            "description": "Classic Roland TR-909 drum machine"
+          },
+          {
+            "value": "tr808",
+            "description": "Classic Roland TR-808 drum machine"
+          },
+          {
+            "value": "tr707",
+            "description": "Roland TR-707 digital drums"
+          },
+          {
+            "value": "linn",
+            "description": "LinnDrum classic sound"
+          }
+        ]
+      }
+    },
+
+    "dec": {
+      "amount": {
+        "examples": [
+          {
+            "value": "0.1",
+            "description": "Short, punchy decay"
+          },
+          {
+            "value": "0.5",
+            "description": "Medium decay length"
+          },
+          {
+            "value": "1.5",
+            "description": "Long, sustained decay"
+          },
+          {
+            "value": "<0.1 0.3 0.5>",
+            "description": "Varying decay lengths"
+          }
+        ]
+      }
+    },
+
+    "stack": {
+      "examples": [
+        {
+          "value": "stack(s('bd'), s('hh'))",
+          "description": "Layer kick and hi-hat"
+        },
+        {
+          "value": "stack(s('bd').gain(0.8), s('sd').every(2, fast(2)), s('hh*4'))",
+          "description": "Complex layered pattern with transforms"
+        }
+      ]
+    },
+
+    "struct": {
+      "structure": {
+        "examples": [
+          {
+            "value": "x ~ x ~",
+            "description": "Basic on-off pattern"
+          },
+          {
+            "value": "x x x x ~ x x ~",
+            "description": "Complex rhythm structure"
+          },
+          {
+            "value": "<[x*<1 2> [~@3 x]] x>",
+            "description": "Advanced nested structure"
+          }
+        ]
+      }
+    },
+
+    "slow": {
+      "factor": {
+        "examples": [
+          {
+            "value": "2",
+            "description": "Play at half speed (2x slower)"
+          },
+          {
+            "value": "4",
+            "description": "Play at quarter speed (4x slower)"
+          },
+          {
+            "value": "<2 3 4>",
+            "description": "Variable slow-down pattern"
+          }
+        ]
+      }
+    },
+
+    "fast": {
+      "factor": {
+        "examples": [
+          {
+            "value": "2",
+            "description": "Play at double speed (2x faster)"
+          },
+          {
+            "value": "4",
+            "description": "Play at quadruple speed (4x faster)"
+          },
+          {
+            "value": "<2 3 4>",
+            "description": "Variable speed-up pattern"
+          }
+        ]
+      }
+    },
+
+    "every": {
+      "n": {
+        "examples": [
+          {
+            "value": "4",
+            "description": "Every 4 cycles"
+          },
+          {
+            "value": "2",
+            "description": "Every 2 cycles"
+          },
+          {
+            "value": "8",
+            "description": "Every 8 cycles"
+          }
+        ]
+      },
+      "transform": {
+        "examples": [
+          {
+            "value": "x => x.fast(2)",
+            "description": "Double speed transform"
+          },
+          {
+            "value": "x => x.speed(0.5)",
+            "description": "Half speed transform"
+          },
+          {
+            "value": "x => x.gain(1.5)",
+            "description": "Amplify transform"
+          }
+        ]
+      }
+    },
+
+    "whenmod": {
+      "divisor": {
+        "examples": [
+          {
+            "value": "4",
+            "description": "Divide cycle into 4 parts"
+          },
+          {
+            "value": "8",
+            "description": "Divide cycle into 8 parts"
+          },
+          {
+            "value": "3",
+            "description": "Divide cycle into 3 parts"
+          }
+        ]
+      },
+      "remainder": {
+        "examples": [
+          {
+            "value": "0",
+            "description": "Apply on first part"
+          },
+          {
+            "value": "2",
+            "description": "Apply on third part"
+          },
+          {
+            "value": "1",
+            "description": "Apply on second part"
+          }
+        ]
+      },
+      "transform": {
+        "examples": [
+          {
+            "value": "x => x.speed(2)",
+            "description": "Double speed transform"
+          },
+          {
+            "value": "x => x.gain(1.5)",
+            "description": "Amplify transform"
+          },
+          {
+            "value": "x => x.fast(2)",
+            "description": "Speed up transform"
+          }
+        ]
+      }
+    },
+
+    "group": {
+      "mode": {
+        "examples": [
+          {
+            "value": "parallel",
+            "description": "Play all patterns simultaneously"
+          },
+          {
+            "value": "alternate",
+            "description": "Alternate between patterns each cycle"
+          }
+        ]
+      }
+    },
+
+    "scale": {
+      "scalePattern": {
+        "examples": [
+          {
+            "value": "C5:major",
+            "description": "C major scale starting at C5"
+          },
+          {
+            "value": "D4:minor",
+            "description": "D minor scale starting at D4"
+          },
+          {
+            "value": "Bb3:blues",
+            "description": "Bb blues scale starting at Bb3"
+          }
+        ]
+      }
+    },
+
+    "off": {
+      "time": {
+        "examples": [
+          {
+            "value": "0.25",
+            "description": "Offset by quarter note"
+          },
+          {
+            "value": "0.125",
+            "description": "Offset by eighth note"
+          },
+          {
+            "value": "0.5",
+            "description": "Offset by half note"
+          }
+        ]
+      },
+      "transform": {
+        "examples": [
+          {
+            "value": "x => x.add(4)",
+            "description": "Transpose up a major third"
+          },
+          {
+            "value": "x => x.speed(2)",
+            "description": "Double the speed"
+          },
+          {
+            "value": "x => x.gain(0.5)",
+            "description": "Reduce volume"
+          }
+        ]
+      }
+    },
+
+    "add": {
+      "value": {
+        "examples": [
+          {
+            "value": "4",
+            "description": "Add 4 semitones (major third)"
+          },
+          {
+            "value": "7",
+            "description": "Add 7 semitones (perfect fifth)"
+          },
+          {
+            "value": "-12",
+            "description": "Subtract octave (down)"
+          },
+          {
+            "value": "<0 3 7 12>",
+            "description": "Add chord intervals"
+          }
+        ]
+      }
+    }
+  },
+
+  "transformNodes": {
+    "chop": {
+      "slices": {
+        "examples": [
+          {
+            "value": "4",
+            "description": "Chop into 4 equal parts"
+          },
+          {
+            "value": "8",
+            "description": "Chop into 8 equal parts"
+          },
+          {
+            "value": "16",
+            "description": "Chop into 16 equal parts (granular)"
+          },
+          {
+            "value": "<4 8 16>",
+            "description": "Varying slice amounts"
+          }
+        ]
+      }
+    },
+
+    "slice": {
+      "slices": {
+        "examples": [
+          {
+            "value": "8",
+            "description": "Slice sample into 8 parts"
+          },
+          {
+            "value": "16",
+            "description": "Slice sample into 16 parts"
+          },
+          {
+            "value": "<0 2 4 6>",
+            "description": "Play specific slices in pattern"
+          }
+        ]
+      }
+    },
+
+    "crush": {
+      "bits": {
+        "examples": [
+          {
+            "value": "8",
+            "description": "8-bit retro sound"
+          },
+          {
+            "value": "4",
+            "description": "4-bit lo-fi sound"
+          },
+          {
+            "value": "1",
+            "description": "1-bit extreme degradation"
+          },
+          {
+            "value": "<16 8 4 2>",
+            "description": "Progressive bit reduction"
+          }
+        ]
+      }
+    },
+
+    "shape": {
+      "amount": {
+        "examples": [
+          {
+            "value": "0.2",
+            "description": "Subtle waveshaping"
+          },
+          {
+            "value": "0.5",
+            "description": "Moderate waveshaping"
+          },
+          {
+            "value": "0.9",
+            "description": "Heavy waveshaping"
+          },
+          {
+            "value": "sine.range(0, 1).slow(4)",
+            "description": "Animated waveshaping"
+          }
+        ]
+      }
+    },
+
+    "vowel": {
+      "vowel": {
+        "examples": [
+          {
+            "value": "a",
+            "description": "Formant filter for 'ah' sound"
+          },
+          {
+            "value": "e",
+            "description": "Formant filter for 'eh' sound"
+          },
+          {
+            "value": "i",
+            "description": "Formant filter for 'ee' sound"
+          },
+          {
+            "value": "o",
+            "description": "Formant filter for 'oh' sound"
+          },
+          {
+            "value": "u",
+            "description": "Formant filter for 'oo' sound"
+          }
+        ]
+      }
+    },
+
+    "stutter": {
+      "repeats": {
+        "examples": [
+          {
+            "value": "2",
+            "description": "Double each event"
+          },
+          {
+            "value": "4",
+            "description": "Quadruple each event"
+          },
+          {
+            "value": "8",
+            "description": "8x repeat (glitch effect)"
+          },
+          {
+            "value": "<2 3 4>",
+            "description": "Varying stutter amounts"
+          }
+        ]
+      }
+    },
+
+    "trunc": {
+      "amount": {
+        "examples": [
+          {
+            "value": "0.5",
+            "description": "Cut off last 50% of sound"
+          },
+          {
+            "value": "0.75",
+            "description": "Cut off last 75% (very short)"
+          },
+          {
+            "value": "0.25",
+            "description": "Cut off last 25% (subtle)"
+          },
+          {
+            "value": "<0.25 0.5 0.75>",
+            "description": "Varying truncation amounts"
+          }
+        ]
+      }
+    },
+
+    "speed": {
+      "factor": {
+        "examples": [
+          {
+            "value": "1",
+            "description": "Normal speed"
+          },
+          {
+            "value": "2",
+            "description": "Double speed (pitch up)"
+          },
+          {
+            "value": "0.5",
+            "description": "Half speed (pitch down)"
+          },
+          {
+            "value": "<1 1.5 0.75>",
+            "description": "Varying speeds"
+          },
+          {
+            "value": "rand.range(0.9, 1.1)",
+            "description": "Slight random variation"
+          }
+        ]
+      }
+    },
+
+    "note": {
+      "semitones": {
+        "examples": [
+          {
+            "value": "0",
+            "description": "No pitch change"
+          },
+          {
+            "value": "7",
+            "description": "Perfect fifth up"
+          },
+          {
+            "value": "-12",
+            "description": "Octave down"
+          },
+          {
+            "value": "<0 3 7 12>",
+            "description": "Major chord arpeggio"
+          },
+          {
+            "value": "<0 2 4 5 7>",
+            "description": "Pentatonic scale"
+          }
+        ]
+      }
+    },
+
+    "coarse": {
+      "octaves": {
+        "examples": [
+          {
+            "value": "0",
+            "description": "No octave shift"
+          },
+          {
+            "value": "1",
+            "description": "One octave up"
+          },
+          {
+            "value": "-1",
+            "description": "One octave down"
+          },
+          {
+            "value": "<0 1 -1>",
+            "description": "Octave modulation"
+          }
+        ]
+      }
+    },
+
+    "vibrato": {
+      "rate": {
+        "examples": [
+          {
+            "value": "4",
+            "description": "Moderate vibrato speed"
+          },
+          {
+            "value": "8",
+            "description": "Fast vibrato"
+          },
+          {
+            "value": "2",
+            "description": "Slow vibrato"
+          }
+        ]
+      },
+      "depth": {
+        "examples": [
+          {
+            "value": "0.02",
+            "description": "Subtle vibrato"
+          },
+          {
+            "value": "0.05",
+            "description": "Moderate vibrato"
+          },
+          {
+            "value": "0.1",
+            "description": "Wide vibrato"
+          }
+        ]
+      }
+    },
+
+    "tremolo": {
+      "rate": {
+        "examples": [
+          {
+            "value": "4",
+            "description": "Slow tremolo pulse"
+          },
+          {
+            "value": "8",
+            "description": "Medium tremolo pulse"
+          },
+          {
+            "value": "16",
+            "description": "Fast tremolo pulse"
+          }
+        ]
+      },
+      "depth": {
+        "examples": [
+          {
+            "value": "0.3",
+            "description": "Subtle volume modulation"
+          },
+          {
+            "value": "0.6",
+            "description": "Moderate volume modulation"
+          },
+          {
+            "value": "0.9",
+            "description": "Deep volume modulation"
+          }
+        ]
+      }
+    },
+
+    "lpf": {
+      "frequency": {
+        "examples": [
+          {
+            "value": "800",
+            "description": "Warm, muffled tone"
+          },
+          {
+            "value": "2000",
+            "description": "Moderate filtering"
+          },
+          {
+            "value": "5000",
+            "description": "Light filtering"
+          },
+          {
+            "value": "<500 1000 2000>",
+            "description": "Sweeping filter"
+          }
+        ]
+      }
+    },
+
+    "hpf": {
+      "frequency": {
+        "examples": [
+          {
+            "value": "200",
+            "description": "Remove deep bass"
+          },
+          {
+            "value": "500",
+            "description": "Thin out sound"
+          },
+          {
+            "value": "1000",
+            "description": "Telephone-like effect"
+          }
+        ]
+      }
+    },
+
+    "lpq": {
+      "q": {
+        "examples": [
+          {
+            "value": "0.7",
+            "description": "Gentle resonance"
+          },
+          {
+            "value": "1.0",
+            "description": "Moderate resonance"
+          },
+          {
+            "value": "2.0",
+            "description": "Strong resonance"
+          },
+          {
+            "value": "5.0",
+            "description": "Extreme resonance (feedback)"
+          }
+        ]
+      }
+    },
+
+    "gain": {
+      "amount": {
+        "examples": [
+          {
+            "value": "1",
+            "description": "Unity gain (normal volume)"
+          },
+          {
+            "value": "0.5",
+            "description": "Half volume"
+          },
+          {
+            "value": "1.5",
+            "description": "Amplified (150%)"
+          },
+          {
+            "value": "<1 0.8 0.6 0.4>",
+            "description": "Descending volume pattern"
+          }
+        ]
+      }
+    },
+
+    "delay": {
+      "time": {
+        "examples": [
+          {
+            "value": "0.125",
+            "description": "Eighth note delay"
+          },
+          {
+            "value": "0.25",
+            "description": "Quarter note delay"
+          },
+          {
+            "value": "0.5",
+            "description": "Half note delay"
+          },
+          {
+            "value": "<0.125 0.25 0.5>",
+            "description": "Varying delay times"
+          }
+        ]
+      }
+    },
+
+    "delayfb": {
+      "amount": {
+        "examples": [
+          {
+            "value": "0.3",
+            "description": "Light feedback (few repeats)"
+          },
+          {
+            "value": "0.5",
+            "description": "Moderate feedback"
+          },
+          {
+            "value": "0.8",
+            "description": "Heavy feedback (many repeats)"
+          },
+          {
+            "value": "0.95",
+            "description": "Infinite-like feedback"
+          }
+        ]
+      }
+    },
+
+    "reverb": {
+      "amount": {
+        "examples": [
+          {
+            "value": "0.2",
+            "description": "Small room reverb"
+          },
+          {
+            "value": "0.5",
+            "description": "Medium hall reverb"
+          },
+          {
+            "value": "0.8",
+            "description": "Large cathedral reverb"
+          },
+          {
+            "value": "<0 0.3 0.6>",
+            "description": "Building reverb effect"
+          }
+        ]
+      }
+    },
+
+    "room": {
+      "size": {
+        "examples": [
+          {
+            "value": "0.1",
+            "description": "Tiny room"
+          },
+          {
+            "value": "0.5",
+            "description": "Medium hall"
+          },
+          {
+            "value": "0.9",
+            "description": "Large cathedral"
+          },
+          {
+            "value": "<0 0.3 0.6 0.9>",
+            "description": "Growing room size"
+          }
+        ]
+      }
+    },
+
+    "often": {
+      "chance": {
+        "examples": [
+          {
+            "value": "0.7",
+            "description": "70% chance of applying transform"
+          },
+          {
+            "value": "0.8",
+            "description": "80% chance (very likely)"
+          },
+          {
+            "value": "0.9",
+            "description": "90% chance (almost always)"
+          }
+        ]
+      }
+    },
+
+    "sometimes": {
+      "chance": {
+        "examples": [
+          {
+            "value": "0.5",
+            "description": "50% chance of applying transform"
+          },
+          {
+            "value": "0.4",
+            "description": "40% chance"
+          },
+          {
+            "value": "0.6",
+            "description": "60% chance"
+          }
+        ]
+      }
+    },
+
+    "rarely": {
+      "chance": {
+        "examples": [
+          {
+            "value": "0.25",
+            "description": "25% chance of applying transform"
+          },
+          {
+            "value": "0.1",
+            "description": "10% chance (very rare)"
+          },
+          {
+            "value": "0.3",
+            "description": "30% chance"
+          }
+        ]
+      }
+    }
+  },
+
+  "controlNodes": {
+    "constant": {
+      "value": {
+        "examples": [
+          {
+            "value": "0.5",
+            "description": "Fixed control value of 0.5"
+          },
+          {
+            "value": "440",
+            "description": "A440 frequency reference"
+          },
+          {
+            "value": "-1",
+            "description": "Negative constant"
+          }
+        ]
+      }
+    },
+
+    "perlin": {
+      "frequency": {
+        "examples": [
+          {
+            "value": "0.01",
+            "description": "Very slow organic changes"
+          },
+          {
+            "value": "0.1",
+            "description": "Medium speed perlin noise"
+          },
+          {
+            "value": "0.5",
+            "description": "Faster perlin modulation"
+          }
+        ]
+      },
+      "amplitude": {
+        "examples": [
+          {
+            "value": "0.3",
+            "description": "Subtle noise amplitude"
+          },
+          {
+            "value": "0.5",
+            "description": "Medium noise amplitude"
+          },
+          {
+            "value": "1.0",
+            "description": "Full noise amplitude"
+          }
+        ]
+      }
+    },
+
+    "stepseq": {
+      "steps": {
+        "examples": [
+          {
+            "value": "0 1 2 3",
+            "description": "Simple ascending sequence"
+          },
+          {
+            "value": "<0 2> <1 3>",
+            "description": "Alternating step values"
+          },
+          {
+            "value": "[0 1] 2 ~ 3",
+            "description": "Pattern with grouping and rest"
+          }
+        ]
+      },
+      "length": {
+        "examples": [
+          {
+            "value": "4",
+            "description": "4-step sequence"
+          },
+          {
+            "value": "8",
+            "description": "8-step sequence"
+          },
+          {
+            "value": "16",
+            "description": "16-step sequence"
+          }
+        ]
+      }
+    },
+
+    "samplehold": {
+      "rate": {
+        "examples": [
+          {
+            "value": "1",
+            "description": "Sample once per cycle"
+          },
+          {
+            "value": "4",
+            "description": "Sample 4 times per cycle"
+          },
+          {
+            "value": "0.5",
+            "description": "Sample every 2 cycles"
+          }
+        ]
+      },
+      "min": {
+        "examples": [
+          {
+            "value": "0",
+            "description": "Minimum output value"
+          },
+          {
+            "value": "-1",
+            "description": "Bipolar minimum"
+          },
+          {
+            "value": "100",
+            "description": "Offset minimum"
+          }
+        ]
+      },
+      "max": {
+        "examples": [
+          {
+            "value": "1",
+            "description": "Normalized maximum"
+          },
+          {
+            "value": "10",
+            "description": "Higher range maximum"
+          },
+          {
+            "value": "1000",
+            "description": "Frequency range maximum"
+          }
+        ]
+      }
+    },
+
+    "sine": {
+      "rate": {
+        "examples": [
+          {
+            "value": "0.25",
+            "description": "Slow 4-cycle sine wave"
+          },
+          {
+            "value": "1",
+            "description": "One cycle sine wave"
+          },
+          {
+            "value": "4",
+            "description": "Fast 4-per-cycle sine"
+          }
+        ]
+      }
+    },
+
+    "saw": {
+      "rate": {
+        "examples": [
+          {
+            "value": "0.25",
+            "description": "Slow rising sawtooth"
+          },
+          {
+            "value": "1",
+            "description": "One cycle sawtooth"
+          },
+          {
+            "value": "2",
+            "description": "Fast sawtooth"
+          }
+        ]
+      }
+    },
+
+    "square": {
+      "rate": {
+        "examples": [
+          {
+            "value": "0.5",
+            "description": "Two-cycle square wave"
+          },
+          {
+            "value": "1",
+            "description": "One cycle square wave"
+          },
+          {
+            "value": "4",
+            "description": "Fast 4-per-cycle square"
+          }
+        ]
+      }
+    },
+
+    "rand": {
+      "min": {
+        "examples": [
+          {
+            "value": "0",
+            "description": "Random from 0"
+          },
+          {
+            "value": "-1",
+            "description": "Bipolar random"
+          },
+          {
+            "value": "0.5",
+            "description": "Offset minimum"
+          }
+        ]
+      },
+      "max": {
+        "examples": [
+          {
+            "value": "1",
+            "description": "Random 0-1"
+          },
+          {
+            "value": "10",
+            "description": "Random 0-10"
+          },
+          {
+            "value": "0.8",
+            "description": "Limited range"
+          }
+        ]
+      }
+    },
+
+    "irand": {
+      "max": {
+        "examples": [
+          {
+            "value": "8",
+            "description": "Random integer 0-7"
+          },
+          {
+            "value": "16",
+            "description": "Random integer 0-15"
+          },
+          {
+            "value": "64",
+            "description": "Random integer 0-63"
+          }
+        ]
+      }
+    },
+
+    "pattern": {
+      "pattern": {
+        "examples": [
+          {
+            "value": "0 1 0.5 1",
+            "description": "Simple control pattern"
+          },
+          {
+            "value": "<0 0.5 1 0.5>",
+            "description": "Alternating control values"
+          },
+          {
+            "value": "sine.range(0, 1).slow(4)",
+            "description": "Sine wave control pattern"
+          }
+        ]
+      }
+    },
+
+    "range": {
+      "min": {
+        "examples": [
+          {
+            "value": "0",
+            "description": "Map to range starting at 0"
+          },
+          {
+            "value": "-1",
+            "description": "Bipolar range starting at -1"
+          },
+          {
+            "value": "100",
+            "description": "Frequency range starting at 100Hz"
+          }
+        ]
+      },
+      "max": {
+        "examples": [
+          {
+            "value": "1",
+            "description": "Map to normalized 0-1 range"
+          },
+          {
+            "value": "1000",
+            "description": "Map to 0-1000 range"
+          },
+          {
+            "value": "5000",
+            "description": "Frequency range up to 5000Hz"
+          }
+        ]
+      },
+      "curve": {
+        "examples": [
+          {
+            "value": "linear",
+            "description": "Linear mapping"
+          },
+          {
+            "value": "exponential",
+            "description": "Exponential curve"
+          },
+          {
+            "value": "logarithmic",
+            "description": "Logarithmic curve"
+          }
+        ]
+      }
+    },
+
+    "envelopeFollower": {
+      "attack": {
+        "examples": [
+          {
+            "value": "0.01",
+            "description": "Fast attack time"
+          },
+          {
+            "value": "0.1",
+            "description": "Medium attack time"
+          },
+          {
+            "value": "0.5",
+            "description": "Slow attack time"
+          }
+        ]
+      },
+      "release": {
+        "examples": [
+          {
+            "value": "0.1",
+            "description": "Fast release time"
+          },
+          {
+            "value": "0.5",
+            "description": "Medium release time"
+          },
+          {
+            "value": "1.0",
+            "description": "Slow release time"
+          }
+        ]
+      }
+    },
+
+    "add": {
+      "value": {
+        "examples": [
+          {
+            "value": "0.5",
+            "description": "Add 0.5 to input"
+          },
+          {
+            "value": "1",
+            "description": "Add 1 to input"
+          },
+          {
+            "value": "-0.5",
+            "description": "Subtract 0.5 from input"
+          }
+        ]
+      }
+    },
+
+    "multiply": {
+      "value": {
+        "examples": [
+          {
+            "value": "2",
+            "description": "Double the input value"
+          },
+          {
+            "value": "0.5",
+            "description": "Half the input value"
+          },
+          {
+            "value": "1.5",
+            "description": "Increase by 50%"
+          }
+        ]
+      }
+    },
+
+    "mix": {
+      "amount": {
+        "examples": [
+          {
+            "value": "0.5",
+            "description": "50/50 mix of inputs"
+          },
+          {
+            "value": "0.2",
+            "description": "20% of second input, 80% of first"
+          },
+          {
+            "value": "0.8",
+            "description": "80% of second input, 20% of first"
+          }
+        ]
+      }
+    }
+  }
+}
