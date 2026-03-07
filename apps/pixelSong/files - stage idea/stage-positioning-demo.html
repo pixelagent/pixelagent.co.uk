@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage Positioning System - Interactive Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        :root {
+            --bg-primary: #fefce8;
+            --bg-secondary: #fffbeb;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border-color: #fde68a;
+            --accent-color: #f472b6;
+            --accent-hover: #ec4899;
+            --accent-light: #fce7f3;
+            --card-shadow: 0 4px 15px rgba(251, 191, 36, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1f2937;
+            --bg-secondary: #374151;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --border-color: #4b5563;
+            --accent-color: #f472b6;
+            --accent-hover: #ec4899;
+            --accent-light: rgba(244, 114, 182, 0.2);
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #fef3c7 50%, var(--bg-primary) 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            padding: 2rem;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #f472b6);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .demo-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .demo-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .demo-card h2 i {
+            color: var(--accent-color);
+        }
+
+        /* Stage Visualizer */
+        .stage-visualizer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stage-label-left,
+        .stage-label-right {
+            writing-mode: vertical-lr;
+            text-orientation: upright;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+        }
+
+        .stage-area {
+            flex: 1;
+            height: 300px;
+            background: linear-gradient(to bottom, 
+                rgba(99, 102, 241, 0.1) 0%, 
+                rgba(99, 102, 241, 0.2) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Depth gradient overlay */
+        .stage-area::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom,
+                rgba(139, 92, 246, 0.15) 0%,
+                rgba(251, 191, 36, 0.1) 50%,
+                rgba(16, 185, 129, 0.15) 100%);
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        [data-theme="dark"] .stage-area {
+            background: linear-gradient(to bottom, 
+                rgba(139, 92, 246, 0.15) 0%, 
+                rgba(139, 92, 246, 0.25) 100%);
+        }
+
+        .stage-back,
+        .stage-front {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            opacity: 0.6;
+            pointer-events: none;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .stage-back {
+            top: 8px;
+        }
+
+        .stage-front {
+            bottom: 8px;
+        }
+
+        /* Instrument Markers */
+        .instrument-marker {
+            position: absolute;
+            transform: translate(-50%, 50%);
+            cursor: grab;
+            transition: all 0.3s ease;
+            z-index: 10;
+            user-select: none;
+        }
+
+        .instrument-marker:active {
+            cursor: grabbing;
+        }
+
+        .instrument-marker.dragging {
+            cursor: grabbing !important;
+            z-index: 100;
+            transform: translate(-50%, 50%) scale(1.15);
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+        }
+
+        .instrument-marker:hover {
+            transform: translate(-50%, 50%) scale(1.1);
+        }
+
+        .instrument-marker.dragging:hover {
+            transform: translate(-50%, 50%) scale(1.15);
+        }
+
+        .instrument-marker.selected {
+            z-index: 20;
+        }
+
+        .instrument-marker.selected::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border: 3px dashed var(--accent-color);
+            border-radius: 50%;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .marker-icon {
+            display: block;
+            font-size: 2.5rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            margin-bottom: 2px;
+        }
+
+        .marker-label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: bold;
+            background: var(--bg-primary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        .instrument-marker.moving .marker-icon {
+            animation: pulse 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        /* Movement Controls */
+        .movement-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .movement-section label,
+        .position-control label,
+        .movement-type-control label {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        #selectedInstrument {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .position-control {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .position-slider-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .position-marker {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: var(--text-secondary);
+            width: 20px;
+            text-align: center;
+        }
+
+        .position-slider {
+            flex: 1;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(to right, 
+                var(--accent-color) 0%, 
+                var(--bg-primary) 50%, 
+                var(--accent-color) 100%);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .depth-slider {
+            flex: 1;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(to right, 
+                #10b981 0%,
+                #fbbf24 50%,
+                #8b5cf6 100%);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .depth-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #8b5cf6;
+            cursor: pointer;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .depth-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #8b5cf6;
+            cursor: pointer;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .position-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .position-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .position-value {
+            min-width: 80px;
+            text-align: right;
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+        }
+
+        /* Movement Type Buttons */
+        .movement-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .movement-btn {
+            padding: 0.8rem;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .movement-btn:hover {
+            border-color: var(--accent-color);
+            background: var(--bg-secondary);
+        }
+
+        .movement-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+
+        /* Formation Presets */
+        .formation-presets {
+            margin-top: 1rem;
+        }
+
+        .preset-buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .preset-btn {
+            padding: 0.8rem;
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .preset-btn:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .preset-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Playback Controls */
+        .playback-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .pattern-length-btn {
+            flex: 1;
+            padding: 0.6rem 1rem;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .pattern-length-btn:hover {
+            border-color: var(--accent-color);
+            background: var(--bg-secondary);
+        }
+
+        .pattern-length-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+
+        .timing-controls {
+            background: var(--bg-primary);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        #tempoSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #tempoSlider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(244, 114, 182, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+            transform: translateY(-2px);
+        }
+
+        /* Info Box */
+        .info-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--accent-light);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .info-box p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .info-box strong {
+            color: var(--accent-color);
+        }
+
+        /* Status Display */
+        .status-display {
+            background: var(--bg-primary);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .status-display h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            color: var(--accent-color);
+        }
+
+        .status-display .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+            font-size: 0.85rem;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+        }
+
+        .status-label {
+            color: var(--text-secondary);
+        }
+
+        .status-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .preset-buttons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .movement-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .timing-controls {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .pattern-length-btn {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">🌙</button>
+
+    <div class="container">
+        <div class="header">
+            <h1>🎭 Stage Positioning System</h1>
+            <p>Drag instruments around the stage and watch them move during playback!</p>
+        </div>
+
+        <div class="demo-card">
+            <h2><i class="fas fa-arrows-alt-h"></i> Visual Stage</h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                <strong>Drag</strong> instruments around the stage or <strong>click</strong> to select, then adjust position and movement style below.
+            </p>
+            
+            <!-- Visual Stage Representation -->
+            <div class="stage-visualizer">
+                <div class="stage-label-left">LEFT SPEAKER</div>
+                <div class="stage-area" id="stageArea">
+                    <div class="stage-back">Back of Stage (Wet • Distant • More Reverb)</div>
+                    <div class="stage-front">Front of Stage (Dry • Close • Less Reverb)</div>
+                    
+                    <!-- Instrument markers -->
+                    <div class="instrument-marker" data-instrument="harmony" style="left: 50%; bottom: 30%;">
+                        <span class="marker-icon">🎹</span>
+                        <span class="marker-label">Chords</span>
+                    </div>
+                    <div class="instrument-marker" data-instrument="melody" style="left: 50%; bottom: 60%;">
+                        <span class="marker-icon">🎻</span>
+                        <span class="marker-label">Melody</span>
+                    </div>
+                    <div class="instrument-marker" data-instrument="kick" style="left: 50%; bottom: 20%;">
+                        <span class="marker-icon">🥾</span>
+                        <span class="marker-label">Kick</span>
+                    </div>
+                    <div class="instrument-marker" data-instrument="snare" style="left: 40%; bottom: 20%;">
+                        <span class="marker-icon">🥁</span>
+                        <span class="marker-label">Snare</span>
+                    </div>
+                    <div class="instrument-marker" data-instrument="hihat" style="left: 60%; bottom: 20%;">
+                        <span class="marker-icon">🎩</span>
+                        <span class="marker-label">HiHat</span>
+                    </div>
+                </div>
+                <div class="stage-label-right">RIGHT SPEAKER</div>
+            </div>
+        </div>
+
+        <!-- Advanced Mode Toggle -->
+        <div class="demo-card">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                <div style="flex: 1;">
+                    <div style="font-weight: 600; color: var(--text-primary); font-size: 1.1rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-sliders-h"></i> Advanced Controls
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0;">
+                        Fine-tune individual instrument positions, movement patterns, stage depth, timing, and formations
+                    </p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="enableAdvancedMode">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Advanced Controls Container (hidden by default) -->
+        <div id="advancedControls" style="display: none;">
+
+        <div class="demo-card">
+            <h2><i class="fas fa-sliders-h"></i> Movement Controls</h2>
+            
+            <div class="movement-controls">
+                <div class="movement-section">
+                    <label style="font-weight: bold; margin-bottom: 0.5rem; display: block;">
+                        <i class="fas fa-hand-pointer"></i> Selected: <span id="selectedInstrument">None - Click an instrument above</span>
+                    </label>
+                </div>
+                
+                <!-- Start Position -->
+                <div class="position-control">
+                    <label>
+                        <i class="fas fa-play"></i> Start Position
+                    </label>
+                    <div class="position-slider-container">
+                        <span class="position-marker">L</span>
+                        <input type="range" id="startPosition" min="-100" max="100" value="0" class="position-slider">
+                        <span class="position-marker">R</span>
+                        <span class="position-value" id="startPosValue">Center</span>
+                    </div>
+                </div>
+                
+                <!-- End Position -->
+                <div class="position-control">
+                    <label>
+                        <i class="fas fa-flag-checkered"></i> End Position
+                    </label>
+                    <div class="position-slider-container">
+                        <span class="position-marker">L</span>
+                        <input type="range" id="endPosition" min="-100" max="100" value="0" class="position-slider">
+                        <span class="position-marker">R</span>
+                        <span class="position-value" id="endPosValue">Center</span>
+                    </div>
+                </div>
+                
+                <!-- Depth Position (Front/Back = Reverb/Wetness) -->
+                <div class="position-control">
+                    <label>
+                        <i class="fas fa-layer-group"></i> Stage Depth (Reverb Amount)
+                    </label>
+                    <div class="position-slider-container">
+                        <span class="position-marker" style="font-size: 0.7rem;">Front</span>
+                        <input type="range" id="depthPosition" min="0" max="100" value="50" class="depth-slider">
+                        <span class="position-marker" style="font-size: 0.7rem;">Back</span>
+                        <span class="position-value" id="depthPosValue">50%</span>
+                    </div>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.5rem; margin-bottom: 0;">
+                        Front = Dry & Close · Back = Wet & Distant
+                    </p>
+                </div>
+                
+                <!-- Movement Type -->
+                <div class="movement-type-control">
+                    <label style="font-weight: bold; margin-bottom: 0.5rem; display: block;">
+                        <i class="fas fa-route"></i> Movement Style
+                    </label>
+                    <div class="movement-buttons">
+                        <button class="movement-btn active" data-movement="static">
+                            <i class="fas fa-circle"></i> Stay Put
+                        </button>
+                        <button class="movement-btn" data-movement="smooth">
+                            <i class="fas fa-water"></i> Smooth Glide
+                        </button>
+                        <button class="movement-btn" data-movement="swing">
+                            <i class="fas fa-exchange-alt"></i> Back & Forth
+                        </button>
+                        <button class="movement-btn" data-movement="bounce">
+                            <i class="fas fa-tennis-ball"></i> Bounce
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-card">
+            <h2><i class="fas fa-users"></i> Stage Formations</h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                Try these preset formations to instantly position all instruments
+            </p>
+            
+            <div class="formation-presets">
+                <div class="preset-buttons-grid">
+                    <button class="preset-btn" data-formation="center">
+                        <i class="fas fa-compress"></i> All Center
+                    </button>
+                    <button class="preset-btn" data-formation="spread">
+                        <i class="fas fa-expand"></i> Spread Out
+                    </button>
+                    <button class="preset-btn" data-formation="rock-band">
+                        <i class="fas fa-guitar"></i> Rock Band
+                    </button>
+                    <button class="preset-btn" data-formation="orchestra">
+                        <i class="fas fa-music"></i> Orchestra
+                    </button>
+                    <button class="preset-btn" data-formation="swirl">
+                        <i class="fas fa-sync-alt"></i> Swirling
+                    </button>
+                    <button class="preset-btn" data-formation="call-response">
+                        <i class="fas fa-comments"></i> Call & Response
+                    </button>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p>
+                    <strong>💡 Tip:</strong> 
+                    Movement creates a sense of space and energy. Try "Swirling" for dance music or "Call & Response" for dramatic back-and-forth effects!
+                </p>
+            </div>
+
+            <div class="info-box" style="margin-top: 1rem; background: rgba(99, 102, 241, 0.1); border-left-color: #6366f1;">
+                <p>
+                    <strong>⏱️ How Movement Works:</strong> 
+                    Instruments move from their START to END position over one complete pattern loop (16/32/64 steps). Higher tempo = faster movement. Each movement style (Smooth, Swing, Bounce) creates different patterns over the loop duration.
+                </p>
+            </div>
+
+            <div class="info-box" style="margin-top: 1rem; background: rgba(139, 92, 246, 0.1); border-left-color: #8b5cf6;">
+                <p style="margin-bottom: 0.75rem;">
+                    <strong>🎚️ What Does Front/Back Control?</strong>
+                </p>
+                <p style="font-size: 0.8rem; line-height: 1.6; margin: 0;">
+                    <strong style="color: #8b5cf6;">Front of Stage (0-30%):</strong> Dry, close, present - minimal reverb, sounds upfront and intimate<br>
+                    <strong style="color: #8b5cf6;">Middle Stage (30-60%):</strong> Natural room sound - balanced reverb, typical mixing position<br>
+                    <strong style="color: #8b5cf6;">Back of Stage (60-100%):</strong> Wet, distant, atmospheric - heavy reverb, creates depth and space
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.75rem; margin-bottom: 0;">
+                    💡 In real audio production, this controls reverb wetness, volume, and high-frequency rolloff to simulate distance. Drums typically stay front (dry), while pads and atmospheres work well at the back (wet).
+                </p>
+            </div>
+        </div>
+
+        <div class="demo-card">
+            <h2><i class="fas fa-play-circle"></i> Playback Demo</h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                Set your pattern length and tempo, then watch instruments move across the stage over one complete loop
+            </p>
+            
+            <!-- Pattern Length & Tempo Controls -->
+            <div class="timing-controls" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                <div class="timing-control">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">
+                        <i class="fas fa-stream"></i> Pattern Length
+                    </label>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="pattern-length-btn active" data-length="16">16 Steps</button>
+                        <button class="pattern-length-btn" data-length="32">32 Steps</button>
+                        <button class="pattern-length-btn" data-length="64">64 Steps</button>
+                    </div>
+                </div>
+                
+                <div class="timing-control">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">
+                        <i class="fas fa-tachometer-alt"></i> Tempo: <span id="tempoValue">120</span> BPM
+                    </label>
+                    <input type="range" id="tempoSlider" min="60" max="200" value="120" 
+                           style="width: 100%; -webkit-appearance: none; height: 8px; border-radius: 4px; background: var(--border-color); outline: none;">
+                </div>
+            </div>
+            
+            <div class="playback-controls">
+                <button class="btn" id="playBtn">
+                    <i class="fas fa-play"></i> Play Animation
+                </button>
+                <button class="btn btn-secondary" id="stopBtn">
+                    <i class="fas fa-stop"></i> Stop
+                </button>
+            </div>
+
+            <div class="status-display" id="statusDisplay" style="display: none;">
+                <h3><i class="fas fa-info-circle"></i> Current Status</h3>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <span class="status-label">Playback:</span>
+                        <span class="status-value" id="playbackStatus">Stopped</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Current Step:</span>
+                        <span class="status-value" id="currentStep">0 / 16</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Loop Progress:</span>
+                        <span class="status-value" id="progressValue">0%</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Formation:</span>
+                        <span class="status-value" id="formationName">Custom</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        </div><!-- End of Advanced Controls -->
+    </div>
+
+    <script>
+        // Stage Positioning System JavaScript
+        class StagePositioningDemo {
+            constructor() {
+                this.stagePositions = {
+                    harmony: { start: 0, end: 0, movement: 'static', depth: 50 },
+                    melody: { start: 0, end: 0, movement: 'static', depth: 60 },
+                    kick: { start: 0, end: 0, movement: 'static', depth: 20 },
+                    snare: { start: 0, end: 0, movement: 'static', depth: 20 },
+                    hihat: { start: 0, end: 0, movement: 'static', depth: 20 }
+                };
+                
+                this.selectedInstrument = null;
+                this.isPlaying = false;
+                this.animationFrame = null;
+                this.progress = 0;
+                this.isDragging = false;
+                
+                // Timing properties
+                this.patternLength = 16; // steps
+                this.tempo = 120; // BPM
+                this.currentStep = 0;
+                this.stepDuration = 0; // calculated based on tempo
+                this.lastStepTime = 0;
+                
+                this.init();
+            }
+
+            init() {
+                this.setupInstrumentMarkers();
+                this.setupPositionSliders();
+                this.setupMovementButtons();
+                this.setupFormationPresets();
+                this.setupTimingControls();
+                this.setupPlaybackControls();
+                this.setupThemeToggle();
+                this.setupAdvancedToggle();
+                this.calculateStepDuration();
+            }
+
+            setupInstrumentMarkers() {
+                const markers = document.querySelectorAll('.instrument-marker');
+                markers.forEach(marker => {
+                    // Click to select
+                    marker.addEventListener('click', (e) => {
+                        if (!this.isDragging) {
+                            const instrument = marker.dataset.instrument;
+                            this.selectInstrument(instrument);
+                        }
+                    });
+                    
+                    // Make draggable
+                    this.makeMarkerDraggable(marker);
+                });
+            }
+
+            makeMarkerDraggable(marker) {
+                let isDragging = false;
+                let startX, startY;
+                const stageArea = document.getElementById('stageArea');
+                
+                marker.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    this.isDragging = true;
+                    marker.style.cursor = 'grabbing';
+                    marker.classList.add('dragging');
+                    
+                    // Select the instrument when starting to drag
+                    const instrument = marker.dataset.instrument;
+                    this.selectInstrument(instrument);
+                    
+                    e.preventDefault();
+                });
+                
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    
+                    const rect = stageArea.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = 100 - ((e.clientY - rect.top) / rect.height) * 100;
+                    
+                    // Constrain to stage bounds
+                    const constrainedX = Math.max(0, Math.min(100, x));
+                    const constrainedY = Math.max(0, Math.min(100, y));
+                    
+                    marker.style.left = `${constrainedX}%`;
+                    marker.style.bottom = `${constrainedY}%`;
+                    
+                    // Update position data
+                    const instrument = marker.dataset.instrument;
+                    const panValue = Math.round((constrainedX - 50) * 2); // -100 to 100
+                    const depthValue = Math.round(100 - constrainedY); // 0 to 100, inverted (bottom=front=0)
+                    
+                    if (this.selectedInstrument === instrument) {
+                        // Update left/right position
+                        document.getElementById('startPosition').value = panValue;
+                        this.updatePositionDisplay('start', panValue);
+                        this.stagePositions[instrument].start = panValue;
+                        
+                        document.getElementById('endPosition').value = panValue;
+                        this.updatePositionDisplay('end', panValue);
+                        this.stagePositions[instrument].end = panValue;
+                        
+                        // Update depth (front/back)
+                        document.getElementById('depthPosition').value = depthValue;
+                        this.updateDepthDisplay(depthValue);
+                        this.stagePositions[instrument].depth = depthValue;
+                        
+                        // Update visual opacity based on depth
+                        marker.style.opacity = 1 - (depthValue / 200); // Further back = more transparent
+                    }
+                });
+                
+                document.addEventListener('mouseup', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        setTimeout(() => {
+                            this.isDragging = false;
+                        }, 10);
+                        marker.style.cursor = 'grab';
+                        marker.classList.remove('dragging');
+                    }
+                });
+            }
+
+            selectInstrument(instrument) {
+                // Deselect previous
+                document.querySelectorAll('.instrument-marker').forEach(m => {
+                    m.classList.remove('selected');
+                });
+                
+                // Select new
+                const marker = document.querySelector(`[data-instrument="${instrument}"]`);
+                if (marker) {
+                    marker.classList.add('selected');
+                }
+                
+                this.selectedInstrument = instrument;
+                
+                // Update UI
+                const displayNames = {
+                    harmony: '🎹 Background Chords',
+                    melody: '🎻 Main Melody',
+                    kick: '🥾 Kick Drum',
+                    snare: '🥁 Snare Drum',
+                    hihat: '🎩 Hi-Hat'
+                };
+                
+                document.getElementById('selectedInstrument').textContent = displayNames[instrument];
+                
+                // Load instrument's current settings
+                const settings = this.stagePositions[instrument];
+                
+                const startSlider = document.getElementById('startPosition');
+                const endSlider = document.getElementById('endPosition');
+                const depthSlider = document.getElementById('depthPosition');
+                
+                startSlider.value = settings.start;
+                endSlider.value = settings.end;
+                depthSlider.value = settings.depth || 50;
+                
+                this.updatePositionDisplay('start', settings.start);
+                this.updatePositionDisplay('end', settings.end);
+                this.updateDepthDisplay(settings.depth || 50);
+                
+                // Update movement buttons
+                document.querySelectorAll('.movement-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.movement === settings.movement);
+                });
+            }
+
+            setupPositionSliders() {
+                const startSlider = document.getElementById('startPosition');
+                const endSlider = document.getElementById('endPosition');
+                const depthSlider = document.getElementById('depthPosition');
+                
+                startSlider.addEventListener('input', (e) => {
+                    const value = parseInt(e.target.value);
+                    this.updatePositionDisplay('start', value);
+                    
+                    if (this.selectedInstrument) {
+                        this.stagePositions[this.selectedInstrument].start = value;
+                        this.updateMarkerPosition(this.selectedInstrument, value);
+                    }
+                });
+                
+                endSlider.addEventListener('input', (e) => {
+                    const value = parseInt(e.target.value);
+                    this.updatePositionDisplay('end', value);
+                    
+                    if (this.selectedInstrument) {
+                        this.stagePositions[this.selectedInstrument].end = value;
+                    }
+                });
+                
+                depthSlider.addEventListener('input', (e) => {
+                    const value = parseInt(e.target.value);
+                    this.updateDepthDisplay(value);
+                    
+                    if (this.selectedInstrument) {
+                        this.stagePositions[this.selectedInstrument].depth = value;
+                        this.updateMarkerDepth(this.selectedInstrument, value);
+                    }
+                });
+            }
+
+            updateDepthDisplay(value) {
+                const displayElement = document.getElementById('depthPosValue');
+                displayElement.textContent = `${value}% Reverb`;
+            }
+
+            updateMarkerDepth(instrument, depthValue) {
+                const marker = document.querySelector(`[data-instrument="${instrument}"]`);
+                if (!marker) return;
+                
+                // Convert depth (0-100) to bottom position (100-0, inverted)
+                const bottomPercent = 100 - depthValue;
+                marker.style.bottom = `${bottomPercent}%`;
+                
+                // Update opacity: front = more opaque, back = more transparent
+                marker.style.opacity = 1 - (depthValue / 200);
+            }
+
+            updatePositionDisplay(type, value) {
+                const displayElement = document.getElementById(`${type}PosValue`);
+                
+                if (value === 0) {
+                    displayElement.textContent = 'Center';
+                } else if (value < 0) {
+                    displayElement.textContent = `Left ${Math.abs(value)}%`;
+                } else {
+                    displayElement.textContent = `Right ${value}%`;
+                }
+            }
+
+            updateMarkerPosition(instrument, value) {
+                const marker = document.querySelector(`[data-instrument="${instrument}"]`);
+                if (!marker) return;
+                
+                const xPercent = ((value + 100) / 2);
+                marker.style.left = `${xPercent}%`;
+            }
+
+            setupMovementButtons() {
+                document.querySelectorAll('.movement-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        if (!this.selectedInstrument) return;
+                        
+                        const movement = btn.dataset.movement;
+                        
+                        document.querySelectorAll('.movement-btn').forEach(b => {
+                            b.classList.remove('active');
+                        });
+                        btn.classList.add('active');
+                        
+                        this.stagePositions[this.selectedInstrument].movement = movement;
+                    });
+                });
+            }
+
+            setupFormationPresets() {
+                const formations = {
+                    'center': {
+                        harmony: { start: 0, end: 0, movement: 'static', depth: 50 },
+                        melody: { start: 0, end: 0, movement: 'static', depth: 40 },
+                        kick: { start: 0, end: 0, movement: 'static', depth: 30 },
+                        snare: { start: 0, end: 0, movement: 'static', depth: 30 },
+                        hihat: { start: 0, end: 0, movement: 'static', depth: 35 }
+                    },
+                    'spread': {
+                        harmony: { start: -60, end: -60, movement: 'static', depth: 70 },
+                        melody: { start: 0, end: 0, movement: 'static', depth: 30 },
+                        kick: { start: 0, end: 0, movement: 'static', depth: 10 },
+                        snare: { start: -40, end: -40, movement: 'static', depth: 25 },
+                        hihat: { start: 60, end: 60, movement: 'static', depth: 40 }
+                    },
+                    'rock-band': {
+                        harmony: { start: -30, end: -30, movement: 'static', depth: 60 },
+                        melody: { start: 30, end: 30, movement: 'static', depth: 20 },
+                        kick: { start: 0, end: 0, movement: 'static', depth: 15 },
+                        snare: { start: -20, end: -20, movement: 'static', depth: 20 },
+                        hihat: { start: 40, end: 40, movement: 'static', depth: 30 }
+                    },
+                    'orchestra': {
+                        harmony: { start: -50, end: -50, movement: 'static', depth: 80 },
+                        melody: { start: 0, end: 0, movement: 'static', depth: 50 },
+                        kick: { start: 0, end: 0, movement: 'static', depth: 40 },
+                        snare: { start: 50, end: 50, movement: 'static', depth: 60 },
+                        hihat: { start: 70, end: 70, movement: 'static', depth: 70 }
+                    },
+                    'swirl': {
+                        harmony: { start: -80, end: 80, movement: 'smooth', depth: 85 },
+                        melody: { start: 80, end: -80, movement: 'smooth', depth: 40 },
+                        kick: { start: 0, end: 0, movement: 'static', depth: 10 },
+                        snare: { start: -50, end: 50, movement: 'smooth', depth: 30 },
+                        hihat: { start: 50, end: -50, movement: 'smooth', depth: 50 }
+                    },
+                    'call-response': {
+                        harmony: { start: -70, end: -70, movement: 'static', depth: 75 },
+                        melody: { start: 70, end: 70, movement: 'static', depth: 25 },
+                        kick: { start: 0, end: 0, movement: 'static', depth: 10 },
+                        snare: { start: -70, end: 70, movement: 'swing', depth: 35 },
+                        hihat: { start: 70, end: -70, movement: 'swing', depth: 45 }
+                    }
+                };
+
+                document.querySelectorAll('[data-formation]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const formation = btn.dataset.formation;
+                        const preset = formations[formation];
+                        if (!preset) return;
+                        
+                        Object.keys(preset).forEach(instrument => {
+                            this.stagePositions[instrument] = { ...preset[instrument] };
+                            
+                            const marker = document.querySelector(`[data-instrument="${instrument}"]`);
+                            if (marker) {
+                                const xPercent = ((preset[instrument].start + 100) / 2);
+                                marker.style.left = `${xPercent}%`;
+                                
+                                // Update depth position
+                                const depthValue = preset[instrument].depth || 50;
+                                const bottomPercent = 100 - depthValue;
+                                marker.style.bottom = `${bottomPercent}%`;
+                                marker.style.opacity = 1 - (depthValue / 200);
+                            }
+                        });
+                        
+                        if (this.selectedInstrument) {
+                            this.selectInstrument(this.selectedInstrument);
+                        }
+                        
+                        document.getElementById('formationName').textContent = 
+                            formation.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                    });
+                });
+            }
+
+            setupTimingControls() {
+                // Pattern Length buttons
+                document.querySelectorAll('.pattern-length-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.pattern-length-btn').forEach(b => {
+                            b.classList.remove('active');
+                        });
+                        btn.classList.add('active');
+                        
+                        this.patternLength = parseInt(btn.dataset.length);
+                        this.calculateStepDuration();
+                        
+                        // Update display
+                        document.getElementById('currentStep').textContent = 
+                            `${this.currentStep} / ${this.patternLength}`;
+                    });
+                });
+                
+                // Tempo slider
+                const tempoSlider = document.getElementById('tempoSlider');
+                const tempoValue = document.getElementById('tempoValue');
+                
+                tempoSlider.addEventListener('input', (e) => {
+                    this.tempo = parseInt(e.target.value);
+                    tempoValue.textContent = this.tempo;
+                    this.calculateStepDuration();
+                });
+            }
+
+            calculateStepDuration() {
+                // Calculate how long each step should last in milliseconds
+                // BPM = beats per minute, assume 4 steps per beat (16th notes)
+                const beatsPerSecond = this.tempo / 60;
+                const stepsPerSecond = beatsPerSecond * 4; // 4 steps per beat
+                this.stepDuration = 1000 / stepsPerSecond; // milliseconds per step
+            }
+
+            setupPlaybackControls() {
+                document.getElementById('playBtn').addEventListener('click', () => {
+                    this.startAnimation();
+                });
+                
+                document.getElementById('stopBtn').addEventListener('click', () => {
+                    this.stopAnimation();
+                });
+            }
+
+            startAnimation() {
+                if (this.isPlaying) return;
+                
+                this.isPlaying = true;
+                this.currentStep = 0;
+                this.progress = 0;
+                this.lastStepTime = performance.now();
+                
+                document.getElementById('statusDisplay').style.display = 'block';
+                document.getElementById('playbackStatus').textContent = 'Playing';
+                document.getElementById('currentStep').textContent = 
+                    `${this.currentStep} / ${this.patternLength}`;
+                
+                document.querySelectorAll('.instrument-marker').forEach(m => {
+                    m.classList.add('moving');
+                });
+                
+                this.animate(performance.now());
+            }
+
+            stopAnimation() {
+                this.isPlaying = false;
+                if (this.animationFrame) {
+                    cancelAnimationFrame(this.animationFrame);
+                }
+                
+                this.currentStep = 0;
+                this.progress = 0;
+                
+                document.getElementById('playbackStatus').textContent = 'Stopped';
+                document.getElementById('currentStep').textContent = 
+                    `0 / ${this.patternLength}`;
+                document.getElementById('progressValue').textContent = '0%';
+                
+                document.querySelectorAll('.instrument-marker').forEach(marker => {
+                    marker.classList.remove('moving');
+                    
+                    const instrument = marker.dataset.instrument;
+                    const startPos = this.stagePositions[instrument].start;
+                    const xPercent = ((startPos + 100) / 2);
+                    marker.style.left = `${xPercent}%`;
+                });
+            }
+
+            animate(currentTime) {
+                if (!this.isPlaying) return;
+                
+                // Calculate if we should advance to next step
+                const timeSinceLastStep = currentTime - this.lastStepTime;
+                
+                if (timeSinceLastStep >= this.stepDuration) {
+                    this.currentStep++;
+                    
+                    if (this.currentStep >= this.patternLength) {
+                        this.currentStep = 0; // Loop back
+                    }
+                    
+                    this.lastStepTime = currentTime;
+                    
+                    // Update progress (0 to 1)
+                    this.progress = this.currentStep / this.patternLength;
+                    
+                    // Update display
+                    document.getElementById('currentStep').textContent = 
+                        `${this.currentStep + 1} / ${this.patternLength}`;
+                    document.getElementById('progressValue').textContent = 
+                        Math.round(this.progress * 100) + '%';
+                }
+                
+                // Update instrument positions
+                Object.keys(this.stagePositions).forEach(instrument => {
+                    const panValue = this.calculatePanPosition(instrument, this.progress);
+                    this.updateMarkerAnimationPosition(instrument, panValue);
+                });
+                
+                this.animationFrame = requestAnimationFrame((time) => this.animate(time));
+            }
+
+            calculatePanPosition(instrument, progress) {
+                const settings = this.stagePositions[instrument];
+                const start = settings.start;
+                const end = settings.end;
+                const movement = settings.movement;
+                
+                switch(movement) {
+                    case 'static':
+                        return start;
+                        
+                    case 'smooth':
+                        return start + (end - start) * progress;
+                        
+                    case 'swing':
+                        return start + (end - start) * Math.sin(progress * Math.PI * 2);
+                        
+                    case 'bounce':
+                        return start + (end - start) * Math.abs(Math.sin(progress * Math.PI * 4));
+                        
+                    default:
+                        return 0;
+                }
+            }
+
+            updateMarkerAnimationPosition(instrument, panValue) {
+                const marker = document.querySelector(`[data-instrument="${instrument}"]`);
+                if (!marker) return;
+                
+                const xPercent = ((panValue + 100) / 2);
+                marker.style.left = `${xPercent}%`;
+            }
+
+            setupThemeToggle() {
+                const toggle = document.getElementById('themeToggle');
+                toggle.addEventListener('click', () => {
+                    const currentTheme = document.body.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    document.body.setAttribute('data-theme', newTheme);
+                    toggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+                });
+            }
+
+            setupAdvancedToggle() {
+                const toggleCheckbox = document.getElementById('enableAdvancedMode');
+                const advancedControls = document.getElementById('advancedControls');
+                
+                toggleCheckbox.addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        advancedControls.style.display = 'block';
+                        // Smooth reveal animation
+                        advancedControls.style.opacity = '0';
+                        advancedControls.style.transform = 'translateY(-10px)';
+                        setTimeout(() => {
+                            advancedControls.style.transition = 'all 0.3s ease';
+                            advancedControls.style.opacity = '1';
+                            advancedControls.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        advancedControls.style.opacity = '0';
+                        advancedControls.style.transform = 'translateY(-10px)';
+                        setTimeout(() => {
+                            advancedControls.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            }
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            new StagePositioningDemo();
+        });
+    </script>
+</body>
+</html>
