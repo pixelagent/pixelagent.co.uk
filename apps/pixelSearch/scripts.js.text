@@ -1,0 +1,722 @@
+/**
+ * Pixel Search - Art Collection
+ * Main application script with lazy loading, sorting, and infinite scroll
+ */
+
+// ================================
+// Offline Manager Class
+// ================================
+class OfflineManager {
+    constructor() {
+        this.storageKey = 'pixelSearch_csvData';
+        this.timestampKey = 'pixelSearch_csvTimestamp';
+    }
+
+    saveToLocalStorage(data) {
+        try {
+            const json = JSON.stringify(data);
+            localStorage.setItem(this.storageKey, json);
+            localStorage.setItem(this.timestampKey, new Date().toISOString());
+            return true;
+        } catch (error) {
+            console.error('Failed to save to localStorage:', error);
+            return false;
+        }
+    }
+
+    loadFromLocalStorage() {
+        try {
+            const data = localStorage.getItem(this.storageKey);
+            const timestamp = localStorage.getItem(this.timestampKey);
+            if (data) {
+                return {
+                    data: JSON.parse(data),
+                    timestamp: timestamp,
+                    available: true
+                };
+            }
+        } catch (error) {
+            console.error('Failed to load from localStorage:', error);
+        }
+        return { data: null, timestamp: null, available: false };
+    }
+
+    clearLocalStorage() {
+        try {
+            localStorage.removeItem(this.storageKey);
+            localStorage.removeItem(this.timestampKey);
+            return true;
+        } catch (error) {
+            console.error('Failed to clear localStorage:', error);
+            return false;
+        }
+    }
+
+    downloadAsFile(data, filename = 'artwork-data.json') {
+        try {
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            return true;
+        } catch (error) {
+            console.error('Failed to download file:', error);
+            return false;
+        }
+    }
+
+    getCacheInfo() {
+        const { timestamp } = this.loadFromLocalStorage();
+        if (timestamp) {
+            const date = new Date(timestamp);
+            return `Cached: ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+        }
+        return 'No cached data';
+    }
+
+    isCacheValid(maxAge = 24 * 60 * 60 * 1000) { // 24 hours default
+        const { timestamp } = this.loadFromLocalStorage();
+        if (!timestamp) return false;
+        const cached = new Date(timestamp).getTime();
+        const now = new Date().getTime();
+        return (now - cached) < maxAge;
+    }
+}
+
+// ================================
+// CSV Data Manager Class
+// ================================
+class CSVDataManager {
+    constructor() {
+        this.data = [];
+        this.loaded = false;
+    }
+
+    async load(url) {
+        return new Promise((resolve, reject) => {
+            Papa.parse(url, {
+                download: true,
+                header: true,
+                complete: (results) => {
+                    this.data = results.data.filter(item => item && Object.keys(item).length > 0);
+                    this.loaded = true;
+                    console.log('CSV loaded:', this.data.length, 'items');
+                    resolve(this.data);
+                },
+                error: (error) => {
+                    console.error('CSV parse error:', error);
+                    reject(error);
+                }
+            });
+        });
+    }
+
+    filter(keyword, orientation, difficulty) {
+        return this.data.filter(item => {
+            if (!item) return false;
+
+            const matchesKeyword = !keyword ||
+                (item.Name && item.Name.toLowerCase().includes(keyword)) ||
+                (item.Theme && item.Theme.toLowerCase().includes(keyword)) ||
+                (item.Artist && item.Artist.toLowerCase().includes(keyword));
+
+            const matchesOrientation = !orientation ||
+                (item.Orientation && item.Orientation.trim().toLowerCase() === orientation.toLowerCase());
+
+            const matchesDifficulty = !difficulty ||
+                (item.Difficulty && item.Difficulty == difficulty);
+
+            return matchesKeyword && matchesOrientation && matchesDifficulty;
+        });
+    }
+
+    sort(data, option, searchKeyword) {
+        switch (option) {
+            case 'name':
+                return data.sort((a, b) => {
+                    const nameA = (a.Name || 'Untitled').toLowerCase();
+                    const nameB = (b.Name || 'Untitled').toLowerCase();
+                    return nameA.localeCompare(nameB);
+                });
+            case 'date':
+                return data.sort((a, b) => {
+                    const dateA = a.Date || a.Created || a.added || '';
+                    const dateB = b.Date || b.Created || b.added || '';
+                    if (dateA && dateB) {
+                        return new Date(dateB) - new Date(dateA);
+                    }
+                    return this.data.indexOf(a) - this.data.indexOf(b);
+                });
+            case 'best-match':
+            default:
+                if (searchKeyword) {
+                    const keyword = searchKeyword.toLowerCase();
+                    return data.sort((a, b) => {
+                        const nameA = (a.Name || '').toLowerCase();
+                        const nameB = (b.Name || '').toLowerCase();
+                        const themeA = (a.Theme || '').toLowerCase();
+                        const themeB = (b.Theme || '').toLowerCase();
+                        const artistA = (a.Artist || '').toLowerCase();
+                        const artistB = (b.Artist || '').toLowerCase();
+
+                        const exactA = nameA === keyword || themeA === keyword || artistA === keyword;
+                        const exactB = nameB === keyword || themeB === keyword || artistB === keyword;
+
+                        if (exactA && !exactB) return -1;
+                        if (!exactA && exactB) return 1;
+
+                        const wordA = ` ${nameA} `.includes(` ${keyword} `) || ` ${themeA} `.includes(` ${keyword} `);
+                        const wordB = ` ${nameB} `.includes(` ${keyword} `) || ` ${themeB} `.includes(` ${keyword} `);
+
+                        if (wordA && !wordB) return -1;
+                        if (!wordA && wordB) return 1;
+
+                        return 0;
+                    });
+                }
+                return data;
+        }
+    }
+}
+
+// ================================
+// Lazy Image Loader Class
+// ================================
+class LazyImageLoader {
+    constructor(options = {}) {
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.add('loaded');
+                    this.observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: options.rootMargin || '100px',
+            threshold: options.threshold || 0.1
+        });
+    }
+
+    observe(element) {
+        this.observer.observe(element);
+    }
+
+    disconnect() {
+        this.observer.disconnect();
+    }
+}
+
+// ================================
+// Infinite Scroll Manager Class
+// ================================
+class InfiniteScrollManager {
+    constructor(callback, options = {}) {
+        this.callback = callback;
+        this.options = {
+            rootMargin: options.rootMargin || '200px',
+            threshold: options.threshold || 0
+        };
+        this.observer = null;
+    }
+
+    observe(element) {
+        this.observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                this.callback();
+            }
+        }, this.options);
+        this.observer.observe(element);
+    }
+
+    disconnect() {
+        if (this.observer) {
+            this.observer.disconnect();
+        }
+    }
+}
+
+// ================================
+// Theme Manager Class
+// ================================
+class ThemeManager {
+    constructor() {
+        this.theme = localStorage.getItem('theme') || 'light';
+        this.init();
+    }
+
+    init() {
+        document.documentElement.setAttribute('data-theme', this.theme);
+        this.updateIcon();
+    }
+
+    toggle() {
+        this.theme = this.theme === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', this.theme);
+        localStorage.setItem('theme', this.theme);
+        this.updateIcon();
+    }
+
+    updateIcon() {
+        const toggle = document.getElementById('themeToggle');
+        if (toggle) {
+            toggle.textContent = this.theme === 'light' ? '🌙' : '☀️';
+        }
+    }
+
+    set(theme) {
+        this.theme = theme;
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        this.updateIcon();
+    }
+
+    updateOptions() {
+        const options = document.querySelectorAll('.theme-option');
+        options.forEach(option => {
+            if (option.dataset.theme === this.theme) {
+                option.classList.add('active');
+                option.classList.remove('btn-secondary');
+            } else {
+                option.classList.remove('active');
+                option.classList.add('btn-secondary');
+            }
+        });
+    }
+}
+
+// ================================
+// UI Manager Class
+// ================================
+class UIManager {
+    constructor() {
+        this.elements = {};
+        this.initElements();
+    }
+
+    initElements() {
+        this.elements = {
+            themeToggle: document.getElementById('themeToggle'),
+            settingsBtn: document.getElementById('settingsBtn'),
+            settingsModal: document.getElementById('settingsModal'),
+            closeSettings: document.getElementById('closeSettings'),
+            cancelSettings: document.getElementById('cancelSettings'),
+            saveSettings: document.getElementById('saveSettings'),
+            searchForm: document.getElementById('searchForm'),
+            searchInput: document.getElementById('searchInput'),
+            orientationSelect: document.getElementById('orientationSelect'),
+            difficultySelect: document.getElementById('difficultySelect'),
+            sortSelect: document.getElementById('sortSelect'),
+            resultsSection: document.getElementById('resultsSection'),
+            resultsContent: document.querySelector('.results-content'),
+            results: document.getElementById('results'),
+            loading: document.getElementById('loading'),
+            noResults: document.getElementById('noResults'),
+            resultsCount: document.getElementById('resultsCount'),
+            loadMore: document.getElementById('loadMore'),
+            toast: document.getElementById('toast'),
+            toastMessage: document.querySelector('.toast-message'),
+            toastIcon: document.querySelector('.toast-icon')
+        };
+    }
+
+    showResultsSection() {
+        this.elements.resultsSection.classList.remove('hidden');
+    }
+
+    hideResultsSection() {
+        this.elements.resultsSection.classList.add('hidden');
+    }
+
+    showLoading() {
+        this.elements.loading.classList.remove('hidden');
+        this.elements.resultsContent.classList.add('hidden');
+        this.elements.noResults.classList.add('hidden');
+    }
+
+    hideLoading() {
+        this.elements.loading.classList.add('hidden');
+    }
+
+    showNoResults() {
+        this.elements.noResults.classList.remove('hidden');
+        this.elements.resultsContent.classList.add('hidden');
+    }
+
+    hideNoResults() {
+        this.elements.noResults.classList.add('hidden');
+    }
+
+    showResultsContent() {
+        this.elements.resultsContent.classList.remove('hidden');
+    }
+
+    updateResultsCount(count) {
+        this.elements.resultsCount.textContent = `${count} item${count !== 1 ? 's' : ''}`;
+    }
+
+    clearResults() {
+        this.elements.results.innerHTML = '';
+    }
+
+    showLoadMore() {
+        this.elements.loadMore.classList.remove('hidden');
+    }
+
+    hideLoadMore() {
+        this.elements.loadMore.classList.add('hidden');
+    }
+
+    openSettings() {
+        this.elements.settingsModal.classList.remove('hidden');
+    }
+
+    closeSettings() {
+        this.elements.settingsModal.classList.add('hidden');
+    }
+
+    showToast(message, type = 'success') {
+        this.elements.toastMessage.textContent = message;
+        this.elements.toastIcon.textContent = type === 'success' ? '✅' : '❌';
+        this.elements.toast.className = `toast ${type} show`;
+
+        setTimeout(() => {
+            this.elements.toast.classList.remove('show');
+        }, 4000);
+    }
+}
+
+// ================================
+// Result Card Factory Class
+// ================================
+class ResultCardFactory {
+    constructor(lazyImageLoader) {
+        this.lazyImageLoader = lazyImageLoader;
+        this.placeholderSrc = 'gfx/Image-not-found.png';
+    }
+
+    create(item) {
+        const card = document.createElement('div');
+        card.className = 'result-card';
+
+        const imageUrl = item.Id ? this.getThumbnailUrl(item.Id) : '';
+        const name = item.Name || 'Untitled';
+        const theme = item.Theme || '';
+        const artist = item.Artist || '';
+        const orientation = item.Orientation || '';
+        const difficulty = item.Difficulty || '';
+
+        card.innerHTML = `
+            <img 
+                data-src="${imageUrl}" 
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+                alt="${name}" 
+                class="result-image lazy"
+                onerror="this.src='${this.placeholderSrc}';"
+            >
+            <div class="result-content">
+                <h3 class="result-title">${name}</h3>
+                ${theme ? `<p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.75rem;">${theme}</p>` : ''}
+                <div class="result-meta">
+                    ${orientation ? `<span class="meta-tag orientation">${orientation}</span>` : ''}
+                    ${difficulty ? `<span class="meta-tag difficulty">Level ${difficulty}</span>` : ''}
+                </div>
+                ${item.Id ? `
+                <div class="result-actions">
+                    <a href="${this.getDownloadUrl(item.Id)}" target="_blank" class="btn btn-small btn-outline">⬇️ Download</a>
+                </div>
+                ` : ''}
+            </div>
+        `;
+
+        // Observe image for lazy loading
+        const img = card.querySelector('.lazy');
+        if (img && this.lazyImageLoader) {
+            this.lazyImageLoader.observe(img);
+        }
+
+        return card;
+    }
+
+    getThumbnailUrl(id) {
+        const fileId = this.extractGoogleDriveFileID(id);
+        return `https://drive.google.com/thumbnail?id=${fileId}&authuser=0&sz=w400`;
+    }
+
+    getDownloadUrl(id) {
+        const fileId = this.extractGoogleDriveFileID(id);
+        return `https://drive.google.com/uc?id=${fileId}&export=download`;
+    }
+
+    extractGoogleDriveFileID(url) {
+        if (!url) return '';
+        const match = url.match(/\/(?:open|uc)\?id=([^&]+)/);
+        return match ? match[1] : url;
+    }
+}
+
+// ================================
+// Main Application Class
+// ================================
+class App {
+    constructor() {
+        this.csvManager = new CSVDataManager();
+        this.offlineManager = new OfflineManager();
+        this.themeManager = new ThemeManager();
+        this.ui = new UIManager();
+        this.lazyImageLoader = new LazyImageLoader();
+        this.cardFactory = new ResultCardFactory(this.lazyImageLoader);
+        this.infiniteScroll = null;
+
+        this.filteredData = [];
+        this.visibleCount = 0;
+        this.itemsPerPage = 24;
+
+        this.CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRDkvQQFQ_7x5bSb2q2eGwxuRJ-Wf50de_Wp1Kbf5F0I_h3M1fAnnLJfGzmP3reraU6SiM0qrKBw1s6/pub?gid=1048722892&single=true&output=csv';
+
+        this.init();
+    }
+
+    init() {
+        // Hide initial states
+        this.ui.hideResultsSection();
+        this.ui.hideLoading();
+        this.ui.hideNoResults();
+
+        // Setup event listeners
+        this.setupEventListeners();
+
+        // Preload placeholder image
+        const placeholder = new Image();
+        placeholder.src = 'gfx/Image-not-found.png';
+
+        // Update offline status
+        this.updateOfflineStatus();
+
+        // Load data (try localStorage first, then remote)
+        this.loadData();
+    }
+
+    async loadData() {
+        // Try to load from localStorage first
+        const cached = this.offlineManager.loadFromLocalStorage();
+
+        if (cached.available && this.offlineManager.isCacheValid()) {
+            console.log('Loading from localStorage...');
+            this.csvManager.data = cached.data;
+            this.csvManager.loaded = true;
+            this.ui.showToast(`Loaded ${this.csvManager.data.length} artworks from cache!`, 'success');
+            return;
+        }
+
+        try {
+            await this.csvManager.load(this.CSV_URL);
+            // Save to localStorage for offline use
+            this.offlineManager.saveToLocalStorage(this.csvManager.data);
+            this.updateOfflineStatus();
+            this.ui.showToast(`Loaded ${this.csvManager.data.length} artworks! Ready to search.`, 'success');
+        } catch (error) {
+            console.error('Failed to load CSV:', error);
+            // Try to use cached data even if expired
+            if (cached.available) {
+                this.csvManager.data = cached.data;
+                this.csvManager.loaded = true;
+                this.ui.showToast('Using cached data (may be outdated)', 'error');
+            } else {
+                this.ui.showToast('Failed to load artwork data', 'error');
+            }
+        }
+    }
+
+    updateOfflineStatus() {
+        const statusEl = document.getElementById('offlineStatus');
+        if (statusEl) {
+            const info = this.offlineManager.getCacheInfo();
+            const cached = this.offlineManager.loadFromLocalStorage();
+            const itemCount = cached.data ? cached.data.length : 0;
+            statusEl.textContent = `${info} • ${itemCount} items`;
+        }
+    }
+
+    async saveForOffline() {
+        if (!this.csvManager.loaded) {
+            this.ui.showToast('No data to save', 'error');
+            return;
+        }
+
+        const success = this.offlineManager.saveToLocalStorage(this.csvManager.data);
+        if (success) {
+            this.updateOfflineStatus();
+            this.ui.showToast('Data saved for offline use!', 'success');
+        } else {
+            this.ui.showToast('Failed to save data', 'error');
+        }
+    }
+
+    async downloadAsFile() {
+        if (!this.csvManager.loaded) {
+            this.ui.showToast('No data to download', 'error');
+            return;
+        }
+
+        const success = this.offlineManager.downloadAsFile(this.csvManager.data, 'pixel-search-artworks.json');
+        if (success) {
+            this.ui.showToast('File downloaded!', 'success');
+        }
+    }
+
+    clearCache() {
+        const success = this.offlineManager.clearLocalStorage();
+        if (success) {
+            this.updateOfflineStatus();
+            this.ui.showToast('Cache cleared', 'success');
+        }
+    }
+
+    setupEventListeners() {
+        // Theme toggle
+        this.ui.elements.themeToggle?.addEventListener('click', () => {
+            this.themeManager.toggle();
+            this.themeManager.updateOptions();
+        });
+
+        // Settings modal
+        this.ui.elements.settingsBtn?.addEventListener('click', () => this.ui.openSettings());
+        this.ui.elements.closeSettings?.addEventListener('click', () => this.ui.closeSettings());
+        this.ui.elements.cancelSettings?.addEventListener('click', () => this.ui.closeSettings());
+        this.ui.elements.saveSettings?.addEventListener('click', () => this.ui.closeSettings());
+
+        // Close modal on backdrop click
+        this.ui.elements.settingsModal?.addEventListener('click', (e) => {
+            if (e.target === this.ui.elements.settingsModal) this.ui.closeSettings();
+        });
+
+        // Search and filters
+        this.ui.elements.searchForm?.addEventListener('submit', (e) => this.handleSearch(e));
+        this.ui.elements.searchInput?.addEventListener('input', this.debounce(() => this.handleSearch(), 300));
+        this.ui.elements.orientationSelect?.addEventListener('change', () => this.handleSearch());
+        this.ui.elements.difficultySelect?.addEventListener('change', () => this.handleSearch());
+        this.ui.elements.sortSelect?.addEventListener('change', (e) => this.handleSortChange(e.target.value));
+
+        // Theme options
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.addEventListener('click', () => {
+                this.themeManager.set(option.dataset.theme);
+                this.themeManager.updateOptions();
+            });
+        });
+
+        // Offline mode buttons
+        const downloadOfflineBtn = document.getElementById('downloadOffline');
+        if (downloadOfflineBtn) {
+            downloadOfflineBtn.addEventListener('click', () => this.saveForOffline());
+        }
+
+        const clearCacheBtn = document.getElementById('clearCache');
+        if (clearCacheBtn) {
+            clearCacheBtn.addEventListener('click', () => this.clearCache());
+        }
+    }
+
+    debounce(func, wait = 300) {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    }
+
+    handleSearch(e) {
+        if (e) e.preventDefault();
+        if (!this.csvManager.loaded) return;
+
+        this.ui.showResultsSection();
+        this.ui.showLoading();
+
+        const keyword = this.ui.elements.searchInput?.value.trim().toLowerCase() || '';
+        const orientation = this.ui.elements.orientationSelect?.value || '';
+        const difficulty = this.ui.elements.difficultySelect?.value || '';
+
+        // Filter and sort
+        this.filteredData = this.csvManager.filter(keyword, orientation, difficulty);
+        const sortOption = this.ui.elements.sortSelect?.value || 'best-match';
+        this.filteredData = this.csvManager.sort(this.filteredData, sortOption, keyword);
+
+        this.ui.hideLoading();
+
+        if (this.filteredData.length === 0) {
+            this.ui.showNoResults();
+            return;
+        }
+
+        this.ui.hideNoResults();
+        this.ui.showResultsContent();
+        this.ui.updateResultsCount(this.filteredData.length);
+
+        // Reset and load items
+        this.visibleCount = 0;
+        this.ui.clearResults();
+        this.loadMoreItems();
+
+        // Setup infinite scroll
+        this.setupInfiniteScroll();
+    }
+
+    handleSortChange(sortOption) {
+        if (this.filteredData.length === 0) return;
+
+        const keyword = this.ui.elements.searchInput?.value.trim().toLowerCase() || '';
+        this.filteredData = this.csvManager.sort(this.filteredData, sortOption, keyword);
+
+        this.visibleCount = 0;
+        this.ui.clearResults();
+        this.loadMoreItems();
+    }
+
+    loadMoreItems() {
+        const end = Math.min(this.visibleCount + this.itemsPerPage, this.filteredData.length);
+        const itemsToLoad = this.filteredData.slice(this.visibleCount, end);
+
+        itemsToLoad.forEach(item => {
+            const card = this.cardFactory.create(item);
+            this.ui.elements.results.appendChild(card);
+        });
+
+        this.visibleCount = end;
+
+        // Update load more visibility
+        if (this.visibleCount < this.filteredData.length) {
+            this.ui.showLoadMore();
+        } else {
+            this.ui.hideLoadMore();
+        }
+    }
+
+    setupInfiniteScroll() {
+        if (this.infiniteScroll) {
+            this.infiniteScroll.disconnect();
+        }
+
+        this.infiniteScroll = new InfiniteScrollManager(() => {
+            if (this.visibleCount < this.filteredData.length) {
+                this.loadMoreItems();
+            }
+        });
+
+        this.infiniteScroll.observe(this.ui.elements.loadMore);
+    }
+}
+
+// ================================
+// Initialize Application
+// ================================
+document.addEventListener('DOMContentLoaded', () => {
+    new App();
+});

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Search - Art Collection</title>
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="mask-icon" href="favicon.svg" color="#1e293b" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#fef3c7">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="js/config.js"></script>
+    <script src="js/csv-manager.js"></script>
+    <script src="js/offline-manager.js"></script>
+    <script src="js/theme-manager.js"></script>
+    <script src="js/lazy-image-loader.js"></script>
+    <script src="js/infinite-scroll.js"></script>
+    <script src="js/ui-manager.js"></script>
+    <script src="js/result-card-factory.js"></script>
+    <script src="js/main.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+            <button class="settings-btn" id="settingsBtn">⚙️</button>
+            <h1>Pixel Search</h1>
+            <p>Discover and explore our curated art collection</p>
+        </header>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal hidden">
+            <div class="modal-content settings-modal">
+                <div class="modal-header">
+                    <h2>⚙️ Settings</h2>
+                    <button class="btn-close" id="closeSettings">✕</button>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="settings-tabs">
+                    <button class="settings-tab active" data-tab="general">General</button>
+                    <button class="settings-tab" data-tab="appearance">Appearance</button>
+                    <button class="settings-tab" data-tab="account">Account</button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="settings-content">
+                    <!-- General Tab -->
+                    <div class="settings-tab-content active" id="tab-general">
+                        <div class="settings-section">
+                            <h3>📊 Google Sheets CSV</h3>
+                            <p>Enter the published CSV URL from your Google Spreadsheet</p>
+                            <input type="url" id="csvUrlInput"
+                                placeholder="https://docs.google.com/spreadsheets/d/e/.../pub?output=csv" />
+                            <p style="margin-top: 0.75rem; font-size: 0.85rem;">
+                                💡 <a href="https://support.google.com/docs/answer/183965" target="_blank"
+                                    style="color: var(--accent-color);">How to publish your spreadsheet</a>
+                            </p>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3>➕ Submit Artwork</h3>
+                            <p>Submit new artwork to the collection</p>
+                            <a href="https://forms.gle/qHVeF446z1NNFwqC7" target="_blank" class="btn btn-small">📝
+                                Submit Artwork</a>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3>💾 Offline Mode</h3>
+                            <p>Save data locally for offline use</p>
+                            <div id="offlineStatus"
+                                style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                                No cached data available
+                            </div>
+                            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                                <button class="btn btn-small" id="downloadOffline">📥 Save to Device</button>
+                                <button class="btn btn-small btn-secondary" id="refreshData">🔄 Refresh</button>
+                                <button class="btn btn-small btn-secondary" id="clearCache">🗑️ Clear</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Appearance Tab -->
+                    <div class="settings-tab-content" id="tab-appearance">
+                        <div class="settings-section">
+                            <h3>🎨 Theme</h3>
+                            <p>Choose your preferred color scheme</p>
+                            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                                <button class="btn btn-small theme-option active" data-theme="light">☀️ Light</button>
+                                <button class="btn btn-small btn-secondary theme-option" data-theme="dark">🌙
+                                    Dark</button>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3>📐 Layout</h3>
+                            <p>Choose how results are displayed</p>
+                            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                                <button class="btn btn-small layout-option active" data-layout="grid">▦ Grid</button>
+                                <button class="btn btn-small btn-secondary layout-option" data-layout="masonry">≣
+                                    Masonry</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Tab -->
+                    <div class="settings-tab-content" id="tab-account">
+                        <div class="settings-section">
+                            <h3>🔐 Google Account</h3>
+                            <p>Sign in to speed up image loading</p>
+                            <div id="googleAuthStatus"
+                                style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                                Not signed in
+                            </div>
+                            <div id="g_id_onload"
+                                data-client_id="165582326537-cuiemdd2ph2su6ljktkso1a06m8h20ab.apps.googleusercontent.com"
+                                data-context="signin" data-ux_mode="popup" data-callback="handleGoogleCallback"
+                                data-auto_prompt="false">
+                            </div>
+                            <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
+                                data-text="signin_with" data-size="large" data-logo_alignment="left">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn" id="saveSettings">Done</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <form id="searchForm" class="search-form">
+                <div class="search-input-group">
+                    <label for="searchInput">🔍 Search</label>
+                    <input type="text" id="searchInput" placeholder="Search by artist, theme, or keyword..." />
+                </div>
+                <button type="submit" class="btn">Search</button>
+            </form>
+
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label for="themeSelect">🎨 Theme</label>
+                    <select id="themeSelect">
+                        <option value="">All Themes</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="movementSelect">🎭 Movement</label>
+                    <select id="movementSelect">
+                        <option value="">All Movements</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="orientationSelect">📐 Orientation</label>
+                    <select id="orientationSelect">
+                        <option value="">All Orientations</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="difficultySelect">📊 Difficulty</label>
+                    <select id="difficultySelect">
+                        <option value="">All Levels</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="locationSelect">📍 Location</label>
+                    <select id="locationSelect">
+                        <option value="">All Locations</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="hidden">
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Loading artwork...</p>
+            </div>
+
+            <div id="noResults" class="no-results">
+                <div class="no-results-icon">🎨</div>
+                <h3>No artworks found</h3>
+                <p>Try adjusting your search or filters</p>
+            </div>
+
+            <div class="results-content hidden">
+                <div class="results-header">
+                    <h2>Results</h2>
+                    <div class="results-controls">
+                        <span class="results-count" id="resultsCount">0 items</span>
+                        <select id="sortSelect" class="sort-select">
+                            <option value="best-match">Best Match</option>
+                            <option value="name">Name (A-Z)</option>
+                            <option value="date">Date (Newest)</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="results" class="results-grid"></div>
+                <div id="loadMore" class="load-more hidden">
+                    <div class="spinner"></div>
+                    <p>Loading more...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="toast">
+            <span class="toast-icon">✅</span>
+            <span class="toast-message"></span>
+        </div>
+
+        <footer>
+            <p>© 2026 Pixel Search | <a href="https://pixelagent.co.uk">pixelagent.co.uk</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // Google Sign-In callback
+        function handleGoogleCallback(response) {
+            console.log('Google Sign-In successful:', response);
+            const statusEl = document.getElementById('googleAuthStatus');
+            if (response.credential) {
+                // Store the credential
+                localStorage.setItem('googleAuthToken', response.credential);
+                statusEl.textContent = 'Signed in successfully! Images will load faster.';
+                statusEl.style.color = 'var(--success-color)';
+
+                // Notify the app
+                if (window.app) {
+                    window.app.handleGoogleSignIn(response);
+                }
+            }
+        }
+
+        // Initialize the app when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window.app = new App();
+        });
+    </script>
+</body>
+
+</html>
