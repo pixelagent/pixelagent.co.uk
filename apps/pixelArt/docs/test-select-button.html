@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Select Button Functionality</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .test-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .test-steps {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .test-steps li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .test-steps strong {
+            color: #0066cc;
+        }
+        
+        .test-button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .test-button:hover {
+            background-color: #0052a3;
+        }
+        
+        .test-result {
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .console-output {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 14px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .console-line {
+            margin-bottom: 5px;
+        }
+        
+        .console-line.info {
+            color: #0066cc;
+        }
+        
+        .console-line.error {
+            color: #dc3545;
+        }
+        
+        .console-line.success {
+            color: #28a745;
+        }
+        
+        .toolbar {
+            background-color: #2d3748;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .tool-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .tool-btn:hover {
+            background-color: #3182ce;
+        }
+        
+        .tool-btn.active {
+            background-color: #3182ce;
+            box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.5);
+        }
+        
+        .menu-parent {
+            position: relative;
+        }
+        
+        .tool-submenu {
+            position: absolute;
+            left: 100%;
+            top: 0;
+            background-color: #2d3748;
+            border-radius: 4px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            display: none;
+        }
+        
+        .tool-submenu.visible {
+            display: flex;
+        }
+        
+        .icon-stack {
+            position: relative;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .icon-stack i {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 14px;
+        }
+        
+        .overlay-icon {
+            font-size: 10px;
+            top: 5px;
+            left: 5px;
+        }
+        
+        .panel-section {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .panel-section h3 {
+            color: #333;
+            margin-top: 0;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+        
+        .tool-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Test Select Button Functionality</h1>
+        
+        <div class="test-steps">
+            <p>This test verifies that the select button shows a submenu and links to the move-options panel.</p>
+            
+            <h3>Test Steps:</h3>
+            <ol>
+                <li><strong>Click the "Select" button in the toolbar below</strong> - This should show a submenu with selection options</li>
+                <li><strong>Click any of the selection options</strong> - This should:
+                    <ul>
+                        <li>Close the submenu</li>
+                        <li>Show the transform panel</li>
+                        <li>Display the move-options section</li>
+                        <li>Update the title to show the selected tool type</li>
+                    </ul>
+                </li>
+                <li><strong>Observe the console output</strong> - You should see log messages indicating the actions</li>
+                <li><strong>Check the panel display</strong> - The transform panel should be visible with move-options</li>
+            </ol>
+        </div>
+        
+        <div class="toolbar" id="tool-buttons">
+            <!-- Select Button with Submenu -->
+            <div class="tool-btn menu-parent" id="selectBtn" title="Select ()" data-tooltip="**Select**
+Hover to see all available selection tools">
+                <i class="fas fa-mouse-pointer"></i>
+                <span>Select</span>
+                <div class="tool-submenu">
+                    <div class="tool-btn" data-action="tool" data-type="select-rect" data-tooltip="**Rectangular Selection**
+Draw rectangular selections" title="Rectangular selection (R)">
+                        <div class="icon-stack">
+                            <i class="fas fa-mouse-pointer base-icon"></i>
+                            <i class="far fa-square overlay-icon"></i>
+                        </div>
+                        <span>Rectangle</span>
+                    </div>
+                    <div class="tool-btn" data-action="tool" data-type="select-circle" data-tooltip="**Circular Selection**
+Draw circular selections" title="Circular selection (C)">
+                        <div class="icon-stack">
+                            <i class="fas fa-mouse-pointer base-icon"></i>
+                            <i class="far fa-circle overlay-icon"></i>
+                        </div>
+                        <span>Circle</span>
+                    </div>
+                    <div class="tool-btn" data-action="tool" data-type="select-lasso" data-tooltip="**Lasso Selection**
+Draw freehand selections" title="Lasso selection (H)">
+                        <div class="icon-stack">
+                            <i class="fas fa-mouse-pointer base-icon"></i>
+                            <i class="fas fa-draw-polygon overlay-icon"></i>
+                        </div>
+                        <span>Lasso</span>
+                    </div>
+                    <div class="tool-btn" data-action="tool" data-type="select-shape" data-tooltip="**Shape Selection**
+Click shape for selections" title="Shape selection (Z)">
+                        <div class="icon-stack">
+                            <i class="fas fa-mouse-pointer base-icon"></i>
+                            <i class="fa-solid fa-bacterium overlay-icon"></i>
+                        </div>
+                        <span>Shape</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Other buttons for context -->
+            <button class="tool-btn" data-tool="move" title="Move ()">
+                <i class="fa-solid fa-hand"></i>
+                <span>Move</span>
+            </button>
+        </div>
+        
+        <!-- Panel sections that should be shown/hidden -->
+        <div id="panel-preview" class="panel-section">
+            <h3>Preview Panel</h3>
+            <p>This panel shows the preview of your artwork.</p>
+        </div>
+        
+        <div id="panel-transform" class="panel-section hidden">
+            <h3>Transform Panel</h3>
+            <p>This panel contains transform tools including move, rotate, flip, and align.</p>
+            
+            <div id="move-options" class="sub-panel-section">
+                <h4>Move Options</h4>
+                <p>Selection tool options will appear here.</p>
+                <div class="tool-buttons" id="move-container">
+                    <button class="tool-btn" data-tool="tool" id="select-rect-btn" data-type="select-rect" title="Rectangular selection (R)">
+                        <div class="icon-stack">
+                            <i class="fas fa-mouse-pointer base-icon"></i>
+                            <i class="far fa-square overlay-icon"></i>
+                        </div>
+                        <span>Rectangle</span>
+                    </button>
+                    <button class="tool-btn" data-tool="tool" id="select-circle-btn" data-type="select-circle" title="Circular selection (C)">
+                        <div class="icon-stack">
+                            <i class="fas fa-mouse-pointer base-icon"></i>
+                            <i class="far fa-circle overlay-icon"></i>
+                        </div>
+                        <span>Circle</span>
+                    </button>
+                    <button class="tool-btn" data-tool="tool" id="select-lasso-btn" data-type="select-lasso" title="Lasso selection (H)">
+                        <div class="icon-stack">
+                            <i class="fas fa-mouse-pointer base-icon"></i>
+                            <i class="fas fa-draw-polygon overlay-icon"></i>
+                        </div>
+                        <span>Lasso</span>
+                    </button>
+                    <button class="tool-btn" data-tool="tool" id="select-shape-btn" data-type="select-shape" title="Shape selection (Z)">
+                        <div class="icon-stack">
+                            <i class="fas fa-mouse-pointer base-icon"></i>
+                            <i class="fa-solid fa-bacterium overlay-icon"></i>
+                        </div>
+                        <span>Shape</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="console-output" id="consoleOutput">
+            <div class="console-line info">Ready to test select button functionality...</div>
+        </div>
+    </div>
+    
+    <!-- Load Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Load the necessary scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/dom.js"></script>
+    <script src="js/ui-manager.js"></script>
+    
+    <script>
+        // Initialize UIManager
+        document.addEventListener('DOMContentLoaded', function() {
+            UIManager.init();
+            
+            const consoleOutput = document.getElementById('consoleOutput');
+            
+            const initLine = document.createElement('div');
+            initLine.className = 'console-line success';
+            initLine.textContent = 'UIManager initialized successfully.';
+            consoleOutput.appendChild(initLine);
+            
+            const instructionLine = document.createElement('div');
+            instructionLine.className = 'console-line info';
+            instructionLine.textContent = 'Click the "Select" button above to test the submenu functionality.';
+            consoleOutput.appendChild(instructionLine);
+        });
+        
+        // Add some basic CSS for the modal
+        const style = document.createElement('style');
+        style.textContent = `
+        .hidden {
+            display: none !important;
+        }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
