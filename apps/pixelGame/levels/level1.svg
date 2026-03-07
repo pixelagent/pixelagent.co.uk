@@ -9,6 +9,7 @@
 
       .st0, .st1, .st2, .st3 {
         fill: none;
+        stroke-width: 2px;
       }
 
       .st0, .st1, .st4, .st3 {
@@ -127,6 +128,14 @@
         <path class="st6" d="M2188.49,403.93h1.83v-4.85h-1.83v-1.48h5.42v1.48h-1.83v4.85h1.83v1.48h-5.42v-1.48Z"/>
       </g>
     </g>
+  </g>
+  <g id="boxes">
+    <rect class="st3" x="1601" y="618.89" width="39" height="39"/>
+    <rect class="st3" x="1614.88" y="579.3" width="39" height="39"/>
+    <rect class="st1" x="1556.94" y="618.92" width="39" height="39" transform="translate(485.3 1943.09) rotate(-72.14)"/>
+    <rect class="st2" x="1595.38" y="534.32" width="39" height="39" transform="translate(-92.13 579.47) rotate(-19.79)"/>
+    <rect class="st1" x="638.52" y="526.09" width="39" height="39" transform="translate(-63.09 1004.57) rotate(-72.14)"/>
+    <rect class="st0" x="589.48" y="501.52" width="39" height="39" transform="translate(-21.97 26.84) rotate(-2.48)"/>
   </g>
   <g id="border">
     <rect class="st2" y="-6.62" width="2724.14" height="1101.81"/>
