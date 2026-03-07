@@ -55,10 +55,6 @@
       .st10 {
         display: none;
       }
-
-      .st11 {
-        display: none;
-      }
     </style>
   </defs>
   <g id="scenes">
@@ -89,10 +85,6 @@
   </g>
   <g id="startpoint">
     <rect class="st7" x="78.75" y="592.89" width="30" height="50"/>
-  </g>
-  <g id="enemies">
-    <rect class="st4" x="933.46" y="618.93" width="20" height="20"/>
-    <rect class="st4" x="731.86" y="658.93" width="20" height="20"/>
   </g>
   <g id="npcs">
     <g id="npc">
