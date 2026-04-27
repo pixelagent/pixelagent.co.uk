@@ -1,0 +1,181 @@
+/* ─── Reset & base ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  overflow: hidden;
+  font-family: "Luxurious Roman", Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Design tokens ──────────────────────────────────────────────────────────── */
+:root {
+  --panel-bg:        rgba(255, 252, 245, 0.96);
+  --panel-border:    rgba(180, 150, 100, 0.35);
+  --panel-shadow:    0 8px 32px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(0,0,0,0.12);
+  --panel-radius:    12px;
+  --accent:          #7c5c2e;
+  --accent-hover:    #5a3f18;
+  --text-primary:    #2c1f0e;
+  --text-secondary:  #6b5430;
+  --btn-shadow:      0 4px 12px rgba(0, 0, 0, 0.18);
+  --btn-shadow-hover:0 6px 20px rgba(0, 0, 0, 0.28);
+  --btn-size:        52px;
+  --btn-radius:      14px;
+}
+
+/* ─── HUD buttons ────────────────────────────────────────────────────────────── */
+
+
+#hud-top { position: absolute; top: 30px; right: 30px; opacity: 0; }
+#hud-bottom { position: absolute; bottom: 30px; right: 30px; opacity: 0; }
+
+/* Fade-in animation for HUD */
+@keyframes hudFadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Apply fade-in when HUD is visible */
+.hud-visible {
+  animation: hudFadeIn 0.6s ease-out forwards;
+}
+
+  #audio-btn { right: 30px; }
+  #inventory-btn { right: 30px; }
+  .panel {
+    position: absolute;
+    bottom: 100px;
+    right: 30px;
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    min-width: 250px;
+    z-index: 1001;
+    display: none;
+  }
+  .panel h2 { margin: 0 0 15px 0; font-size: 18px; }
+  .panel ul { margin: 0; padding: 0; list-style: none; }
+  .panel li { padding: 5px 0; font-size: 14px; }
+  
+.hud-btn {
+  position: absolute;
+  color: var(--text-primary);
+  width:  var(--btn-size);
+  height: var(--btn-size);
+  background: var(--panel-border);
+  border: 1.5px solid var(--panel-border);
+  border-radius: var(--btn-radius);
+  box-shadow: var(--btn-shadow);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.hud-btn:hover {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: var(--btn-shadow-hover);
+  background: #000;
+}
+
+.hud-btn:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: var(--btn-shadow);
+}
+
+.hud-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Individual button positions */
+#checklist-btn  { top: 30px;  right: 30px; }
+#audio-btn      { bottom: 96px; right: 30px; }
+#inventory-btn  { bottom: 30px; right: 30px; }
+
+/* ─── Panels (shared) ────────────────────────────────────────────────────────── */
+.panel {
+  position: absolute;
+  background: var(--panel-bg);
+  border: 1.5px solid var(--panel-border);
+  border-radius: var(--panel-radius);
+  box-shadow: var(--panel-shadow);
+  padding: 20px 24px 24px;
+  min-width: 260px;
+  max-width: 340px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: panelIn 0.2s ease;
+}
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);     }
+}
+
+.panel h2 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.panel ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.panel ul li {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+}
+
+/* Decorative bullet */
+.panel ul li::before {
+  content: "◆";
+  font-size: 0.5rem;
+  color: var(--accent);
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+/* Panel positions */
+#checklist-panel  { top: 96px;   right: 30px; }
+#inventory-panel  { bottom: 96px; right: 96px; }
+
+/* ─── Checklist progress badge ───────────────────────────────────────────────── */
+#tasks-list li {
+  justify-content: space-between;
+}
+
+/* ─── Scrollbar inside panels (if content overflows) ────────────────────────── */
+.panel ul {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.panel ul::-webkit-scrollbar       { width: 4px; }
+.panel ul::-webkit-scrollbar-track { background: transparent; }
+.panel ul::-webkit-scrollbar-thumb {
+  background: var(--panel-border);
+  border-radius: 4px;
+}

@@ -1525,7 +1525,11 @@ a {
 .cid-v5z7CJP6NY {
   padding-top: 6rem;
   padding-bottom: 6rem;
-  background-color: #ffffff;
+  background-image: url("../../../assets/images/background3.webp");
+}
+.cid-v5z7CJP6NY .mbr-overlay {
+  background: #fafafa;
+  opacity: 0.4;
 }
 .cid-v5z7CJP6NY img,
 .cid-v5z7CJP6NY .item-img {
@@ -1557,12 +1561,18 @@ a {
 }
 @media (min-width: 992px) {
   .cid-v5z7CJP6NY .item-wrapper .item-content {
-    padding: 2rem;
+    padding: 2rem 2rem 0;
+  }
+  .cid-v5z7CJP6NY .item-wrapper .item-footer {
+    padding: 0 2rem 2rem;
   }
 }
 @media (max-width: 991px) {
   .cid-v5z7CJP6NY .item-wrapper .item-content {
-    padding: 1rem;
+    padding: 1rem 1rem 0;
+  }
+  .cid-v5z7CJP6NY .item-wrapper .item-footer {
+    padding: 0 1rem 1rem;
   }
 }
 .cid-v5z7CJP6NY .item-wrapper {
@@ -1582,6 +1592,78 @@ a {
   text-align: left;
 }
 .cid-v5z7CJP6NY .item-subtitle {
+  text-align: center;
+}
+.cid-vdallaisQh {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  background-image: url("../../../assets/images/background3.webp");
+}
+.cid-vdallaisQh .mbr-overlay {
+  background: #fafafa;
+  opacity: 0.4;
+}
+.cid-vdallaisQh img,
+.cid-vdallaisQh .item-img {
+  width: 100%;
+}
+.cid-vdallaisQh .item:focus,
+.cid-vdallaisQh span:focus {
+  outline: none;
+}
+.cid-vdallaisQh .item {
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+.cid-vdallaisQh .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.cid-vdallaisQh .item {
+  padding: 0;
+  margin: 0;
+}
+.cid-vdallaisQh .item-wrapper {
+  position: relative;
+  border-radius: 4px;
+  background: #fafafa;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+@media (min-width: 992px) {
+  .cid-vdallaisQh .item-wrapper .item-content {
+    padding: 2rem 2rem 0;
+  }
+  .cid-vdallaisQh .item-wrapper .item-footer {
+    padding: 0 2rem 2rem;
+  }
+}
+@media (max-width: 991px) {
+  .cid-vdallaisQh .item-wrapper .item-content {
+    padding: 1rem 1rem 0;
+  }
+  .cid-vdallaisQh .item-wrapper .item-footer {
+    padding: 0 1rem 1rem;
+  }
+}
+.cid-vdallaisQh .item-wrapper {
+  background: transparent;
+}
+.cid-vdallaisQh .mbr-section-btn {
+  margin-top: auto !important;
+}
+.cid-vdallaisQh .mbr-section-title {
+  color: #232323;
+}
+.cid-vdallaisQh .mbr-text,
+.cid-vdallaisQh .mbr-section-btn {
+  text-align: left;
+}
+.cid-vdallaisQh .item-title {
+  text-align: left;
+}
+.cid-vdallaisQh .item-subtitle {
   text-align: center;
 }
 .cid-uL4a8JCmOw {
