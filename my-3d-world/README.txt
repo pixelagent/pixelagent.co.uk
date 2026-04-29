@@ -1,1 +1,0 @@
-Drop Idle.fbx and Walking.fbx into /assets, run a local server, open localhost.
