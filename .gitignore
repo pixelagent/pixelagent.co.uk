@@ -2,4 +2,5 @@ _site/
 .sass-cache/
 .jekyll-cache/
 .jekyll-metadata
-history/*.mobirise_history
+# Ignore all .mobirise_history files in the history folder
+[Hh]istory/*.mobirise_history
