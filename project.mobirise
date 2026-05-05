@@ -1,6 +1,6 @@
 {
   "settings": {
-    "currentPage": "about.html",
+    "currentPage": "index.html",
     "theme": {
       "name": "mobirise5",
       "title": "Mobirise 5",
@@ -110,10 +110,11 @@
     "ghi_body_top": "<meta name=\"test\" value=\"02\"> ",
     "ghi_body_bottom": "<meta name=\"test\" value=\"03\"> ",
     "global-html-insert": {
-      "head": "<link rel=\"icon\" type=\"image/png\" href=\"/favicon-96x96.png\" sizes=\"96x96\" />\n<link rel=\"icon\" type=\"image/svg+xml\" href=\"/favicon.svg\" />\n<link rel=\"shortcut icon\" href=\"/favicon.ico\" />\n<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon.png\" />\n<meta name=\"apple-mobile-web-app-title\" content=\"Pixelagent\" />\n<link rel=\"manifest\" href=\"/site.webmanifest\" />",
+      "head": "",
       "afterBody": "",
       "beforeBody": ""
-    }
+    },
+    "global_header_custom": "<link rel=\"icon\" type=\"image/png\" href=\"/favicon-96x96.png\" sizes=\"96x96\" />\n<link rel=\"icon\" type=\"image/svg+xml\" href=\"/favicon.svg\" />\n<link rel=\"shortcut icon\" href=\"/favicon.ico\" />\n<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon.png\" />\n<meta name=\"apple-mobile-web-app-title\" content=\"Pixelagent\" />\n<link rel=\"manifest\" href=\"/site.webmanifest\" />"
   },
   "pages": {
     "about.html": {
