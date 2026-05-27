@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noah's Ark — The Animals Board</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { overflow: hidden; background: #0a0a0a; font-family: Georgia, 'Times New Roman', serif; }
+        #ui {
+            position: absolute; top: 24px; left: 28px;
+            color: #f0d99a; pointer-events: none; z-index: 10;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+        }
+        #ui h1 { font-size: 1.7rem; font-weight: normal; letter-spacing: 0.04em; }
+        #ui p  { font-size: 0.85rem; opacity: 0.7; margin-top: 4px; letter-spacing: 0.06em; }
+        #verse {
+            position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+            color: #c8b07a; font-size: 0.82rem; font-style: italic;
+            text-align: center; pointer-events: none; z-index: 10;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9); letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        #hint {
+            position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+            color: #6a7a8a; font-size: 0.75rem; pointer-events: none; z-index: 10;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <h1>The Animals Board the Ark</h1>
+        <p>Genesis 7 — Two by Two</p>
+    </div>
+    <div id="verse">"Pairs of all creatures that have the breath of life came to Noah and entered the ark." — Genesis 7:15</div>
+    <div id="hint">Drag to orbit &nbsp;·&nbsp; Scroll to zoom</div>
+
+    <script>
+        let scene, camera, renderer, world;
+        let isMouseDown = false;
+        let targetRotX = 0.28, targetRotY = 0.3;
+        let rotX = 0.28, rotY = 0.3;
+        let animatedAnimals = [];
+        let time0 = Date.now();
+
+        // ── Helpers ────────────────────────────────────────────────────
+        function box(w,h,d,mat,px,py,pz,rx=0,ry=0,rz=0) {
+            const m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat);
+            m.position.set(px,py,pz); m.rotation.set(rx,ry,rz); return m;
+        }
+        function cyl(rt,rb,h,seg,mat,px,py,pz,rx=0,ry=0,rz=0) {
+            const m = new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg), mat);
+            m.position.set(px,py,pz); m.rotation.set(rx,ry,rz); return m;
+        }
+        function sph(r,seg,mat,px,py,pz) {
+            const m = new THREE.Mesh(new THREE.SphereGeometry(r,seg,seg), mat);
+            m.position.set(px,py,pz); return m;
+        }
+
+        // ── Materials ──────────────────────────────────────────────────
+        function mat(color, shininess=0, flat=true) {
+            return new THREE.MeshPhongMaterial({ color, flatShading: flat, shininess });
+        }
+        const M = {
+            sky:      new THREE.MeshBasicMaterial({ color: 0xc8a96e, side: THREE.BackSide }),
+            skyLow:   new THREE.MeshBasicMaterial({ color: 0xe8855a, side: THREE.BackSide }),
+            ground:   mat(0xb59050),
+            grass:    mat(0x7a9c40),
+            darkWood: mat(0x4a2e0e),
+            wood:     mat(0x7a4a1a),
+            plank:    mat(0x9a5c28),
+            lightWood:mat(0xb87840),
+            rope:     mat(0xd4b070),
+            thatch:   mat(0xc8903a),
+            skin:     mat(0xd4956a),
+            robe1:    mat(0x6b3a1a),
+            robe2:    mat(0x3a5a2a),
+            robe3:    mat(0x7a6030),
+            stone:    mat(0x8a7a60),
+            // animals
+            elephant: mat(0x808080),
+            giraffe:  mat(0xd4a030),
+            giraffePatch: mat(0x7a4010),
+            lion:     mat(0xd4a050),
+            lionMane: mat(0x8b4513),
+            bear:     mat(0x5a3820),
+            sheep:    mat(0xf0ece0),
+            sheepWool:new THREE.MeshPhongMaterial({ color: 0xf5f0e8, flatShading: true }),
+            bird:     mat(0xc04030),
+            birdWing: mat(0xd06040),
+            zebra:    mat(0xf0f0f0),
+            zebraStripe: mat(0x202020),
+            camel:    mat(0xc8a050),
+            dove:     mat(0xe8e0d8),
+            water:    new THREE.MeshPhongMaterial({ color: 0x1e4a7a, transparent: true, opacity: 0.75, shininess: 80 }),
+        };
+
+        // ══════════════════════════════════════════════════════════════
+        //  THE COMPLETED ARK
+        // ══════════════════════════════════════════════════════════════
+        function buildCompletedArk() {
+            const g = new THREE.Group();
+
+            // === Hull ===
+            // Bottom keel
+            g.add(box(22, 0.5, 0.5, M.darkWood, 0, 0.25, 0));
+
+            // Hull planking — left & right sides, fully planked
+            for (let i = 0; i < 8; i++) {
+                const lean = 0.3 - i * 0.03;
+                const w = 22 - (i > 5 ? (i-5)*0.8 : 0);
+                g.add(box(w, 0.28, 0.3, M.plank, 0, 0.6 + i*0.55, -2.6, 0, 0,  lean));
+                g.add(box(w, 0.28, 0.3, M.plank, 0, 0.6 + i*0.55,  2.6, 0, 0, -lean));
+            }
+
+            // Ribs (visible between planks)
+            [-9,-6,-3,0,3,6,9].forEach(rx => {
+                g.add(box(0.25, 5.0, 0.25, M.darkWood, rx, 2.5, -2.3, 0, 0,  0.28));
+                g.add(box(0.25, 5.0, 0.25, M.darkWood, rx, 2.5,  2.3, 0, 0, -0.28));
+                g.add(box(0.2, 0.2, 5.0, M.darkWood, rx, 0.5, 0));
+            });
+
+            // Bow (angled front)
+            g.add(box(0.6, 5.5, 5.2, M.wood, -11, 2.5, 0, 0, 0,  0.2));
+            // Stern
+            g.add(box(0.6, 5.5, 5.2, M.wood,  11, 2.5, 0, 0, 0, -0.2));
+
+            // Top deck rail
+            g.add(box(22, 0.35, 0.3, M.darkWood, 0, 5.25, -2.5));
+            g.add(box(22, 0.35, 0.3, M.darkWood, 0, 5.25,  2.5));
+
+            // Deck floor
+            for (let i = -10; i <= 10; i += 1.0) {
+                g.add(box(0.85, 0.18, 5.0, M.plank, i, 0.55, 0));
+            }
+
+            // === Superstructure (living quarters on deck) ===
+            // Main cabin
+            g.add(box(16, 3.5, 4.8, M.wood, 0, 7.25, 0));
+            // Cabin planking lines
+            for (let i = -7; i <= 7; i += 1.4) {
+                g.add(box(0.08, 3.5, 4.8, M.darkWood, i, 7.25, 0));
+            }
+            // Cabin windows (dark cutouts)
+            [-5,-1,3].forEach(wx => {
+                g.add(box(0.05, 0.7, 0.7, M.darkWood, wx, 7.5, -2.42));
+                g.add(box(0.05, 0.7, 0.7, M.darkWood, wx, 7.5,  2.42));
+            });
+
+            // Roof — pitched
+            g.add(box(16.4, 0.3, 2.5, M.thatch, 0, 9.1, -1.2, 0, 0, -0.22));
+            g.add(box(16.4, 0.3, 2.5, M.thatch, 0, 9.1,  1.2, 0, 0,  0.22));
+            g.add(box(16.4, 0.5, 0.3, M.darkWood, 0, 9.5, 0)); // ridge beam
+
+            // Small upper cabin / lookout
+            g.add(box(4, 2.0, 3.5, M.lightWood, 2, 10.5, 0));
+            g.add(box(4.2, 0.25, 1.8, M.thatch,  2, 11.55,-0.9, 0,0,-0.2));
+            g.add(box(4.2, 0.25, 1.8, M.thatch,  2, 11.55, 0.9, 0,0, 0.2));
+
+            // === Ramp down to ground ===
+            g.add(box(3.5, 0.25, 8.0, M.plank, 7, 2.2, 0, -0.44, 0, 0));
+            // Ramp rails
+            g.add(box(0.15, 0.15, 8.5, M.darkWood, 7, 3.1, -1.6, -0.44, 0, 0));
+            g.add(box(0.15, 0.15, 8.5, M.darkWood, 7, 3.1,  1.6, -0.44, 0, 0));
+            // Ramp posts
+            [0, 2, 4].forEach(offset => {
+                g.add(cyl(0.08,0.08, 1.3, 6, M.darkWood, 7 + offset*0.7, 2.6 - offset*0.25, -1.6));
+                g.add(cyl(0.08,0.08, 1.3, 6, M.darkWood, 7 + offset*0.7, 2.6 - offset*0.25,  1.6));
+            });
+
+            // === Rope rigging ===
+            g.add(cyl(0.05,0.05, 5.0, 6, M.rope, -8, 7.5, -2.5, 0,0, 0.5));
+            g.add(cyl(0.05,0.05, 5.0, 6, M.rope,  6, 7.5, -2.5, 0,0,-0.4));
+
+            return g;
+        }
+
+        // ══════════════════════════════════════════════════════════════
+        //  ANIMALS
+        // ══════════════════════════════════════════════════════════════
+
+        // Elephant pair
+        function makeElephant(px, pz, ry) {
+            const g = new THREE.Group();
+            const m = M.elephant;
+            g.add(box(1.1, 1.0, 1.8, m, 0, 0.8, 0));       // body
+            g.add(sph(0.52, 8, m, 0.6, 1.55, 0));            // head
+            g.add(cyl(0.1, 0.06, 0.9, 7, m, 0.6, 1.0, 0.0, Math.PI*0.4, 0, 0)); // trunk
+            g.add(box(0.18, 0.28, 0.08, m, 0.88, 1.55, -0.28)); // ear L
+            g.add(box(0.18, 0.28, 0.08, m, 0.88, 1.55,  0.28)); // ear R
+            // legs
+            [[-0.35, -0.65], [-0.35, 0.65], [0.35, -0.65], [0.35, 0.65]].forEach(([lz, lx]) => {
+                g.add(cyl(0.15, 0.15, 0.7, 7, m, lx, 0.35, lz));
+            });
+            g.position.set(px, 0, pz); g.rotation.y = ry;
+            return g;
+        }
+
+        // Giraffe pair
+        function makeGiraffe(px, pz, ry) {
+            const g = new THREE.Group();
+            g.add(box(0.7, 1.0, 1.4, M.giraffe, 0, 0.8, 0));  // body
+            // patches on body
+            g.add(box(0.72, 0.3, 0.35, M.giraffePatch, 0, 1.0, 0.3));
+            g.add(box(0.72, 0.25, 0.3, M.giraffePatch, 0, 0.7, -0.2));
+            g.add(cyl(0.12,0.12, 2.8, 7, M.giraffe, 0.5, 2.3, 0)); // neck
+            g.add(sph(0.3, 8, M.giraffe, 0.5, 3.8, 0));            // head
+            g.add(box(0.08, 0.35, 0.06, M.giraffePatch, 0.5, 4.0, 0)); // ossicones
+            // legs (long)
+            [[-0.28, -0.5], [-0.28, 0.5], [0.28, -0.5], [0.28, 0.5]].forEach(([lz,lx]) => {
+                g.add(cyl(0.08,0.08, 1.2, 6, M.giraffe, lx, 0.6, lz));
+            });
+            g.position.set(px, 0, pz); g.rotation.y = ry;
+            return g;
+        }
+
+        // Lion pair
+        function makeLion(px, pz, ry) {
+            const g = new THREE.Group();
+            g.add(box(0.7, 0.6, 1.3, M.lion, 0, 0.5, 0));    // body
+            g.add(sph(0.32, 8, M.lion, 0.7, 0.85, 0));        // head
+            g.add(sph(0.38, 8, M.lionMane, 0.7, 0.85, 0));    // mane (slightly bigger)
+            g.add(cyl(0.06,0.04,0.7, 6, M.lion, -0.65, 0.5, 0, 0,0, Math.PI*0.15)); // tail
+            [[-0.25,-0.45],[-0.25,0.45],[0.25,-0.45],[0.25,0.45]].forEach(([lz,lx]) => {
+                g.add(cyl(0.08,0.08,0.5,6,M.lion,lx,0.25,lz));
+            });
+            g.position.set(px,0,pz); g.rotation.y=ry;
+            return g;
+        }
+
+        // Bear pair
+        function makeBear(px, pz, ry) {
+            const g = new THREE.Group();
+            const m = M.bear;
+            g.add(box(0.75, 0.8, 1.2, m, 0, 0.6, 0));
+            g.add(sph(0.38, 8, m, 0.65, 1.2, 0));
+            g.add(sph(0.1, 6, m, 0.95, 1.35, -0.18));  // ear
+            g.add(sph(0.1, 6, m, 0.95, 1.35,  0.18));
+            [[-0.3,-0.45],[-0.3,0.45],[0.3,-0.45],[0.3,0.45]].forEach(([lz,lx]) => {
+                g.add(cyl(0.1,0.1,0.55,6,m,lx,0.27,lz));
+            });
+            g.position.set(px,0,pz); g.rotation.y=ry;
+            return g;
+        }
+
+        // Sheep pair
+        function makeSheep(px, pz, ry) {
+            const g = new THREE.Group();
+            g.add(sph(0.42, 7, M.sheepWool, 0, 0.55, 0));   // fluffy body
+            g.add(sph(0.48, 7, M.sheepWool, 0.28, 0.62, 0)); // more fluff
+            g.add(box(0.25, 0.28, 0.35, M.skin, 0.58, 0.55, 0)); // head
+            g.add(sph(0.07, 5, M.darkWood, 0.6, 0.82, -0.1));  // horn
+            g.add(sph(0.07, 5, M.darkWood, 0.6, 0.82,  0.1));
+            [[-0.2,-0.22],[-0.2,0.22],[0.2,-0.22],[0.2,0.22]].forEach(([lz,lx]) => {
+                g.add(cyl(0.055,0.055,0.4,5,M.skin,lx,0.2,lz));
+            });
+            g.position.set(px,0,pz); g.rotation.y=ry;
+            return g;
+        }
+
+        // Camel pair
+        function makeCamel(px, pz, ry) {
+            const g = new THREE.Group();
+            const m = M.camel;
+            g.add(box(0.7, 0.85, 1.5, m, 0, 0.75, 0));    // body
+            g.add(sph(0.3, 7, m, 0, 1.25, 0));             // hump
+            g.add(cyl(0.14,0.14, 1.6, 7, m, 0.7, 1.45, 0)); // neck
+            g.add(sph(0.28, 7, m, 0.7, 2.3, 0));           // head
+            [[-0.35,-0.5],[-0.35,0.5],[0.35,-0.5],[0.35,0.5]].forEach(([lz,lx]) => {
+                g.add(cyl(0.09,0.09,0.9,6,m,lx,0.45,lz));
+            });
+            g.position.set(px,0,pz); g.rotation.y=ry;
+            return g;
+        }
+
+        // Dove / bird pair (small, on ramp or flying)
+        function makeDove(px, py, pz, wingAngle=0.4) {
+            const g = new THREE.Group();
+            g.add(sph(0.14, 7, M.dove, 0, 0, 0));
+            g.add(box(0.06, 0.06, 0.3, M.dove, 0.18, 0, 0));  // tail
+            g.add(box(0.55, 0.04, 0.15, M.dove, 0, 0.05, -0.3, 0,0, wingAngle));  // wing L
+            g.add(box(0.55, 0.04, 0.15, M.dove, 0, 0.05,  0.3, 0,0,-wingAngle)); // wing R
+            g.position.set(px,py,pz);
+            return g;
+        }
+
+        // Zebra pair
+        function makeZebra(px, pz, ry) {
+            const g = new THREE.Group();
+            g.add(box(0.65, 0.65, 1.35, M.zebra, 0, 0.62, 0));
+            // stripes
+            [-0.4,-0.1,0.2,0.45].forEach(sz => {
+                g.add(box(0.67, 0.18, 0.08, M.zebraStripe, 0, 0.7, sz));
+            });
+            g.add(sph(0.28, 7, M.zebra, 0.72, 1.0, 0));
+            g.add(box(0.04, 0.3, 0.6, M.zebraStripe, 0.72, 1.2, 0)); // mane
+            [[-0.3,-0.42],[-0.3,0.42],[0.3,-0.42],[0.3,0.42]].forEach(([lz,lx]) => {
+                g.add(cyl(0.075,0.075,0.65,6,M.zebra,lx,0.32,lz));
+            });
+            g.position.set(px,0,pz); g.rotation.y=ry;
+            return g;
+        }
+
+        // Noah figure
+        function makeNoah(px, pz, ry) {
+            const g = new THREE.Group();
+            g.add(box(0.42, 0.75, 0.32, M.robe3, 0, 0.67, 0));   // body
+            g.add(sph(0.22, 8, M.skin, 0, 1.28, 0));              // head
+            g.add(box(0.08, 0.08, 0.55, M.darkWood, 0.28, 0.95, 0, 0, 0, -0.5)); // staff
+            // beard
+            g.add(box(0.2, 0.22, 0.12, M.sheepWool, 0, 1.08, -0.14));
+            g.position.set(px,0,pz); g.rotation.y=ry;
+            return g;
+        }
+
+        // Helper — family member
+        function makePerson(robeCol, px, pz, ry) {
+            const g = new THREE.Group();
+            g.add(box(0.36, 0.68, 0.28, new THREE.MeshPhongMaterial({color:robeCol,flatShading:true}), 0, 0.6, 0));
+            g.add(sph(0.2, 8, M.skin, 0, 1.2, 0));
+            g.position.set(px,0,pz); g.rotation.y=ry;
+            return g;
+        }
+
+        // ══════════════════════════════════════════════════════════════
+        //  SCENERY
+        // ══════════════════════════════════════════════════════════════
+        function makeTree(px,pz,h=4.5) {
+            const g = new THREE.Group();
+            g.add(cyl(0.18,0.28,h,7,M.darkWood,0,h/2,0));
+            g.add(sph(1.1,7,M.grass,0,h+0.6,0));
+            g.position.set(px,0,pz); return g;
+        }
+
+        // ── INIT ───────────────────────────────────────────────────────
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(58, innerWidth/innerHeight, 0.1, 1000);
+            camera.position.set(22, 14, 26);
+            camera.lookAt(0, 4, 0);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(innerWidth, innerHeight);
+            renderer.setPixelRatio(devicePixelRatio);
+            document.body.appendChild(renderer.domElement);
+
+            // Lighting — golden late afternoon
+            scene.add(new THREE.AmbientLight(0xfff0d0, 0.5));
+            const sun = new THREE.DirectionalLight(0xffcc66, 1.3);
+            sun.position.set(-60, 70, 40);
+            scene.add(sun);
+            const fill = new THREE.DirectionalLight(0xa0b8d0, 0.35);
+            fill.position.set(40, 20, -30);
+            scene.add(fill);
+
+            world = new THREE.Group();
+
+            // Gradient sky (two nested spheres — horizon glow)
+            world.add(new THREE.Mesh(new THREE.SphereGeometry(380,32,16), M.sky));
+            const horizonGeo = new THREE.SphereGeometry(370,32,8,0,Math.PI*2, Math.PI*0.58, Math.PI*0.22);
+            world.add(new THREE.Mesh(horizonGeo, new THREE.MeshBasicMaterial({color:0xf07040, side:THREE.BackSide})));
+
+            // Ground
+            const gnd = new THREE.Mesh(new THREE.PlaneGeometry(200,200,24,24), M.ground);
+            gnd.rotation.x = -Math.PI/2; gnd.position.y = -0.05;
+            world.add(gnd);
+
+            // Grass patches
+            for (let i=0;i<20;i++) {
+                const gp = new THREE.Mesh(new THREE.CircleGeometry(1.5+Math.random()*2.5,7), M.grass);
+                gp.rotation.x = -Math.PI/2;
+                gp.position.set((Math.random()-0.5)*70, 0, (Math.random()-0.5)*70);
+                world.add(gp);
+            }
+
+            // Shallow water around hull base (flood beginning)
+            const water = new THREE.Mesh(new THREE.PlaneGeometry(32,12), M.water);
+            water.rotation.x = -Math.PI/2; water.position.set(-2, 0.02, 0);
+            world.add(water);
+
+            // Completed ark
+            const ark = buildCompletedArk();
+            ark.position.set(-2, 0, 0);
+            world.add(ark);
+
+            // ── Animals queuing ──
+            // Elephants — near ramp
+            world.add(makeElephant( 6.5, -4, Math.PI*0.85));
+            world.add(makeElephant( 8.5, -4.8, Math.PI*0.85));
+
+            // Giraffes — tall, further back in queue
+            world.add(makeGiraffe(12,  3, Math.PI*0.7));
+            world.add(makeGiraffe(13, -1, Math.PI*0.75));
+
+            // Camels
+            world.add(makeCamel(14, -6, Math.PI*0.65));
+            world.add(makeCamel(15.5, -7.5, Math.PI*0.7));
+
+            // Zebras
+            world.add(makeZebra(10, 5, Math.PI*0.8));
+            world.add(makeZebra(11.5, 6.5, Math.PI*0.78));
+
+            // Sheep — close to ramp base
+            world.add(makeSheep(5.5,  2, Math.PI*0.9));
+            world.add(makeSheep(6.5,  3.5, Math.PI*0.88));
+
+            // Bears — mid queue
+            world.add(makeBear(10, -9,  Math.PI*0.65));
+            world.add(makeBear(11.5,-10.5, Math.PI*0.68));
+
+            // Doves on ramp rail
+            const dove1 = makeDove(8.5, 3.5, -1.5, 0.5);
+            const dove2 = makeDove(8.0, 3.5,  1.5, 0.5);
+            dove1.rotation.y = Math.PI*0.8;
+            dove2.rotation.y = Math.PI*0.8;
+            world.add(dove1, dove2);
+
+            // Flying doves
+            const fDove1 = makeDove(-4, 8, -5, 0.6);
+            const fDove2 = makeDove(-5, 9,  4, 0.6);
+            world.add(fDove1, fDove2);
+            animatedAnimals.push(
+                { mesh: fDove1, type:'dove', phase:0 },
+                { mesh: fDove2, type:'dove', phase:1.5 },
+                { mesh: dove1, type:'dovePerch', phase:0 },
+                { mesh: dove2, type:'dovePerch', phase:Math.PI },
+            );
+
+            // Noah at ramp foot directing
+            world.add(makeNoah(5.5, -1.5, Math.PI*0.3));
+
+            // Family members
+            world.add(makePerson(0x4a6a2a, 3.5, -1.5, Math.PI*0.15));
+            world.add(makePerson(0x8a4a20, 4.5,  0.5, Math.PI*0.2));
+            world.add(makePerson(0x6a3a6a, 4.0,  1.8, Math.PI*0.25));
+
+            // Background trees
+            [[-20,8],[-24,2],[-22,-7],[-18,-13],[18,10],[20,4],[22,-4],[18,-12],[2,-20],[8,-22]].forEach(([tx,tz]) => {
+                world.add(makeTree(tx, tz, 4+Math.random()*2));
+            });
+
+            scene.add(world);
+
+            // Events
+            window.addEventListener('resize', () => {
+                camera.aspect = innerWidth/innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(innerWidth, innerHeight);
+            });
+            document.addEventListener('mousedown', () => isMouseDown = true);
+            document.addEventListener('mouseup',   () => isMouseDown = false);
+            document.addEventListener('mousemove', e => {
+                if (isMouseDown) {
+                    targetRotY += e.movementX * 0.006;
+                    targetRotX += e.movementY * 0.006;
+                    targetRotX = Math.max(-0.2, Math.min(targetRotX, 0.9));
+                }
+            });
+            document.addEventListener('wheel', e => {
+                const z = camera.position.z + e.deltaY * 0.05;
+                camera.position.z = Math.max(8, Math.min(z, 70));
+            });
+
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const t = (Date.now() - time0) * 0.001;
+
+            rotX += (targetRotX - rotX) * 0.08;
+            rotY += (targetRotY - rotY) * 0.08;
+            world.rotation.x = rotX;
+            world.rotation.y = rotY;
+
+            // Animate doves
+            animatedAnimals.forEach(a => {
+                if (a.type === 'dove') {
+                    a.mesh.position.y = 8.5 + Math.sin(t*1.2 + a.phase) * 0.4;
+                    a.mesh.position.x = -4  + Math.sin(t*0.4 + a.phase) * 1.5;
+                    // flap wings (children 2&3)
+                    const wa = 0.4 + Math.sin(t*8 + a.phase) * 0.35;
+                    if (a.mesh.children[2]) a.mesh.children[2].rotation.z =  wa;
+                    if (a.mesh.children[3]) a.mesh.children[3].rotation.z = -wa;
+                }
+                if (a.type === 'dovePerch') {
+                    // gentle wing flutter
+                    const wa = 0.3 + Math.sin(t*3 + a.phase) * 0.15;
+                    if (a.mesh.children[2]) a.mesh.children[2].rotation.z =  wa;
+                    if (a.mesh.children[3]) a.mesh.children[3].rotation.z = -wa;
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

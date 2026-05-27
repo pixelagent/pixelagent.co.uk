@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Holy Week - Collect evidence by moving around the scene. Use actions and chat to NPCs when found.">
+  <title>Holy Week - Evidence Collection Adventure</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.js"
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-inner">
+      <h1 style="color: #fff; font-size: 1.5rem; margin-bottom: 5px; letter-spacing: 1px;">INITIALIZING DETECTIVE MATRIX
+      </h1>
+      <p id="loading-text" style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase;">
+        Loading investigation environment and evidence archives...</p>
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <div id="end-screen" class="end-screen" style="display: none; opacity: 0;">
+    <div class="end-inner">
+      <i class="fa-solid fa-circle-check"
+        style="color: var(--accent-success); font-size: 3.5rem; margin-bottom: 20px;"></i>
+      <h1 style="color: #fff; font-size: 1.8rem; margin-bottom: 10px;">CASE CLOSED</h1>
+      <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px;">
+        All evidence collected and mysteries solved. Ready for the next investigation.
+      </p>
+      <div class="end-btn-row">
+        <button class="terminal-btn" onclick="window.location.reload();">Start New Investigation</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="canvas-container"></div>
+  <div id="screen-alert"></div>
+
+  <div class="hud-layer">
+    <div id="top-bar" class="hud-panel">
+      <div>
+        <span id="loc-name" class="loc-tag">---</span>
+        <span id="act-name" class="act-tag">---</span>
+      </div>
+      <div id="level-title" style="font-weight: 600; color: var(--accent-primary);">Detective HQ</div>
+    </div>
+
+    <div id="left-sidebar">
+      <div class="hud-panel" style="flex: 0 0 auto;">
+        <div class="panel-header"><i class="fa-solid fa-star"></i> Current Case</div>
+        <div id="quest-card" class="quest-item">
+          <div id="quest-title" class="quest-title">Select a Case</div>
+          <div id="quest-task" class="quest-task">Choose a case from the map to begin investigation</div>
+          <div class="progress-bar-wrap">
+            <div id="quest-progress" class="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="evidence-popup-card">
+        <div class="popup-header">
+          <span id="popup-evidence-title" class="popup-title"><i class="fa-solid fa-file-shield"></i> Evidence
+            Logged</span>
+          <button class="popup-close"
+            onclick="document.getElementById('evidence-popup-card').style.display='none';">✕</button>
+        </div>
+        <div id="popup-evidence-body" class="popup-body">---</div>
+      </div>
+
+      <div class="hud-panel" style="flex: 1 1 auto;">
+        <div class="panel-header"><i class="fa-solid fa-folder-open"></i> Evidence Archive</div>
+        <div class="evidence-folder-container">
+          <div id="evidence-slots-grid" class="evidence-grid">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="right-sidebar">
+      <div class="hud-panel" style="flex:1;">
+        <div class="panel-header">Actions</div>
+        <div id="actions-container" style="flex:1; overflow-y:auto;"></div>
+      </div>
+      <div class="hud-panel" style="flex:1;">
+        <div class="panel-header">Key Discoveries</div>
+        <div id="prophecies-container" style="flex:1; overflow-y:auto;"></div>
+      </div>
+    </div>
+
+    <div id="bottom-bar">
+      <div id="minimap" class="minimap-panel">
+        <div class="minimap-radar-line"></div>
+        <div class="minimap-grid-circle" style="width:30px; height:30px;"></div>
+        <div class="minimap-grid-circle" style="width:65px; height:65px;"></div>
+        <div id="minimap-blips-container"></div>
+      </div>
+
+      <div class="control-group-right">
+        <button id="btn-audio-toggle" class="hud-row-btn active" title="Toggle Sound Matrix">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+
+        <button id="btn-open-lab" class="hud-row-btn" title="Open Investigation Lab"
+          aria-label="Open Investigation Lab">
+          🧪
+        </button>
+
+        <button id="btn-open-map" class="btn-map-trigger">
+          <i class="fa-solid fa-map-location-dot" style="margin-right:10px; font-size:1.1rem;"></i> Open Case Files
+        </button>
+
+        <button id="btn-cycle-toggle" class="hud-row-btn" title="Toggle Day/Night">
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LAB OVERLAY ──────────────────────────────────────── -->
+  <div id="lab-overlay" role="dialog" aria-modal="true" aria-label="Investigation Lab" aria-hidden="true">
+    <div class="lab-handle" aria-hidden="true"></div>
+    <div class="lab-overlay-header">
+      <span class="lab-overlay-title">🧪 Investigation Lab</span>
+      <button class="lab-overlay-close" id="btn-close-lab" aria-label="Close lab">✕</button>
+    </div>
+    <div class="lab-body" id="lab-body">
+      <p style="font-size:0.8rem;color:var(--text-muted);">Start a case and collect evidence to begin analysis.</p>
+    </div>
+  </div>
+
+  <div id="vn-overlay">
+    <div id="vn-container">
+      <div id="vn-header">
+        <div id="vn-avatar">?</div>
+        <div id="vn-speaker-name">NPC Speaker</div>
+      </div>
+      <div id="bub-scroll"></div>
+      <div id="bar-choices"></div>
+    </div>
+  </div>
+
+  <div id="modal-overlay" class="modal-overlay">
+    <div id="modal-header">
+      <div>
+        <h2 style="margin:0; font-size:1.1rem; color:var(--accent-primary); font-weight:700;">Investigation Map</h2>
+        <p style="margin:2px 0 0 0; font-size:0.8rem; color:var(--text-muted);">Select a case to investigate. Press E to
+          chat with NPCs.</p>
+      </div>
+      <button id="btn-close-map" class="close-modal-btn">Close Matrix</button>
+    </div>
+    <div id="modal-canvas-wrap"></div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+
+    import { act1Case } from "./act1_case_improved.js";
+    import { act2Case } from "./act2_case_improved.js";
+    import { act3Case } from "./act3_case_improved.js";
+    import { act4Case } from "./act4_case_improved.js";
+
+    import { CaseManager } from "./caseManager.js";
+    import { EvidenceSystem } from "./evidenceSystem.js";
+    import { NPCSystem } from "./npcSystem.js";
+    import { DeductionEngine } from "./deductionEngine.js";
+    import { LocationSystem } from "./locationSystem.js";
+    import { AccessibilityManager } from "./accessibility.js";
+
+    // ===== CASE DATA =====
+    // ── Bootstrap ──────────────────────────────────────────────
+    const cm = new CaseManager();
+    cm.registerCase(act1Case);
+    cm.registerCase(act2Case);
+    cm.registerCase(act3Case);
+    cm.registerCase(act4Case);
+
+    // Alias so the 3D scene code can look up cases by id directly
+    const CASES = cm.cases;
+
+    const es = new EvidenceSystem(cm);
+    const ns = new NPCSystem(cm, es);
+    const de = new DeductionEngine(cm, es);
+    const ls = new LocationSystem(cm);
+    const a11y = new AccessibilityManager();
+
+
+    // ===== GLOBAL STATE =====
+    let activeCaseId = null;
+    let scene, camera, renderer, playerMesh, sunLight, moonLight, torchLight;
+    let pPos = new THREE.Vector3(0, 1, 15);
+    let pVelocity = new THREE.Vector3();
+    let camHeading = new THREE.Vector3(0, 0, -1);
+    let keys = {}, isGrounded = true;
+    let nearestNPC = null, inDialogue = false;
+    let collectedEvidence = [], npcMeshes = [], evidenceMeshes = [];
+    let audioActive = true, synthTrack;
+    let timeProgress = 0.25, autoCycle = true;
+    let mapModal;
+
+    function init() {
+      initEngine();
+      initAudio();
+      initControls();
+      loadCase('triumphal_entry');
+      mapModal = new OrbitalSelectMatrixModal();
+      animate();
+    }
+
+    function initEngine() {
+      const container = document.getElementById('canvas-container');
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x020306);
+      scene.fog = new THREE.FogExp2(0x020306, 0.015);
+
+      camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1500);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.shadowMap.enabled = true;
+      container.appendChild(renderer.domElement);
+
+      const ambient = new THREE.AmbientLight(0xffffff, 0.2);
+      scene.add(ambient);
+
+      sunLight = new THREE.DirectionalLight(0xffffff, 1.0);
+      sunLight.castShadow = true;
+      scene.add(sunLight);
+
+      moonLight = new THREE.DirectionalLight(0x5588ff, 0.4);
+      scene.add(moonLight);
+
+      const geo = new THREE.ConeGeometry(0.6, 2.2, 8);
+      geo.rotateX(Math.PI / 2);
+      playerMesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0x00a884, roughness: 0.3, emissive: 0x002211 }));
+      playerMesh.position.copy(pPos);
+      scene.add(playerMesh);
+
+      torchLight = new THREE.PointLight(0x00f2ff, 0, 25, 1.5);
+      playerMesh.add(torchLight);
+
+      const ground = new THREE.Mesh(new THREE.PlaneGeometry(500, 500), new THREE.MeshStandardMaterial({ color: 0x14181e }));
+      ground.rotation.x = -Math.PI / 2;
+      scene.add(ground);
+
+      setTimeout(() => {
+        const loader = document.getElementById('loading-screen');
+        if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 400); }
+      }, 1400);
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    }
+
+    function initAudio() {
+      synthTrack = new Howl({
+        src: ['https://actions.google.com/sounds/v1/ambiences/morning_birds.ogg'],
+        html5: true, loop: true, volume: 0.35
+      });
+      synthTrack.play();
+    }
+
+    function initControls() {
+      window.addEventListener('keydown', (e) => {
+        keys[e.code] = true;
+        if (e.code === 'Space' && isGrounded && !inDialogue) {
+          pVelocity.y = 16.5;
+          isGrounded = false;
+        }
+        if (e.code === 'KeyE' && nearestNPC && !inDialogue) {
+          startDialogue(nearestNPC.userData.config);
+        }
+        if (e.code === 'KeyM') { mapModal.open(); closeLab(); }
+        if (e.code === 'KeyL') {
+          if (!document.getElementById('modal-overlay').classList.contains('active') && !inDialogue) {
+            document.getElementById('lab-overlay').classList.contains('open') ? closeLab() : openLab();
+          }
+        }
+        if (e.code === 'KeyR') {
+          if (document.getElementById('modal-overlay').classList.contains('active')) return;
+          autoCycle = !autoCycle;
+          displayAlert(autoCycle ? "Auto day/night enabled" : "Celestial timeline frozen");
+        }
+      });
+      window.addEventListener('keyup', (e) => keys[e.code] = false);
+
+      document.getElementById('btn-open-map').onclick = () => mapModal.open();
+      document.getElementById('btn-open-lab').onclick = () => openLab();
+      document.getElementById('btn-close-lab').onclick = () => closeLab();
+      document.getElementById('btn-audio-toggle').onclick = () => {
+        audioActive = !audioActive;
+        document.getElementById('btn-audio-toggle').classList.toggle('active', audioActive);
+        Howler.volume(audioActive ? 1.0 : 0.0);
+      };
+    }
+
+    function loadCase(caseId) {
+      const caseData = CASES[caseId];
+      if (!caseData) return;
+
+      activeCaseId = caseId;
+      cm.startCase(caseId);
+      nearestNPC = null;
+      collectedEvidence = [];
+      npcMeshes.forEach(m => scene.remove(m));
+      npcMeshes = [];
+      evidenceMeshes.forEach(m => scene.remove(m));
+      evidenceMeshes = [];
+
+      // Assign grid positions to NPCs (no pos in case data)
+      const NPC_COLORS = [0x4fa3e8, 0xf472b6, 0xa78bfa];
+      caseData.npcs.forEach((npc, i) => {
+        const angle = (i / caseData.npcs.length) * Math.PI * 2;
+        const radius = 12;
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
+        const box = new THREE.Mesh(
+          new THREE.BoxGeometry(1.2, 2, 1.2),
+          new THREE.MeshStandardMaterial({ color: NPC_COLORS[i % NPC_COLORS.length] })
+        );
+        box.position.set(x, 1, z);
+        box.userData = { config: npc, state: 'neutral', type: 'npc' };
+        scene.add(box);
+        npcMeshes.push(box);
+      });
+
+      // evidencePool is the correct property name (not evidenceItems)
+      caseData.evidencePool.forEach((item, i) => {
+        const angle = (i / caseData.evidencePool.length) * Math.PI * 2 + 0.4;
+        const radius = 20;
+        const sphere = new THREE.Mesh(
+          new THREE.SphereGeometry(0.5, 16, 16),
+          new THREE.MeshStandardMaterial({ color: 0xffaa00, emissive: 0xffaa00, emissiveIntensity: 0.5 })
+        );
+        sphere.position.set(Math.cos(angle) * radius, 0.5, Math.sin(angle) * radius);
+        sphere.userData = { dataRef: item };
+        scene.add(sphere);
+        evidenceMeshes.push(sphere);
+      });
+
+      updateHUD(caseData);
+      displayAlert(`Case: ${caseData.title}`);
+    }
+
+    function updateHUD(caseData) {
+      document.getElementById('loc-name').innerText = caseData.location;
+      // actLabel doesn't exist on case data — use subtitle instead
+      document.getElementById('act-name').innerText = caseData.subtitle || '';
+      document.getElementById('level-title').innerText = caseData.title;
+
+      // Build a quest-like object from evidencePool progress
+      const totalEvidence = caseData.evidencePool.length;
+      const progress = cm.getCaseProgress(caseData.id);
+      const foundCount = progress?.evidenceFound?.length || 0;
+      document.getElementById('quest-title').innerText = caseData.title;
+      document.getElementById('quest-task').innerText = `Collect evidence (${foundCount}/${totalEvidence})`;
+      document.getElementById('quest-progress').style.width = `${totalEvidence > 0 ? (foundCount / totalEvidence) * 100 : 0}%`;
+
+      // prophecies doesn't exist — show intro text and lesson as key discoveries
+      const propWrap = document.getElementById('prophecies-container');
+      propWrap.innerHTML = '';
+      const discoveries = [caseData.intro, caseData.truth?.lesson].filter(Boolean);
+      discoveries.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'prophecy-item';
+        div.innerText = p;
+        propWrap.appendChild(div);
+      });
+
+      updateActions(caseData);
+      updateEvidenceGrid();
+    }
+
+    function updateActions(caseData) {
+      const actWrap = document.getElementById('actions-container');
+      actWrap.innerHTML = '';
+
+      if (nearestNPC && !inDialogue) {
+        const n = nearestNPC.userData.config;
+        const btn = document.createElement('button');
+        btn.className = 'action-btn talk-prompt-highlight';
+        btn.innerHTML = `<span><i class="fa-solid fa-comments" style="margin-right:6px;"></i> Talk to ${n.name}</span><small>[E]</small>`;
+        btn.onclick = () => startDialogue(n);
+        actWrap.appendChild(btn);
+      }
+
+      const collectBtn = document.createElement('button');
+      collectBtn.className = 'action-btn';
+      collectBtn.innerHTML = `<span>Collect Evidence</span><small>[Approach Items]</small>`;
+      collectBtn.onclick = () => { /* handled by proximity in animate */ };
+      actWrap.appendChild(collectBtn);
+    }
+
+    function showEvidenceDetail(index) {
+      const item = collectedEvidence[index];
+      if (!item) return;
+      showEvidencePopup(item.label, item.description);
+    }
+
+    function updateEvidenceGrid() {
+      const grid = document.getElementById('evidence-slots-grid');
+      grid.innerHTML = '';
+      for (let i = 0; i < 8; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'evidence-slot-btn ' + (collectedEvidence[i] ? 'filled' : '');
+        slot.innerHTML = collectedEvidence[i] ? '<i class="fa-solid fa-file-invoice"></i>' : '<i class="fa-solid fa-folder"></i>';
+        slot.onclick = () => {
+          if (collectedEvidence[i]) showEvidenceDetail(i);
+        };
+        grid.appendChild(slot);
+      }
+    }
+
+    function showEvidencePopup(title, desc) {
+      document.getElementById('popup-evidence-title').innerHTML = `<i class="fa-solid fa-file-shield" style="color:var(--accent-success);"></i> ${title}`;
+      document.getElementById('popup-evidence-body').innerText = desc;
+      document.getElementById('evidence-popup-card').style.display = 'block';
+    }
+
+    function startDialogue(npcConfig) {
+      inDialogue = true;
+      pVelocity.set(0, 0, 0);
+
+      const overlay = document.getElementById('vn-overlay');
+      const scroll = document.getElementById('bub-scroll');
+      const choices = document.getElementById('bar-choices');
+
+      document.getElementById('vn-speaker-name').innerText = npcConfig.name;
+      document.getElementById('vn-avatar').innerText = npcConfig.avatar;
+
+      scroll.innerHTML = '';
+      choices.innerHTML = '';
+
+      overlay.classList.add('active');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => overlay.classList.add('fade-in-complete'));
+      });
+
+      setTimeout(() => {
+        renderDialogue(npcConfig);
+      }, 350);
+    }
+
+    function renderDialogue(npcConfig) {
+      const scroll = document.getElementById('bub-scroll');
+      const choices = document.getElementById('bar-choices');
+      const state = nearestNPC ? nearestNPC.userData.state : 'neutral';
+
+      const dialogue = npcConfig.dialogue[state] || npcConfig.dialogue.neutral;
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble incoming';
+      bubble.innerText = dialogue;
+      scroll.appendChild(bubble);
+      scroll.scrollTop = scroll.scrollHeight;
+
+      const optionKeys = Object.keys(npcConfig.dialogue);
+      const options = optionKeys.filter(k => k !== state && k !== 'repeat').slice(0, 3);
+
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.innerText = `→ ${opt.charAt(0).toUpperCase() + opt.slice(1)}`;
+        btn.onclick = () => {
+          nearestNPC.userData.state = opt;
+          document.getElementById('vn-overlay').classList.remove('fade-in-complete');
+          setTimeout(() => {
+            document.getElementById('vn-overlay').classList.remove('active');
+            inDialogue = false;
+            updateActions(CASES[activeCaseId]);
+          }, 350);
+        };
+        choices.appendChild(btn);
+      });
+    }
+
+    function advanceQuest(amount) {
+      // Record evidence in CaseManager, then refresh the HUD progress bar
+      updateHUD(CASES[activeCaseId]);
+
+      const caseData = CASES[activeCaseId];
+      const progress = cm.getCaseProgress(activeCaseId);
+      const foundCount = progress?.evidenceFound?.length || 0;
+      if (foundCount >= caseData.evidencePool.length) {
+        showAccusationScreen();
+      }
+    }
+
+    function showAccusationScreen() {
+      const caseData = CASES[activeCaseId];
+      const overlay = document.getElementById('vn-overlay');
+      const scroll = document.getElementById('bub-scroll');
+      const choices = document.getElementById('bar-choices');
+
+      document.getElementById('vn-speaker-name').innerText = "Make Accusation";
+      document.getElementById('vn-avatar').innerText = "⚖️";
+
+      scroll.innerHTML = '';
+      choices.innerHTML = '';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble system';
+      bubble.innerText = "All evidence collected. Who do you accuse?";
+      scroll.appendChild(bubble);
+
+      caseData.suspects.forEach(s => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.innerHTML = `<span>${s.avatar} ${s.name}</span><small>${s.role}</small>`;
+        btn.onclick = () => {
+          const correct = s.id === caseData.truth.culprit;
+          endInvestigation(correct, s.name);
+        };
+        choices.appendChild(btn);
+      });
+
+      overlay.classList.add('active');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => overlay.classList.add('fade-in-complete'));
+      });
+    }
+
+    function endInvestigation(correct, accusedName) {
+      const caseData = CASES[activeCaseId];
+      const message = correct
+        ? `Correct! ${accusedName} was guilty.`
+        : `${accusedName} was innocent. The real culprit was ${caseData.truth.culprit}.`;
+
+      const overlay = document.getElementById('vn-overlay');
+      const scroll = document.getElementById('bub-scroll');
+      const choices = document.getElementById('bar-choices');
+
+      scroll.innerHTML = '';
+      choices.innerHTML = '';
+
+      const resultBubble = document.createElement('div');
+      resultBubble.className = correct ? 'chat-bubble system' : 'chat-bubble incoming';
+      resultBubble.innerHTML = `<strong>${correct ? 'SUCCESS' : 'WRONG'}</strong>: ${message}<br><br>
+        <em>${caseData.truth.lesson}</em>`;
+      scroll.appendChild(resultBubble);
+
+      const restartBtn = document.createElement('button');
+      restartBtn.className = 'choice-btn';
+      restartBtn.innerText = '→ New Investigation';
+      restartBtn.onclick = () => {
+        document.getElementById('vn-overlay').classList.remove('fade-in-complete');
+        setTimeout(() => {
+          document.getElementById('vn-overlay').classList.remove('active');
+          document.getElementById('end-screen').style.display = 'flex';
+          setTimeout(() => document.getElementById('end-screen').style.opacity = '1', 50);
+        }, 350);
+      };
+      choices.appendChild(restartBtn);
+    }
+
+    function displayAlert(msg) {
+      const el = document.getElementById('screen-alert');
+      el.innerText = msg;
+      el.style.display = 'block';
+      setTimeout(() => el.style.display = 'none', 3500);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      if (!document.getElementById('modal-overlay').classList.contains('active') && !inDialogue) {
+        movePlayer();
+        collectEvidence();
+        findNPC();
+      }
+
+      updateDayNight();
+      updateMinimap();
+      renderer.render(scene, camera);
+    }
+
+    function movePlayer() {
+      const move = new THREE.Vector3();
+      const camFwd = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion).projectOnPlane(new THREE.Vector3(0, 1, 0)).normalize();
+      const camRgt = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion).projectOnPlane(new THREE.Vector3(0, 1, 0)).normalize();
+
+      if (keys['KeyW'] || keys['ArrowUp']) move.add(camFwd);
+      if (keys['KeyS'] || keys['ArrowDown']) move.sub(camFwd);
+      if (keys['KeyA'] || keys['ArrowLeft']) move.sub(camRgt);
+      if (keys['KeyD'] || keys['ArrowRight']) move.add(camRgt);
+
+      if (move.length() > 0) {
+        move.normalize();
+        camHeading.lerp(move, 0.1).normalize();
+        pVelocity.x = move.x * 18;
+        pVelocity.z = move.z * 18;
+      } else {
+        pVelocity.x = 0;
+        pVelocity.z = 0;
+      }
+
+      if (!isGrounded) pVelocity.y += -42 * (1 / 60);
+
+      pPos.addScaledVector(pVelocity, 1 / 60);
+
+      if (pPos.y <= 1) {
+        pPos.y = 1;
+        pVelocity.y = 0;
+        isGrounded = true;
+      }
+
+      playerMesh.position.copy(pPos);
+      playerMesh.lookAt(pPos.clone().add(camHeading.projectOnPlane(new THREE.Vector3(0, 1, 0)).normalize()));
+
+      const camPos = pPos.clone().add(camHeading.clone().multiplyScalar(-30)).add(new THREE.Vector3(0, 16, 0));
+      camera.position.lerp(camPos, 0.05);
+      camera.lookAt(pPos.clone().add(camHeading.clone().multiplyScalar(5)));
+    }
+
+    function collectEvidence() {
+      for (let i = evidenceMeshes.length - 1; i >= 0; i--) {
+        const item = evidenceMeshes[i];
+        if (pPos.distanceTo(item.position) < 2) {
+          const data = item.userData.dataRef;
+          collectedEvidence.push({ label: data.name, description: data.desc, icon: data.icon });
+          // Also record via CaseManager so progress and quest bar update correctly
+          cm.recordEvidenceFound(data.id);
+          scene.remove(item);
+          evidenceMeshes.splice(i, 1);
+          showEvidencePopup(data.name, data.desc);
+          advanceQuest(1);
+          // Refresh lab picker if open
+          if (document.getElementById('lab-overlay').classList.contains('open')) renderLab();
+        }
+      }
+    }
+
+    function findNPC() {
+      let closest = null, minDist = 6.5;
+
+      npcMeshes.forEach(npc => {
+        const d = pPos.distanceTo(npc.position);
+        if (d < minDist) {
+          minDist = d;
+          closest = npc;
+        }
+      });
+
+      if (closest !== nearestNPC) {
+        nearestNPC = closest;
+        updateActions(CASES[activeCaseId]);
+      }
+
+      if (nearestNPC && minDist < 2) {
+        pPos.addScaledVector(pVelocity, -2 / 60);
+      }
+    }
+
+    function updateMinimap() {
+      const blipContainer = document.getElementById('minimap-blips-container');
+      blipContainer.innerHTML = '';
+
+      const scale = 0.55, offset = 55;
+
+      const pBlip = document.createElement('div');
+      pBlip.className = 'minimap-blip player';
+      pBlip.style.left = `${offset}px`;
+      pBlip.style.top = `${offset}px`;
+      blipContainer.appendChild(pBlip);
+
+      npcMeshes.forEach(npc => {
+        const deltaX = npc.position.x - pPos.x;
+        const deltaZ = npc.position.z - pPos.z;
+        const x = offset + (deltaX * scale);
+        const y = offset + (deltaZ * scale);
+
+        if (x >= 0 && x <= 110 && y >= 0 && y <= 110) {
+          const blip = document.createElement('div');
+          blip.className = 'minimap-blip npc';
+          blip.style.left = `${x}px`;
+          blip.style.top = `${y}px`;
+          blip.title = npc.userData.config.name;
+          blip.onclick = () => {
+            const target = npc.position.clone().setY(1);
+            pPos.copy(target);
+          };
+          blipContainer.appendChild(blip);
+        }
+      });
+
+      evidenceMeshes.forEach(item => {
+        const deltaX = item.position.x - pPos.x;
+        const deltaZ = item.position.z - pPos.z;
+        const x = offset + (deltaX * scale);
+        const y = offset + (deltaZ * scale);
+
+        if (x >= 0 && x <= 110 && y >= 0 && y <= 110) {
+          const blip = document.createElement('div');
+          blip.className = 'minimap-blip collectable';
+          blip.style.left = `${x}px`;
+          blip.style.top = `${y}px`;
+          blip.onclick = () => {
+            const target = item.position.clone().setY(1);
+            pPos.copy(target);
+          };
+          blipContainer.appendChild(blip);
+        }
+      });
+    }
+
+    function updateDayNight() {
+      if (autoCycle) timeProgress = (timeProgress + 0.00027) % 1;
+
+      const rad = timeProgress * Math.PI * 2;
+      sunLight.position.set(Math.cos(rad) * 400, Math.sin(rad) * 400, 0);
+      moonLight.position.set(Math.cos(rad + Math.PI) * 400, Math.sin(rad + Math.PI) * 400, 0);
+
+      const dayMix = Math.max(0, Math.min(1, (Math.sin(rad) + 0.2) / 0.4));
+      const dayColor = new THREE.Color(0x87ceeb);
+      const nightColor = new THREE.Color(0x020205);
+      scene.background.copy(nightColor.lerp(dayColor, dayMix));
+
+      torchLight.intensity = (1 - dayMix) * 4;
+    }
+
+    // ===== MAP MODAL =====
+    class OrbitalSelectMatrixModal {
+      constructor() {
+        this.scene = null;
+        this.camera = null;
+        this.renderer = null;
+        this.core = null;
+        this.overlay = document.getElementById('modal-overlay');
+        this.wrapper = document.getElementById('modal-canvas-wrap');
+        this.theta = 0; this.phi = Math.PI / 3;
+        this.dragging = false;
+        this.prev = { x: 0, y: 0 };
+
+        this.init();
+        this.bind();
+      }
+
+      init() {
+        this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color(0x05070b);
+
+        this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 500);
+        this.renderer = new THREE.WebGLRenderer({ antialias: true });
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.wrapper.appendChild(this.renderer.domElement);
+
+        const light = new THREE.PointLight(0x00ffaa, 1.5, 80);
+        light.position.set(0, 20, 10);
+        this.scene.add(light);
+        this.scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+
+        this.core = new THREE.Mesh(
+          new THREE.SphereGeometry(6.5, 30, 30),
+          new THREE.MeshStandardMaterial({ color: 0x00a884, wireframe: true, transparent: true, opacity: 0.4 })
+        );
+        this.scene.add(this.core);
+
+        const CASE_COLORS = [0x60a5fa, 0xf59e0b, 0x34d399, 0xa78bfa];
+        Object.entries(CASES).forEach(([id, c], idx) => {
+          const nodeColor = CASE_COLORS[idx % CASE_COLORS.length];
+          const marker = new THREE.Mesh(
+            new THREE.SphereGeometry(0.45, 16, 16),
+            new THREE.MeshStandardMaterial({ color: nodeColor, emissive: nodeColor, emissiveIntensity: 1.8 })
+          );
+          marker.position.set(
+            Math.sin(Math.PI * 0.5) * Math.cos(Math.PI * 0.5) * 7,
+            Math.sin(Math.PI * 0.5) * Math.sin(Math.PI * 0.5) * 7,
+            Math.cos(Math.PI * 0.5) * 7
+          );
+          this.core.add(marker);
+
+          const dot = document.createElement('div');
+          dot.className = 'map-node-dot';
+          dot.style.backgroundColor = `#${nodeColor.toString(16).padStart(6, '0')}`;
+
+          const label = document.createElement('div');
+          label.className = 'map-node-label';
+          label.innerText = c.title;
+
+          this.wrapper.appendChild(dot);
+          this.wrapper.appendChild(label);
+
+          dot.onclick = () => {
+            this.close();
+            loadCase(id);
+          };
+        });
+      }
+
+      bind() {
+        document.getElementById('btn-close-map').onclick = () => this.close();
+
+        this.wrapper.addEventListener('mousedown', (e) => {
+          this.dragging = true;
+          this.prev = { x: e.clientX, y: e.clientY };
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (!this.dragging) return;
+          const dx = e.clientX - this.prev.x;
+          const dy = e.clientY - this.prev.y;
+          this.theta -= dx * 0.006;
+          this.phi = Math.max(0.1, Math.min(Math.PI - 0.1, this.phi - dy * 0.006));
+          this.prev = { x: e.clientX, y: e.clientY };
+        });
+
+        window.addEventListener('mouseup', () => this.dragging = false);
+      }
+
+      open() { this.overlay.classList.add('active'); this.loop(); }
+      close() { this.overlay.classList.remove('active'); cancelAnimationFrame(this.raf); }
+
+      loop() {
+        this.raf = requestAnimationFrame(() => this.loop());
+        this.camera.position.setFromSphericalCoords(24, this.phi, this.theta);
+        this.camera.lookAt(0, 0, 0);
+        if (!this.dragging && this.core) this.core.rotation.y += 0.003;
+        this.renderer.render(this.scene, this.camera);
+      }
+    }
+
+    // ===== LAB OVERLAY =====
+    const LAB_OPERATIONS = [
+      { id: 'compare', label: 'Compare', icon: '🔍', desc: 'Are these consistent?' },
+      { id: 'link', label: 'Link', icon: '🔗', desc: 'Do they point to the same conclusion?' },
+      { id: 'timeline', label: 'Timeline', icon: '⏱', desc: 'What happened first?' },
+      { id: 'contradict', label: 'Contradict', icon: '⚡', desc: 'Do these conflict?' },
+    ];
+
+    function openLab() {
+      const overlay = document.getElementById('lab-overlay');
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      renderLab();
+      document.getElementById('btn-close-lab').focus();
+    }
+
+    function closeLab() {
+      const overlay = document.getElementById('lab-overlay');
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function renderLab() {
+      const body = document.getElementById('lab-body');
+      const caseActive = !!cm.getActiveCase();
+
+      if (!caseActive) {
+        body.innerHTML = `<p style="font-size:0.8rem;color:var(--text-muted);padding:10px 0;">Start a case and collect evidence to begin analysis.</p>`;
+        return;
+      }
+
+      const canOp = !!(es.selectedA && es.selectedB);
+      const collected = es.getCollected();
+      const deductions = de.getDeductions();
+
+      body.innerHTML = `
+        <!-- Slots -->
+        <div class="lab-slots" aria-label="Selected evidence slots">
+          <div class="lab-slot ${es.selectedA ? 'has-item' : ''}" role="status" aria-label="Slot A: ${es.selectedA?.name || 'empty'}">
+            ${es.selectedA
+          ? `<span class="slot-icon">${es.selectedA.icon}</span><span class="slot-name">${es.selectedA.name}</span>`
+          : `<span class="slot-empty">Tap evidence below</span>`}
+          </div>
+          <div class="lab-slot-divider" aria-hidden="true">+</div>
+          <div class="lab-slot ${es.selectedB ? 'has-item' : ''}" role="status" aria-label="Slot B: ${es.selectedB?.name || 'empty'}">
+            ${es.selectedB
+          ? `<span class="slot-icon">${es.selectedB.icon}</span><span class="slot-name">${es.selectedB.name}</span>`
+          : `<span class="slot-empty">Tap second clue</span>`}
+          </div>
+        </div>
+
+        <!-- Operations -->
+        <div class="lab-ops" role="group" aria-label="Analysis operations">
+          ${LAB_OPERATIONS.map(op => `
+            <button class="lab-op-btn" data-op="${op.id}"
+              aria-label="${op.label}: ${op.desc}"
+              ${!canOp ? "aria-disabled='true'" : ""}>
+              <span class="lab-op-icon" aria-hidden="true">${op.icon}</span>
+              <span class="lab-op-label">${op.label}</span>
+            </button>`).join('')}
+        </div>
+
+        <!-- Result -->
+        <div class="lab-result-box" id="lab-result" role="status" aria-live="polite">
+          <span class="lab-result-placeholder">Select two clues, then choose an operation.</span>
+        </div>
+
+        <div class="lab-section-divider"></div>
+
+        <!-- Deduction history -->
+        <div role="region" aria-label="Deduction history">
+          <div class="lab-history-title">Deductions (${deductions.length})</div>
+          ${deductions.length === 0
+          ? `<p class="lab-no-deductions">No deductions yet.</p>`
+          : deductions.slice(-4).reverse().map(d => `
+                <div class="lab-deduction ${d.isKeyDeduction ? 'is-key' : ''}" role="listitem">
+                  <span class="lab-deduction-op" aria-hidden="true">
+                    ${LAB_OPERATIONS.find(o => o.id === d.operation)?.icon || '🔍'}
+                  </span>
+                  <span style="flex:1">${d.text}</span>
+                  ${d.isKeyDeduction ? `<span class="lab-deduction-key-star" aria-label="Key deduction">★</span>` : ''}
+                </div>`).join('')}
+        </div>
+
+        <div class="lab-section-divider"></div>
+
+        <!-- Evidence picker -->
+        <div role="region" aria-label="Evidence picker">
+          <div class="lab-picker-title">Your Evidence — tap to select</div>
+          <div class="lab-picker-grid">
+            ${collected.length === 0
+          ? `<p class="lab-picker-empty">Collect evidence from the 3D scene first.</p>`
+          : collected.map(e => {
+            const isA = es.selectedA?.id === e.id;
+            const isB = es.selectedB?.id === e.id;
+            const sel = isA || isB;
+            return `
+                    <button class="lab-picker-card ${isA ? 'sel-a' : ''} ${isB ? 'sel-b' : ''}"
+                      data-evidence-id="${e.id}"
+                      aria-label="${e.name}. ${sel ? (isA ? 'Selected as A' : 'Selected as B') : 'Tap to select'}"
+                      aria-pressed="${sel}">
+                      <span class="lab-picker-icon" aria-hidden="true">${e.icon}</span>
+                      <span class="lab-picker-name">${e.name}</span>
+                      ${isA ? `<span class="lab-sel-badge" aria-hidden="true">A</span>` : ''}
+                      ${isB ? `<span class="lab-sel-badge" aria-hidden="true">B</span>` : ''}
+                    </button>`;
+          }).join('')}
+          </div>
+        </div>
+      `;
+
+      _bindLabBodyEvents(body);
+    }
+
+    function _bindLabBodyEvents(body) {
+      // Operation buttons
+      body.querySelectorAll('[data-op]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.getAttribute('aria-disabled') === 'true') {
+            displayAlert('Select two pieces of evidence first.');
+            return;
+          }
+          const result = de.operate(btn.dataset.op);
+          const resultBox = body.querySelector('#lab-result');
+          if (resultBox) {
+            if (result.error) {
+              resultBox.className = 'lab-result-box';
+              resultBox.innerHTML = `<span class="lab-result-error">${result.error}</span>`;
+            } else {
+              resultBox.className = `lab-result-box${result.isKeyDeduction ? ' is-key' : ''}`;
+              resultBox.innerHTML = `
+                <p class="lab-result-text">${result.text}</p>
+                ${result.insight ? `<p class="lab-result-insight">💡 ${result.insight}</p>` : ''}
+                ${result.isKeyDeduction ? `<p class="lab-result-key-badge">★ Key Deduction</p>` : ''}
+              `;
+              if (result.isKeyDeduction) {
+                displayAlert(`★ Key Deduction: ${result.text.substring(0, 60)}…`);
+              }
+            }
+          }
+          // Re-render just the deduction history and slot state without losing the result
+          renderLab();
+          // Re-show the result after re-render (renderLab resets it)
+          const newResultBox = document.getElementById('lab-result');
+          if (newResultBox && !result.error) {
+            newResultBox.className = `lab-result-box${result.isKeyDeduction ? ' is-key' : ''}`;
+            newResultBox.innerHTML = `
+              <p class="lab-result-text">${result.text}</p>
+              ${result.insight ? `<p class="lab-result-insight">💡 ${result.insight}</p>` : ''}
+              ${result.isKeyDeduction ? `<p class="lab-result-key-badge">★ Key Deduction</p>` : ''}
+            `;
+          }
+        });
+      });
+
+      // Evidence picker cards
+      body.querySelectorAll('[data-evidence-id]').forEach(card => {
+        card.addEventListener('click', () => {
+          es.selectEvidence(card.dataset.evidenceId);
+          renderLab();
+        });
+      });
+    }
+
+    // ===== ENTRY POINT (called after all definitions) =====
+    function initAfterDefinitions() {
+      init();
+    }
+
+    initAfterDefinitions();
+  </script>
+</body>
+
+</html>

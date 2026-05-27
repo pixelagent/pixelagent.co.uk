@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noah's Ark — The Great Flood</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { overflow:hidden; background:#050810; font-family:Georgia,'Times New Roman',serif; }
+        #ui {
+            position:absolute; top:24px; left:28px;
+            color:#a8c4e0; pointer-events:none; z-index:10;
+            text-shadow:0 2px 14px rgba(0,0,0,0.95);
+        }
+        #ui h1 { font-size:1.7rem; font-weight:normal; letter-spacing:0.04em; }
+        #ui p  { font-size:0.85rem; opacity:0.65; margin-top:4px; letter-spacing:0.06em; }
+        #verse {
+            position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+            color:#7a9cba; font-size:0.82rem; font-style:italic;
+            text-align:center; pointer-events:none; z-index:10;
+            text-shadow:0 2px 10px rgba(0,0,0,0.95); letter-spacing:0.03em;
+            white-space:nowrap;
+        }
+        #hint {
+            position:absolute; bottom:10px; left:50%; transform:translateX(-50%);
+            color:#445566; font-size:0.75rem; pointer-events:none; z-index:10;
+            letter-spacing:0.05em;
+        }
+        #flood-level {
+            position:absolute; top:24px; right:28px;
+            color:#7aaccc; font-size:0.8rem; pointer-events:none; z-index:10;
+            text-align:right; text-shadow:0 2px 8px rgba(0,0,0,0.9);
+            letter-spacing:0.05em;
+        }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <h1>The Great Flood</h1>
+        <p>Genesis 7 — Forty Days and Forty Nights</p>
+    </div>
+    <div id="flood-level">Waters rising…</div>
+    <div id="verse">"The rain fell on the earth forty days and forty nights." — Genesis 7:12</div>
+    <div id="hint">Drag to orbit &nbsp;·&nbsp; Scroll to zoom</div>
+
+    <script>
+    let scene, camera, renderer, world, ark;
+    let isMouseDown = false;
+    let targetRotX = 0.22, targetRotY = 0.25;
+    let rotX = 0.22, rotY = 0.25;
+    let time0 = Date.now();
+
+    // flood state
+    let floodY = -1.5;          // current water surface Y in world space
+    const floodMax  =  5.5;     // how high it ultimately rises
+    const floodRate =  0.004;   // rise per frame
+
+    // shared geometry refs
+    let waterMesh, waterGeo;
+    let rainGeo, rainPositions;
+    let splashGeo, splashPositions, splashVels;
+    let lightningLight, lightningTimer = 0;
+    let waveTime = 0;
+    const WAVE_RES = 48;        // vertices per side on water plane
+
+    // ── tiny helpers ──────────────────────────────────────────────────
+    function box(w,h,d,mat,px,py,pz,rx=0,ry=0,rz=0){
+        const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);
+        m.position.set(px,py,pz); m.rotation.set(rx,ry,rz); return m;
+    }
+    function cyl(rt,rb,h,seg,mat,px,py,pz,rx=0,ry=0,rz=0){
+        const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg),mat);
+        m.position.set(px,py,pz); m.rotation.set(rx,ry,rz); return m;
+    }
+    function sph(r,seg,mat,px,py,pz){
+        const m=new THREE.Mesh(new THREE.SphereGeometry(r,seg,seg),mat);
+        m.position.set(px,py,pz); return m;
+    }
+    function mat(color,shininess=0,flat=true){
+        return new THREE.MeshPhongMaterial({color,flatShading:flat,shininess});
+    }
+
+    // ── materials ─────────────────────────────────────────────────────
+    const M = {
+        darkWood : mat(0x3a2008),
+        wood     : mat(0x6a3c12),
+        plank    : mat(0x8a4c1e),
+        lightWood: mat(0xa06830),
+        thatch   : mat(0xb07830),
+        rope     : mat(0xc09850),
+        sky      : new THREE.MeshBasicMaterial({color:0x0a0e18, side:THREE.BackSide}),
+        cloud    : mat(0x1a2030),
+        cloudDk  : mat(0x0e1420),
+        rain     : new THREE.PointsMaterial({color:0x88bbdd, size:0.08, transparent:true, opacity:0.55,
+                       depthWrite:false}),
+        splash   : new THREE.PointsMaterial({color:0xaaccee, size:0.12, transparent:true, opacity:0.7,
+                       depthWrite:false}),
+        water    : new THREE.MeshPhongMaterial({
+                       color:0x0a2a4a, emissive:0x051520,
+                       transparent:true, opacity:0.88, shininess:120,
+                       flatShading:false, side:THREE.DoubleSide}),
+        foam     : mat(0xddeeff, 10, false),
+        lightning : new THREE.MeshBasicMaterial({color:0xeef8ff}),
+        dove     : mat(0xddd8d0),
+    };
+
+    // ══════════════════════════════════════════════════════════════════
+    //  COMPLETED ARK (same proportions as scene 2)
+    // ══════════════════════════════════════════════════════════════════
+    function buildArk(){
+        const g = new THREE.Group();
+        // keel
+        g.add(box(22,0.5,0.5, M.darkWood, 0,0.25,0));
+        // hull planks both sides — fully closed
+        for(let i=0;i<9;i++){
+            const lean = 0.3 - i*0.025;
+            const w = 22-(i>6?(i-6)*0.9:0);
+            g.add(box(w,0.26,0.28, M.plank, 0,0.6+i*0.52,-2.55, 0,0, lean));
+            g.add(box(w,0.26,0.28, M.plank, 0,0.6+i*0.52, 2.55, 0,0,-lean));
+        }
+        // bow / stern
+        g.add(box(0.6,5.5,5.2, M.wood,-11,2.5,0, 0,0, 0.2));
+        g.add(box(0.6,5.5,5.2, M.wood, 11,2.5,0, 0,0,-0.2));
+        // ribs
+        [-9,-6,-3,0,3,6,9].forEach(rx=>{
+            g.add(box(0.22,5.0,0.22, M.darkWood, rx,2.5,-2.2, 0,0, 0.26));
+            g.add(box(0.22,5.0,0.22, M.darkWood, rx,2.5, 2.2, 0,0,-0.26));
+        });
+        // deck floor
+        for(let i=-10;i<=10;i+=1.0) g.add(box(0.85,0.18,5.0, M.plank, i,0.55,0));
+        // deck rail
+        g.add(box(22,0.35,0.28, M.darkWood, 0,5.2,-2.5));
+        g.add(box(22,0.35,0.28, M.darkWood, 0,5.2, 2.5));
+        // main cabin
+        g.add(box(16,3.5,4.8, M.wood, 0,7.25,0));
+        for(let i=-7;i<=7;i+=1.4) g.add(box(0.07,3.5,4.8, M.darkWood, i,7.25,0));
+        // windows
+        [-5,-1,3].forEach(wx=>{
+            g.add(box(0.05,0.65,0.65, M.darkWood, wx,7.45,-2.42));
+            g.add(box(0.05,0.65,0.65, M.darkWood, wx,7.45, 2.42));
+        });
+        // roof
+        g.add(box(16.4,0.28,2.5, M.thatch, 0,9.05,-1.2, 0,0,-0.22));
+        g.add(box(16.4,0.28,2.5, M.thatch, 0,9.05, 1.2, 0,0, 0.22));
+        g.add(box(16.4,0.45,0.28, M.darkWood, 0,9.45,0));
+        // upper cabin
+        g.add(box(4,2.0,3.5, M.lightWood, 2,10.5,0));
+        g.add(box(4.2,0.22,1.8, M.thatch, 2,11.5,-0.9, 0,0,-0.2));
+        g.add(box(4.2,0.22,1.8, M.thatch, 2,11.5, 0.9, 0,0, 0.2));
+        // rigging ropes
+        g.add(cyl(0.04,0.04,5.0,6, M.rope,-8,7.5,-2.5, 0,0, 0.5));
+        g.add(cyl(0.04,0.04,5.0,6, M.rope, 6,7.5,-2.5, 0,0,-0.4));
+        // dove on roof ridge
+        const doveGroup = new THREE.Group();
+        doveGroup.add(sph(0.14,7, M.dove, 0,0,0));
+        doveGroup.add(box(0.55,0.04,0.14, M.dove, 0,0.04,-0.28, 0,0,0.3));
+        doveGroup.add(box(0.55,0.04,0.14, M.dove, 0,0.04, 0.28, 0,0,-0.3));
+        doveGroup.position.set(-1, 9.7, 0);
+        g.add(doveGroup);
+        return g;
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  STORM CLOUDS
+    // ══════════════════════════════════════════════════════════════════
+    function makeCloudLayer(){
+        const g = new THREE.Group();
+        const positions = [
+            [0,0],[-12,5],[10,8],[-8,-10],[14,-5],[5,15],[-15,-3],[18,10],
+            [-5,18],[8,-14],[20,0],[-20,5],[0,-20],[15,15],[-10,12]
+        ];
+        positions.forEach(([cx,cz])=>{
+            const base = new THREE.Group();
+            // stack of ellipsoid boxes for each cloud puff
+            const n = 3+Math.floor(Math.random()*3);
+            for(let i=0;i<n;i++){
+                const cm = Math.random()>0.5 ? M.cloud : M.cloudDk;
+                const b = sph(2.5+Math.random()*2.0, 7, cm,
+                    (Math.random()-0.5)*3, Math.random()*1.2, (Math.random()-0.5)*3);
+                b.scale.set(1.8+Math.random(), 0.7+Math.random()*0.4, 1.4+Math.random());
+                base.add(b);
+            }
+            base.position.set(cx, 18+Math.random()*4, cz);
+            g.add(base);
+        });
+        return g;
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  RAIN PARTICLES
+    // ══════════════════════════════════════════════════════════════════
+    const RAIN_COUNT = 3000;
+    function initRain(){
+        rainGeo = new THREE.BufferGeometry();
+        rainPositions = new Float32Array(RAIN_COUNT*3);
+        for(let i=0;i<RAIN_COUNT*3;i+=3){
+            rainPositions[i  ] = (Math.random()-0.5)*70;
+            rainPositions[i+1] = Math.random()*30;
+            rainPositions[i+2] = (Math.random()-0.5)*70;
+        }
+        rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPositions,3));
+        const rain = new THREE.Points(rainGeo, M.rain);
+        world.add(rain);
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  SPLASH PARTICLES
+    // ══════════════════════════════════════════════════════════════════
+    const SPLASH_COUNT = 600;
+    function initSplashes(){
+        splashGeo = new THREE.BufferGeometry();
+        splashPositions = new Float32Array(SPLASH_COUNT*3);
+        splashVels       = new Float32Array(SPLASH_COUNT*3);
+        for(let i=0;i<SPLASH_COUNT*3;i+=3){
+            resetSplash(i);
+        }
+        splashGeo.setAttribute('position', new THREE.BufferAttribute(splashPositions,3));
+        const sp = new THREE.Points(splashGeo, M.splash);
+        world.add(sp);
+    }
+    function resetSplash(i){
+        splashPositions[i  ] = (Math.random()-0.5)*60;
+        splashPositions[i+1] = floodY;
+        splashPositions[i+2] = (Math.random()-0.5)*60;
+        splashVels[i  ] = (Math.random()-0.5)*0.08;
+        splashVels[i+1] = Math.random()*0.18+0.05;
+        splashVels[i+2] = (Math.random()-0.5)*0.08;
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  WAVE WATER PLANE
+    // ══════════════════════════════════════════════════════════════════
+    function initWater(){
+        waterGeo = new THREE.PlaneGeometry(120,120, WAVE_RES,WAVE_RES);
+        waterMesh = new THREE.Mesh(waterGeo, M.water);
+        waterMesh.rotation.x = -Math.PI/2;
+        waterMesh.position.y = floodY;
+        world.add(waterMesh);
+    }
+
+    function updateWaves(t){
+        const pos = waterGeo.attributes.position;
+        for(let i=0; i<pos.count; i++){
+            const x = pos.getX(i);
+            const z = pos.getY(i); // plane is rotated, Y in geo = Z in world
+            const h = Math.sin(x*0.18 + t*1.1)*0.45
+                    + Math.sin(z*0.22 + t*0.9)*0.4
+                    + Math.sin((x+z)*0.12 + t*1.4)*0.25
+                    + Math.sin(x*0.35 - t*0.7)*0.15;
+            pos.setZ(i, h);
+        }
+        pos.needsUpdate = true;
+        waterGeo.computeVertexNormals();
+        waterMesh.position.y = floodY;
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  LIGHTNING
+    // ══════════════════════════════════════════════════════════════════
+    function initLightning(){
+        lightningLight = new THREE.PointLight(0xddeeff, 0, 200);
+        lightningLight.position.set(10, 30, -10);
+        scene.add(lightningLight);
+    }
+    function updateLightning(t){
+        lightningTimer -= 1;
+        if(lightningTimer <= 0){
+            lightningLight.intensity = 6+Math.random()*8;
+            lightningTimer = 3+Math.floor(Math.random()*2);
+            // schedule fade
+            setTimeout(()=>{ lightningLight.intensity=0; }, 80+Math.random()*120);
+            // next strike
+            lightningTimer = 80+Math.floor(Math.random()*200);
+        }
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  DISTANT DROWNING TREES / HILLS (world being submerged)
+    // ══════════════════════════════════════════════════════════════════
+    function makeSubmergedWorld(){
+        const g = new THREE.Group();
+        const treeMat = mat(0x2a3a1a);
+        const hillMat = mat(0x3a4828);
+        // distant hills (just peeking above water line)
+        [[-25,8,2.5],[-30,-10,3],[20,20,2],[28,-8,3.5],[-15,-25,2],
+         [18,10,2],[-22,15,1.8],[30,5,2.2]].forEach(([hx,hz,hr])=>{
+            const h = sph(hr,7,hillMat,hx,0.5,hz);
+            h.scale.set(2.5,0.8,2.0);
+            g.add(h);
+        });
+        // trees barely above water
+        [[-20,12],[-18,-8],[22,15],[25,-12],[-10,-22],[12,-20],[-28,0],[16,18]].forEach(([tx,tz])=>{
+            g.add(cyl(0.15,0.22,3.5,7,treeMat, tx,1.75+Math.random(),tz));
+            g.add(sph(0.9,6,treeMat, tx,3.5+Math.random(),tz));
+        });
+        return g;
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  INIT
+    // ══════════════════════════════════════════════════════════════════
+    function init(){
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(58, innerWidth/innerHeight, 0.1, 1000);
+        camera.position.set(20,11,24);
+        camera.lookAt(0,4,0);
+
+        renderer = new THREE.WebGLRenderer({antialias:true});
+        renderer.setSize(innerWidth, innerHeight);
+        renderer.setPixelRatio(devicePixelRatio);
+        document.body.appendChild(renderer.domElement);
+
+        // Dim storm lighting
+        scene.add(new THREE.AmbientLight(0x1a2840, 1.8));
+        const stormLight = new THREE.DirectionalLight(0x304060, 0.6);
+        stormLight.position.set(-30, 50, 20);
+        scene.add(stormLight);
+        const rimLight = new THREE.DirectionalLight(0x203050, 0.4);
+        rimLight.position.set(40, 10, -20);
+        scene.add(rimLight);
+        initLightning();
+
+        world = new THREE.Group();
+
+        // Sky — dark stormy
+        world.add(new THREE.Mesh(new THREE.SphereGeometry(350,32,16), M.sky));
+
+        // Storm clouds
+        world.add(makeCloudLayer());
+
+        // Submerged distant world
+        world.add(makeSubmergedWorld());
+
+        // Water
+        initWater();
+
+        // Rain + splashes
+        initRain();
+        initSplashes();
+
+        // The Ark — floating, will bob on waves
+        ark = buildArk();
+        ark.position.set(0, 2.2, 0);
+        world.add(ark);
+
+        scene.add(world);
+
+        // Events
+        window.addEventListener('resize',()=>{
+            camera.aspect=innerWidth/innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(innerWidth,innerHeight);
+        });
+        document.addEventListener('mousedown',()=>isMouseDown=true);
+        document.addEventListener('mouseup',()=>isMouseDown=false);
+        document.addEventListener('mousemove',e=>{
+            if(isMouseDown){
+                targetRotY += e.movementX*0.006;
+                targetRotX += e.movementY*0.006;
+                targetRotX = Math.max(-0.15, Math.min(targetRotX,0.85));
+            }
+        });
+        document.addEventListener('wheel',e=>{
+            const z = camera.position.z + e.deltaY*0.05;
+            camera.position.z = Math.max(8, Math.min(z,70));
+        });
+
+        animate();
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  ANIMATE
+    // ══════════════════════════════════════════════════════════════════
+    function animate(){
+        requestAnimationFrame(animate);
+        const t = (Date.now()-time0)*0.001;
+        waveTime = t;
+
+        // ── scene rotation ──
+        rotX += (targetRotX-rotX)*0.08;
+        rotY += (targetRotY-rotY)*0.08;
+        world.rotation.x = rotX;
+        world.rotation.y = rotY;
+
+        // ── flood rising ──
+        if(floodY < floodMax){
+            floodY = Math.min(floodY + floodRate, floodMax);
+            const pct = Math.round(((floodY+1.5)/(floodMax+1.5))*100);
+            document.getElementById('flood-level').textContent =
+                floodY >= floodMax ? 'All the earth is covered' : `Waters rising… ${pct}%`;
+        }
+
+        // ── waves ──
+        updateWaves(waveTime);
+
+        // ── ark bobs on waves ──
+        const arkWave = Math.sin(t*0.9)*0.35 + Math.sin(t*1.3)*0.18;
+        ark.position.y = floodY + 3.8 + arkWave;
+        ark.rotation.z = Math.sin(t*0.7)*0.025 + Math.sin(t*1.1)*0.012;
+        ark.rotation.x = Math.sin(t*0.5)*0.018;
+
+        // ── rain fall ──
+        for(let i=0;i<RAIN_COUNT*3;i+=3){
+            rainPositions[i  ] += 0.04;          // slight wind drift
+            rainPositions[i+1] -= 0.55;          // fall speed
+            rainPositions[i+2] += 0.01;
+            if(rainPositions[i+1] < floodY){
+                rainPositions[i  ] = (Math.random()-0.5)*70;
+                rainPositions[i+1] = floodY + 25 + Math.random()*8;
+                rainPositions[i+2] = (Math.random()-0.5)*70;
+            }
+        }
+        rainGeo.attributes.position.needsUpdate = true;
+
+        // ── splashes ──
+        for(let i=0;i<SPLASH_COUNT*3;i+=3){
+            splashPositions[i  ] += splashVels[i];
+            splashPositions[i+1] += splashVels[i+1];
+            splashPositions[i+2] += splashVels[i+2];
+            splashVels[i+1] -= 0.012;             // gravity on splash droplet
+            if(splashPositions[i+1] < floodY - 0.2){
+                resetSplash(i);
+                splashPositions[i+1] = floodY;
+            }
+        }
+        splashGeo.attributes.position.needsUpdate = true;
+
+        // ── lightning ──
+        updateLightning(t);
+
+        // ── slow cloud drift ──
+        world.children.forEach(c=>{
+            if(c.isGroup && c!==ark){
+                // clouds drift very slowly — only the cloud layer group
+            }
+        });
+
+        renderer.render(scene, camera);
+    }
+
+    // fix unicode minus chars that can sneak in
+    window.onload = init;
+    </script>
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Holy Week — Educational Holy Week Game</title>
+  <meta name="description"
+    content="A mobile-first educational detective game. Collect clues, interview suspects and solve mysteries." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div id="app" role="main">
+
+    <!-- ══════════════ WORLD MAP ══════════════ -->
+    <div id="screen-map" class="screen active" aria-label="World Map">
+      <div class="app-header">
+        <div>
+          <div class="header-title">🔍 Holy Week</div>
+          <div class="header-subtitle" id="hdr-subtitle">Choose an location</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div class="header-rank" id="hdr-rank">Rookie</div>
+          <button class="a11y-btn" onclick="showScreen('a11y')" aria-label="Accessibility settings">♿</button>
+        </div>
+      </div>
+      <div class="map-scroll" role="list" aria-label="Locations">
+        <p class="map-intro" id="map-intro">Your detective agency has received reports from across the city. Where will
+          you investigate first?</p>
+        <div class="map-locations" id="map-locations"></div>
+      </div>
+      <div class="map-progress-bar" aria-label="Overall progress">
+        <span class="progress-label">Progress</span>
+        <div class="progress-track" role="progressbar" aria-label="Cases solved" aria-valuenow="0" aria-valuemin="0"
+          aria-valuemax="100" id="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+        <span class="progress-score" id="progress-score">0 pts</span>
+      </div>
+    </div>
+
+    <!-- ══════════════ CASE SELECT ══════════════ -->
+    <div id="screen-cases" class="screen" aria-label="Cases at location">
+      <div class="app-header">
+        <div>
+          <div class="header-title" id="cases-loc-name">Location</div>
+          <div class="header-subtitle">Choose a case</div>
+        </div>
+        <button class="a11y-btn" onclick="showScreen('a11y')" aria-label="Accessibility settings">♿</button>
+      </div>
+      <button class="back-btn" onclick="showScreen('map')" aria-label="Back to city map">← City Map</button>
+      <div class="cases-scroll" id="cases-scroll"></div>
+    </div>
+
+    <!-- ══════════════ INVESTIGATION ══════════════ -->
+    <div id="screen-investigation" class="screen" aria-label="Investigation">
+      <div class="app-header">
+        <div>
+          <div class="header-title" id="inv-case-title">Case</div>
+          <div class="header-subtitle" id="inv-case-sub"></div>
+        </div>
+        <button class="a11y-btn" onclick="showScreen('a11y')" aria-label="Accessibility settings">♿</button>
+      </div>
+      <button class="back-btn" onclick="showScreen('cases')" aria-label="Back to case list">← Cases</button>
+
+      <nav class="inv-tabs" role="tablist" aria-label="Investigation sections">
+        <button class="inv-tab active" role="tab" aria-selected="true" data-tab="scene" aria-controls="inv-scene"
+          onclick="switchInvTab('scene')">
+          <span class="inv-tab-icon" aria-hidden="true">🔎</span>Scene
+        </button>
+        <button class="inv-tab" role="tab" aria-selected="false" data-tab="lab" aria-controls="inv-lab"
+          onclick="switchInvTab('lab')">
+          <span class="inv-tab-icon" aria-hidden="true">🧪</span>Lab
+        </button>
+        <button class="inv-tab" role="tab" aria-selected="false" data-tab="people" aria-controls="inv-people"
+          onclick="switchInvTab('people')">
+          <span class="inv-tab-icon" aria-hidden="true">🗣</span>People
+        </button>
+        <button class="inv-tab" role="tab" aria-selected="false" data-tab="accuse" aria-controls="inv-accuse"
+          onclick="switchInvTab('accuse')">
+          <span class="inv-tab-icon" aria-hidden="true">⚖️</span>Accuse
+        </button>
+      </nav>
+
+      <div id="inv-scene" class="inv-view active" role="tabpanel" aria-label="Crime scene"></div>
+      <div id="inv-lab" class="inv-view" role="tabpanel" aria-label="Analysis lab"></div>
+      <div id="inv-people" class="inv-view" role="tabpanel" aria-label="People to interview">
+        <div id="npc-panel"></div>
+        <h3 class="section-title" style="margin-top:14px">Conversation</h3>
+        <div class="chat-feed" id="chat-feed" role="log" aria-live="polite" aria-label="Conversation log"></div>
+      </div>
+      <div id="inv-accuse" class="inv-view" role="tabpanel" aria-label="Make an accusation"></div>
+    </div>
+
+    <!-- ══════════════ RESULT ══════════════ -->
+    <div id="screen-result" class="screen" aria-label="Case result">
+      <div id="result-content"></div>
+    </div>
+
+    <!-- ══════════════ ACCESSIBILITY ══════════════ -->
+    <div id="screen-a11y" class="screen" aria-label="Accessibility settings">
+      <div class="app-header">
+        <div>
+          <div class="header-title">Accessibility</div>
+          <div class="header-subtitle">Adjust for your needs</div>
+        </div>
+      </div>
+      <button class="back-btn" id="a11y-back-btn" aria-label="Back">← Back</button>
+      <div class="a11y-scroll">
+
+        <div class="a11y-section-title">Vision</div>
+        <div class="a11y-row">
+          <div class="a11y-row-info">
+            <div class="a11y-row-label">👁 High Contrast</div>
+            <div class="a11y-row-desc">Stronger borders, brighter text</div>
+          </div>
+          <button class="toggle-btn" role="switch" aria-checked="false" data-feature="high_contrast"
+            aria-label="Toggle high contrast"></button>
+        </div>
+        <div class="a11y-row">
+          <div class="a11y-row-info">
+            <div class="a11y-row-label">🔠 Large Text</div>
+            <div class="a11y-row-desc">Increase text size throughout</div>
+          </div>
+          <button class="toggle-btn" role="switch" aria-checked="false" data-feature="large_text"
+            aria-label="Toggle large text"></button>
+        </div>
+
+        <div class="a11y-section-title">Hearing / Speech</div>
+        <div class="a11y-row">
+          <div class="a11y-row-info">
+            <div class="a11y-row-label">🔊 Read Aloud (TTS)</div>
+            <div class="a11y-row-desc">Speaks dialogue and results</div>
+          </div>
+          <button class="toggle-btn" role="switch" aria-checked="false" data-feature="tts"
+            aria-label="Toggle text to speech"></button>
+        </div>
+        <div class="a11y-row">
+          <div class="a11y-row-info">
+            <div class="a11y-row-label">🐢 Slow Speech</div>
+            <div class="a11y-row-desc">Slower reading speed</div>
+          </div>
+          <button class="toggle-btn" role="switch" aria-checked="false" data-feature="slow_speech"
+            aria-label="Toggle slow speech"></button>
+        </div>
+
+        <div class="a11y-section-title">Reading / Cognition</div>
+        <div class="a11y-row">
+          <div class="a11y-row-info">
+            <div class="a11y-row-label">📖 Simple Language</div>
+            <div class="a11y-row-desc">Uses easier, shorter words</div>
+          </div>
+          <button class="toggle-btn" role="switch" aria-checked="false" data-feature="simple_mode"
+            aria-label="Toggle simple language"></button>
+        </div>
+        <div class="a11y-row">
+          <div class="a11y-row-info">
+            <div class="a11y-row-label">⏸ Reduce Motion</div>
+            <div class="a11y-row-desc">Removes animations</div>
+          </div>
+          <button class="toggle-btn" role="switch" aria-checked="false" data-feature="reduce_motion"
+            aria-label="Toggle reduce motion"></button>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- #app -->
+
+  <script type="module">
+    import { CaseManager } from "./caseManager.js";
+    import { EvidenceSystem } from "./evidenceSystem.js";
+    import { NPCSystem } from "./npcSystem.js";
+    import { DeductionEngine } from "./deductionEngine.js";
+    import { LocationSystem } from "./locationSystem.js";
+    import { AccessibilityManager } from "./accessibility.js";
+    import { LabUI } from "./labUI.js";
+    import { ChatUI } from "./chatUI.js";
+    import { act1Case } from "./act1_case_improved.js";
+    import { act2Case } from "./act2_case_improved.js";
+    import { act3Case } from "./act3_case_improved.js";
+    import { act4Case } from "./act4_case_improved.js";
+
+    // ── Bootstrap ──────────────────────────────────────────────
+    const cm = new CaseManager();
+    cm.registerCase(act1Case);
+    cm.registerCase(act2Case);
+    cm.registerCase(act3Case);
+    cm.registerCase(act4Case);
+
+    const es = new EvidenceSystem(cm);
+    const ns = new NPCSystem(cm, es);
+    const de = new DeductionEngine(cm, es);
+    const ls = new LocationSystem(cm);
+    const a11y = new AccessibilityManager();
+
+    let labUI = null;
+    let chatUI = null;
+    let prevScreen = "map";
+
+    // ── Screen routing ──────────────────────────────────────────
+    window.showScreen = function (name) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      document.getElementById(`screen-${name}`).classList.add("active");
+      if (name === "map") renderMap();
+      if (name === "a11y") renderA11yToggles();
+    };
+
+    // ── Tab switching ───────────────────────────────────────────
+    window.switchInvTab = function (tab) {
+      document.querySelectorAll(".inv-tab").forEach(t => {
+        t.classList.toggle("active", t.dataset.tab === tab);
+        t.setAttribute("aria-selected", t.dataset.tab === tab);
+      });
+      document.querySelectorAll(".inv-view").forEach(v => v.classList.remove("active"));
+      document.getElementById(`inv-${tab}`).classList.add("active");
+
+      if (tab === "lab") renderLab();
+      if (tab === "people") renderPeople();
+      if (tab === "accuse") renderAccuse();
+      if (tab === "scene") renderScene();
+
+      a11y.announce(`${tab} tab open`);
+    };
+
+    // ── World Map ───────────────────────────────────────────────
+    function renderMap() {
+      const mapData = ls.getMapData();
+      const progress = cm.getProgress();
+      const total = cm.getAllCases().length;
+      const solved = Object.values(progress.cases).filter(p => p.solved).length;
+
+      document.getElementById("hdr-rank").textContent = progress.rank || "Rookie";
+      document.getElementById("progress-score").textContent = `${progress.totalScore || 0} pts`;
+      const pct = total ? Math.round((solved / total) * 100) : 0;
+      document.getElementById("progress-fill").style.width = pct + "%";
+      document.getElementById("progress-track").setAttribute("aria-valuenow", pct);
+
+      const container = document.getElementById("map-locations");
+      container.innerHTML = mapData.map(loc => {
+        const status = !loc.isUnlocked ? "locked" : loc.allSolved ? "solved" : "open";
+        const badge = loc.allSolved ? "✅" : loc.isUnlocked ? "🔍" : "🔒";
+        const statusText = { locked: "🔒 Locked — solve earlier cases", open: "🔍 Cases available", solved: "✅ All solved" }[status];
+        const ariaLabel = `${loc.name}. ${loc.region}. ${statusText}`;
+        return `
+      <div
+        class="location-card ${status}"
+        role="listitem"
+        ${loc.isUnlocked ? `tabindex="0" aria-label="${ariaLabel}" onclick="openLocation('${loc.id}')" onkeydown="if(event.key==='Enter'||event.key===' ')openLocation('${loc.id}')"` : `aria-label="${ariaLabel}" aria-disabled="true"`}
+      >
+        <div class="location-inner">
+          <div class="location-icon" aria-hidden="true">${loc.icon}</div>
+          <div class="location-info">
+            <div class="location-name">${loc.name}</div>
+            <div class="location-region">${loc.region}</div>
+            <div class="location-fact">${loc.fact}</div>
+            <div class="location-status ${status}">${statusText}</div>
+          </div>
+        </div>
+        <div class="location-badge" aria-hidden="true">${badge}</div>
+      </div>`;
+      }).join("");
+    }
+
+    window.openLocation = function (locId) {
+      const loc = ls.travelTo(locId);
+      if (!loc) return;
+      prevScreen = "map";
+
+      document.getElementById("cases-loc-name").textContent = `${loc.icon} ${loc.name}`;
+      const cases = ls.getUnlockedCasesAtLocation(locId);
+      const scroll = document.getElementById("cases-scroll");
+
+      scroll.innerHTML = `
+    <div class="location-header">
+      <div class="location-header-icon" aria-hidden="true">${loc.icon}</div>
+      <div>
+        <div class="location-header-name">${loc.name}</div>
+        <div class="location-header-ambiance">${loc.ambiance}</div>
+      </div>
+    </div>
+    <div class="location-fact-box">📚 ${loc.fact}</div>
+    ${cases.map(c => {
+        const prog = cm.getCaseProgress(c.id);
+        const solved = prog?.solved;
+        const score = prog?.score?.total;
+        return `
+        <div
+          class="case-card ${solved ? 'solved' : ''}"
+          tabindex="0"
+          role="button"
+          aria-label="${c.title}: ${c.subtitle}. ${solved ? 'Solved' : 'Open'}."
+          onclick="startCase('${c.id}')"
+          onkeydown="if(event.key==='Enter'||event.key===' ')startCase('${c.id}')"
+        >
+          <div class="case-title">${c.title}</div>
+          <div class="case-subtitle">${c.subtitle}</div>
+          <div class="case-meta">
+            <div class="difficulty-dots" aria-label="Difficulty: ${c.difficulty} of 3">
+              ${[1, 2, 3].map(d => `<div class="dot ${d <= c.difficulty ? 'filled' : ''}" aria-hidden="true"></div>`).join("")}
+            </div>
+            <span class="case-status-label ${solved ? 'solved' : 'open'}">
+              ${solved ? `✅ Solved — ${score} pts` : "🔍 Open"}
+            </span>
+          </div>
+        </div>`;
+      }).join("")}
+  `;
+
+      showScreen("cases");
+    };
+
+    // ── Start Case ──────────────────────────────────────────────
+    window.startCase = function (caseId) {
+      cm.startCase(caseId);
+      const c = cm.getCase(caseId);
+      es.loadCase(c);
+      ns.loadCase(c);
+      de.loadCase();
+
+      labUI = new LabUI(de, es, a11y, onLabAction);
+      chatUI = new ChatUI(ns, es, a11y, onChatAction);
+
+      chatUI.addSystem(c.intro);
+
+      document.getElementById("inv-case-title").textContent = c.title;
+      document.getElementById("inv-case-sub").textContent = c.subtitle;
+
+      switchInvTab("scene");
+      renderScene();
+      showScreen("investigation");
+      prevScreen = "cases";
+      a11y.speak(`Case started: ${c.title}. ${c.intro}`);
+    };
+
+    // ── Scene ───────────────────────────────────────────────────
+    function renderScene() {
+      const c = cm.getActiveCase();
+      if (!c) return;
+      const view = document.getElementById("inv-scene");
+      const pct = es.getCompletionPercent();
+
+      view.innerHTML = `
+    <p class="scene-intro" aria-live="polite">${a11y.simplify(c.intro)}</p>
+    <p class="collection-progress" role="status">Clues found: ${es.getCollected().length} / ${es.getEvidencePool().length}</p>
+    <h2 class="section-title">Evidence at Scene</h2>
+    <div class="evidence-grid" role="list" aria-label="Evidence at scene">
+      ${c.evidencePool.map(e => {
+        const collected = es.collected.includes(e.id);
+        return `
+          <div
+            class="evidence-card ${collected ? 'collected' : ''}"
+            role="listitem"
+            tabindex="0"
+            aria-label="${e.name}, ${a11y.evidenceTypeLabel(e.type)}: ${e.desc}. ${collected ? 'Collected' : 'Tap to collect'}"
+            onclick="collectEvidence('${e.id}')"
+            onkeydown="if(event.key==='Enter'||event.key===' ')collectEvidence('${e.id}')"
+          >
+            <div class="evidence-card-icon" aria-hidden="true">${e.icon}</div>
+            <div class="evidence-card-name">${e.name}</div>
+            <div class="evidence-card-type">${a11y.evidenceTypeLabel(e.type)}</div>
+            ${!collected ? `<div class="evidence-card-new" aria-hidden="true">Tap</div>` : ""}
+          </div>`;
+      }).join("")}
+    </div>
+  `;
+    }
+
+    window.collectEvidence = function (evidenceId) {
+      const e = es.getById(evidenceId);
+      if (!e) return;
+      const isNew = es.discover(evidenceId);
+      renderScene();
+
+      // Show detail
+      const view = document.getElementById("inv-scene");
+      let detail = view.querySelector(".evidence-detail");
+      if (detail) detail.remove();
+
+      detail = document.createElement("div");
+      detail.className = "evidence-detail";
+      detail.setAttribute("role", "status");
+      detail.setAttribute("aria-live", "polite");
+      detail.setAttribute("aria-label", `${e.name}: ${e.desc}. Found at ${e.location}`);
+      detail.innerHTML = `
+    <div class="evidence-detail-header">
+      <div class="evidence-detail-icon" aria-hidden="true">${e.icon}</div>
+      <div>
+        <div class="evidence-detail-name">${e.name}</div>
+        <div class="evidence-detail-location">📍 ${e.location}</div>
+      </div>
+    </div>
+    <div class="evidence-detail-desc">${a11y.simplify(e.desc)}</div>
+  `;
+      view.appendChild(detail);
+
+      if (isNew) a11y.speak(`New evidence: ${e.name}. ${e.desc}`);
+      else a11y.speak(`${e.name}: ${e.desc}`);
+    };
+
+    // ── Lab ─────────────────────────────────────────────────────
+    function renderLab() {
+      const view = document.getElementById("inv-lab");
+      view.innerHTML = labUI.render();
+      labUI.bindEvents(view);
+    }
+
+    function onLabAction(result) {
+      if (result.type !== "selection") renderLab();
+      else renderLab();
+    }
+
+    // ── People ───────────────────────────────────────────────────
+    function renderPeople() {
+      const npcPanel = document.getElementById("npc-panel");
+      const chatFeed = document.getElementById("chat-feed");
+      npcPanel.innerHTML = chatUI.renderNPCPanel();
+      chatFeed.innerHTML = chatUI.renderFeed();
+      chatUI.bindNPCEvents(npcPanel, chatFeed);
+    }
+
+    function onChatAction() {
+      renderPeople();
+    }
+
+    // ── Accuse ───────────────────────────────────────────────────
+    function renderAccuse() {
+      const c = cm.getActiveCase();
+      if (!c) return;
+      const view = document.getElementById("inv-accuse");
+      view.innerHTML = `
+    <div class="accuse-panel" role="region" aria-label="Make an accusation">
+      <div class="accuse-title">⚖️ Make Your Accusation</div>
+      <div class="accuse-subtitle">Choose carefully — you cannot undo this.</div>
+      <div class="suspect-list" role="list">
+        ${c.suspects.map(s => `
+          <button
+            class="suspect-btn"
+            role="listitem"
+            aria-label="Accuse ${s.name}, ${s.role}"
+            onclick="accuse('${s.id}')"
+          >
+            <span class="suspect-btn-avatar" aria-hidden="true">${s.avatar}</span>
+            <div class="suspect-btn-info">
+              <div class="suspect-btn-name">${s.name}</div>
+              <div class="suspect-btn-role">${s.role}</div>
+            </div>
+            <span aria-hidden="true">→</span>
+          </button>`).join("")}
+      </div>
+    </div>
+  `;
+    }
+
+    window.accuse = function (suspectId) {
+      const result = cm.submitAccusation(suspectId);
+      if (!result) return;
+      renderResult(result);
+      showScreen("result");
+      a11y.speak(result.correct
+        ? `Correct! You solved the case!`
+        : `Wrong accusation. The real culprit was ${result.truth.culprit}.`
+        , "assertive");
+    };
+
+    function renderResult(result) {
+      const c = cm.getActiveCase();
+      document.getElementById("result-content").innerHTML = `
+    <div class="result-card">
+      <div class="result-verdict" aria-hidden="true">${result.correct ? "🏆" : "❌"}</div>
+      <div class="result-verdict-text ${result.correct ? 'correct' : 'wrong'}" role="heading" aria-level="1">
+        ${result.correct ? "Case Solved!" : "Wrong Accusation"}
+      </div>
+      <div class="result-truth">
+        <strong>The truth:</strong> ${a11y.simplify(c.truth.motive)} ${a11y.simplify(c.truth.method)}
+      </div>
+      <div class="result-lesson" aria-label="What you learned">
+        📚 ${a11y.simplify(c.truth.lesson)}
+      </div>
+      <div class="score-grid" aria-label="Your score breakdown">
+        <div class="score-item"><div class="score-item-value">${result.score.evidence}</div><div class="score-item-label">Evidence</div></div>
+        <div class="score-item"><div class="score-item-value">${result.score.deduction}</div><div class="score-item-label">Deductions</div></div>
+        <div class="score-item"><div class="score-item-value">${result.score.total}</div><div class="score-item-label">Total</div></div>
+      </div>
+      <button class="result-continue-btn" onclick="showScreen('map')" aria-label="Continue to world map">Continue →</button>
+    </div>
+  `;
+    }
+
+    // ── A11y panel ───────────────────────────────────────────────
+    document.getElementById("a11y-back-btn").onclick = () => showScreen(prevScreen || "map");
+
+    function renderA11yToggles() {
+      const settings = a11y.getAll();
+      document.querySelectorAll(".toggle-btn[data-feature]").forEach(btn => {
+        const on = !!settings[btn.dataset.feature];
+        btn.setAttribute("aria-pressed", String(on));
+        btn.setAttribute("aria-checked", String(on));
+      });
+    }
+
+    document.querySelectorAll(".toggle-btn[data-feature]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const on = a11y.toggle(btn.dataset.feature);
+        btn.setAttribute("aria-pressed", String(on));
+        btn.setAttribute("aria-checked", String(on));
+      });
+    });
+
+    // ── Init ─────────────────────────────────────────────────────
+    renderMap();
+    a11y.announce("Detective World loaded. Choose a location to begin.");
+
+    // expose helpers to global scope for onclick attrs
+    window.a11y = a11y;
+  </script>
+</body>
+
+</html>

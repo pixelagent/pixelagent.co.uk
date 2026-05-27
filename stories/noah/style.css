@@ -1,0 +1,75 @@
+:root {
+    /* Palette 1: Sea Green (Storm & Flood) */
+    --sea-deep: #0e2f2f;
+    --sea-mist: #20b2aa;
+    
+    /* Palette 2: Desert (Ararat & Covenant) */
+    --desert-sand: #edc9af;
+    --desert-sun: #cc7722;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #000;
+}
+
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#ui-layer {
+    position: relative;
+    z-index: 10;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10%;
+    pointer-events: none;
+    transition: background 1.5s ease-in-out;
+}
+
+.content-box {
+    width: 400px;
+    background: rgba(0,0,0,0.6);
+    padding: 2rem;
+    border-radius: 15px;
+    pointer-events: auto;
+    backdrop-filter: blur(5px);
+}
+
+.placeholder-box {
+    width: 100%;
+    height: 200px;
+    border: 1px dashed #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    font-size: 0.9rem;
+    padding: 10px;
+}
+
+.navigation {
+    margin-top: 20px;
+    pointer-events: auto;
+}
+
+.hidden { display: none; }
+
+button {
+    background: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+}

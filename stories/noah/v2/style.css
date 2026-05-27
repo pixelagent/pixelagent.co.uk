@@ -1,0 +1,48 @@
+body, html {
+    margin: 0; padding: 0; width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #000; color: white; scroll-behavior: smooth;
+}
+
+#canvas-container {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 10; pointer-events: none;
+}
+
+#scroll-content {
+    position: relative; z-index: 11;
+}
+
+.chapter {
+    position: relative; height: 100vh;
+    display: flex; flex-direction: column;
+    padding: 5%; box-sizing: border-box;
+    background-size: cover; background-position: center; background-attachment: fixed;
+}
+
+.chapter::before {
+    content: ""; position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5); z-index: 1;
+}
+
+.content-box {
+    position: relative; z-index: 2;
+    width: 420px; max-width: 90vw;
+    background: rgba(0, 0, 0, 0.7); padding: 2.5rem;
+    border-radius: 15px; backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.content-box h1 { margin-top: 0; font-size: 2rem; color: #f0d99a; }
+.content-box p { line-height: 1.6; font-size: 1.1rem; }
+
+/* Text Alignment Classes */
+.pos-top-left { justify-content: flex-start; align-items: flex-start; }
+.pos-center-left { justify-content: center; align-items: flex-start; }
+.pos-bottom-left { justify-content: flex-end; align-items: flex-start; }
+.pos-top-right { justify-content: flex-start; align-items: flex-end; text-align: right; }
+.pos-center-right { justify-content: center; align-items: flex-end; text-align: right; }
+.pos-bottom-right { justify-content: flex-end; align-items: flex-end; text-align: right; }
+.pos-center-center { justify-content: center; align-items: center; text-align: center; }
+.pos-top-center { justify-content: flex-start; align-items: center; text-align: center; }
