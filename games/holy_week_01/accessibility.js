@@ -8,6 +8,7 @@ export class AccessibilityManager {
     this.highContrast = false;
     this.simpleMode = false;
     this.largeText = false;
+    this.soundEnabled = true; // default sound on
     this._ensureLiveRegion();
     this._bindKeyboard();
   }
@@ -98,6 +99,15 @@ export class AccessibilityManager {
 
   toggleLargeText() { this.enableLargeText(!this.largeText); }
 
+  // ── SOUND EFFECTS ───────────────────────────────────────
+  enableSound(enabled) {
+    this.soundEnabled = enabled;
+    this.announce(enabled ? 'Sound effects on' : 'Sound effects off');
+    localStorage.setItem('a11y-sound', enabled);
+  }
+
+  toggleSound() { this.enableSound(!this.soundEnabled); }
+
   // ── KEYBOARD NAVIGATION ───────────────────────────────
   _bindKeyboard() {
     document.addEventListener('keydown', (e) => {
@@ -157,6 +167,10 @@ export class AccessibilityManager {
     if (localStorage.getItem('a11y-contrast') === 'true') this.enableHighContrast(true);
     if (localStorage.getItem('a11y-simple')   === 'true') this.enableSimpleMode(true);
     if (localStorage.getItem('a11y-large')    === 'true') this.enableLargeText(true);
+    const soundSaved = localStorage.getItem('a11y-sound');
+    if (soundSaved !== null) {
+      this.enableSound(soundSaved === 'true');
+    }
   }
 
   // ── TOOLBAR RENDERER ─────────────────────────────────
@@ -252,6 +266,7 @@ export class AccessibilityManager {
       high_contrast: this.highContrast,
       large_text: this.largeText,
       tts: this.ttsEnabled,
+      sound: this.soundEnabled,
       slow_speech: false,
       simple_mode: this.simpleMode,
       reduce_motion: false
@@ -263,6 +278,7 @@ export class AccessibilityManager {
       high_contrast: () => this.toggleHighContrast(),
       large_text: () => this.toggleLargeText(),
       tts: () => this.toggleTTS(),
+      sound: () => this.toggleSound(),
       slow_speech: () => {},
       simple_mode: () => this.toggleSimpleMode(),
       reduce_motion: () => {}

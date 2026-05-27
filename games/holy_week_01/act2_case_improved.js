@@ -4,13 +4,15 @@
 // PROPHECY: Exodus 12, Jeremiah 31:31–34, Psalm 41:9, Zechariah 11:12–13
 // ============================================================
 
-export const act2Case = {
+export const act2CaseA = {
   id: "last_supper",
   title: "The Broken Cup",
   subtitle: "The Passover preparations in the upper room have been disturbed — and someone is hiding what they know.",
   location: "upperroom",
   difficulty: 3,
   requires: "triumphal_entry",
+    actLabel: "Act II",
+  color: 0x34d399,
 
   // ── BIBLICAL CONTEXT ──────────────────────────────────────────────
   biblicalContext: {
@@ -280,5 +282,125 @@ export const act2Case = {
     lesson: "Even the betrayal was prophesied. Psalm 41:9, Zechariah 11:12–13, and Isaiah 53:12 all pointed toward this moment centuries in advance. Jesus did not merely endure the betrayal — He identified it from Scripture, gave Judas one final act of grace (the honoured bread), and then let the plan of God proceed.",
     prophesyFulfilled: ["Psalm 41:9", "Zechariah 11:12–13", "Jeremiah 31:31–34", "Exodus 12:1–14", "Isaiah 53:12"],
     furtherReading: ["Matthew 26:17–30", "Mark 14:12–26", "Luke 22:7–23", "John 13:1–30", "1 Corinthians 11:23–26"],
+  },
+};
+
+
+// ============================================================
+// CASE: The Severed Ear  — difficulty 3 — Gethsemane
+// BIBLICAL FOCUS: Matthew 26:47–56, Mark 14:43–52, Luke 22:47–53, John 18:1–12
+// PROPHECY: Isaiah 53:7 | Zechariah 13:7
+// ============================================================
+
+export const act2CaseB = {
+  id: "gethsemane_arrest",
+  title: "The Severed Ear",
+  subtitle: "An armed mob entered Gethsemane under cover of darkness. A sword was drawn, yet the physical evidence makes no sense.",
+  location: "garden",
+  difficulty: 3,
+  requires: "last_supper",
+  actLabel: "Act II",
+  color: 0x34d399,
+  quest: { name: "Garden Search", task: "Locate tactical anomalies", cur: 0, tar: 7 },
+
+  biblicalContext: {
+    summary: `Late Thursday night, Judas led a cohort of Roman soldiers and temple officers to a private olive grove called Gethsemane. After identifying Jesus with a kiss, a scuffle broke out. Peter drew a short sword and cut off the ear of Malchus, the High Priest’s servant. Jesus immediately commanded Peter to put away his weapon, healed Malchus, and surrendered peacefully.`,
+    significance: `This case highlights Jesus's absolute control over His arrest. He prohibited violent revolution, healed His enemy, and protected His disciples from capture, fulfilling His own word that He would lose none of them.`,
+    historicalNote: `A Roman cohort combined with temple police shows a massive, coordinated security operation. The authorities expected armed resistance from Jesus's followers, making His peaceful surrender highly unexpected to military tacticians.`,
+  },
+
+  prophecies: [
+    {
+      reference: "Isaiah 53:7",
+      text: `"He was oppressed, and he was afflicted, yet he opened not his mouth; like a lamb that is led to the slaughter, and like a sheep that before its shearers is silent, so he opened not his mouth."`,
+      written: "~700 BC",
+      fulfilledBy: "Jesus refusing to defend Himself or let His disciples fight",
+      gospelLink: "Matthew 26:52–54",
+      insight: "Though armies of angels were at His call, He voluntarily submitted to human bonds to fulfill the redemptive plan.",
+    },
+  ],
+
+  evidencePool: [
+    {
+      id: "abandoned_linen",
+      name: "Abandoned Linen Wrapper",
+      type: "physical",
+      icon: "🧣",
+      pos: [3, 4],
+      snippet: "A fine linen garment left caught in an olive branch.",
+      description: "A high-quality linen cloak dropped in the brush, consistent with someone fleeing in an extreme hurry.",
+      propheticLink: "Mark 14:51–52 records a young man who followed Jesus wearing only a linen cloth. When seized, he left the cloth behind and fled naked.",
+      investigatorNote: "The high grade of the linen suggests the owner was from a wealthy Jerusalem family, potentially John Mark acting as a secret night observer.",
+    },
+    {
+      id: "dropped_torch",
+      name: "Extinguished Roman Torch",
+      type: "physical",
+      icon: "🪵",
+      pos: [-6, -2],
+      snippet: "A heavy pitch-pine torch block stamped with legionary markings.",
+      description: "A Roman military torch dropped and trampled into the mud. It was unlit when dropped, despite still having plenty of unburnt pitch.",
+      propheticLink: "John 18:3 notes they arrived with torches and lanterns, expecting a deep-woods manhunt.",
+      investigatorNote: "John 18:6 records that when Jesus stated 'I am he,' the entire detachment fell backward to the ground. This dropped torch marks the exact physical epicenter of that divine surge.",
+    },
+    {
+      id: "severed_ear_wrap",
+      name: "Bloodied Scarf Fragment",
+      type: "physical",
+      icon: "🩸",
+      pos: [1, -1],
+      snippet: "A head cloth heavily soaked in arterial blood, but cleanly cut.",
+      description: "A cloth bearing a distinct vertical slice from a sharp blade, heavily stained with blood, found directly on the garden path.",
+      propheticLink: "Luke 22:50–51 and John 18:10 document Peter cutting off Malchus's ear, which Jesus immediately healed.",
+      investigatorNote: "This provides the supreme paradox: there is dynamic arterial blood indicating an amputation, but no victim at the scene lacks an ear.",
+    },
+  ],
+
+  suspects: [
+    {
+      id: "malchus_servant",
+      name: "Malchus",
+      role: "High Priest's Personal Assistant",
+      avatar: "👨‍💼",
+      bibleRef: "John 18:10",
+      background: "The personal agent of Caiaphas, sent to oversee the temple police execution of the arrest warrant.",
+      dialogue: {
+        neutral: "The man surrendered cleanly. The arrest was successful. There is nothing more to discuss.",
+        cautious: "I... I felt the cold blade hit my neck. I heard the blood pooling. But then His hand touched me, and the pain vanished. Look at me... my skin is unbroken. Explain that to your records.",
+      },
+      contradictions: {
+        "dropped_torch+severed_ear_wrap": {
+          exposed: "Alright! Peter struck me. I should be disfigured, but Jesus repaired what His own disciple broke. I came to chain Him, and He healed me instead. That's why I did not order the arrest of the rest of the disciples."
+        },
+      },
+    },
+  ],
+
+  deductions: {
+    "abandoned_linen+dropped_torch": {
+      link: {
+        text: "The placement of the dropped torch and the abandoned linen show a split path of panic.",
+        insight: "While the arresting party was knocked off balance, the younger followers of Jesus scattered into the darkness in utter terror, leaving their belongings behind.",
+        isKey: false,
+        bibleRef: "Mark 14:50",
+      },
+    },
+    "dropped_torch+severed_ear_wrap": {
+      link: {
+        text: "The proximity of the weapon strike to the fallen military hardware suggests a sudden collision of kingdoms.",
+        insight: "Peter attempted a messy tactical defense, but Jesus immediately neutralized the violence by performing a medical miracle on the enemy commander.",
+        isKey: true,
+        bibleRef: "Luke 22:51",
+      },
+    },
+  },
+
+  truth: {
+    culprit: "none",
+    motive: "There was no military insurgency. Jesus submitted voluntarily, refusing to allow His disciples to mount an armed rebellion against the legal authorities.",
+    method: "Judas betrayed the location, and an armed force arrived. Peter panicked and struck Malchus. Jesus miraculously healed Malchus's ear on the spot, demanded peace, and surrendered Himself willingly to fulfill the Scriptures.",
+    lesson: "The kingdom of Jesus does not advance by carnal weapons. His voluntary surrender proves that His death was an act of deliberate obedience, not a tactical failure.",
+    prophesyFulfilled: ["Isaiah 53:7", "Zechariah 13:7"],
+    furtherReading: ["John 18:1–12", "Luke 22:47–53"],
   },
 };

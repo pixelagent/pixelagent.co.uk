@@ -4,13 +4,15 @@
 // PROPHECY: Zechariah 9:9 | Psalm 118:25–26 | Genesis 49:10–11
 // ============================================================
 
-export const act1Case = {
+export const act1CaseA = {
   id: "triumphal_entry",
   title: "The Missing Donkey",
   subtitle: "A borrowed donkey has gone missing from Bethphage — but is it theft, or something far greater?",
   location: "jerusalem",
   difficulty: 1,
   requires: null,
+  actLabel: "Act I",
+  color: 0x60a5fa,
 
   // ── BIBLICAL CONTEXT ──────────────────────────────────────────────
   biblicalContext: {
@@ -282,5 +284,133 @@ export const act1Case = {
     lesson: "The triumphal entry was a carefully orchestrated prophetic event, not a random arrival. Every detail — the donkey colt, the phrase given to the disciples, the unridden animal, the route, the crowd's response — connected to centuries of Scripture. What looked suspicious to an outsider was actually one of the most precisely predicted moments in history being fulfilled in real time.",
     prophesyFulfilled: ["Zechariah 9:9", "Psalm 118:25–26", "Genesis 49:10–11", "Malachi 3:1"],
     furtherReading: ["Matthew 21:1–11", "Mark 11:1–11", "Luke 19:28–44", "John 12:12–19"],
+  },
+};
+
+
+// ============================================================
+// CASE: The Overturned Tables  — difficulty 2 — Temple Cleansing
+// BIBLICAL FOCUS: Matthew 21:12–17, Mark 11:15–19, Luke 19:45–48, John 2:13–22
+// PROPHECY: Malachi 3:1 | Isaiah 56:7 | Jeremiah 7:11
+// ============================================================
+
+export const act1CaseB = {
+   id: "temple_cleansing",
+   title: "The Overturned Tables",
+   subtitle: "The Court of the Gentiles is in chaos. Merchant stands have been upended—was it a riot or a message?",
+   location: "jerusalem",
+   difficulty: 2,
+   requires: "triumphal_entry",
+  actLabel: "Act I",
+  color: 0x60a5fa,
+  quest: { name: "Temple Forensic Search", task: "Collect all evidence", cur: 0, tar: 7 },
+
+  biblicalContext: {
+    summary: `On Monday morning, Jesus entered the Temple courts and forcefully drove out those who were buying and selling. He overturned the tables of the moneychangers and the benches of those selling doves, declaring: "My house will be called a house of prayer, but you are making it a den of robbers."`,
+    significance: `By halting the commercial exploitation in the Court of the Gentiles, Jesus disrupted the high-priestly financial monopoly. More importantly, He acted out a prophetic sign of judgment against an institutional temple system that had locked out the nations from genuine prayer.`,
+    historicalNote: `The moneychangers exchanged common Roman and Greek coins for high-purity Tyrian shekels—the only currency accepted for the mandatory temple tax. The currency exchange rates and high costs of sacrificial animals created massive revenue for the Sadducean family of Annas.`,
+  },
+
+  prophecies: [
+    {
+      reference: "Malachi 3:1",
+      text: `"And the Lord whom you seek will suddenly come to his temple; and the messenger of the covenant in whom you delight, behold, he is coming, says the LORD of hosts."`,
+      written: "~430 BC",
+      fulfilledBy: "Jesus unexpectedly arriving to judge the temple's sacrificial practices",
+      gospelLink: "Matthew 21:12",
+      insight: "Malachi predicted the Messiah would come not as a political puppet for the temple establishment, but as a refining fire to purify it.",
+    },
+    {
+      reference: "Isaiah 56:7",
+      text: `"These I will bring to my holy mountain... for my house shall be called a house of prayer for all nations."`,
+      written: "~700 BC",
+      fulfilledBy: "Jesus clearing the outer court—the only area open to non-Jews",
+      gospelLink: "Mark 11:17",
+      insight: "By converting the Court of the Gentiles into a noisy, crowded marketplace, the leaders made it impossible for non-Jewish seekers to worship.",
+    },
+  ],
+
+  evidencePool: [
+    {
+      id: "broken_cages",
+      name: "Shattered Dove Cages",
+      type: "physical",
+      icon: "🕊️",
+      pos: [5, -3],
+      snippet: "Splintered wood and feathers littering the stone floor.",
+      description: "Benches belonging to dove-sellers were completely upended. Doves were the required offering for the poor who could not afford livestock.",
+      propheticLink: "Leviticus 5:7 allows doves as a concession for poverty. Exploiting this legal requirement for exorbitant commercial markups directly triggered Jesus's anger.",
+      investigatorNote: "The destruction was targeted. Only the commercial apparatus was overturned; the text notes He told the dove-sellers to 'take these things away,' showing controlled fury, not an out-of-control tantrum.",
+    },
+    {
+      id: "scattered_shekels",
+      name: "Scattered Tyrian Shekels",
+      type: "physical",
+      icon: "🪙",
+      pos: [-4, 8],
+      snippet: "Silver coins stamped with the face of Melqart.",
+      description: "Dozens of high-purity silver coins left abandoned in the dirt near the overturned tables of the moneychangers.",
+      propheticLink: "Exodus 30:13 required a half-shekel temple offering. The priests exploited this by mandating Tyrian shekels, forcing pilgrims to pay massive exchange fees.",
+      investigatorNote: "The fact that merchants left this silver behind in their rush to escape proves the authority and commanding presence Jesus exuded during the clearing.",
+    },
+    {
+      id: "whip_of_cords",
+      name: "Discarded Whip of Cords",
+      type: "physical",
+      icon: "🪢",
+      pos: [0, 2],
+      snippet: "A makeshift scourge braided out of common rushes.",
+      description: "A small, crudely fashioned whip woven from the floor-rushes used as bedding for cattle in the courtyard.",
+      propheticLink: "John 2:15 specifically details Him weaving this instrument on the spot before initiating the cleansing.",
+      investigatorNote: "A weapon made from reeds could not seriously injure a grown man. It was used as a symbolic driving tool for the livestock, signaling prophetic exile from the sacred space.",
+    },
+  ],
+
+  suspects: [
+    {
+      id: "merchant_jadan",
+      name: "Jadan of Bethphage",
+      role: "Temple Dove Vendor",
+      avatar: "👳",
+      bibleRef: "Matthew 21:12",
+      background: "A local trader licensed directly by the Sanhedrin to operate a booth inside the royal stOA.",
+      dialogue: {
+        neutral: "My entire inventory flew away into the rafters! Who is going to pay for my ruined cages?",
+        cautious: "The guards did nothing to stop Him. He had an intensity in His eyes that made the bravest men back away. No one dared raise a hand.",
+      },
+      contradictions: {
+        "broken_cages+whip_of_cords": {
+          exposed: "He didn't strike me with that whip. He used it to drive out the sheep and oxen. But when He looked at my table, He said I had turned His Father's house into a den of thieves. My conscience stung worse than any lash."
+        },
+      },
+    },
+  ],
+
+  deductions: {
+    "broken_cages+whip_of_cords": {
+      link: {
+        text: "The makeshift whip matches the scattered debris of the marketplace floor.",
+        insight: "Jesus manufactured the tool using the raw environment of the corruption itself—the bedding of the livestock—turning their own system against them.",
+        isKey: true,
+        bibleRef: "John 2:15",
+      },
+    },
+    "scattered_shekels+whip_of_cords": {
+      link: {
+        text: "The financial loss was immediate, yet no legal charges have been pressed by the victims.",
+        insight: "The merchants cannot complain to Roman law because their operation inside the Court of the Gentiles was legally dubious and religiously scandalous to the general public.",
+        isKey: false,
+        bibleRef: "Luke 19:47–48",
+      },
+    },
+  },
+
+  truth: {
+    culprit: "none",
+    motive: "There was no crime. Jesus acted within His rightful authority as the Son of God purifying His Father's house, executing a calculated prophetic sign.",
+    method: "Jesus entered the Court of the Gentiles, manufactured a symbolic whip out of local rushes, and cleared out the illegal and predatory commercial stands. The religious authorities were too paralyzed by His moral clarity and the support of the common crowds to arrest Him on the spot.",
+    lesson: "The temple cleansing showed that God values genuine, accessible worship for all people over cold, corrupt religious performance. It sealed Jesus's fate with the religious elite, who immediately began plotting His death.",
+    prophesyFulfilled: ["Malachi 3:1", "Isaiah 56:7", "Jeremiah 7:11"],
+    furtherReading: ["Mark 11:15–19", "John 2:13–22"],
   },
 };

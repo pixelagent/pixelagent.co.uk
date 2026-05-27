@@ -6,13 +6,15 @@
 // PROPHECY: Psalm 16:10, Hosea 6:2, Jonah 1:17/Matt 12:40, Isaiah 53:10–11
 // ============================================================
 
-export const act4Case = {
+export const act4CaseA = {
   id: "resurrection",
   title: "The Empty Tomb",
   subtitle: "The sealed tomb is open. The body is gone. The guards have fled. What happened on the third day?",
   location: "garden",
   difficulty: 3,
   requires: "last_supper",
+  actLabel: "Act IV",
+  color: 0xa78bfa,
 
   biblicalContext: {
     summary: `Early on Sunday morning, Nisan 17, three days after the crucifixion, Mary Magdalene came to the tomb in the garden near Golgotha. She found the stone rolled away, the tomb empty, and — according to John's Gospel — initially thought the body had been stolen (John 20:2). But as the morning unfolded, multiple witnesses reported encounters with a risen Jesus: first Mary Magdalene alone (John 20:11–18), then the other women (Matthew 28:9–10), then Peter (1 Corinthians 15:5), then two disciples on the Emmaus road (Luke 24:13–35), and finally the eleven apostles in a locked room (John 20:19–23).`,
@@ -280,5 +282,125 @@ export const act4Case = {
     lesson: "The resurrection is the cornerstone of Christian faith — and the most prophetically anticipated event in the Bible. Psalm 16:10, Hosea 6:2, Isaiah 53:10–11, Jonah 1:17, and Jesus's own three predictions all pointed to this morning. The evidence is not that everyone immediately believed — Peter was confused, Thomas doubted, the guards lied — but that the tomb remained empty, the body was never produced, and witnesses continued to report encounters with a risen Jesus despite having no earthly incentive to do so under Roman persecution.",
     prophesyFulfilled: ["Psalm 16:10", "Hosea 6:2", "Jonah 1:17 / Matthew 12:40", "Isaiah 53:10–11", "Psalm 22:1–31", "Isaiah 26:19"],
     furtherReading: ["Matthew 28:1–20", "Mark 16:1–8", "Luke 24:1–53", "John 20:1–21:25", "1 Corinthians 15:1–58", "Acts 2:22–36"],
+  },
+};
+
+
+// ============================================================
+// CASE: The Guard's Report  — difficulty 3 — The Roman Inquiry
+// BIBLICAL FOCUS: Matthew 28:11–15
+// PROPHECY: Psalm 2:1–4 | Matthew 12:40
+// ============================================================
+
+export const act4CaseB = {
+  id: "roman_inquiry",
+  title: "The Guard's Report",
+  subtitle: "A Roman guard detail has returned from the garden tomb with a story that breaks military law. What are they hiding?",
+  location: "antonia_fortress",
+  difficulty: 3,
+  requires: "resurrection",
+  actLabel: "Act IV",
+  color: 0xa78bfa,
+  quest: { name: "Interrogate the Legion", task: "Expose financial anomalies", cur: 0, tar: 7 },
+
+  biblicalContext: {
+    summary: `Following the supernatural opening of the tomb, members of the Roman guard detail rushed into the city. Instead of reporting directly to Pilate—which would mean immediate execution for losing a post—they went to the chief priests. The Sanhedrin gave the soldiers a large sum of money, instructing them to spread a cover story: "His disciples came during the night and stole him away while we were asleep."`,
+    significance: `This case exposes the extreme lengths to which the political apparatus went to manufacture a counter-narrative. The absurdity of the official cover story (witnessing a theft while completely unconscious) historically validates that the tomb was undeniably empty.`,
+    historicalNote: `Under Roman military discipline (*Disciplinam Militarem*), sleeping on watch or failing to guard a sealed state target carried the mandatory penalty of being beaten or executed by crucifixion. Soldiers would never confess to sleeping unless guaranteed absolute political immunity from the highest levels.`,
+  },
+
+  prophecies: [
+    {
+      reference: "Psalm 2:1–2",
+      text: `"Why do the nations conspire and the peoples plot in vain? The kings of the earth rise up and the rulers band together against the LORD and against his anointed."`,
+      written: "~1000 BC",
+      fulfilledBy: "The Roman military and Jewish Sanhedrin combining forces to suppress the resurrection",
+      gospelLink: "Matthew 28:12–14",
+      insight: "Human institutions frequently coordinate their efforts to lock down the truth, yet God laughs their conspiracies to scorn.",
+    },
+  ],
+
+  evidencePool: [
+    {
+      id: "bribe_shekels",
+      name: "High-Grade Sanctuary Coins",
+      type: "physical",
+      icon: "💰",
+      pos: [-2, 5],
+      snippet: "A heavy canvas pouch filled with pristine Temple shekels.",
+      description: "A large sum of silver coins found hidden inside a Roman legionary's standard gear locker inside the fortress. Roman soldiers were paid in imperial denarii, making this Jewish religious currency completely irregular.",
+      propheticLink: "Matthew 28:12 records that the chief priests met with the elders and devised a plan, giving the soldiers a 'large sum of money.'",
+      investigatorNote: "The high transaction value indicates this wasn't common marketplace spending money. This is institutional hush money directly from the treasury.",
+    },
+    {
+      id: "broken_imperial_seal",
+      name: "Snapped Clay Roman Seal",
+      type: "physical",
+      icon: "🏷️",
+      pos: [4, -2],
+      snippet: "Hardened clay fragments showing the stamp of the Roman Governor.",
+      description: "Pieces of the structural sealing clay that tied the chord across the tomb door, cleanly fractured and thrown into the dirt.",
+      propheticLink: "Matthew 27:66 notes they went and made the tomb secure by 'putting a seal on the stone and posting the guard.'",
+      investigatorNote: "To break this seal without authorization was a high treasonous offense against Caesar himself. No thief would carefully snap the clay and leave it behind; it bears signs of a violent, percussive structural displacement.",
+    },
+    {
+      id: "shattered_spear",
+      name: "Shattered Pilum Shaft",
+      type: "physical",
+      icon: "🗡️",
+      pos: [0, -4],
+      snippet: "An ash-wood Roman spear snapped cleanly down the middle.",
+      description: "A heavy legionary spear fractured by clean kinetic force, left behind in the garden grass near the shifted rock.",
+      propheticLink: "Matthew 28:2 states there was a violent earthquake, for an angel of the Lord came down from heaven and rolled back the stone.",
+      investigatorNote: "This spear wasn't cut by a sword in combat; the wood fibers show high-impact compression failure, consistent with an external physical shockwave that knocked the sentries flat.",
+    },
+  ],
+
+  suspects: [
+    {
+      id: "sentry_lucas",
+      name: "Lucas of the Tenth Legion",
+      role: "Tomb Guard Sentry",
+      avatar: "💂",
+      bibleRef: "Matthew 28:13",
+      background: "A seasoned auxiliary legionary assigned to the special security detail stationed at the garden tomb.",
+      dialogue: {
+        neutral: "We fell asleep. The night was long. The disciples sneaked in like ghosts and robbed the place. That is our statement.",
+        cautious: "Look, if the Governor hears about this, my life is forfeit. But the High Priest promised that if this reaches Pilate's ears, they will satisfy him and keep us out of trouble. I'm just following orders.",
+      },
+      contradictions: {
+        "bribe_shekels+broken_imperial_seal": {
+          exposed: "You think a handful of unarmed galilean fishermen broke a Roman imperial seal while an elite unit slept right next to it? We didn't sleep! The ground split open, and a light like lightning blinded us. We woke up paralyzed, and the body was gone. The priests paid us to lie because the truth scares them to death!"
+        },
+      },
+    },
+  ],
+
+  deductions: {
+    "bribe_shekels+broken_imperial_seal": {
+      link: {
+        text: "The silver currency from the temple treasury directly connects to the broken security parameters of the Roman state.",
+        insight: "The Sanhedrin is actively financing the cover-up of a Roman security failure. This proves that an event occurred which both factions desperately need to hide from the public record.",
+        isKey: true,
+        bibleRef: "Matthew 28:11–12",
+      },
+    },
+    "broken_imperial_seal+shattered_spear": {
+      link: {
+        text: "The physical damage at the scene points to structural and environmental trauma, not a stealthy grave robbery.",
+        insight: "Thieves do not fracture weapons and shatter seals with concussive force while leaving the valuable burial linens perfectly intact inside.",
+        isKey: false,
+        bibleRef: "John 20:6–7",
+      },
+    },
+  },
+
+  truth: {
+    culprit: "none",
+    motive: "There was no grave robbery. The resurrection was a real, supernatural event that shattered the physical boundaries of the tomb, causing the guards to flee in terror.",
+    method: "God raised Jesus on the third morning, accompanied by an earthquake and an angelic manifestation. The terrified guards ran to the chief priests, who chose to bribe the soldiers to distribute a fabricated theft narrative to prevent a total collapse of their religious authority.",
+    lesson: "The existence of the bribe and the logical vulnerability of the official cover story serve as absolute legal confirmation of the empty tomb. The world's systems will spend any amount of silver to silence the reality of the resurrected King.",
+    prophesyFulfilled: ["Psalm 2:1–4", "Matthew 12:40"],
+    furtherReading: ["Matthew 28:11–15"],
   },
 };

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +15,9 @@
     rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+
 </head>
 
 <body>
@@ -29,7 +33,7 @@
         </div>
         <div style="display:flex;gap:8px;align-items:center">
           <div class="header-rank" id="hdr-rank">Rookie</div>
-          <button class="a11y-btn" onclick="showScreen('a11y')" aria-label="Accessibility settings">♿</button>
+          <button class="a11y-btn" id="a11y-btn-map" onclick="showScreen('a11y')" aria-label="Accessibility settings">♿</button>
         </div>
       </div>
       <div class="map-scroll" role="list" aria-label="Locations">
@@ -48,28 +52,28 @@
     </div>
 
     <!-- ══════════════ CASE SELECT ══════════════ -->
-    <div id="screen-cases" class="screen" aria-label="Cases at location">
-      <div class="app-header">
-        <div>
-          <div class="header-title" id="cases-loc-name">Location</div>
-          <div class="header-subtitle">Choose a case</div>
-        </div>
-        <button class="a11y-btn" onclick="showScreen('a11y')" aria-label="Accessibility settings">♿</button>
-      </div>
-      <button class="back-btn" onclick="showScreen('map')" aria-label="Back to city map">← City Map</button>
+     <div id="screen-cases" class="screen" aria-label="Cases at location">
+       <div class="app-header">
+         <div>
+           <div class="header-title" id="cases-loc-name">Location</div>
+           <div class="header-subtitle">Choose a case</div>
+         </div>
+         <button class="a11y-btn" id="a11y-btn-cases" onclick="showScreen('a11y')" aria-label="Accessibility settings">♿</button>
+       </div>
+       <button class="back-btn" id="back-btn-map" onclick="showScreen('map')" aria-label="Back to city map">← City Map</button>
       <div class="cases-scroll" id="cases-scroll"></div>
     </div>
 
-    <!-- ══════════════ INVESTIGATION ══════════════ -->
-    <div id="screen-investigation" class="screen" aria-label="Investigation">
-      <div class="app-header">
-        <div>
-          <div class="header-title" id="inv-case-title">Case</div>
-          <div class="header-subtitle" id="inv-case-sub"></div>
-        </div>
-        <button class="a11y-btn" onclick="showScreen('a11y')" aria-label="Accessibility settings">♿</button>
-      </div>
-      <button class="back-btn" onclick="showScreen('cases')" aria-label="Back to case list">← Cases</button>
+     <!-- ══════════════ INVESTIGATION ══════════════ -->
+     <div id="screen-investigation" class="screen" aria-label="Investigation">
+       <div class="app-header">
+         <div>
+           <div class="header-title" id="inv-case-title">Case</div>
+           <div class="header-subtitle" id="inv-case-sub"></div>
+         </div>
+         <button class="a11y-btn" id="a11y-btn-investigation" onclick="showScreen('a11y')" aria-label="Accessibility settings">♿</button>
+       </div>
+       <button class="back-btn" id="back-btn-cases" onclick="showScreen('cases')" aria-label="Back to case list">← Cases</button>
 
       <nav class="inv-tabs" role="tablist" aria-label="Investigation sections">
         <button class="inv-tab active" role="tab" aria-selected="true" data-tab="scene" aria-controls="inv-scene"
@@ -152,6 +156,16 @@
             aria-label="Toggle slow speech"></button>
         </div>
 
+        <div class="a11y-row">
+          <div class="a11y-row-info">
+            <div class="a11y-row-label">🔊 Sound</div>
+            <div class="a11y-row-desc">Background ambience and effects</div>
+          </div>
+          <button class="toggle-btn" role="switch" aria-checked="false" data-feature="sound" aria-label="Toggle sound">
+            <i class="fas fa-volume-up" aria-hidden="true"></i>
+          </button>
+        </div>
+
         <div class="a11y-section-title">Reading / Cognition</div>
         <div class="a11y-row">
           <div class="a11y-row-info">
@@ -175,32 +189,56 @@
 
   </div><!-- #app -->
 
-  <script type="module">
-    import { CaseManager } from "./caseManager.js";
-    import { EvidenceSystem } from "./evidenceSystem.js";
-    import { NPCSystem } from "./npcSystem.js";
-    import { DeductionEngine } from "./deductionEngine.js";
-    import { LocationSystem } from "./locationSystem.js";
-    import { AccessibilityManager } from "./accessibility.js";
-    import { LabUI } from "./labUI.js";
-    import { ChatUI } from "./chatUI.js";
-    import { act1Case } from "./act1_case_improved.js";
-    import { act2Case } from "./act2_case_improved.js";
-    import { act3Case } from "./act3_case_improved.js";
-    import { act4Case } from "./act4_case_improved.js";
+   <script type="module">
+     import { CaseManager } from "./caseManager.js";
+     import { EvidenceSystem } from "./evidenceSystem.js";
+     import { NPCSystem } from "./npcSystem.js";
+     import { DeductionEngine } from "./deductionEngine.js";
+     import { LocationSystem } from "./locationSystem.js";
+     import { AccessibilityManager } from "./accessibility.js";
+     import { LabUI } from "./labUI.js";
+     import { ChatUI } from "./chatUI.js";
+     import { act1CaseA, act1CaseB } from "./act1_case_improved.js";
+     import { act2CaseA, act2CaseB } from "./act2_case_improved.js";
+     import { act3CaseA, act3CaseB } from "./act3_case_improved.js";
+     import { act4CaseA, act4CaseB } from "./act4_case_improved.js";
+      import { AudioManager } from "./audioManager.js";
 
-    // ── Bootstrap ──────────────────────────────────────────────
-    const cm = new CaseManager();
-    cm.registerCase(act1Case);
-    cm.registerCase(act2Case);
-    cm.registerCase(act3Case);
-    cm.registerCase(act4Case);
+      // ── Bootstrap ──────────────────────────────────────────────
+      const cm = new CaseManager();
+      cm.registerCase(act1CaseA);
+      cm.registerCase(act1CaseB);
+      cm.registerCase(act2CaseA);
+      cm.registerCase(act2CaseB);
+      cm.registerCase(act3CaseA);
+      cm.registerCase(act3CaseB);
+      cm.registerCase(act4CaseA);
+      cm.registerCase(act4CaseB);
 
-    const es = new EvidenceSystem(cm);
-    const ns = new NPCSystem(cm, es);
-    const de = new DeductionEngine(cm, es);
-    const ls = new LocationSystem(cm);
-    const a11y = new AccessibilityManager();
+      const a11y = new AccessibilityManager();
+      a11y.restorePreferences();
+
+      const es = new EvidenceSystem(cm);
+      const ns = new NPCSystem(cm, es);
+      const de = new DeductionEngine(cm, es);
+      const ls = new LocationSystem(cm);
+      const audio = new AudioManager();
+
+      // Connect audio manager to accessibility sound toggle
+      const originalToggle = a11y.toggle.bind(a11y);
+      a11y.toggle = function(feature) {
+        const result = originalToggle(feature);
+        if (feature === 'sound') {
+          audio.setEnabled(a11y.getAll().sound);
+        }
+        return result;
+      };
+
+       // Initialize audio state from accessibility settings
+       audio.setEnabled(a11y.getAll().sound);
+       // Start morning ambience by default
+       audio.playMorningAmbience();
+       window.audio = audio;
 
     let labUI = null;
     let chatUI = null;
@@ -288,31 +326,44 @@
       </div>
     </div>
     <div class="location-fact-box">📚 ${loc.fact}</div>
-    ${cases.map(c => {
-        const prog = cm.getCaseProgress(c.id);
-        const solved = prog?.solved;
-        const score = prog?.score?.total;
-        return `
-        <div
-          class="case-card ${solved ? 'solved' : ''}"
-          tabindex="0"
-          role="button"
-          aria-label="${c.title}: ${c.subtitle}. ${solved ? 'Solved' : 'Open'}."
-          onclick="startCase('${c.id}')"
-          onkeydown="if(event.key==='Enter'||event.key===' ')startCase('${c.id}')"
-        >
-          <div class="case-title">${c.title}</div>
-          <div class="case-subtitle">${c.subtitle}</div>
-          <div class="case-meta">
-            <div class="difficulty-dots" aria-label="Difficulty: ${c.difficulty} of 3">
-              ${[1, 2, 3].map(d => `<div class="dot ${d <= c.difficulty ? 'filled' : ''}" aria-hidden="true"></div>`).join("")}
-            </div>
-            <span class="case-status-label ${solved ? 'solved' : 'open'}">
-              ${solved ? `✅ Solved — ${score} pts` : "🔍 Open"}
-            </span>
-          </div>
-        </div>`;
-      }).join("")}
+    ${(() => {
+      const allCases = ls.getAllCasesAtLocation(locId);
+      const actGroups = {};
+      allCases.forEach(c => {
+        const act = c.actLabel || "Act I";
+        if (!actGroups[act]) actGroups[act] = [];
+        actGroups[act].push(c);
+      });
+      return Object.entries(actGroups).map(([act, actCases]) => `
+        <div class="act-section">
+          <div class="act-label">${act}</div>
+          ${actCases.map(c => {
+            const prog = cm.getCaseProgress(c.id);
+            const solved = prog?.solved;
+            const locked = c.isLocked;
+            const score = prog?.score?.total;
+            return `
+            <div
+              class="case-card ${solved ? 'solved' : ''} ${locked ? 'locked' : ''}"
+              tabindex="${locked ? '' : '0'}"
+              role="${locked ? 'article' : 'button'}"
+              aria-label="${c.title}: ${c.subtitle}. ${solved ? 'Solved' : locked ? 'Locked' : 'Open'}."
+              ${locked ? '' : `onclick="startCase('${c.id}')" onkeydown="if(event.key==='Enter'||event.key===' ')startCase('${c.id}')"`}
+            >
+              <div class="case-title">${c.title}</div>
+              <div class="case-subtitle">${c.subtitle}</div>
+              <div class="case-meta">
+                <div class="difficulty-dots" aria-label="Difficulty: ${c.difficulty} of 3">
+                  ${[1, 2, 3].map(d => `<div class="dot ${d <= c.difficulty ? 'filled' : ''}" aria-hidden="true"></div>`).join("")}
+                </div>
+                <span class="case-status-label ${solved ? 'solved' : locked ? 'locked' : 'open'}">
+                  ${solved ? `✅ Solved — ${score} pts` : locked ? "🔒 Locked" : "🔍 Open"}
+                </span>
+              </div>
+            </div>`;
+          }).join("")}
+        </div>`).join("");
+    })()}
   `;
 
       showScreen("cases");
@@ -326,8 +377,8 @@
       ns.loadCase(c);
       de.loadCase();
 
-      labUI = new LabUI(de, es, a11y, onLabAction);
-      chatUI = new ChatUI(ns, es, a11y, onChatAction);
+       labUI = new LabUI(de, es, a11y, onLabAction);
+       chatUI = new ChatUI(ns, es, a11y, onChatAction, audio);
 
       chatUI.addSystem(c.intro);
 
@@ -374,37 +425,38 @@
   `;
     }
 
-    window.collectEvidence = function (evidenceId) {
-      const e = es.getById(evidenceId);
-      if (!e) return;
-      const isNew = es.discover(evidenceId);
-      renderScene();
+     window.collectEvidence = function (evidenceId) {
+       const e = es.getById(evidenceId);
+       if (!e) return;
+       const isNew = es.discover(evidenceId);
+       renderScene();
 
-      // Show detail
-      const view = document.getElementById("inv-scene");
-      let detail = view.querySelector(".evidence-detail");
-      if (detail) detail.remove();
+       // Show detail
+       const view = document.getElementById("inv-scene");
+       let detail = view.querySelector(".evidence-detail");
+       if (detail) detail.remove();
 
-      detail = document.createElement("div");
-      detail.className = "evidence-detail";
-      detail.setAttribute("role", "status");
-      detail.setAttribute("aria-live", "polite");
-      detail.setAttribute("aria-label", `${e.name}: ${e.desc}. Found at ${e.location}`);
-      detail.innerHTML = `
-    <div class="evidence-detail-header">
-      <div class="evidence-detail-icon" aria-hidden="true">${e.icon}</div>
-      <div>
-        <div class="evidence-detail-name">${e.name}</div>
-        <div class="evidence-detail-location">📍 ${e.location}</div>
-      </div>
-    </div>
-    <div class="evidence-detail-desc">${a11y.simplify(e.desc)}</div>
-  `;
-      view.appendChild(detail);
+       detail = document.createElement("div");
+       detail.className = "evidence-detail";
+       detail.setAttribute("role", "status");
+       detail.setAttribute("aria-live", "polite");
+       detail.setAttribute("aria-label", `${e.name}: ${e.desc}. Found at ${e.location}`);
+       detail.innerHTML = `
+     <div class="evidence-detail-header">
+       <div class="evidence-detail-icon" aria-hidden="true">${e.icon}</div>
+       <div>
+         <div class="evidence-detail-name">${e.name}</div>
+         <div class="evidence-detail-location">📍 ${e.location}</div>
+       </div>
+     </div>
+     <div class="evidence-detail-desc">${a11y.simplify(e.desc)}</div>
+   `;
+       view.appendChild(detail);
 
-      if (isNew) a11y.speak(`New evidence: ${e.name}. ${e.desc}`);
-      else a11y.speak(`${e.name}: ${e.desc}`);
-    };
+       if (isNew) a11y.speak(`New evidence: ${e.name}. ${e.desc}`);
+       else a11y.speak(`${e.name}: ${e.desc}`);
+       audio.playCollect(); // Play sound for collecting item
+     };
 
     // ── Lab ─────────────────────────────────────────────────────
     function renderLab() {
@@ -413,10 +465,17 @@
       labUI.bindEvents(view);
     }
 
-    function onLabAction(result) {
-      if (result.type !== "selection") renderLab();
-      else renderLab();
-    }
+     function onLabAction(result) {
+       if (result.type !== "selection") {
+         // This is an operation result
+         if (result.error) {
+           audio.playError(); // Play error sound for failed operation
+         } else {
+           audio.playClue(); // Play clue sound for successful deduction
+         }
+       }
+       renderLab();
+     }
 
     // ── People ───────────────────────────────────────────────────
     function renderPeople() {
@@ -460,16 +519,19 @@
   `;
     }
 
-    window.accuse = function (suspectId) {
-      const result = cm.submitAccusation(suspectId);
-      if (!result) return;
-      renderResult(result);
-      showScreen("result");
-      a11y.speak(result.correct
-        ? `Correct! You solved the case!`
-        : `Wrong accusation. The real culprit was ${result.truth.culprit}.`
-        , "assertive");
-    };
+     window.accuse = function (suspectId) {
+       const result = cm.submitAccusation(suspectId);
+       if (!result) return;
+       renderResult(result);
+       showScreen("result");
+       if (result.correct) {
+         a11y.speak(`Correct! You solved the case!`, "assertive");
+         audio.playComplete(); // Play completion sound
+       } else {
+         a11y.speak(`Wrong accusation. The real culprit was ${result.truth.culprit}.`, "assertive");
+         audio.playError(); // Play error sound
+       }
+     };
 
     function renderResult(result) {
       const c = cm.getActiveCase();
@@ -498,30 +560,98 @@
     // ── A11y panel ───────────────────────────────────────────────
     document.getElementById("a11y-back-btn").onclick = () => showScreen(prevScreen || "map");
 
-    function renderA11yToggles() {
-      const settings = a11y.getAll();
-      document.querySelectorAll(".toggle-btn[data-feature]").forEach(btn => {
-        const on = !!settings[btn.dataset.feature];
-        btn.setAttribute("aria-pressed", String(on));
-        btn.setAttribute("aria-checked", String(on));
-      });
-    }
+     function renderA11yToggles() {
+       const settings = a11y.getAll();
+       document.querySelectorAll(".toggle-btn[data-feature]").forEach(btn => {
+         const on = !!settings[btn.dataset.feature];
+         btn.setAttribute("aria-pressed", String(on));
+         btn.setAttribute("aria-checked", String(on));
+         // Update sound button icon
+         if (btn.dataset.feature === 'sound') {
+           const icon = btn.querySelector('i');
+           if (icon) {
+             icon.className = on ? 'fas fa-volume-up' : 'fas fa-volume-mute';
+           }
+         }
+       });
+     }
 
-    document.querySelectorAll(".toggle-btn[data-feature]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const on = a11y.toggle(btn.dataset.feature);
-        btn.setAttribute("aria-pressed", String(on));
-        btn.setAttribute("aria-checked", String(on));
-      });
-    });
+     document.querySelectorAll(".toggle-btn[data-feature]").forEach(btn => {
+       btn.addEventListener("click", () => {
+         const on = a11y.toggle(btn.dataset.feature);
+         btn.setAttribute("aria-pressed", String(on));
+         btn.setAttribute("aria-checked", String(on));
+         // Update sound button icon
+         if (btn.dataset.feature === 'sound') {
+           const icon = btn.querySelector('i');
+           if (icon) {
+             icon.className = on ? 'fas fa-volume-up' : 'fas fa-volume-mute';
+           }
+         }
+       });
+     });
 
-    // ── Init ─────────────────────────────────────────────────────
-    renderMap();
-    a11y.announce("Detective World loaded. Choose a location to begin.");
+     // ── Init ─────────────────────────────────────────────────────
+     renderMap();
+     a11y.announce("Detective World loaded. Choose a location to begin.");
+     
+     // Add UI click sound to all buttons
+     document.addEventListener('click', function(e) {
+       if (e.target.tagName.toLowerCase() === 'button' || 
+           e.target.tagName.toLowerCase() === 'input' && 
+           (e.target.type === 'button' || e.target.type === 'submit')) {
+         // Play UI click sound
+         if (window.audio && typeof window.audio.play === 'function') {
+           try {
+             window.audio.play('talk'); // Using talk sound for UI clicks
+           } catch (err) {
+             // Silently fail if audio isn't ready yet
+           }
+         }
+       }
+     });
 
     // expose helpers to global scope for onclick attrs
     window.a11y = a11y;
   </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
 </body>
 
 </html>

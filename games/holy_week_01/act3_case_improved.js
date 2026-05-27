@@ -4,13 +4,15 @@
 // PROPHECY: Psalm 118:22–23, Malachi 3:1, Isaiah 5:1–7, Daniel 7:13–14
 // ============================================================
 
-export const act3Case = {
+export const act3CaseA = {
   id: "authority_challenged",
   title: "The Silenced Teacher",
   subtitle: "Three religious leaders have attempted to trap Jesus in His words — but who holds the real authority?",
   location: "temple",
   difficulty: 2,
   requires: "triumphal_entry",
+  actLabel: "Act III",
+  color: 0xf59e0b,
 
   biblicalContext: {
     summary: `On Tuesday morning, Nisan 12, Jesus returned to the Temple courts for His most intensive day of public teaching. The religious leadership — stung by the Temple cleansing the day before and alarmed by the growing crowds — mounted a coordinated series of challenges designed to discredit Him publicly. They sent Pharisees, Sadducees, Herodians, and scribes in waves. Each trap backfired. Each time, Jesus's answer not only escaped the trap but turned the tables, exposing the questioner's hypocrisy, ignorance, or bad faith. By afternoon, 'no one dared ask him any more questions' (Matthew 22:46).`,
@@ -259,3 +261,121 @@ export const act3Case = {
   },
 };
 
+// ============================================================
+// CASE: The Price of Life  — difficulty 2 — The Lazarus Conspiracy
+// BIBLICAL FOCUS: John 11:45–57, John 12:9–11
+// PROPHECY: Psalm 16:10 | Isaiah 25:8
+// ============================================================
+
+export const act3CaseB = {
+  id: "lazarus_plot",
+  title: "The Price of Life",
+  subtitle: "Rumors fly through the Temple that the high priests have issued an unlisted execution order for a man who committed no crime.",
+  location: "Temple",
+  difficulty: 2,
+  requires: "authority_challenged",
+  actLabel: "Act III",
+  color: 0xf59e0b,
+  quest: { name: "Track Sanhedrin Orders", task: "Intercept shadow documents", cur: 0, tar: 7 },
+
+  biblicalContext: {
+    summary: `Following the resurrection of Lazarus after four days in the tomb, a massive theological shift occurred in Jerusalem. Instead of celebrating, the chief priests and Pharisees called a council meeting, fearing Roman intervention. John 12:10 explicitly records that the chief priests made plans to put Lazarus to death as well, because on account of him, many Jews were putting their faith in Jesus.`,
+    significance: `This case exposes the moral bankruptcy of the corrupt religious leadership. To protect their political positions, they were willing to murder a living monument to God's resurrection power.`,
+    historicalNote: `The raising of Lazarus took place in Bethany, less than two miles from Jerusalem. Because it happened right before Passover, the city was filled with thousands of eyewitnesses and curious pilgrims trying to catch a glimpse of the resurrected man.`,
+  },
+
+  prophecies: [
+    {
+      reference: "Isaiah 25:8",
+      text: `"He will swallow up death forever; and the Lord GOD will wipe away tears from all faces, and the reproach of his people he will take away from all the earth."`,
+      written: "~700 BC",
+      fulfilledBy: "Jesus demonstrating complete authority over the grave at Bethany",
+      gospelLink: "John 11:25",
+      insight: "Lazarus’s revival was a tactical, localized preview of the ultimate cosmic victory over death that was about to occur on Easter morning.",
+    },
+  ],
+
+  evidencePool: [
+    {
+      id: "crowd_report",
+      name: "Bethany Pilgrim Manifest",
+      type: "analytical",
+      icon: "📜",
+      pos: [2, -6],
+      snippet: "A watchman's tally book monitoring the eastern gate traffic.",
+      description: "A log recording unprecedented human crowds leaving the city gates toward Bethany after dusk, specifically asking for the house of Simon the Leper.",
+      propheticLink: "John 12:9 notes that a large crowd found out Jesus was there and came not only because of Him, but also to see Lazarus, whom He had raised.",
+      investigatorNote: "The exponential growth of these crowd tallies explains the absolute state of panic inside the Sanhedrin chambers.",
+    },
+    {
+      id: "grave_dirt",
+      name: "Bethany Limestone Dust",
+      type: "physical",
+      icon: "🪨",
+      pos: [-3, 3],
+      snippet: "Trace white dust contaminated with heavy burial aloes.",
+      description: "Powdery white limestone scrapings mixed with residual traces of heavy myrrh and aloe resins, found dropped outside the high priest's council room.",
+      propheticLink: "John 11:39 notes that Lazarus had been dead four days, meaning the traditional aromatic burial preservation oils were heavily present.",
+      investigatorNote: "This dust indicates that witnesses from the actual tomb site in Bethany have been brought into the inner chambers of the Sanhedrin for intense interrogation.",
+    },
+    {
+      id: "secret_decree",
+      name: "Intercepted Sadducean Memorandum",
+      type: "analytical",
+      icon: "✉️",
+      pos: [0, 0],
+      snippet: "A sealed tablet bearing the administrative mark of the House of Annas.",
+      description: "A secure internal brief detailing political damage control. It outlines plans to quietly eliminate a 'destabilizing living asset' currently residing in Bethany.",
+      propheticLink: "John 12:10–11 explicitly validates this conspiracy: 'So the chief priests made plans to put Lazarus to death as well.'",
+      investigatorNote: "Murdering a resurrected man is a fascinating logical absurdity. It reveals that the leadership doesn't doubt the miracle occurred—they simply care more about their institutional control than God's reality.",
+    },
+  ],
+
+  suspects: [
+    {
+      id: "nicodemus_secret",
+      name: "Nicodemus",
+      role: "Conflicted Sanhedrin Member",
+      avatar: "👴",
+      bibleRef: "John 7:50–51, John 19:39",
+      background: "A ruler of the Jews who originally approached Jesus by night, now watching the legal framework collapse from within.",
+      dialogue: {
+        neutral: "Our council is supposed to be a vanguard of justice and Mosaic law. Yet, fear makes men blind to the light.",
+        cautious: "The decree is real. Caiaphas argued that it is better for one man to die for the nation. But they aren't stopping at one man anymore. They are trying to cover up the resurrection itself.",
+      },
+      contradictions: {
+        "crowd_report+secret_decree": {
+          exposed: "The more the people see Lazarus, the more our authority crumbles. The decree was rushed through without a full legal trial. I spoke against it, but they are driven by sheer preservation of power. Take that document and warn the family."
+        },
+      },
+    },
+  ],
+
+  deductions: {
+    "crowd_report+secret_decree": {
+      link: {
+        text: "The surge in pilgrim interest matches the exact timeline of the secret execution order.",
+        insight: "Lazarus didn't do anything political; his mere existence as a living miracle is the threat. The Sanhedrin must destroy the evidence of the miracle to neutralize the prophet.",
+        isKey: true,
+        bibleRef: "John 12:11",
+      },
+    },
+    "grave_dirt+secret_decree": {
+      link: {
+        text: "The forensic presence of burial scents inside the courthouse exposes their hypocrisy.",
+        insight: "The council knows the miracle was genuine. They verified the grave scents, yet chose to fight against the Author of Life to protect their alliance with Rome.",
+        isKey: false,
+        bibleRef: "John 11:48",
+      },
+    },
+  },
+
+  truth: {
+    culprit: "caiaphas",
+    motive: "The high priests feared that the massive public following caused by Lazarus's resurrection would spark a Roman military crackdown, destroying their temple and nation.",
+    method: "Caiaphas and his inner circle bypassed standard judicial procedures to authorize a shadow assassination plot against Lazarus of Bethany, aiming to eliminate the physical evidence of Jesus's greatest miracle before the Passover feast ended.",
+    lesson: "When humans value their religious systems over God's living truth, they end up trying to suppress and destroy the very life God creates. The plot against Lazarus mirrors the impending attempt to seal the tomb of Jesus.",
+    prophesyFulfilled: ["Isaiah 25:8", "Psalm 16:10"],
+    furtherReading: ["John 11:45–57", "John 12:9–11"],
+  },
+};

@@ -3,13 +3,14 @@
 // ============================================================
 
 export class ChatUI {
-  constructor(npcSystem, evidenceSystem, accessibility, onAction) {
+  constructor(npcSystem, evidenceSystem, accessibility, onAction, audioManager) {
     this.npcs  = npcSystem;
     this.es    = evidenceSystem;
     this.a11y  = accessibility;
     this.onAction = onAction;
+    this.audio = audioManager;
     this.messages = [];
-  }
+  } // Removed the extra closing brace that was here
 
   addMessage(speaker, text, type = "npc", extra = {}) {
     const msg = { speaker, text, type, extra, id: Date.now() };
@@ -103,6 +104,7 @@ export class ChatUI {
         const result = this.npcs.talk(btn.dataset.npc);
         if (result) {
           this.addMessage(result.speaker, result.text);
+          this.audio.playTalk(); 
           this._refreshFeed(feedContainer);
         }
       });

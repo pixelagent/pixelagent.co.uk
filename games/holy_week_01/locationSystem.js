@@ -1,21 +1,45 @@
 // ============================================================
 // LOCATION SYSTEM — world map, regions, unlocks, travel
 // ============================================================
-/*
-export const LOCATIONS = {
-  school: { id: "school", name: "🌿 Triumphal Entry into Jerusalem", region: "Jerusalem", icon: "🐴", color: "#60a5fa", fact: "Jesus entered Jerusalem riding on a donkey, fulfilling prophecy.", ambiance: "Crowds wave palm branches and shout 'Hosanna!'" },
-  museum: { id: "museum", name: "⛪ Cleansing of the Temple", region: "Jerusalem", icon: "🕍", color: "#f59e0b", fact: "Jesus drove out the money changers, declaring the Temple should be a house of prayer.", ambiance: "Tables overturned, coins scattered, and animals released." },
-  harbour: { id: "harbour", name: "🍷 The Last Supper", region: "Jerusalem", icon: "🍷", color: "#34d399", fact: "Jesus shared the Passover meal with his disciples and instituted the Lord's Supper.", ambiance: "The upper room is prepared with bread and wine." },
-  tech_district: { id: "tech_district", name: "✝️ The Resurrection", region: "Jerusalem", icon: "✨", color: "#a78bfa", fact: "Jesus rose from the dead on the third day, defeating death.", ambiance: "The tomb is empty, and angels announce Jesus is alive." }
-};
-*/
-const LOCATIONS = {
-  jerusalem: { id: "jerusalem", name: "🌿 Triumphal Entry into Jerusalem", region: "Jerusalem", icon: "🐴", color: "#60a5fa", fact: "Jesus entered Jerusalem riding on a donkey, fulfilling prophecy.", ambiance: "Crowds wave palm branches and shout 'Hosanna!'" },
-  temple: { id: "temple", name: "⛪ Cleansing of the Temple", region: "Jerusalem", icon: "🕍", color: "#f59e0b", fact: "Jesus drove out the money changers, declaring the Temple should be a house of prayer.", ambiance: "Tables overturned, coins scattered, and animals released." },
-  upperroom: { id: "upperroom", name: "🍷 The Last Supper", region: "Jerusalem", icon: "🍷", color: "#34d399", fact: "Jesus shared the Passover meal with his disciples and instituted the Lord's Supper.", ambiance: "The upper room is prepared with bread and wine." },
-  garden: { id: "garden", name: "✝️ The Resurrection", region: "Jerusalem", icon: "✨", color: "#a78bfa", fact: "Jesus rose from the dead on the third day, defeating death.", ambiance: "The tomb is empty, and angels announce Jesus is alive." }
-};
 
+const LOCATIONS = {
+  jerusalem: {
+    id: "jerusalem",
+    name: "🌿 Triumphal Entry into Jerusalem",
+    region: "Jerusalem",
+    icon: "🐴",
+    color: "#60a5fa",
+    fact: "Jesus entered Jerusalem riding on a donkey, fulfilling prophecy.",
+    ambiance: "Crowds wave palm branches and shout 'Hosanna!'"
+  },
+  temple: {
+    id: "temple",
+    name: "🕍 Temple Courts Confrontation",
+    region: "Jerusalem",
+    icon: "📜",
+    color: "#f59e0b",
+    fact: "Religious leaders attempted to trap Jesus with trick questions, but His wisdom silenced them completely.",
+    ambiance: "Crowds listening intently, murmuring scribes, and echoing debates in the outer courts."
+  },
+  upperroom: {
+    id: "upperroom",
+    name: "🍷 The Last Supper",
+    region: "Jerusalem",
+    icon: "🍷",
+    color: "#34d399",
+    fact: "Jesus shared the Passover meal with his disciples and instituted the New Covenant.",
+    ambiance: "The upper room is prepared with bread and wine."
+  },
+  garden: {
+    id: "garden",
+    name: "✝️ The Resurrection",
+    region: "Jerusalem",
+    icon: "✨",
+    color: "#a78bfa",
+    fact: "Jesus rose from the dead on the third day, defeating death.",
+    ambiance: "The tomb is empty, and angels announce Jesus is alive."
+  }
+};
 
 export class LocationSystem {
   constructor(caseManager) {
@@ -64,6 +88,20 @@ export class LocationSystem {
   }
 
   getUnlockedCasesAtLocation(locationId) {
-    return this.caseManager.getUnlockedCases().filter(c => c.location === locationId);
+    const unlockedIds = this.caseManager.getUnlockedCases().map(c => c.id);
+    const allCases = this.caseManager.getAllCases();
+    return allCases.filter(c => {
+      if (c.location !== locationId) return false;
+      return unlockedIds.includes(c.id);
+    });
+  }
+
+  getAllCasesAtLocation(locationId) {
+    const unlockedIds = this.caseManager.getUnlockedCases().map(c => c.id);
+    const allCases = this.caseManager.getAllCases();
+    return allCases.filter(c => c.location === locationId).map(c => ({
+      ...c,
+      isLocked: !unlockedIds.includes(c.id)
+    }));
   }
 }
