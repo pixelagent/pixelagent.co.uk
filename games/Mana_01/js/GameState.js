@@ -60,6 +60,8 @@ export const GameState = {
     dayManaCollected: 0, // Current basket for selling
     playerWaste: 0,
     playerWasteValue: 0,
+    dayWaterHealed: 0,  // health restored from water collectibles today (capped)
+    dayRestHealed: 0,   // health restored from rest collectibles today (capped)
   },
 
   // Wilderness Economy systems (tithe / Golden Calf / Bronze Serpent / Sabbath).

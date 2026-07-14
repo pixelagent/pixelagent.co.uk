@@ -485,6 +485,31 @@ createBirds() {
       this.game.scene.add(mana);
       this.game.manaPickups.push(mana);
     }
+
+    // Health-recovery collectibles at sacred places (see config.healthCollectibles).
+    this.spawnHealthPickups('water', this.game.waterPickups);
+    this.spawnHealthPickups('rest', this.game.restPickups);
+  }
+
+  spawnHealthPickups(type, targetArray) {
+    const cfg = gameConfig.gameplay.healthCollectibles[type];
+    if (!cfg) return;
+    const loc = this.game.locationSprites.find((s) => s.userData.name === cfg.location);
+    if (!loc) return;
+    const cx = loc.userData.targetX;
+    const cz = loc.userData.targetZ;
+    for (let i = 0; i < cfg.count; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 2 + Math.random() * cfg.spawnRadius;
+      const px = cx + Math.cos(angle) * dist;
+      const pz = cz + Math.sin(angle) * dist;
+      const py = this.game.getSurfaceHeight(px, pz) + gameConfig.scene.manaPickup.bobOffset;
+      const pickup = type === 'water'
+        ? this.createWaterPickup(px, py, pz)
+        : this.createRestPickup(px, py, pz);
+      this.game.scene.add(pickup);
+      targetArray.push(pickup);
+    }
   }
 
   createManaPickup(x, y, z) {
@@ -501,6 +526,26 @@ createBirds() {
       vz: (Math.random() - 0.5) * 0.02,
     };
     return mana;
+  }
+
+  createWaterPickup(x, y, z) {
+    // A small blue droplet — health restored at the Split Rock (waters from the rock).
+    const geometry = new THREE.SphereGeometry(0.42, 12, 12);
+    const material = new THREE.MeshPhongMaterial({ color: 0x3fb6ff, emissive: 0x1c6fb0, emissiveIntensity: 0.6 });
+    const drop = new THREE.Mesh(geometry, material);
+    drop.position.set(x, y, z);
+    drop.userData = { isHealthPickup: true, type: 'water' };
+    return drop;
+  }
+
+  createRestPickup(x, y, z) {
+    // A small green gem — rest restored at the Temple.
+    const geometry = new THREE.OctahedronGeometry(0.45, 0);
+    const material = new THREE.MeshPhongMaterial({ color: 0x8be36b, emissive: 0x3f8f2c, emissiveIntensity: 0.6 });
+    const rest = new THREE.Mesh(geometry, material);
+    rest.position.set(x, y, z);
+    rest.userData = { isHealthPickup: true, type: 'rest' };
+    return rest;
   }
 
   createTile(centerX, centerZ) {

@@ -11,11 +11,32 @@ export const config = {
   },
 
   gameplay: {
+    // Movement wears the player down slower than before (1 = original rate).
+    moveDrainScale: 0.3,
     healthPenaltyMultiplier: 1.2,
     healthBonusNoWaste: 8,
     healthPenaltyWasteMultiplier: 1.5,
     quotaDoubleDay6: 2,
     quotaDoubleDay7: 2,
+    // Health-recovery collectibles found at sacred places. Each type is capped
+    // per day so you can replenish at most ~10% of max health from water and
+    // ~10% from rest (≈20% combined). healthPer is per collectible.
+    healthCollectibles: {
+      water: {
+        location: 'Split Rock',
+        count: 6,
+        healthPer: 4,
+        dailyCapPct: 0.10,
+        spawnRadius: 9,
+      },
+      rest: {
+        location: 'Temple',
+        count: 6,
+        healthPer: 4,
+        dailyCapPct: 0.10,
+        spawnRadius: 9,
+      },
+    },
   },
 
   // Wilderness Economy (see docs/Wilderness_Economy_Systems_Revised.md).
@@ -85,6 +106,9 @@ export const config = {
 
   // Manna settings (defaults; real per-day counts/quotas come from the Tribe base profile * household modifier)
   manna: {
+    // Multiplier on how many manna pickups actually spawn each day, so there is
+    // plenty to find without changing the amount you need (quota).
+    spawnMultiplier: 2,
     count: {
       single: 35,
       couple: 50,

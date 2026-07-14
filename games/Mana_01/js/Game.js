@@ -78,6 +78,8 @@ export class Game {
 
     // Scene objects
     this.manaPickups = [];
+    this.waterPickups = [];
+    this.restPickups = [];
     this.locationSprites = [];
     this.obstacleColliders = [];
     this.birds = [];
@@ -429,7 +431,10 @@ export class Game {
     this.audioManager.play('click');
   }
 
-  toggleFaithPanel() {
+  toggleFaithPanel(e) {
+    // Stop the click from bubbling to the canvas/game world (defensive — the
+    // faith panel overlays part of the play area).
+    if (e && e.stopPropagation) e.stopPropagation();
     this.uiManager.toggleFaithPanel(this);
     this.audioManager.play('click');
   }
@@ -512,12 +517,13 @@ export class Game {
     document.getElementById('pauseBtn').addEventListener('click', () => this.togglePause());
     document.getElementById('mobileToggleBtn').addEventListener('click', () => this.toggleMobileControls());
 
-    const dayNightBtn = document.getElementById('dayNightBtn');
-    if (dayNightBtn) dayNightBtn.addEventListener('click', () => this.toggleDayNight());
-    const faithBtn = document.getElementById('faithBtn');
-    if (faithBtn) faithBtn.addEventListener('click', () => this.toggleFaithPanel());
-    const closeFaith = document.getElementById('closeFaith');
-    if (closeFaith) closeFaith.addEventListener('click', () => this.toggleFaithPanel());
+    // Use the deduplicating helper for these too, so repeated calls to
+    // setupUIEventListeners() (every state transition) don't stack listeners.
+    // Stacked listeners made a single click toggle the faith panel several
+    // times, often leaving it stuck open over the canvas/toolbar.
+    addClickListener('dayNightBtn', this.toggleDayNight);
+    addClickListener('faithBtn', this.toggleFaithPanel);
+    addClickListener('closeFaith', this.toggleFaithPanel);
 
     // Setup for buttons that trigger game state changes
     document.querySelectorAll('.btn-difficulty').forEach(btn => {
@@ -689,6 +695,7 @@ export class Game {
     // Combined profile: Tribe base settings modified by the chosen Household size.
     const tribe = this.getTribe();
     const mod = gameConfig.household[GameState.world.difficulty] || gameConfig.household.couple;
+    const spawnMult = gameConfig.manna.spawnMultiplier ?? 1;
     if (!tribe) {
       // Fallback if tribes failed to load.
       const legacy = {
@@ -696,12 +703,14 @@ export class Game {
         couple: { moveSpeed: gameConfig.player.moveSpeed.couple, manaCount: gameConfig.manna.count.couple, moveDrain: gameConfig.player.healthDrain.couple, quota: gameConfig.manna.quota.couple },
         family: { moveSpeed: gameConfig.player.moveSpeed.family, manaCount: gameConfig.manna.count.family, moveDrain: gameConfig.player.healthDrain.family, quota: gameConfig.manna.quota.family },
       };
-      return legacy[GameState.world.difficulty];
+      const profile = legacy[GameState.world.difficulty];
+      profile.manaCount = Math.max(1, Math.round(profile.manaCount * spawnMult));
+      return profile;
     }
     const s = tribe.settings;
     return {
       moveSpeed: s.moveSpeed * mod.moveSpeed,
-      manaCount: Math.max(1, Math.round(s.manaCount * mod.manaCount)),
+      manaCount: Math.max(1, Math.round(s.manaCount * mod.manaCount * spawnMult)),
       moveDrain: s.moveDrain * mod.moveDrain,
       quota: Math.max(1, Math.round(s.quota * mod.quota)),
       startMoney: s.startMoney,
@@ -879,6 +888,8 @@ export class Game {
     GameState.player.health = profile.startHealth;
     GameState.session.dayManaCollected = 0;
     GameState.session.dayManaGathered = 0;
+    GameState.session.dayWaterHealed = 0;
+    GameState.session.dayRestHealed = 0;
     GameState.player.money = gameConfig.player.initialMoney + (profile.startMoney || 0);
     GameState.market.manaSoldToday = 0;
     this.animationTime = 0;
@@ -1054,6 +1065,8 @@ export class Game {
     GameState.world.timeLeft = gameConfig.game.dayLength;
     GameState.session.dayManaCollected = 0;
     GameState.session.dayManaGathered = 0;
+    GameState.session.dayWaterHealed = 0;
+    GameState.session.dayRestHealed = 0;
     GameState.market.manaSoldToday = 0;
     this.clickTarget = null;
     this.updateManaQuota();
@@ -1061,6 +1074,10 @@ export class Game {
 
     this.manaPickups.forEach((p) => this.scene.remove(p));
     this.manaPickups = [];
+    this.waterPickups.forEach((p) => this.scene.remove(p));
+    this.waterPickups = [];
+    this.restPickups.forEach((p) => this.scene.remove(p));
+    this.restPickups = [];
 
     if (this.player) this.player.position.set(0, this.getSurfaceHeight(0, 0), 0);
     this.uiManager.hideAllModals();
@@ -1104,12 +1121,65 @@ export class Game {
     if (GameState.player.health <= 0) return;
     // On the Sabbath the journey wearies no one — no movement drain.
     if (this.wildernessManager && this.wildernessManager.isSabbath) return;
-    GameState.player.health = Math.max(0, GameState.player.health - settings.moveDrain);
+    const drain = settings.moveDrain * (gameConfig.gameplay.moveDrainScale ?? 1);
+    GameState.player.health = Math.max(0, GameState.player.health - drain);
     this.uiManager.updateHUD();
     if (GameState.player.health <= 0) {
       this.audioManager.play('hurt');
       this.gameOver();
     }
+  }
+
+  /**
+   * Restore health from a water/rest collectible, respecting a per-day cap so a
+   * single sacred place can't fully refill the bar. Returns the health actually
+   * gained (which may be 0 once the daily cap for that type is reached).
+   * @param {'water'|'rest'} type
+   */
+  applyHealthPickup(type) {
+    if (GameState.player.health <= 0) return 0;
+    const cfg = gameConfig.gameplay.healthCollectibles[type];
+    if (!cfg) return 0;
+    const maxHealth = gameConfig.player.initialHealth;
+    const cap = maxHealth * cfg.dailyCapPct;
+    const trackerKey = type === 'water' ? 'dayWaterHealed' : 'dayRestHealed';
+    const alreadyHealed = GameState.session[trackerKey];
+    const remaining = Math.max(0, cap - alreadyHealed);
+    if (remaining <= 0) return 0;
+    const gained = Math.min(cfg.healthPer, remaining);
+    GameState.player.health = Math.min(maxHealth, GameState.player.health + gained);
+    GameState.session[trackerKey] = alreadyHealed + gained;
+    this.uiManager.updateHUD();
+    return gained;
+  }
+
+  /** Bob/rotate and collect any water/rest pickups near the player. */
+  collectHealthPickups(pickups) {
+    return pickups.filter((p) => {
+      const pickupFloor = this.getSurfaceHeight(p.position.x, p.position.z) + gameConfig.scene.manaPickup.bobOffset;
+      p.position.y = pickupFloor + Math.sin(this.animationTime * gameConfig.scene.manaPickup.bobSpeed) * gameConfig.scene.manaPickup.bobAmount;
+      p.rotation.y += gameConfig.scene.manaPickup.rotationSpeed;
+
+      if (this.playerManager.player.position.distanceTo(p.position) < gameConfig.scene.manaPickup.pickupDistance) {
+        const type = p.userData.type;
+        const gained = this.applyHealthPickup(type);
+        const screenPos = p.position.clone().project(this.camera);
+        const screenX = (screenPos.x * 0.5 + 0.5) * window.innerWidth;
+        const screenY = (-screenPos.y * 0.5 + 0.5) * window.innerHeight;
+
+        if (!isNaN(screenX) && !isNaN(screenY)) {
+          const label = gained > 0 ? '+' + gained : 'Full';
+          const color = type === 'water' ? '#3fb6ff' : '#8be36b';
+          this.uiManager.createFloatingText(label, screenX, screenY, color);
+          this.uiManager.createStarBurst(screenX, screenY);
+        }
+
+        this.scene.remove(p);
+        this.audioManager.play('pickup');
+        return false;
+      }
+      return true;
+    });
   }
 
   animate() {
@@ -1173,6 +1243,11 @@ export class Game {
         }
         return true;
       });
+
+      // Water (Split Rock) and rest (Temple) collectibles restore health,
+      // each capped per day via applyHealthPickup().
+      this.waterPickups = this.collectHealthPickups(this.waterPickups);
+      this.restPickups = this.collectHealthPickups(this.restPickups);
     }
 
     if (this.player && this.camera) {
