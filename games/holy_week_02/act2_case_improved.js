@@ -5,11 +5,11 @@
 // ============================================================
 
 export const act2Case = {
-  id: "last_supper",
-  title: "The Broken Cup",
-  subtitle: "The Passover preparations in the upper room have been disturbed — and someone is hiding what they know.",
-  location: "upperroom",
-  difficulty: 3,
+  id: "authority_challenged",
+  title: "The Silenced Teacher",
+  subtitle: "Three religious leaders have attempted to trap Jesus in His words — but who holds the real authority?",
+  location: "Temple",
+  difficulty: 2,
   requires: "triumphal_entry",
 
   // ── BIBLICAL CONTEXT ──────────────────────────────────────────────

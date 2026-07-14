@@ -5,12 +5,12 @@
 // ============================================================
 
 export const act3Case = {
-  id: "authority_challenged",
-  title: "The Silenced Teacher",
-  subtitle: "Three religious leaders have attempted to trap Jesus in His words — but who holds the real authority?",
-  location: "Temple",
-  difficulty: 2,
-  requires: "triumphal_entry",
+  id: "last_supper",
+  title: "The Broken Cup",
+  subtitle: "The Passover preparations in the upper room have been disturbed — and someone is hiding what they know.",
+  location: "upperroom",
+  difficulty: 3,
+  requires: "authority_challenged",
 
   biblicalContext: {
     summary: `On Tuesday morning, Nisan 12, Jesus returned to the Temple courts for His most intensive day of public teaching. The religious leadership — stung by the Temple cleansing the day before and alarmed by the growing crowds — mounted a coordinated series of challenges designed to discredit Him publicly. They sent Pharisees, Sadducees, Herodians, and scribes in waves. Each trap backfired. Each time, Jesus's answer not only escaped the trap but turned the tables, exposing the questioner's hypocrisy, ignorance, or bad faith. By afternoon, 'no one dared ask him any more questions' (Matthew 22:46).`,
