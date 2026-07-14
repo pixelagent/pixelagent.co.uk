@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mana Collector - Vanilla JS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #000;
+            overflow: hidden;
+        }
+
+        #gameContainer {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        #canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+            z-index: 30;
+            font-size: 20px;
+        }
+
+        .hud-item {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .hud-time {
+            font-size: 28px;
+            color: #4488ff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .hud-sickness {
+            font-size: 16px;
+            color: #ff8888;
+        }
+
+        .health-bar-container {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            z-index: 30;
+        }
+
+        .health-bar-label {
+            text-align: center;
+            color: #fff;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .health-bar {
+            width: 100%;
+            height: 20px;
+            background: #333;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .health-bar-fill {
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .mobile-controls {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            z-index: 30;
+            display: grid;
+            grid-template-columns: repeat(3, 50px);
+            gap: 5px;
+        }
+
+        .arrow-btn {
+            padding: 10px;
+            font-size: 20px;
+            background: rgba(100, 200, 255, 0.7);
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .arrow-btn:active {
+            background: rgba(100, 200, 255, 0.9);
+        }
+
+        .modal {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            padding: 50px;
+            border-radius: 15px;
+            text-align: center;
+            color: #fff;
+            z-index: 100;
+            max-width: 600px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .modal h1 {
+            font-size: 56px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px #ff99cc;
+        }
+
+        .modal h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #ff99cc;
+        }
+
+        .modal p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .modal button {
+            padding: 15px 40px;
+            font-size: 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #ff99cc;
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: #ffaadd;
+            transform: scale(1.05);
+        }
+
+        .btn-difficulty {
+            background: #88ff88;
+            color: #000;
+            margin: 15px 5px;
+            padding: 20px;
+        }
+
+        .btn-difficulty.easy { background: #88ff88; }
+        .btn-difficulty.normal { background: #ffff88; }
+        .btn-difficulty.hard { background: #ff8888; }
+
+        .btn-difficulty:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-secondary {
+            background: #666;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: #777;
+        }
+
+        .character-selector {
+            margin-bottom: 40px;
+        }
+
+        .character-btn {
+            padding: 15px 30px;
+            font-size: 16px;
+            background: #333;
+            color: #fff;
+            border: 2px solid #666;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: capitalize;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+
+        .character-btn.selected {
+            background: #ff99cc;
+            border-color: #ff99cc;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .stat-item {
+            line-height: 1.8;
+        }
+
+        .day-number {
+            color: #ffff88;
+        }
+
+        .mana-count {
+            color: #4488ff;
+        }
+
+        .btn-continue {
+            background: #88ff88;
+            color: #000;
+        }
+
+        .btn-continue:hover {
+            background: #99ff99;
+        }
+
+        .btn-gameover {
+            background: #ff5555;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="canvas"></canvas>
+
+        <!-- HUD -->
+        <div class="hud" id="hud" style="display: none;">
+            <div class="hud-item">Score: <span id="score">0</span></div>
+            <div class="hud-time">Day <span id="day">1</span> - Time: <span id="time">60</span>s</div>
+            <div class="hud-sickness" id="sickness-display" style="display: none;">Sickness: <span id="sickness">0</span></div>
+        </div>
+
+        <!-- Health Bar -->
+        <div class="health-bar-container" id="healthBarContainer" style="display: none;">
+            <div class="health-bar-label">Health: <span id="healthValue">100</span>/100 - <span id="healthStatus">Well-rested</span></div>
+            <div class="health-bar">
+                <div class="health-bar-fill" id="healthBarFill" style="width: 100%; background: #88ff88;"></div>
+            </div>
+        </div>
+
+        <!-- Mobile Controls -->
+        <div class="mobile-controls" id="mobileControls" style="display: none;">
+            <div></div>
+            <button class="arrow-btn" id="btnUp">↑</button>
+            <div></div>
+            <button class="arrow-btn" id="btnLeft">←</button>
+            <button class="arrow-btn" id="btnDown">↓</button>
+            <button class="arrow-btn" id="btnRight">→</button>
+        </div>
+
+        <!-- Menu Modal -->
+        <div class="modal active" id="menuModal">
+            <h1>🌙 Mana Collector 🌙</h1>
+            <p>Survive in the desert! Collect mana each day but beware — collecting too much makes you sick!<br>Balance your health and your score across multiple days.</p>
+            <button class="btn-primary" onclick="game.showDifficultyScreen()">Start Game</button>
+        </div>
+
+        <!-- Difficulty Modal -->
+        <div class="modal" id="difficultyModal">
+            <h2>Select Difficulty & Character</h2>
+            
+            <div class="character-selector">
+                <h3 style="margin-bottom: 20px;">Character</h3>
+                <button class="character-btn selected" data-char="warrior" onclick="game.selectCharacter('warrior')">warrior</button>
+                <button class="character-btn" data-char="mage" onclick="game.selectCharacter('mage')">mage</button>
+                <button class="character-btn" data-char="rogue" onclick="game.selectCharacter('rogue')">rogue</button>
+            </div>
+
+            <h3 style="margin-bottom: 20px;">Difficulty</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 40px;">
+                <button class="btn-difficulty easy" onclick="game.startGame('easy')">
+                    <div>easy</div>
+                    <div style="font-size: 12px; margin-top: 5px;">Slower health drain, faster movement</div>
+                </button>
+                <button class="btn-difficulty normal" onclick="game.startGame('normal')">
+                    <div>normal</div>
+                    <div style="font-size: 12px; margin-top: 5px;">Balanced</div>
+                </button>
+                <button class="btn-difficulty hard" onclick="game.startGame('hard')">
+                    <div>hard</div>
+                    <div style="font-size: 12px; margin-top: 5px;">Faster health drain, slower movement</div>
+                </button>
+            </div>
+
+            <button class="btn-secondary" onclick="game.showMenu()">Back</button>
+        </div>
+
+        <!-- Day End Modal -->
+        <div class="modal" id="dayEndModal">
+            <h1 id="dayEndTitle" style="color: #ffff88;">Day 1 Complete!</h1>
+            
+            <div class="stats-grid">
+                <div class="stat-item">Mana Collected: <span id="dayManaCount">0</span></div>
+                <div class="stat-item">Daily Score: <span id="dayScore">0</span></div>
+                <div class="stat-item" style="color: #ff8888;">Sickness Taken: <span id="daySickness">0</span></div>
+                <div class="stat-item" style="color: #88ff88;">Health Recovery: +15</div>
+            </div>
+
+            <div style="margin-bottom: 30px; width: 100%;">
+                <div style="margin-bottom: 10px;">Health: <span id="dayHealth">100</span>/100 - <span id="dayHealthStatus">Well-rested</span></div>
+                <div style="width: 100%; height: 30px; background: #333; border: 2px solid #fff; border-radius: 15px; overflow: hidden;">
+                    <div id="dayHealthBar" style="width: 100%; height: 100%; background: #88ff88;"></div>
+                </div>
+            </div>
+
+            <button class="btn-continue" id="dayEndBtn" onclick="game.continueToNextDay()">Continue to Day 2</button>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div class="modal" id="gameOverModal">
+            <h1 style="color: #ff5555;">Game Over!</h1>
+            
+            <div style="font-size: 24px; margin-bottom: 40px; line-height: 1.8;">
+                <div style="color: #ffff88;">Final Score: <span id="finalScore">0</span></div>
+                <div style="color: #ff8888; margin-top: 20px;">Survived <span id="survivedDays">1</span> days</div>
+            </div>
+
+            <button class="btn-primary" onclick="game.showDifficultyScreen()">Try Again</button>
+            <button class="btn-secondary" onclick="game.showMenu()">Menu</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    <script>
+        // Game Manager
+        const game = {
+            // State
+            gameState: 'menu', // menu, difficulty, playing, dayEnd, gameOver
+            score: 0,
+            timeLeft: 60,
+            day: 1,
+            health: 100,
+            sickness: 0,
+            dayManaCollected: 0,
+            difficulty: 'normal',
+            selectedCharacter: 'warrior',
+            input: { up: false, down: false, left: false, right: false },
+            
+            // Three.js
+            scene: null,
+            camera: null,
+            renderer: null,
+            player: null,
+            animationTime: 0,
+            
+            // Audio
+            audioCtx: null,
+            
+            // References
+            particles: [],
+            floatingTexts: [],
+            manaPickups: [],
+            waterPickups: [],
+            powerUpPickups: [],
+            
+            // Initialize
+            init() {
+                this.createAudioContext();
+                this.setupEventListeners();
+                this.createThreeJsScene();
+                this.animate();
+            },
+
+            createAudioContext() {
+                this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            },
+
+            playSound(frequency, duration, type = 'sine') {
+                if (!this.audioCtx) return;
+                const ctx = this.audioCtx;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.frequency.value = frequency;
+                osc.type = type;
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
+
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + duration);
+            },
+
+            setupEventListeners() {
+                document.addEventListener('keydown', (e) => this.handleKeyDown(e));
+                document.addEventListener('keyup', (e) => this.handleKeyUp(e));
+                document.addEventListener('click', (e) => this.handleClick(e));
+
+                // Mobile controls
+                document.getElementById('btnUp').addEventListener('mousedown', () => this.input.up = true);
+                document.getElementById('btnUp').addEventListener('mouseup', () => this.input.up = false);
+                document.getElementById('btnDown').addEventListener('mousedown', () => this.input.down = true);
+                document.getElementById('btnDown').addEventListener('mouseup', () => this.input.down = false);
+                document.getElementById('btnLeft').addEventListener('mousedown', () => this.input.left = true);
+                document.getElementById('btnLeft').addEventListener('mouseup', () => this.input.left = false);
+                document.getElementById('btnRight').addEventListener('mousedown', () => this.input.right = true);
+                document.getElementById('btnRight').addEventListener('mouseup', () => this.input.right = false);
+
+                // Touch support
+                ['btnUp', 'btnDown', 'btnLeft', 'btnRight'].forEach(id => {
+                    const btn = document.getElementById(id);
+                    btn.addEventListener('touchstart', (e) => {
+                        e.preventDefault();
+                        const key = id.replace('btn', '').toLowerCase();
+                        this.input[key] = true;
+                    });
+                    btn.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        const key = id.replace('btn', '').toLowerCase();
+                        this.input[key] = false;
+                    });
+                });
+
+                window.addEventListener('resize', () => this.onWindowResize());
+            },
+
+            handleKeyDown(e) {
+                if (e.key === 'ArrowUp' || e.key === 'w') this.input.up = true;
+                if (e.key === 'ArrowDown' || e.key === 's') this.input.down = true;
+                if (e.key === 'ArrowLeft' || e.key === 'a') this.input.left = true;
+                if (e.key === 'ArrowRight' || e.key === 'd') this.input.right = true;
+            },
+
+            handleKeyUp(e) {
+                if (e.key === 'ArrowUp' || e.key === 'w') this.input.up = false;
+                if (e.key === 'ArrowDown' || e.key === 's') this.input.down = false;
+                if (e.key === 'ArrowLeft' || e.key === 'a') this.input.left = false;
+                if (e.key === 'ArrowRight' || e.key === 'd') this.input.right = false;
+            },
+
+            handleClick(e) {
+                if (this.gameState !== 'playing') return;
+
+                const mouse = new THREE.Vector2(
+                    (e.clientX / window.innerWidth) * 2 - 1,
+                    -(e.clientY / window.innerHeight) * 2 + 1
+                );
+
+                const raycaster = new THREE.Raycaster();
+                raycaster.setFromCamera(mouse, this.camera);
+
+                const ground = this.scene.children.find(obj => obj.geometry instanceof THREE.PlaneGeometry);
+                if (!ground) return;
+
+                const intersection = raycaster.intersectObject(ground);
+                if (intersection.length > 0) {
+                    const targetPos = intersection[0].point;
+                    const direction = new THREE.Vector3()
+                        .copy(targetPos)
+                        .sub(this.player.position)
+                        .normalize();
+
+                    this.player.position.add(direction.multiplyScalar(5));
+                    this.player.position.y = 0.5;
+                }
+            },
+
+            onWindowResize() {
+                if (!this.camera || !this.renderer) return;
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+            },
+
+            createThreeJsScene() {
+                // Scene
+                this.scene = new THREE.Scene();
+
+                // Sky
+                const skyCanvas = document.createElement('canvas');
+                skyCanvas.width = 256;
+                skyCanvas.height = 256;
+                const ctx = skyCanvas.getContext('2d');
+                const gradient = ctx.createLinearGradient(0, 0, 0, 256);
+                gradient.addColorStop(0, '#1a1a2e');
+                gradient.addColorStop(1, '#87ceeb');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, 256, 256);
+                const skyTexture = new THREE.CanvasTexture(skyCanvas);
+                this.scene.background = skyTexture;
+
+                // Ground
+                const groundGeometry = new THREE.PlaneGeometry(100, 100);
+                const groundMaterial = new THREE.MeshLambertMaterial({ color: 0xdaa520 });
+                const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+                ground.rotation.x = -Math.PI / 2;
+                ground.receiveShadow = true;
+                this.scene.add(ground);
+
+                // Dunes
+                for (let i = 0; i < 8; i++) {
+                    const duneX = (Math.random() - 0.5) * 80;
+                    const duneZ = (Math.random() - 0.5) * 80;
+                    const duneGeometry = new THREE.ConeGeometry(8 + Math.random() * 4, 3, 32);
+                    const duneMaterial = new THREE.MeshLambertMaterial({ color: 0xcd9b1d });
+                    const dune = new THREE.Mesh(duneGeometry, duneMaterial);
+                    dune.position.set(duneX, 1.5, duneZ);
+                    dune.rotation.x = 0.1;
+                    dune.castShadow = true;
+                    dune.receiveShadow = true;
+                    this.scene.add(dune);
+                }
+
+                // Grid
+                const gridHelper = new THREE.GridHelper(60, 30, 0xffffff, 0xcccccc);
+                gridHelper.position.y = 0.01;
+                gridHelper.material.transparent = true;
+                gridHelper.material.opacity = 0.2;
+                this.scene.add(gridHelper);
+
+                // Lighting
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+                ambientLight.name = 'ambientLight';
+                this.scene.add(ambientLight);
+
+                const sunLight = new THREE.DirectionalLight(0xffffff, 0);
+                sunLight.position.set(30, 20, 30);
+                sunLight.name = 'sunLight';
+                sunLight.castShadow = true;
+                sunLight.shadow.mapSize.width = 2048;
+                sunLight.shadow.mapSize.height = 2048;
+                sunLight.shadow.camera.far = 100;
+                sunLight.shadow.camera.left = -60;
+                sunLight.shadow.camera.right = 60;
+                sunLight.shadow.camera.top = 60;
+                sunLight.shadow.camera.bottom = -60;
+                this.scene.add(sunLight);
+
+                const torchLight = new THREE.PointLight(0xff8800, 1, 25);
+                torchLight.name = 'torchLight';
+                torchLight.position.set(0, 1, 0);
+                torchLight.castShadow = true;
+                this.scene.add(torchLight);
+
+                this.scene.fog = new THREE.Fog(0x87ceeb, 60, 100);
+
+                this.createLandscape();
+                this.createBirds();
+
+                // Player
+                const playerColor = this.selectedCharacter === 'mage' ? 0x6666ff :
+                                   this.selectedCharacter === 'rogue' ? 0x333333 : 0xff99cc;
+                this.player = this.createLovelablePlayer(playerColor);
+                this.scene.add(this.player);
+
+                // Camera
+                this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                this.camera.position.set(25, 30, 25);
+                this.camera.lookAt(0, 0, 0);
+
+                // Renderer
+                const canvas = document.getElementById('canvas');
+                this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.shadowMap.enabled = true;
+                this.renderer.shadowMap.type = THREE.PCFShadowShadowMap;
+            },
+
+            createLandscape() {
+                const locations = [
+                    { name: 'Camp', pos: [20, 0, -20], color: 0x8b4513 },
+                    { name: 'Oasis', pos: [-25, 0, -15], color: 0x228b22 },
+                    { name: 'Split Rock', pos: [0, 0, 25], color: 0x808080 },
+                    { name: 'Temple', pos: [-20, 0, 20], color: 0xdaa520 },
+                    { name: 'Wilderness', pos: [25, 0, 15], color: 0x8b7355 },
+                ];
+
+                locations.forEach(loc => {
+                    const markerGeometry = new THREE.CylinderGeometry(1, 1, 0.2, 8);
+                    const markerMaterial = new THREE.MeshLambertMaterial({ color: loc.color });
+                    const marker = new THREE.Mesh(markerGeometry, markerMaterial);
+                    marker.position.set(loc.pos[0], 0.5, loc.pos[2]);
+                    marker.receiveShadow = true;
+                    this.scene.add(marker);
+
+                    // Label
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 256;
+                    canvas.height = 128;
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    ctx.fillRect(0, 0, 256, 128);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = 'bold 40px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(loc.name, 128, 64);
+
+                    const texture = new THREE.CanvasTexture(canvas);
+                    const spriteGeometry = new THREE.PlaneGeometry(4, 2);
+                    const spriteMaterial = new THREE.MeshBasicMaterial({ map: texture });
+                    const sprite = new THREE.Mesh(spriteGeometry, spriteMaterial);
+                    sprite.position.set(loc.pos[0], 3, loc.pos[2]);
+                    this.scene.add(sprite);
+
+                    // Rocks and trees
+                    for (let i = 0; i < 5; i++) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const dist = 3 + Math.random() * 4;
+                        const rockX = loc.pos[0] + Math.cos(angle) * dist;
+                        const rockZ = loc.pos[2] + Math.sin(angle) * dist;
+
+                        if (Math.random() > 0.5) {
+                            const rockSize = 0.5 + Math.random() * 0.5;
+                            const rockGeometry = new THREE.IcosahedronGeometry(rockSize, 1);
+                            const rockMaterial = new THREE.MeshLambertMaterial({ color: 0x8b7355 });
+                            const rock = new THREE.Mesh(rockGeometry, rockMaterial);
+                            rock.position.set(rockX, rockSize * 0.5, rockZ);
+                            rock.castShadow = true;
+                            rock.receiveShadow = true;
+                            this.scene.add(rock);
+                        } else {
+                            const trunkGeometry = new THREE.CylinderGeometry(0.2, 0.3, 2, 8);
+                            const trunkMaterial = new THREE.MeshLambertMaterial({ color: 0x8b4513 });
+                            const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+                            trunk.position.set(rockX, 1, rockZ);
+                            trunk.castShadow = true;
+                            trunk.receiveShadow = true;
+                            this.scene.add(trunk);
+
+                            const foliageGeometry = new THREE.SphereGeometry(1, 8, 8);
+                            const foliageMaterial = new THREE.MeshLambertMaterial({ color: 0x228b22 });
+                            const foliage = new THREE.Mesh(foliageGeometry, foliageMaterial);
+                            foliage.position.set(rockX, 2.5, rockZ);
+                            foliage.castShadow = true;
+                            foliage.receiveShadow = true;
+                            this.scene.add(foliage);
+                        }
+                    }
+
+                    if (loc.name === 'Camp') {
+                        for (let i = 0; i < 3; i++) {
+                            const tentX = loc.pos[0] + (i - 1) * 2;
+                            const tentZ = loc.pos[2] + 2;
+                            const tentGeometry = new THREE.ConeGeometry(0.6, 1.2, 4);
+                            const tentMaterial = new THREE.MeshLambertMaterial({ color: 0xcd5c5c });
+                            const tent = new THREE.Mesh(tentGeometry, tentMaterial);
+                            tent.position.set(tentX, 0.5, tentZ);
+                            tent.castShadow = true;
+                            tent.receiveShadow = true;
+                            this.scene.add(tent);
+                        }
+                    }
+                });
+
+                // Scattered elements
+                for (let i = 0; i < 30; i++) {
+                    const x = (Math.random() - 0.5) * 80;
+                    const z = (Math.random() - 0.5) * 80;
+
+                    if (Math.random() > 0.6) {
+                        const rockSize = 0.3 + Math.random() * 0.8;
+                        const rockGeometry = new THREE.IcosahedronGeometry(rockSize, 0);
+                        const rockMaterial = new THREE.MeshLambertMaterial({ color: 0xa0826d });
+                        const rock = new THREE.Mesh(rockGeometry, rockMaterial);
+                        rock.position.set(x, rockSize * 0.5, z);
+                        rock.castShadow = true;
+                        rock.receiveShadow = true;
+                        this.scene.add(rock);
+                    } else {
+                        const trunkGeometry = new THREE.CylinderGeometry(0.15, 0.25, 1.5, 6);
+                        const trunkMaterial = new THREE.MeshLambertMaterial({ color: 0x654321 });
+                        const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+                        trunk.position.set(x, 0.75, z);
+                        trunk.castShadow = true;
+                        trunk.receiveShadow = true;
+                        this.scene.add(trunk);
+
+                        const foliageGeometry = new THREE.SphereGeometry(0.8, 6, 6);
+                        const foliageMaterial = new THREE.MeshLambertMaterial({ color: 0x1a6b1a });
+                        const foliage = new THREE.Mesh(foliageGeometry, foliageMaterial);
+                        foliage.position.set(x, 2, z);
+                        foliage.castShadow = true;
+                        foliage.receiveShadow = true;
+                        this.scene.add(foliage);
+                    }
+                }
+            },
+
+            createBirds() {
+                for (let i = 0; i < 5; i++) {
+                    const birdGroup = new THREE.Group();
+                    const wingGeometry = new THREE.BoxGeometry(2, 0.2, 0.5);
+                    const wingMaterial = new THREE.MeshLambertMaterial({ color: 0x333333 });
+                    const wings = new THREE.Mesh(wingGeometry, wingMaterial);
+                    birdGroup.add(wings);
+
+                    const bodyGeometry = new THREE.SphereGeometry(0.3, 6, 6);
+                    const bodyMaterial = new THREE.MeshLambertMaterial({ color: 0x222222 });
+                    const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+                    body.scale.set(1, 0.8, 0.6);
+                    birdGroup.add(body);
+
+                    const startX = (Math.random() - 0.5) * 100;
+                    const startZ = (Math.random() - 0.5) * 100;
+                    birdGroup.position.set(startX, 30 + Math.random() * 20, startZ);
+                    birdGroup.userData.vx = (Math.random() - 0.5) * 0.3;
+                    birdGroup.userData.vz = (Math.random() - 0.5) * 0.3;
+                    birdGroup.userData.wingRotation = 0;
+
+                    this.scene.add(birdGroup);
+                }
+            },
+
+            createLovelablePlayer(bodyColor) {
+                const group = new THREE.Group();
+
+                // Body
+                const bodyGeometry = new THREE.SphereGeometry(0.35, 16, 16);
+                const bodyMaterial = new THREE.MeshPhongMaterial({ color: bodyColor, shininess: 100 });
+                const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+                body.scale.set(1, 1.1, 0.9);
+                body.position.y = 0.35;
+                body.castShadow = true;
+                body.receiveShadow = true;
+                group.add(body);
+
+                // Belly
+                const bellyGeometry = new THREE.SphereGeometry(0.2, 12, 12);
+                const bellyMaterial = new THREE.MeshPhongMaterial({ color: new THREE.Color(bodyColor).multiplyScalar(1.3) });
+                const belly = new THREE.Mesh(bellyGeometry, bellyMaterial);
+                belly.position.set(0, 0.3, 0.25);
+                belly.scale.set(0.8, 0.9, 0.6);
+                belly.castShadow = true;
+                group.add(belly);
+
+                // Head
+                const headGeometry = new THREE.SphereGeometry(0.28, 16, 16);
+                const headMaterial = new THREE.MeshPhongMaterial({ color: bodyColor, shininess: 100 });
+                const head = new THREE.Mesh(headGeometry, headMaterial);
+                head.position.y = 0.95;
+                head.castShadow = true;
+                head.receiveShadow = true;
+                group.add(head);
+
+                // Eyes
+                const eyeGeometry = new THREE.SphereGeometry(0.12, 12, 12);
+                const eyeWhiteMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
+
+                const leftEye = new THREE.Mesh(eyeGeometry, eyeWhiteMaterial);
+                leftEye.position.set(-0.12, 1.05, 0.2);
+                leftEye.userData.isLeftEye = true;
+                group.add(leftEye);
+
+                const rightEye = new THREE.Mesh(eyeGeometry, eyeWhiteMaterial);
+                rightEye.position.set(0.12, 1.05, 0.2);
+                rightEye.userData.isRightEye = true;
+                group.add(rightEye);
+
+                // Pupils
+                const pupilGeometry = new THREE.SphereGeometry(0.06, 8, 8);
+                const pupilMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
+
+                const leftPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+                leftPupil.position.set(-0.12, 1.05, 0.28);
+                leftPupil.userData.isLeftPupil = true;
+                group.add(leftPupil);
+
+                const rightPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+                rightPupil.position.set(0.12, 1.05, 0.28);
+                rightPupil.userData.isRightPupil = true;
+                group.add(rightPupil);
+
+                // Cheeks
+                const cheekGeometry = new THREE.SphereGeometry(0.1, 8, 8);
+                const cheekMaterial = new THREE.MeshPhongMaterial({ color: 0xff99aa, transparent: true, opacity: 0.6 });
+
+                const leftCheek = new THREE.Mesh(cheekGeometry, cheekMaterial);
+                leftCheek.position.set(-0.2, 0.85, 0.15);
+                leftCheek.scale.set(0.8, 0.7, 0.6);
+                group.add(leftCheek);
+
+                const rightCheek = new THREE.Mesh(cheekGeometry, cheekMaterial);
+                rightCheek.position.set(0.2, 0.85, 0.15);
+                rightCheek.scale.set(0.8, 0.7, 0.6);
+                group.add(rightCheek);
+
+                // Arms
+                const armGeometry = new THREE.CylinderGeometry(0.08, 0.08, 0.35, 6);
+                const armMaterial = new THREE.MeshPhongMaterial({ color: bodyColor });
+
+                const leftArm = new THREE.Mesh(armGeometry, armMaterial);
+                leftArm.position.set(-0.3, 0.55, 0.1);
+                leftArm.rotation.z = Math.PI / 6;
+                leftArm.castShadow = true;
+                leftArm.userData.isLeftArm = true;
+                group.add(leftArm);
+
+                const rightArm = new THREE.Mesh(armGeometry, armMaterial);
+                rightArm.position.set(0.3, 0.55, 0.1);
+                rightArm.rotation.z = -Math.PI / 6;
+                rightArm.castShadow = true;
+                rightArm.userData.isRightArm = true;
+                group.add(rightArm);
+
+                // Feet
+                const footGeometry = new THREE.SphereGeometry(0.1, 8, 8);
+                const footMaterial = new THREE.MeshPhongMaterial({ color: new THREE.Color(bodyColor).multiplyScalar(0.8) });
+
+                const leftFoot = new THREE.Mesh(footGeometry, footMaterial);
+                leftFoot.position.set(-0.15, 0.08, 0.15);
+                leftFoot.scale.set(1, 0.7, 1.2);
+                leftFoot.castShadow = true;
+                leftFoot.userData.isLeftFoot = true;
+                group.add(leftFoot);
+
+                const rightFoot = new THREE.Mesh(footGeometry, footMaterial);
+                rightFoot.position.set(0.15, 0.08, 0.15);
+                rightFoot.scale.set(1, 0.7, 1.2);
+                rightFoot.castShadow = true;
+                rightFoot.userData.isRightFoot = true;
+                group.add(rightFoot);
+
+                // Antenna
+                const antennaStickGeometry = new THREE.CylinderGeometry(0.04, 0.04, 0.4, 4);
+                const antennaStickMaterial = new THREE.MeshPhongMaterial({ color: 0x333333 });
+                const antennaStick = new THREE.Mesh(antennaStickGeometry, antennaStickMaterial);
+                antennaStick.position.set(0, 1.4, 0);
+                antennaStick.castShadow = true;
+                group.add(antennaStick);
+
+                const antennaTipGeometry = new THREE.SphereGeometry(0.12, 8, 8);
+                const antennaTipMaterial = new THREE.MeshPhongMaterial({ color: 0x4488ff, emissive: 0x4488ff, emissiveIntensity: 0.5 });
+                const antennaTip = new THREE.Mesh(antennaTipGeometry, antennaTipMaterial);
+                antennaTip.position.set(0, 1.7, 0);
+                antennaTip.castShadow = true;
+                antennaTip.userData.isAntennaTip = true;
+                group.add(antennaTip);
+
+                group.userData.bodyColor = bodyColor;
+                group.position.set(0, 0.5, 0);
+
+                return group;
+            },
+
+            updatePlayerAppearance() {
+                if (!this.player) return;
+
+                const healthPercent = this.health / 100;
+                const startColor = new THREE.Color(0xff99cc);
+                const sickColor = new THREE.Color(0x8877aa);
+                const newColor = startColor.lerp(sickColor, 1 - healthPercent);
+
+                this.player.children.forEach(child => {
+                    if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshPhongMaterial) {
+                        if (!child.userData.isLeftPupil && !child.userData.isRightPupil && 
+                            !child.userData.isAntennaTip && !child.userData.isLeftEye && !child.userData.isRightEye) {
+                            child.material.color.copy(newColor);
+                        }
+                    }
+                });
+
+                const antennaTip = this.player.children.find(c => c.userData.isAntennaTip);
+                if (antennaTip) {
+                    antennaTip.material.emissiveIntensity = 0.3 + healthPercent * 0.4;
+                }
+            },
+
+            animatePlayer() {
+                if (!this.player) return;
+
+                this.animationTime++;
+                const t = this.animationTime;
+                const isMoving = this.input.up || this.input.down || this.input.left || this.input.right;
+
+                if (isMoving) {
+                    const walkSpeed = 0.1;
+                    this.player.position.y = 0.5 + Math.sin(t * walkSpeed) * 0.045;
+                    this.player.children[0].scale.y = 1 + Math.sin(t * walkSpeed) * 0.08;
+
+                    const leftArm = this.player.children.find(c => c.userData.isLeftArm);
+                    const rightArm = this.player.children.find(c => c.userData.isRightArm);
+
+                    if (leftArm) leftArm.rotation.z = Math.PI / 6 + Math.sin(t * walkSpeed) * 0.3;
+                    if (rightArm) rightArm.rotation.z = -Math.PI / 6 - Math.sin(t * walkSpeed) * 0.3;
+
+                    const leftFoot = this.player.children.find(c => c.userData.isLeftFoot);
+                    const rightFoot = this.player.children.find(c => c.userData.isRightFoot);
+
+                    if (leftFoot) leftFoot.position.y = 0.08 + Math.sin(t * walkSpeed) * 0.04;
+                    if (rightFoot) rightFoot.position.y = 0.08 - Math.sin(t * walkSpeed) * 0.04;
+                } else {
+                    const idleSpeed = 0.02;
+                    this.player.position.y = 0.5 + Math.sin(t * idleSpeed) * 0.05;
+                    this.player.children[0].scale.y = 1 + Math.sin(t * idleSpeed) * 0.05;
+                }
+
+                const antennaTip = this.player.children.find(c => c.userData.isAntennaTip);
+                if (antennaTip) {
+                    const pulseScale = 1 + Math.sin(t * 0.04) * 0.1;
+                    antennaTip.scale.set(pulseScale, pulseScale, pulseScale);
+                }
+            },
+
+            getDifficultySettings() {
+                const settings = {
+                    easy: { moveSpeed: 0.4, manaCount: 10, waterCount: 4 },
+                    normal: { moveSpeed: 0.3, manaCount: 8, waterCount: 3 },
+                    hard: { moveSpeed: 0.25, manaCount: 6, waterCount: 2 },
+                };
+                return settings[this.difficulty];
+            },
+
+            selectCharacter(char) {
+                this.selectedCharacter = char;
+                document.querySelectorAll('.character-btn').forEach(btn => {
+                    btn.classList.remove('selected');
+                    if (btn.dataset.char === char) btn.classList.add('selected');
+                });
+            },
+
+            showMenu() {
+                this.gameState = 'menu';
+                this.hideAllModals();
+                document.getElementById('menuModal').classList.add('active');
+                document.getElementById('hud').style.display = 'none';
+                document.getElementById('healthBarContainer').style.display = 'none';
+                document.getElementById('mobileControls').style.display = 'none';
+            },
+
+            showDifficultyScreen() {
+                this.gameState = 'difficulty';
+                this.hideAllModals();
+                document.getElementById('difficultyModal').classList.add('active');
+            },
+
+            hideAllModals() {
+                document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+            },
+
+            startGame(difficulty) {
+                this.difficulty = difficulty;
+                this.gameState = 'playing';
+                this.score = 0;
+                this.timeLeft = 60;
+                this.day = 1;
+                this.health = 100;
+                this.sickness = 0;
+                this.dayManaCollected = 0;
+                this.animationTime = 0;
+
+                this.hideAllModals();
+                document.getElementById('hud').style.display = 'block';
+                document.getElementById('healthBarContainer').style.display = 'block';
+                document.getElementById('mobileControls').style.display = 'grid';
+
+                this.updateHUD();
+                this.spawnPickups();
+                this.startDayTimer();
+            },
+
+            startDayTimer() {
+                let timeLeft = this.timeLeft;
+                const timer = setInterval(() => {
+                    timeLeft--;
+                    this.timeLeft = timeLeft;
+                    document.getElementById('time').textContent = Math.max(0, timeLeft);
+
+                    if (timeLeft === 30) {
+                        this.transitionToDay();
+                    }
+
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        this.endDay();
+                    }
+                }, 1000);
+            },
+
+            transitionToDay() {
+                const ambientLight = this.scene.getObjectByName('ambientLight');
+                const sunLight = this.scene.getObjectByName('sunLight');
+                const torchLight = this.scene.getObjectByName('torchLight');
+
+                if (ambientLight) {
+                    const startIntensity = ambientLight.intensity;
+                    const steps = 30;
+                    let currentStep = 0;
+                    const interval = setInterval(() => {
+                        currentStep++;
+                        const progress = currentStep / steps;
+                        ambientLight.intensity = startIntensity + (0.8 - startIntensity) * progress;
+                        if (sunLight) sunLight.intensity = progress * 1.5;
+                        if (torchLight) torchLight.intensity = Math.max(0, 1 - progress * 1.2);
+                        if (currentStep >= steps) clearInterval(interval);
+                    }, 16);
+                }
+            },
+
+            endDay() {
+                const sicknessLoss = this.sickness;
+                const newHealth = Math.max(0, this.health - sicknessLoss + 15);
+                this.health = newHealth;
+
+                document.getElementById('dayEndTitle').textContent = `Day ${this.day} Complete!`;
+                document.getElementById('dayManaCount').textContent = this.dayManaCollected;
+                document.getElementById('dayScore').textContent = this.score;
+                document.getElementById('daySickness').textContent = this.sickness;
+                document.getElementById('dayHealth').textContent = this.health;
+                document.getElementById('dayHealthStatus').textContent = this.getHealthStatus();
+
+                const healthPercent = this.health / 100;
+                const healthColor = healthPercent > 0.6 ? '#88ff88' : healthPercent > 0.3 ? '#ffff88' : '#ff8888';
+                document.getElementById('dayHealthBar').style.background = healthColor;
+                document.getElementById('dayHealthBar').style.width = (this.health) + '%';
+
+                this.hideAllModals();
+                document.getElementById('dayEndModal').classList.add('active');
+
+                if (this.health <= 0) {
+                    document.getElementById('dayEndBtn').style.display = 'none';
+                } else {
+                    document.getElementById('dayEndBtn').style.display = 'block';
+                }
+            },
+
+            continueToNextDay() {
+                if (this.health <= 0) {
+                    this.gameOver();
+                    return;
+                }
+
+                this.day++;
+                this.timeLeft = 60;
+                this.sickness = 0;
+                this.dayManaCollected = 0;
+
+                // Clear pickups
+                this.manaPickups.forEach(p => this.scene.remove(p));
+                this.waterPickups.forEach(p => this.scene.remove(p));
+                this.powerUpPickups.forEach(p => this.scene.remove(p));
+                this.manaPickups = [];
+                this.waterPickups = [];
+                this.powerUpPickups = [];
+
+                // Reset scene
+                const ambientLight = this.scene.getObjectByName('ambientLight');
+                const sunLight = this.scene.getObjectByName('sunLight');
+                const torchLight = this.scene.getObjectByName('torchLight');
+                if (ambientLight) ambientLight.intensity = 0.3;
+                if (sunLight) sunLight.intensity = 0;
+                if (torchLight) torchLight.intensity = 1;
+
+                this.player.position.set(0, 0.5, 0);
+
+                this.hideAllModals();
+                document.getElementById('hud').style.display = 'block';
+                this.gameState = 'playing';
+                this.updateHUD();
+                this.spawnPickups();
+                this.startDayTimer();
+            },
+
+            gameOver() {
+                document.getElementById('finalScore').textContent = this.score;
+                document.getElementById('survivedDays').textContent = this.day;
+
+                this.hideAllModals();
+                document.getElementById('gameOverModal').classList.add('active');
+                document.getElementById('hud').style.display = 'none';
+                document.getElementById('healthBarContainer').style.display = 'none';
+                document.getElementById('mobileControls').style.display = 'none';
+            },
+
+            spawnPickups() {
+                const settings = this.getDifficultySettings();
+
+                for (let i = 0; i < settings.manaCount; i++) {
+                    const angle = (Math.PI * 2 * i) / settings.manaCount;
+                    const distance = 15 + Math.random() * 10;
+                    const x = Math.cos(angle) * distance;
+                    const z = Math.sin(angle) * distance;
+
+                    const mana = this.createManaPickup(x, 0.5, z);
+                    this.scene.add(mana);
+                    this.manaPickups.push(mana);
+                }
+
+                for (let i = 0; i < settings.waterCount; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 20 + Math.random() * 15;
+                    const x = Math.cos(angle) * distance;
+                    const z = Math.sin(angle) * distance;
+
+                    const water = this.createWaterPickup(x, 0.5, z);
+                    this.scene.add(water);
+                    this.waterPickups.push(water);
+                }
+
+                const speedBoostAngle = Math.random() * Math.PI * 2;
+                const speedBoostDist = 25;
+                const speedBoost = this.createSpeedBoostPickup(
+                    Math.cos(speedBoostAngle) * speedBoostDist,
+                    0.5,
+                    Math.sin(speedBoostAngle) * speedBoostDist
+                );
+                this.scene.add(speedBoost);
+                this.powerUpPickups.push(speedBoost);
+            },
+
+            createManaPickup(x, y, z) {
+                const geometry = new THREE.OctahedronGeometry(0.4, 1);
+                let color, emissive, points, sickness;
+
+                const variant = Math.random();
+                if (variant < 0.1) {
+                    color = 0xffd700;
+                    emissive = 0xffaa00;
+                    points = 25;
+                    sickness = 5;
+                } else if (variant < 0.2) {
+                    color = 0x660000;
+                    emissive = 0xff0000;
+                    points = -5;
+                    sickness = 0;
+                } else {
+                    color = 0xffffff;
+                    emissive = 0x4488ff;
+                    points = 10;
+                    sickness = 7;
+                }
+
+                const material = new THREE.MeshPhongMaterial({ color, emissive, emissiveIntensity: 0.8 });
+                const mana = new THREE.Mesh(geometry, material);
+                mana.position.set(x, y, z);
+                mana.userData.isPickup = true;
+                mana.userData.type = 'mana';
+                mana.userData.rotation = 0;
+                mana.userData.vx = (Math.random() - 0.5) * 0.05;
+                mana.userData.vz = (Math.random() - 0.5) * 0.05;
+                mana.userData.points = points;
+                mana.userData.sickness = sickness;
+                mana.castShadow = true;
+                return mana;
+            },
+
+            createWaterPickup(x, y, z) {
+                const geometry = new THREE.SphereGeometry(0.35, 8, 8);
+                const material = new THREE.MeshPhongMaterial({
+                    color: 0x4488ff,
+                    emissive: 0x2266dd,
+                    emissiveIntensity: 0.6,
+                    transparent: true,
+                    opacity: 0.8,
+                });
+                const water = new THREE.Mesh(geometry, material);
+                water.position.set(x, y, z);
+                water.userData.isPickup = true;
+                water.userData.type = 'water';
+                water.userData.vx = (Math.random() - 0.5) * 0.04;
+                water.userData.vz = (Math.random() - 0.5) * 0.04;
+                water.castShadow = true;
+                return water;
+            },
+
+            createSpeedBoostPickup(x, y, z) {
+                const geometry = new THREE.TorusGeometry(0.4, 0.1, 8, 16);
+                const material = new THREE.MeshPhongMaterial({
+                    color: 0xff00ff,
+                    emissive: 0xff00ff,
+                    emissiveIntensity: 0.7,
+                });
+                const boost = new THREE.Mesh(geometry, material);
+                boost.position.set(x, y, z);
+                boost.rotation.x = Math.PI / 4;
+                boost.userData.isPickup = true;
+                boost.userData.type = 'speedboost';
+                boost.castShadow = true;
+                return boost;
+            },
+
+            updateHUD() {
+                document.getElementById('score').textContent = this.score;
+                document.getElementById('day').textContent = this.day;
+                document.getElementById('time').textContent = Math.max(0, this.timeLeft);
+                document.getElementById('healthValue').textContent = this.health;
+                document.getElementById('healthStatus').textContent = this.getHealthStatus();
+
+                const healthPercent = this.health / 100;
+                const healthColor = healthPercent > 0.6 ? '#88ff88' : healthPercent > 0.3 ? '#ffff88' : '#ff8888';
+                document.getElementById('healthBarFill').style.background = healthColor;
+                document.getElementById('healthBarFill').style.width = this.health + '%';
+
+                if (this.sickness > 0) {
+                    document.getElementById('sickness-display').style.display = 'block';
+                    document.getElementById('sickness').textContent = this.sickness;
+                } else {
+                    document.getElementById('sickness-display').style.display = 'none';
+                }
+            },
+
+            getHealthStatus() {
+                if (this.health > 80) return 'Well-rested';
+                if (this.health > 50) return 'Worn down';
+                if (this.health > 20) return 'Gravely ill';
+                return 'Critical';
+            },
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+
+                if (this.gameState === 'playing' && this.player) {
+                    // Movement
+                    const moveDir = new THREE.Vector3();
+                    if (this.input.up) moveDir.z -= 1;
+                    if (this.input.down) moveDir.z += 1;
+                    if (this.input.left) moveDir.x -= 1;
+                    if (this.input.right) moveDir.x += 1;
+
+                    const healthPercent = this.health / 100;
+                    const settings = this.getDifficultySettings();
+                    let moveSpeed = settings.moveSpeed * (0.4 + healthPercent * 0.6);
+
+                    if (moveDir.length() > 0) {
+                        moveDir.normalize();
+                        this.player.position.add(moveDir.multiplyScalar(moveSpeed));
+                        this.player.position.y = 0.5;
+
+                        this.player.position.x = Math.max(-40, Math.min(40, this.player.position.x));
+                        this.player.position.z = Math.max(-40, Math.min(40, this.player.position.z));
+
+                        if (Math.random() > 0.7) {
+                            this.createDustParticle(
+                                this.player.position.x,
+                                this.player.position.y,
+                                this.player.position.z
+                            );
+                        }
+
+                        this.player.rotation.y = Math.atan2(moveDir.x, moveDir.z);
+                    }
+
+                    this.animatePlayer();
+                    this.updatePlayerAppearance();
+
+                    // Pickup collection
+                    this.manaPickups = this.manaPickups.filter(mana => {
+                        const dist = this.player.position.distanceTo(mana.position);
+                        if (dist < 1.5) {
+                            this.createCollectionEffect(mana.position.clone());
+                            this.scene.remove(mana);
+
+                            const points = Math.floor(mana.userData.points);
+                            this.score += points;
+                            if (mana.userData.points > 0) {
+                                this.dayManaCollected++;
+                                this.sickness += mana.userData.sickness;
+                            }
+
+                            this.playSound(800, 0.1);
+                            this.playSound(1000, 0.15);
+                            this.updateHUD();
+
+                            return false;
+                        }
+                        return true;
+                    });
+
+                    this.waterPickups = this.waterPickups.filter(water => {
+                        const dist = this.player.position.distanceTo(water.position);
+                        if (dist < 1.5) {
+                            this.createCollectionEffect(water.position.clone());
+                            this.scene.remove(water);
+                            this.timeLeft += 10;
+                            document.getElementById('time').textContent = Math.max(0, this.timeLeft);
+                            this.playSound(600, 0.2);
+                            return false;
+                        }
+                        return true;
+                    });
+
+                    // Update pickup positions
+                    this.manaPickups.forEach(mana => {
+                        mana.userData.rotation = (mana.userData.rotation || 0) + 0.02;
+                        mana.rotation.y = mana.userData.rotation;
+                        mana.position.y = 0.5 + Math.sin(Date.now() * 0.005 + mana.position.x) * 0.2;
+                        mana.position.x += mana.userData.vx;
+                        mana.position.z += mana.userData.vz;
+                        if (mana.position.x > 40 || mana.position.x < -40) mana.userData.vx *= -1;
+                        if (mana.position.z > 40 || mana.position.z < -40) mana.userData.vz *= -1;
+                    });
+
+                    this.waterPickups.forEach(water => {
+                        water.position.y = 0.5 + Math.sin(Date.now() * 0.003 + water.position.z) * 0.15;
+                        water.position.x += water.userData.vx;
+                        water.position.z += water.userData.vz;
+                        if (water.position.x > 40 || water.position.x < -40) water.userData.vx *= -1;
+                        if (water.position.z > 40 || water.position.z < -40) water.userData.vz *= -1;
+                    });
+
+                    this.powerUpPickups.forEach(powerUp => {
+                        powerUp.rotation.z += 0.05;
+                        powerUp.rotation.x += 0.03;
+                        powerUp.position.y = 0.5 + Math.sin(Date.now() * 0.004) * 0.3;
+                    });
+                }
+
+                // Update particles
+                this.particles = this.particles.filter(particle => {
+                    particle.position.y += particle.velocity.y;
+                    particle.velocity.y -= 0.01;
+                    particle.material.opacity -= 0.02;
+
+                    if (particle.material.opacity <= 0) {
+                        this.scene.remove(particle);
+                        return false;
+                    }
+                    return true;
+                });
+
+                // Update birds
+                this.scene.children.forEach(child => {
+                    if (child.userData && child.userData.vx !== undefined) {
+                        child.position.x += child.userData.vx;
+                        child.position.z += child.userData.vz;
+                        child.userData.wingRotation = (child.userData.wingRotation || 0) + 0.1;
+                        if (child.children[0]) {
+                            child.children[0].rotation.z = Math.sin(child.userData.wingRotation) * 0.3;
+                        }
+
+                        if (child.position.x > 60) child.position.x = -60;
+                        if (child.position.x < -60) child.position.x = 60;
+                        if (child.position.z > 60) child.position.z = -60;
+                        if (child.position.z < -60) child.position.z = 60;
+                    }
+                });
+
+                this.renderer.render(this.scene, this.camera);
+            },
+
+            createDustParticle(x, y, z) {
+                const geometry = new THREE.SphereGeometry(0.1, 4, 4);
+                const material = new THREE.MeshBasicMaterial({
+                    color: 0xd4a574,
+                    transparent: true,
+                    opacity: 0.6,
+                });
+                const particle = new THREE.Mesh(geometry, material);
+                particle.position.set(
+                    x + (Math.random() - 0.5) * 0.5,
+                    y,
+                    z + (Math.random() - 0.5) * 0.5
+                );
+                particle.velocity = new THREE.Vector3(
+                    (Math.random() - 0.5) * 0.1,
+                    Math.random() * 0.05,
+                    (Math.random() - 0.5) * 0.1
+                );
+                this.scene.add(particle);
+                this.particles.push(particle);
+            },
+
+            createCollectionEffect(position) {
+                for (let i = 0; i < 12; i++) {
+                    const geometry = new THREE.SphereGeometry(0.15, 4, 4);
+                    const material = new THREE.MeshBasicMaterial({
+                        color: new THREE.Color().setHSL(0.6 + Math.random() * 0.2, 1, 0.5),
+                        transparent: true,
+                        opacity: 0.8,
+                    });
+                    const particle = new THREE.Mesh(geometry, material);
+                    particle.position.copy(position);
+                    const angle = (Math.PI * 2 * i) / 12;
+                    const speed = 0.2 + Math.random() * 0.2;
+                    particle.velocity = new THREE.Vector3(
+                        Math.cos(angle) * speed,
+                        0.3 + Math.random() * 0.1,
+                        Math.sin(angle) * speed
+                    );
+                    this.scene.add(particle);
+                    this.particles.push(particle);
+                }
+            }
+        };
+
+        // Initialize game when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            game.init();
+        });
+    </script>
+</body>
+</html>

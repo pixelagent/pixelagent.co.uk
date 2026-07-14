@@ -53,7 +53,7 @@
       }
     ],
     "imageResize": true,
-    "uniqCompNum": 107,
+    "uniqCompNum": 108,
     "versionPublish": "6.1.12",
     "favicon": "@PROJECT_PATH@/assets/images/software-meta-128x128.png",
     "mbrsiteDomain": "t3fzahxybm",
@@ -4823,6 +4823,32 @@
           "_customHTML": "<section data-bs-version=\"5.1\" class=\"content5\" group=\"Content\">\n    <mbr-parameters>\n        <header>Size</header>\n        <input type=\"checkbox\" title=\"Full Width\" name=\"fullWidth\">\n        <input type=\"range\" inline title=\"Top\" name=\"paddingTop\" min=\"0\" max=\"10\" step=\"1\" value=\"2\">\n        <input type=\"range\" inline title=\"Bottom\" name=\"paddingBottom\" min=\"0\" max=\"10\" step=\"1\" value=\"5\">\n        <input type=\"range\" name=\"textWidth\" title=\"Width\" min=\"4\" max=\"12\" value=\"10\" step=\"1\">\n        <header>Show/Hide</header>\n        <input type=\"checkbox\" title=\"Title\" name=\"showTitle\">\n        <input type=\"checkbox\" title=\"Subtitle\" name=\"showSubtitle\">\n        <header>Background</header>\n        <input type=\"color\" title=\"Color\" name=\"bgColor\" value=\"#fafafa\">\n    </mbr-parameters>\n    <div mbr-class=\"{'container': !fullWidth, 'container-fluid': fullWidth}\">\n        <div class=\"row justify-content-center\">\n            <div class=\"col-md-12 col-lg-{{textWidth}}\">\n                <h3 class=\"mbr-section-title mbr-fonts-style mb-4\" mbr-if=\"showTitle\" data-app-selector=\".mbr-section-title\" mbr-theme-style=\"display-2\">\n                    <b>Article Title</b>\n                </h3>\n                <h4 class=\"mbr-section-subtitle mbr-fonts-style mb-4\" mbr-if=\"showSubtitle\" data-app-selector=\".mbr-section-subtitle\" mbr-theme-style=\"display-5\">\n                    Enter your subtitle here\n                </h4>\n                <p class=\"mbr-text mbr-fonts-style\" data-app-selector=\".mbr-text\" mbr-theme-style=\"display-7\">Miracle Maker is a collection of 3D game prototypes built with Three.js and Cannon-es physics. Each variant explores a different facet of interactive gameplay: UI systems, visual effects, dialogue engines, rendering styles, and atmospheric rendering. All demos share the same core premise — a red capsule navigating a green planet — but differ wildly in aesthetics and feature emphasis.<br><br>Born from a creative experiment to answer the question: \"How many different ways can you build the same game?\" Each prototype starts from a common base (explore-collect-interact) and diverges through focused iteration. The result is a laboratory of techniques: toon shading, particle systems, dynamic lighting, UI patterns, and narrative integration.<br></p>\n            </div>\n        </div>\n    </div>\n</section>",
           "_cid": "viK5bdVBmq",
           "_anchor": "content5-2c",
+          "_protectedParams": [],
+          "_global": false,
+          "_once": false,
+          "_params": {}
+        },
+        {
+          "_name": "design-block",
+          "_sourceTheme": "mobirise5",
+          "_styles": {
+            "padding-top": "(@paddingTop * 1rem)",
+            "padding-bottom": "(@paddingBottom * 1rem)",
+            "background-color": "@bgColor",
+            ".mbr-section-title": {
+              "text-align": "center",
+              "color": "#bbbbbb"
+            },
+            ".frame": {
+              "min-height": "(@height * 100px)"
+            }
+          },
+          "_customHTML": "<section data-bs-version=\"5.1\" class=\"content5\" group=\"Content\">\n    <mbr-parameters>\n        <header>IFRAME BLOCK</header>\n        <header>Size</header>\n        <input type=\"checkbox\" title=\"Full Width\" name=\"fullWidth\">\n        <input type=\"range\" inline title=\"Top\" name=\"paddingTop\" min=\"0\" max=\"10\" step=\"1\" value=\"3\">\n        <input type=\"range\" inline title=\"Bottom\" name=\"paddingBottom\" min=\"0\" max=\"10\" step=\"1\" value=\"1\">\n        <input type=\"range\" name=\"textWidth\" title=\"Width\" min=\"4\" max=\"12\" value=\"11\" step=\"1\">\n        <input type=\"range\" inline title=\"Height\" name=\"height\" min=\"0\" max=\"10\" step=\"1\" value=\"8\">\n        <header>Iframe Link</header>\n        <input type=\"text\" inline title=\"link\" name=\"link\" value=\"https://purna.github.io/miracle-maker/\">\n        <header>Show/Hide</header>\n        <input type=\"checkbox\" title=\"Show Iframe\" name=\"showiframe\" checked>\n        <input type=\"checkbox\" title=\"Title\" name=\"showMainTitle\" checked>\n        <header>Background</header>\n        <input type=\"color\" title=\"Color\" name=\"bgColor\" value=\"#ffffff\">\n    </mbr-parameters>\n    <div mbr-class=\"{'container': !fullWidth, 'container-fluid': fullWidth}\">\n        <div class=\"row justify-content-center\">\n            <div class=\"col-md-12 col-lg-{{textWidth}} frame\">\n                <div class=\"col-12\" style=\"margin-bottom: 20px;\" mbr-if=\"showMainTitle\">\n                <h3 class=\"mbr-section-title mbr-fonts-style align-center mb-0\" mbr-theme-style=\"display-2\" data-app-selector=\".mbr-section-title\"><b>Prototype Stage 1</b></h3>\n                </div>\n                <iframe mbr-if=\"showiframe\" allow=\"camera; microphone; fullscreen; autoplay\" src=\"{{link}}\" style=\"min-height: 800px; height: 100%; width: 100%; border: 0px;\"></iframe>\n            </div>\n        </div>\n    </div>\n</section>",
+          "_JSplaceholders": [],
+          "_PHPplaceholders": [],
+          "_isUserblock": true,
+          "_anchor": "design-block-2z",
+          "_cid": "vpmcc47Pkt",
           "_protectedParams": [],
           "_global": false,
           "_once": false,

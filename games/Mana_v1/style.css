@@ -1,0 +1,151 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ink: #3b2a16;
+            --ink-soft: #5a3f22;
+            --parch-light: #f1e3bf;
+            --parch: #e8d4a3;
+            --parch-dark: #d8be86;
+            --parch-shadow: #a98a52;
+            --gold: #b8862f;
+            --gold-light: #e0ad4f;
+            --crimson: #7a2118;
+            --crimson-light: #a8392c;
+            --sage: #5c6b3e;
+            --sage-light: #7d8f54;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            font-family: 'EB Garamond', Georgia, serif;
+            background: radial-gradient(ellipse at top, #c9a25a 0%, #8a6630 55%, #5e4420 100%);
+            overflow: hidden;
+        }
+        /* ===== Utility Classes ===== */
+        .hidden { display: none !important; }
+
+        .text-sage { color: var(--sage); }
+        .text-sage-light { color: var(--sage-light); }
+        .text-gold { color: var(--gold); }
+        .text-gold-light { color: var(--gold-light); }
+        .text-crimson { color: var(--crimson); }
+        .text-crimson-light { color: var(--crimson-light); }
+        .text-ink { color: var(--ink); }
+        .text-ink-soft { color: var(--ink-soft); }
+        .text-parch-shadow { color: var(--parch-shadow); }
+        .text-parch-light { color: var(--parch-light); }
+
+        .fw-bold { font-weight: 700; }
+        .text-italic { font-style: italic; }
+
+        .text-12 { font-size: 12px; }
+        .text-17 { font-size: 17px; }
+        .text-18 { font-size: 18px; }
+        .text-19 { font-size: 19px; }
+        .text-22 { font-size: 22px; }
+
+        .mt-5 { margin-top: 5px; }
+        .mt-8 { margin-top: 8px; }
+        .mt-16 { margin-top: 16px; }
+        .mt-20 { margin-top: 20px; }
+        .mb-8 { margin-bottom: 8px; }
+        .mb-18 { margin-bottom: 18px; }
+        .mb-20 { margin-bottom: 20px; }
+        .mb-22 { margin-bottom: 22px; }
+        .mb-24 { margin-bottom: 24px; }
+        .mb-26 { margin-bottom: 26px; }
+        .mb-36 { margin-bottom: 36px; }
+        .ml-12 { margin-left: 12px; }
+
+        .lh-18 { line-height: 1.8; }
+
+        .flex-center {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            justify-content: center;
+        }
+
+        .full-width { grid-column: 1 / -1; }
+        .w-full { width: 100%; }
+
+        .cinzel { font-family: 'Cinzel', serif; }
+
+        .instructions-text {
+            margin-top: 20px;
+            color: var(--ink-soft);
+        }
+
+        .mana-count {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .market-description {
+            margin-bottom: 22px;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .market-mood {
+            font-style: italic;
+            margin-top: 8px;
+            color: var(--ink-soft);
+        }
+
+        .market-silver-section {
+            margin-bottom: 22px;
+            font-size: 19px;
+        }
+
+        .pause-description {
+            margin-bottom: 26px;
+            font-size: 18px;
+        }
+
+        .game-over-summary {
+            font-size: 22px;
+            margin-bottom: 36px;
+            line-height: 1.8;
+        }
+
+        .day-end-title {
+            color: var(--crimson);
+        }
+
+        .stats-bar-track {
+            width: 100%;
+            height: 26px;
+            background: rgba(59,42,22,0.25);
+            border: 2px solid var(--ink-soft);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .stats-bar-fill {
+            height: 100%;
+        }
+
+        .wellbeing-fill {
+            background: linear-gradient(90deg, #6f8a3f, #91ab53);
+        }
+
+        .wealth-fill {
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+        }
+
+        /* Initial display states */
+        #marketTriggerBtn { display: none; }
+        #hud { display: none; }
+        #healthBarContainer { display: none; }
+        #wealthBarContainer { display: none; }
+        #mobileControls { display: none; }
+
+        #healthBarFill { width: 100%; }
+        #wealthBarFill { width: 10%; }

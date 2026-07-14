@@ -1,0 +1,94 @@
+
+# Integrating Partykals into Manna Collector
+
+## Overview
+This document describes how to replace the game's custom particle array (`particles[]`) with **Partykals**, a particle engine for Three.js.
+
+## Why
+
+Current game uses manual particle management.
+
+Benefits:
+- Better performance
+- Less maintenance
+- Reusable emitters
+- Smoke, dust, sparkles, rain, magic, explosions
+
+## Existing Game Systems
+
+The game already contains:
+- Three.js renderer
+- EffectComposer/Bloom
+- Mana pickups
+- Day/night cycle
+- Animated player
+- Audio with Howler.js
+
+Partykals fits naturally into this architecture.
+
+## Installation
+
+### Mana Pickup
+Trigger when player collects mana.
+
+### Dust
+Spawn behind player while walking.
+
+### Market
+Gold sparkle burst when selling mana.
+
+### Oasis
+Mist drifting over water.
+
+### Campfire
+Smoke and embers.
+
+### Rain
+Weather event during rare storms.
+
+### Magic
+Large burst when blessings or power-ups occur.
+
+## Game Integration
+
+Replace:
+
+```js
+game.particles = [];
+```
+
+with
+
+```js
+game.particleManager = new ParticleManager(scene);
+```
+
+Update the main animation loop:
+
+```js
+particleManager.update(deltaTime);
+```
+
+## Events
+
+|Event|Effect|
+|---|---|
+|Collect mana|Blue sparkles|
+|Sell mana|Gold burst|
+|Low health|Dust + red embers|
+|Day complete|Celebration particles|
+|Game over|Smoke fade|
+|Oasis|Mist|
+
+## Priority
+
+1. Mana pickup sparkle
+2. Dust trail
+3. Market effects
+4. Campfire smoke
+5. Oasis mist
+6. Weather particles
+
+## Notes
+
+Keep gameplay logic separate from particle effects. Emitters should only respond to game events and never contain gameplay state.

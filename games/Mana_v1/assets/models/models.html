@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Three.js to GLB Exporter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/exporters/GLTFExporter.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #222; color: #fff; }
+        button { padding: 10px 20px; margin: 10px; cursor: pointer; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h2>Procedural 3D Model GLB Exporter</h2>
+    <p>Click the buttons below to generate and download each model as a .glb file.</p>
+    
+    <button onclick="exportModel('tent')">Download Tent GLB</button>
+    <button onclick="exportModel('splitRock')">Download Split Rock GLB</button>
+    <button onclick="exportModel('temple')">Download Temple GLB</button>
+    <button onclick="exportModel('marketStall')">Download Market Stall GLB</button>
+
+    <script>
+        const exporter = new THREE.GLTFExporter();
+
+        // --- 1. Campsite Tent ---
+        function createTent() {
+            const group = new THREE.Group();
+            const tentMaterial = new THREE.MeshLambertMaterial({ color: 0xd2b48c, side: THREE.DoubleSide });
+            const tentPoleMaterial = new THREE.MeshLambertMaterial({ color: 0x5a3f22 });
+
+            const tentGeometry = new THREE.ConeGeometry(1.5, 2, 4, 1, true);
+            const tentMesh = new THREE.Mesh(tentGeometry, tentMaterial);
+            tentMesh.rotation.y = Math.PI / 4;
+            tentMesh.position.y = 1;
+            tentMesh.scale.z = 0.7;
+            group.add(tentMesh);
+
+            const poleGeometry = new THREE.CylinderGeometry(0.05, 0.05, 2.2, 6);
+            const pole = new THREE.Mesh(poleGeometry, tentPoleMaterial);
+            pole.position.y = 1.1;
+            group.add(pole);
+
+            return group;
+        }
+
+        // --- 2. Split Rock ---
+        function createSplitRock() {
+            const group = new THREE.Group();
+            const rockMaterial = new THREE.MeshLambertMaterial({ color: 0x555555 });
+            const rockGeometry = new THREE.IcosahedronGeometry(6, 1);
+
+            const pos = rockGeometry.attributes.position;
+            // Seeding simple deterministic pseudo-randomness for geometry mutation
+            let seed = 1;
+            function random() {
+                let x = Math.sin(seed++) * 10000;
+                return x - Math.floor(x);
+            }
+
+            for (let i = 0; i < pos.count; i++) {
+                const v = new THREE.Vector3().fromBufferAttribute(pos, i);
+                v.multiplyScalar(1 + (random() - 0.5) * 0.3);
+                pos.setXYZ(i, v.x, v.y, v.z);
+            }
+            rockGeometry.computeVertexNormals();
+
+            const rock1 = new THREE.Mesh(rockGeometry, rockMaterial);
+            rock1.position.x = -0.4;
+            rock1.rotation.set(0.1, 0.2, 0.3);
+            group.add(rock1);
+
+            const rock2 = rock1.clone();
+            rock2.position.x = 0.4;
+            rock2.rotation.set(-0.1, -0.2, -0.3);
+            group.add(rock2);
+
+            return group;
+        }
+
+        // --- 3. Temple ---
+        function createTemple() {
+            const group = new THREE.Group();
+            const templeMaterial = new THREE.MeshLambertMaterial({ color: 0x997300 });
+            const roofMaterial = new THREE.MeshLambertMaterial({ color: 0x7a5c00 });
+
+            const baseGeometry = new THREE.BoxGeometry(12, 1, 12);
+            const base = new THREE.Mesh(baseGeometry, templeMaterial);
+            base.position.y = 0.5;
+            group.add(base);
+
+            const roofGeometry = new THREE.BoxGeometry(13, 1, 13);
+            const roof = new THREE.Mesh(roofGeometry, roofMaterial);
+            roof.position.y = 4.5;
+            group.add(roof);
+
+            const pillarGeometry = new THREE.CylinderGeometry(0.4, 0.4, 3, 8);
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    if (i === 0 || i === 3 || j === 0 || j === 3) {
+                        const pillar = new THREE.Mesh(pillarGeometry, templeMaterial);
+                        pillar.position.set((i - 1.5) * 3, 2.5, (j - 1.5) * 3);
+                        group.add(pillar);
+                    }
+                }
+            }
+
+            const wallGeometry = new THREE.BoxGeometry(18, 1.5, 0.5);
+            const wallPositions = [
+                { pos: [0, 0.75, 9], rot: 0 },
+                { pos: [0, 0.75, -9], rot: 0 },
+                { pos: [9, 0.75, 0], rot: Math.PI / 2 },
+                { pos: [-9, 0.75, 0], rot: Math.PI / 2 },
+            ];
+            wallPositions.forEach(w => {
+                const wall = new THREE.Mesh(wallGeometry, templeMaterial);
+                wall.position.set(w.pos[0], w.pos[1], w.pos[2]);
+                wall.rotation.y = w.rot;
+                group.add(wall);
+            });
+
+            return group;
+        }
+
+        // --- 4. Market Stall ---
+        function createMarketStall() {
+            const group = new THREE.Group();
+            const woodMaterial = new THREE.MeshLambertMaterial({ color: 0x6b4423 });
+            const clothMaterial = new THREE.MeshLambertMaterial({ color: 0xa03333 });
+
+            const tableTopGeo = new THREE.BoxGeometry(2, 0.2, 1);
+            const tableTop = new THREE.Mesh(tableTopGeo, woodMaterial);
+            tableTop.position.y = 0.8;
+            group.add(tableTop);
+
+            const legGeo = new THREE.CylinderGeometry(0.08, 0.08, 0.8, 4);
+            const legPositions = [
+                { x: -0.8, z: 0.35 }, { x: 0.8, z: 0.35 },
+                { x: -0.8, z: -0.35 }, { x: 0.8, z: -0.35 }
+            ];
+            legPositions.forEach(p => {
+                const leg = new THREE.Mesh(legGeo, woodMaterial);
+                leg.position.set(p.x, 0.4, p.z);
+                group.add(leg);
+            });
+
+            const awningGeo = new THREE.PlaneGeometry(2.2, 1.2);
+            const awning = new THREE.Mesh(awningGeo, clothMaterial);
+            awning.position.set(0, 1.8, 0);
+            awning.rotation.x = -0.2;
+            group.add(awning);
+
+            return group;
+        }
+
+        // --- Export Logic ---
+        function exportModel(modelType) {
+            let model;
+            if (modelType === 'tent') model = createTent();
+            if (modelType === 'splitRock') model = createSplitRock();
+            if (modelType === 'temple') model = createTemple();
+            if (modelType === 'marketStall') model = createMarketStall();
+
+            if (!model) return;
+
+            exporter.parse(model, function (gltf) {
+                const blob = new Blob([gltf], { type: 'application/octet-stream' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `${modelType}.glb`;
+                link.click();
+            }, function(error) {
+                console.error("Error exporting GLB:", error);
+            }, { binary: true });
+        }
+    </script>
+</body>
+</html>
