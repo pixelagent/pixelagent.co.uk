@@ -1,0 +1,14 @@
+{
+    "id": "hillel_scribe",
+    "name": "Hillel",
+    "title": "Junior Temple Scribe",
+    "faction": "scribes",
+    "icon": "pencil-duotone.svg",
+    "description": "A young, meticulous scribe assigned to the Temple's administrative offices. Hillel is responsible for cross-referencing market ledgers for Passover lambs with the priestly inspection records. He is a man of data and process, but his work has led him to see a pattern in the week's events that transcends his ledgers.",
+    "attitude": {
+        "neutral": "Professional, precise, and focused on the details of the Law and Temple process.",
+        "positive": "Becomes animated and insightful when he explains the connection between the lamb selection process and Jesus's movements.",
+        "negative": "Is cautious and hesitant to speak too openly, aware that his conclusions could be seen as heretical by his superiors."
+    },
+    "background": "As a junior scribe, Hillel is not part of the high-level political maneuvering of the Sanhedrin. His perspective is grounded in the day-to-day logistics of the Passover festival, which gives him a unique, data-driven insight into the typological fulfillment of the Passover Lamb."
+}

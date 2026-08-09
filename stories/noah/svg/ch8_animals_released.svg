@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- LAYER 1 BACKGROUND: Bright open sky — joyful, open, vast -->
+  <rect x="0" y="0" width="400" height="300" fill="#a8c8e0"/>
+  <rect x="0" y="0" width="400" height="100" fill="#d8eef8"/>
+  <!-- Horizon warm glow -->
+  <rect x="0" y="148" width="400" height="24" fill="#E8B84B" opacity="0.25"/>
+
+  <!-- Clouds — bright, celebratory -->
+  <ellipse cx="80" cy="38" rx="55" ry="15" fill="#ffffff" stroke="#c0d8e4" stroke-width="1.5"/>
+  <ellipse cx="115" cy="28" rx="34" ry="11" fill="#f8feff" stroke="#c0d8e4" stroke-width="1"/>
+  <ellipse cx="48" cy="48" rx="28" ry="9" fill="#f0f8fc" opacity="0.85"/>
+  <ellipse cx="320" cy="44" rx="52" ry="14" fill="#ffffff" stroke="#c0d8e4" stroke-width="1.5"/>
+  <ellipse cx="355" cy="34" rx="32" ry="10" fill="#f8feff" stroke="#c0d8e4" stroke-width="1"/>
+
+  <!-- ★ FOCAL POINT: Bird pair in flight — upper centre, movement and freedom -->
+  <!-- Focal bird LEFT — wings fully extended upward, vivid, large -->
+  <ellipse cx="172" cy="68" rx="22" ry="11" fill="#ffffff" stroke="#0A0812" stroke-width="2.5"/>
+  <circle cx="152" cy="62" r="9" fill="#ffffff" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Left wing — up stroke, bold -->
+  <path d="M 163,63 C 140,38 110,30 88,38 C 112,50 142,62 163,72 Z" fill="#f0eeea" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Right wing — asymmetric, energy -->
+  <path d="M 182,64 C 200,46 222,40 238,45 C 220,56 198,65 182,74 Z" fill="#e8e6e0" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Bird beak — pointing left -->
+  <polygon points="144,63 132,67 144,71" fill="#E8B84B" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Eye -->
+  <circle cx="148" cy="63" r="2.5" fill="#0A0812"/>
+  <!-- Wing feather lines -->
+  <line x1="155" y1="46" x2="164" y2="66" stroke="#0A0812" stroke-width="1.5" opacity="0.7"/>
+  <line x1="140" y1="40" x2="162" y2="67" stroke="#0A0812" stroke-width="1.5" opacity="0.6"/>
+  <line x1="125" y1="38" x2="160" y2="68" stroke="#0A0812" stroke-width="1" opacity="0.5"/>
+
+  <!-- Focal bird RIGHT — companion, slightly higher, different angle -->
+  <ellipse cx="242" cy="52" rx="20" ry="10" fill="#ffffff" stroke="#0A0812" stroke-width="2.5"/>
+  <circle cx="260" cy="46" r="8" fill="#ffffff" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Wings — both up, exultant -->
+  <path d="M 250,47 C 268,24 292,18 310,26 C 290,38 264,48 250,56 Z" fill="#f0eeea" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M 234,48 C 218,30 200,28 185,34 C 200,44 220,52 234,58 Z" fill="#e8e6e0" stroke="#0A0812" stroke-width="2.5"/>
+  <polygon points="267,48 278,52 267,56" fill="#E8B84B" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="263" cy="46" r="2.5" fill="#0A0812"/>
+
+  <!-- More birds higher — rhythm of flight -->
+  <path d="M 42,22 C 46,15 53,13 57,22" stroke="#0A0812" stroke-width="2" fill="none"/>
+  <path d="M 57,22 C 61,15 68,13 72,22" stroke="#0A0812" stroke-width="2" fill="none"/>
+  <path d="M 348,18 C 352,12 358,10 362,18" stroke="#0A0812" stroke-width="2" fill="none"/>
+  <path d="M 362,18 C 366,12 372,10 376,18" stroke="#0A0812" stroke-width="2" fill="none"/>
+  <path d="M 280,28 C 283,22 288,21 291,28" stroke="#0A0812" stroke-width="1.5" fill="none"/>
+  <path d="M 20,55 C 23,50 27,49 30,55" stroke="#0A0812" stroke-width="1.5" fill="none"/>
+
+  <!-- LAYER 2 MIDGROUND: Animals streaming in all directions -->
+
+  <!-- Ark — BACKGROUND, small, right side, animals still streaming off -->
+  <rect x="278" y="128" width="122" height="72" rx="4" fill="#6b4420" stroke="#0A0812" stroke-width="2"/>
+  <rect x="285" y="112" width="108" height="20" rx="3" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+  <path d="M 292,112 L 339,96 L 393,112 Z" fill="#6b4420" stroke="#0A0812" stroke-width="2"/>
+  <line x1="278" y1="148" x2="400" y2="148" stroke="#4a2e10" stroke-width="1.5"/>
+  <line x1="278" y1="164" x2="400" y2="164" stroke="#4a2e10" stroke-width="1.5"/>
+  <!-- Ramp — diagonal, animals streaming down -->
+  <polygon points="292,200 318,136 338,136 318,200" fill="#C87050" stroke="#0A0812" stroke-width="2"/>
+  <!-- Tiny animals on ramp — dots of colour suggesting stream -->
+  <circle cx="305" cy="185" r="4" fill="#9090A0" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="312" cy="172" r="3.5" fill="#C87050" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="320" cy="160" r="3" fill="#8B5E2F" stroke="#0A0812" stroke-width="1"/>
+  <circle cx="326" cy="150" r="3" fill="#d8c8a0" stroke="#0A0812" stroke-width="1"/>
+
+  <!-- Midground animals — elephants striding LEFT -->
+  <ellipse cx="188" cy="186" rx="40" ry="26" fill="#9090A0" stroke="#0A0812" stroke-width="2.5"/>
+  <ellipse cx="150" cy="174" rx="19" ry="16" fill="#9090A0" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Elephant trunk — raised, celebratory -->
+  <path d="M 134,182 C 120,178 110,184 112,196" stroke="#9090A0" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M 134,182 C 120,178 110,184 112,196" stroke="#0A0812" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Elephant legs -->
+  <rect x="158" y="206" width="13" height="26" rx="3" fill="#9090A0" stroke="#0A0812" stroke-width="2"/>
+  <rect x="175" y="207" width="13" height="26" rx="3" fill="#9090A0" stroke="#0A0812" stroke-width="2"/>
+  <rect x="194" y="207" width="13" height="25" rx="3" fill="#9090A0" stroke="#0A0812" stroke-width="2"/>
+  <rect x="212" y="206" width="13" height="26" rx="3" fill="#9090A0" stroke="#0A0812" stroke-width="2"/>
+  <ellipse cx="147" cy="176" rx="11" ry="13" fill="#a0a0b0" stroke="#0A0812" stroke-width="2" transform="rotate(-8,147,176)"/>
+  <circle cx="142" cy="170" r="2.5" fill="#0A0812"/>
+  <!-- Tusk -->
+  <path d="M 133,180 C 120,178 114,182 116,190" stroke="#f0ead8" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M 133,180 C 120,178 114,182 116,190" stroke="#0A0812" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- LAYER 3 FOREGROUND: Animals in close-up, opposite diagonals = energy -->
+
+  <!-- Ground — earthy, new -->
+  <rect x="0" y="220" width="400" height="80" fill="#4A6A2A"/>
+  <rect x="0" y="220" width="400" height="28" fill="#3d2808" opacity="0.8"/>
+  <!-- Ground variation — mud patches -->
+  <ellipse cx="150" cy="235" rx="100" ry="12" fill="#2a1808" opacity="0.4"/>
+  <ellipse cx="320" cy="238" rx="70" ry="9" fill="#2a1808" opacity="0.3"/>
+
+  <!-- Foreground: DEER — leaping RIGHT, diagonal movement -->
+  <ellipse cx="318" cy="216" rx="30" ry="15" fill="#C87050" stroke="#0A0812" stroke-width="2.5"/>
+  <circle cx="345" cy="204" r="12" fill="#C87050" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Antlers -->
+  <line x1="340" y1="194" x2="333" y2="180" stroke="#6b4420" stroke-width="2.5"/>
+  <line x1="333" y1="180" x2="326" y2="172" stroke="#6b4420" stroke-width="2"/>
+  <line x1="333" y1="180" x2="338" y2="171" stroke="#6b4420" stroke-width="2"/>
+  <line x1="347" y1="193" x2="352" y2="179" stroke="#6b4420" stroke-width="2.5"/>
+  <line x1="352" y1="179" x2="348" y2="170" stroke="#6b4420" stroke-width="2"/>
+  <line x1="352" y1="179" x2="357" y2="171" stroke="#6b4420" stroke-width="2"/>
+  <!-- Deer legs — leaping, extended forward and back -->
+  <line x1="295" y1="228" x2="278" y2="252" stroke="#C87050" stroke-width="3" stroke-linecap="round"/>
+  <line x1="303" y1="230" x2="290" y2="254" stroke="#C87050" stroke-width="3" stroke-linecap="round"/>
+  <line x1="328" y1="228" x2="338" y2="254" stroke="#C87050" stroke-width="3" stroke-linecap="round"/>
+  <line x1="337" y1="226" x2="352" y2="250" stroke="#C87050" stroke-width="3" stroke-linecap="round"/>
+  <!-- Deer eye -->
+  <circle cx="348" cy="205" r="2.5" fill="#0A0812"/>
+  <!-- White tail -->
+  <ellipse cx="287" cy="213" rx="7" ry="4.5" fill="#f0ece0" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- Foreground: FOX — running LEFT, opposite diagonal to deer -->
+  <ellipse cx="62" cy="228" rx="22" ry="12" fill="#C87050" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Fox head — pointed snout facing left -->
+  <polygon points="42,221 18,228 42,235" fill="#C87050" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Fox ear -->
+  <polygon points="48,218 42,206 56,214" fill="#C87050" stroke="#0A0812" stroke-width="2"/>
+  <polygon points="50,219 45,210 54,216" fill="#1a0e04" opacity="0.4"/>
+  <!-- Fox eye -->
+  <circle cx="36" cy="227" r="2.5" fill="#0A0812"/>
+  <!-- Fox legs — running, fore legs forward, back legs pushing off -->
+  <line x1="50" y1="238" x2="38" y2="258" stroke="#C87050" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="58" y1="239" x2="50" y2="260" stroke="#C87050" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="72" y1="238" x2="82" y2="258" stroke="#C87050" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="80" y1="236" x2="94" y2="254" stroke="#C87050" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Fox tail — curved, bushy, tip white -->
+  <path d="M 84,228 C 98,220 110,222 112,234" stroke="#C87050" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path d="M 84,228 C 98,220 110,222 112,234" stroke="#0A0812" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="112" cy="234" r="5" fill="#f0ece0" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- Rabbit — foreground right, bounding -->
+  <ellipse cx="382" cy="234" rx="13" ry="9" fill="#d8cca8" stroke="#0A0812" stroke-width="2"/>
+  <circle cx="392" cy="226" r="8" fill="#d8cca8" stroke="#0A0812" stroke-width="2"/>
+  <line x1="390" y1="219" x2="388" y2="208" stroke="#d8cca8" stroke-width="3" stroke-linecap="round"/>
+  <line x1="394" y1="220" x2="397" y2="209" stroke="#d8cca8" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="395" cy="224" r="2" fill="#0A0812"/>
+  <!-- Rabbit legs bounding -->
+  <line x1="376" y1="242" x2="368" y2="258" stroke="#d8cca8" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="385" y1="242" x2="382" y2="258" stroke="#d8cca8" stroke-width="2.5" stroke-linecap="round"/>
+
+</svg>

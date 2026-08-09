@@ -1,0 +1,37 @@
+{
+  "start": {
+    "content": "I am Mary of Magdala. Seven demons were cast from me by the word of His mouth. My mind was a wilderness before that day. After it, I had a memory \u2014 and a purpose.",
+    "choices": [
+      {
+        "text": "You followed Him everywhere.",
+        "destination": "following"
+      },
+      {
+        "text": "The authorities don't fear women.",
+        "destination": "fear_auth"
+      }
+    ]
+  },
+  "following": {
+    "content": "I followed from Galilee to Jerusalem. I watched from the hill when they crucified Him. I stood at the tomb before dawn. I saw the linen. I heard the voice.",
+    "choices": [
+      {
+        "text": "And you recognised Him.",
+        "destination": "following"
+      }
+    ]
+  },
+  "fear_auth": {
+    "content": "The Sanhedrin fears testimony from women. In Roman courts, a woman's word does not count. In the Temple hierarchy, women cannot give evidence. So they will dismiss me.",
+    "choices": [
+      {
+        "text": "But you saw what you saw.",
+        "destination": "closing"
+      }
+    ]
+  },
+  "closing": {
+    "content": "They did not see the graves open. They did not feel the demons leave. Their categories are too small for what happened that morning. I am not afraid of them. I am afraid that people will forget.",
+    "choices": []
+  }
+}

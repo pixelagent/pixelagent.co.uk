@@ -1,0 +1,129 @@
+{
+    "caseId": "barabbas_choice",
+    "locationId": "gabbatha",
+    "locationTitle": "Pavement of Judgment (Gabbatha)",
+    "timeOfDay": "morning",
+    "environment": {
+        "floorColor": "#2d2d2d",
+        "skyColor": "#4a5568",
+        "ambientLight": 0.6
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "Judgment Seat (Bema)",
+            "pos": [
+                0,
+                2,
+                -12
+            ],
+            "scale": [
+                6,
+                4,
+                6
+            ],
+            "color": "#8b0000"
+        },
+        {
+            "type": "box",
+            "name": "Stone Pavement",
+            "pos": [
+                0,
+                -0.1,
+                0
+            ],
+            "scale": [
+                30,
+                0.2,
+                30
+            ],
+            "color": "#444444"
+        }
+    ],
+    "sprites": [
+        {
+            "id": "roman_standard",
+            "type": "prop",
+            "pos": [
+                -5,
+                0,
+                -8
+            ],
+            "scale": [
+                1,
+                5
+            ],
+            "texture": "spqr_banner"
+        },
+        {
+            "id": "angry_crowd",
+            "type": "npc_billboard",
+            "pos": [
+                0,
+                0,
+                10
+            ],
+            "scale": [
+                20,
+                4
+            ],
+            "texture": "crowd_shadows"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "pontius_pilate",
+            "name": "Pilate",
+            "pos": [
+                0,
+                4,
+                -10
+            ],
+            "color": "#ef4444",
+            "description": "Pilate washing his hands",
+            "unlocksEvidence": [
+                "pilate_basin"
+            ],
+            "hasDialogue": true
+        },
+        {
+            "id": "barabbas_insurgent",
+            "name": "Barabbas",
+            "pos": [
+                4,
+                0,
+                -5
+            ],
+            "color": "#94a3b8",
+            "description": "The released prisoner",
+            "unlocksEvidence": [
+                "thorns_crown"
+            ],
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "thorns_crown",
+            "pos": [
+                -2,
+                0.05,
+                -2
+            ],
+            "model": "twisted_branches",
+            "glowColor": "#f46060",
+            "hint": "Discarded mock regalia"
+        },
+        {
+            "id": "pilate_basin",
+            "pos": [
+                0.5,
+                2.1,
+                -9
+            ],
+            "model": "silver_basin",
+            "glowColor": "#4fa3e8",
+            "hint": "The water used to wash away responsibility"
+        }
+    ]
+}

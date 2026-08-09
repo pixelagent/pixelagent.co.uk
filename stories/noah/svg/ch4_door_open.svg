@@ -1,0 +1,111 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyDo" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#E8B84B"/>
+      <stop offset="30%" stop-color="#c07820"/>
+      <stop offset="100%" stop-color="#1c2a3a"/>
+    </linearGradient>
+    <linearGradient id="doorWood" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C87050"/>
+      <stop offset="50%" stop-color="#8B5E2F"/>
+      <stop offset="100%" stop-color="#6b4420"/>
+    </linearGradient>
+    <linearGradient id="interior" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#060c18"/>
+      <stop offset="100%" stop-color="#0c1428"/>
+    </linearGradient>
+    <radialGradient id="noahGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#E8B84B" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#E8B84B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Exterior daylight sky — visible around the door frame -->
+  <rect width="400" height="300" fill="url(#skyDo)"/>
+
+  <!-- Ground exterior — thin strip at bottom -->
+  <rect x="0" y="268" width="400" height="32" fill="#3d2808"/>
+  <line x1="0" y1="272" x2="400" y2="268" stroke="#1e0e04" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- ARK FRAME — the door frame structure around door -->
+  <!-- Frame posts and lintel -->
+  <!-- Left frame post -->
+  <rect x="28" y="28" width="22" height="242" fill="#6b4420" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="34" y1="28" x2="34" y2="270" stroke="#5a3820" stroke-width="1.5"/>
+  <line x1="40" y1="28" x2="40" y2="270" stroke="#5a3820" stroke-width="1.5"/>
+  <!-- Lintel (top beam) -->
+  <rect x="28" y="28" width="258" height="22" fill="#6b4420" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="30" y1="34" x2="284" y2="34" stroke="#5a3820" stroke-width="1.5"/>
+  <line x1="30" y1="40" x2="284" y2="40" stroke="#5a3820" stroke-width="1.5"/>
+  <!-- Bottom threshold -->
+  <rect x="28" y="254" width="258" height="16" fill="#5a3820" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- THE DOOR — massive wooden rectangle, hinged LEFT, swinging OPEN (to right side visible) -->
+  <!-- Door body — planks -->
+  <rect x="50" y="50" width="180" height="204" fill="url(#doorWood)" stroke="#0A0812" stroke-width="3"/>
+  <!-- Plank vertical lines -->
+  <line x1="75" y1="52" x2="75" y2="252" stroke="#6b4420" stroke-width="2"/>
+  <line x1="100" y1="52" x2="100" y2="252" stroke="#6b4420" stroke-width="2"/>
+  <line x1="125" y1="52" x2="125" y2="252" stroke="#6b4420" stroke-width="2"/>
+  <line x1="150" y1="52" x2="150" y2="252" stroke="#6b4420" stroke-width="2"/>
+  <line x1="175" y1="52" x2="175" y2="252" stroke="#6b4420" stroke-width="2"/>
+  <line x1="200" y1="52" x2="200" y2="252" stroke="#6b4420" stroke-width="2"/>
+  <!-- Horizontal cross-braces on door -->
+  <line x1="52" y1="110" x2="228" y2="110" stroke="#5a3820" stroke-width="3"/>
+  <line x1="52" y1="152" x2="228" y2="152" stroke="#5a3820" stroke-width="3"/>
+  <line x1="52" y1="194" x2="228" y2="194" stroke="#5a3820" stroke-width="3"/>
+  <!-- Iron bolt details on cross-braces -->
+  <circle cx="70" cy="110" r="4" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="120" cy="110" r="4" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="170" cy="110" r="4" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="220" cy="110" r="4" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="70" cy="152" r="4" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="120" cy="152" r="4" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="170" cy="152" r="4" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="220" cy="152" r="4" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="70" cy="194" r="4" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="120" cy="194" r="4" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="170" cy="194" r="4" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="220" cy="194" r="4" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Hinge hardware — LEFT side of door -->
+  <rect x="50" y="75" width="18" height="28" rx="3" fill="#101828" stroke="#0A0812" stroke-width="2"/>
+  <circle cx="59" cy="89" r="5" fill="#2a3d50" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="50" y="210" width="18" height="28" rx="3" fill="#101828" stroke="#0A0812" stroke-width="2"/>
+  <circle cx="59" cy="224" r="5" fill="#2a3d50" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- DARK INTERIOR — visible through the open gap right of the door -->
+  <rect x="230" y="50" width="56" height="204" fill="url(#interior)"/>
+  <!-- Faint animal shapes inside the dark interior -->
+  <!-- Dark shape 1 — large (elephant silhouette) -->
+  <ellipse cx="258" cy="185" rx="22" ry="16" fill="#0c1428" stroke="#101828" stroke-width="1"/>
+  <circle cx="274" cy="174" r="11" fill="#0c1428" stroke="#101828" stroke-width="1"/>
+  <!-- Dark shape 2 — tall (giraffe neck) -->
+  <rect x="238" y="100" width="6" height="40" rx="3" fill="#101828"/>
+  <ellipse cx="241" cy="97" rx="5" ry="4" fill="#101828"/>
+  <!-- Dark shape 3 — small (sheep) -->
+  <ellipse cx="250" cy="220" rx="10" ry="7" fill="#0e1a28" stroke="#101828" stroke-width="1"/>
+  <!-- Torch glow deep inside -->
+  <ellipse cx="252" cy="130" rx="12" ry="8" fill="#E8B84B" opacity="0.1"/>
+
+  <!-- NOAH SILHOUETTE in doorway — small relative to door, warm silhouette -->
+  <!-- Glow halo around Noah from exterior light -->
+  <ellipse cx="233" cy="200" rx="18" ry="28" fill="url(#noahGlow)"/>
+  <!-- Noah body -->
+  <ellipse cx="233" cy="212" rx="10" ry="20" fill="#3d1a04" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Noah head -->
+  <circle cx="233" cy="190" r="10" fill="#3d1a04" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Noah robe outline lit by exterior light — right edge glow -->
+  <path d="M238,192 Q246,200 244,230 Q240,250 234,252 Q228,250 224,230 Q222,200 228,192" fill="none" stroke="#E8B84B" stroke-width="1.5" opacity="0.5"/>
+  <!-- Staff -->
+  <line x1="242" y1="195" x2="248" y2="262" stroke="#5a3820" stroke-width="2.5"/>
+
+  <!-- RAMP beginning at threshold — lower centre -->
+  <polygon points="50,270 286,270 310,300 28,300" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+  <line x1="88" y1="270" x2="108" y2="300" stroke="#6b4420" stroke-width="1.5"/>
+  <line x1="136" y1="270" x2="168" y2="300" stroke="#6b4420" stroke-width="1.5"/>
+  <line x1="190" y1="270" x2="228" y2="300" stroke="#6b4420" stroke-width="1.5"/>
+  <line x1="244" y1="270" x2="288" y2="300" stroke="#6b4420" stroke-width="1.5"/>
+
+  <!-- Right exterior area — open sky / bright daylight -->
+  <!-- Nothing needed — sky gradient covers this, creating contrast -->
+</svg>

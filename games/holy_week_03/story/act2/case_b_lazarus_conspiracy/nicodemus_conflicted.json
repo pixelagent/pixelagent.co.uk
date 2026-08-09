@@ -1,0 +1,175 @@
+{
+    "inkVersion": 21,
+    "root": [
+        [
+            {
+                "->": "start"
+            },
+            [
+                "done",
+                {
+                    "#f": 5,
+                    "#n": "g-0"
+                }
+            ],
+            null
+        ],
+        "done",
+        {
+            "start": [
+                [
+                    "^I prefer the shadows of the evening. The Sanhedrin is a bright, loud place where truth is often shouted down. I have been watching the Nazarene. I have spoken to him when the city was asleep. He doesn't speak like a revolutionary... he speaks like the Law itself.",
+                    "\n",
+                    "ev",
+                    "str",
+                    "^Why did you go to him at night?",
+                    "/str",
+                    "/ev",
+                    {
+                        "*": ".^.c-0",
+                        "flg": 20
+                    },
+                    "ev",
+                    "str",
+                    "^What is the mood of the Council regarding Lazarus?",
+                    "/str",
+                    "/ev",
+                    {
+                        "*": ".^.c-1",
+                        "flg": 20
+                    },
+                    {
+                        "c-0": [
+                            "^ ",
+                            {
+                                "->": "night_visit"
+                            },
+                            "\n",
+                            {
+                                "#f": 5
+                            }
+                        ],
+                        "c-1": [
+                            "^ ",
+                            {
+                                "->": "council_mood"
+                            },
+                            "\n",
+                            {
+                                "#f": 5
+                            }
+                        ]
+                    }
+                ],
+                {
+                    "#f": 1
+                }
+            ],
+            "night_visit": [
+                [
+                    "^Because I am a teacher of Israel, and I had questions that daylight could not answer. He told me I must be born again. I am still trying to understand what that means for a man of my age and standing.",
+                    "\n",
+                    "ev",
+                    "str",
+                    "^Does the 'Secret Decree' worry you?",
+                    "/str",
+                    "/ev",
+                    {
+                        "*": ".^.c-0",
+                        "flg": 20
+                    },
+                    {
+                        "c-0": [
+                            "^ ",
+                            {
+                                "->": "probe_decree"
+                            },
+                            "\n",
+                            {
+                                "#f": 5
+                            }
+                        ]
+                    }
+                ],
+                {
+                    "#f": 1
+                }
+            ],
+            "council_mood": [
+                [
+                    "^They are in a panic. Caiaphas sees only the Romans. Annas sees only power. The miracle at Bethany has forced their hand. They cannot argue with a man who was dead, so they intend to silence him.",
+                    "\n",
+                    "ev",
+                    "str",
+                    "^What about the decree?",
+                    "/str",
+                    "/ev",
+                    {
+                        "*": ".^.c-0",
+                        "flg": 20
+                    },
+                    {
+                        "c-0": [
+                            "^ ",
+                            {
+                                "->": "probe_decree"
+                            },
+                            "\n",
+                            {
+                                "#f": 5
+                            }
+                        ]
+                    }
+                ],
+                {
+                    "#f": 1
+                }
+            ],
+            "probe_decree": [
+                [
+                    "^The decree is a stain on our history. It targets Lazarus specifically. They want to eliminate the witness to the miracle before the Passover begins. I have seen the draft in Annas's study.",
+                    "\n",
+                    "ev",
+                    "str",
+                    "^Continue.",
+                    "/str",
+                    "/ev",
+                    {
+                        "*": ".^.c-0",
+                        "flg": 20
+                    },
+                    {
+                        "c-0": [
+                            "^ ",
+                            {
+                                "->": "closing"
+                            },
+                            "\n",
+                            {
+                                "#f": 5
+                            }
+                        ]
+                    }
+                ],
+                {
+                    "#f": 1
+                }
+            ],
+            "closing": [
+                [
+                    "^I am trying to work from within, but the walls are closing in. At some point, one must choose between the scroll and the Light.",
+                    "\n",
+                    "done",
+                    {
+                        "#f": 1
+                    }
+                ],
+                {
+                    "#f": 1
+                }
+            ],
+            "#f": 1
+        }
+    ],
+    "listDefs": {}
+}

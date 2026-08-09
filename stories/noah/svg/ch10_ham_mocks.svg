@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="sky_h" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#040202"/>
+      <stop offset="100%" stop-color="#0c0604"/>
+    </linearGradient>
+    <linearGradient id="ground_h" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#100806"/>
+      <stop offset="100%" stop-color="#080402"/>
+    </linearGradient>
+    <!-- Warm spot on Ham's face — the only light -->
+    <radialGradient id="facelight" cx="72%" cy="42%" r="22%">
+      <stop offset="0%" stop-color="#C87050" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#C87050" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background — almost total darkness -->
+  <rect width="400" height="300" fill="url(#sky_h)"/>
+  <!-- Ground -->
+  <rect x="0" y="215" width="400" height="85" fill="url(#ground_h)"/>
+  <line x1="0" y1="215" x2="400" y2="215" stroke="#1a0e08" stroke-width="2"/>
+
+  <!-- Stars — absolutely minimal, cold -->
+  <circle cx="360" cy="18" r="1" fill="#fff8e0" opacity="0.35"/>
+  <circle cx="310" cy="38" r="0.8" fill="#fff8e0" opacity="0.25"/>
+  <circle cx="50" cy="28" r="0.8" fill="#fff8e0" opacity="0.2"/>
+
+  <!-- ============ TENT — left midground, dark interior as dread ============ -->
+  <!-- Tent body — dark, barely distinguishable from sky -->
+  <polygon points="0,215 130,215 124,112 65,86 0,112" fill="#4a2e12" stroke="#0A0812" stroke-width="3"/>
+  <!-- Shadow side of tent -->
+  <polygon points="65,86 124,112 130,215 90,215 88,135" fill="#2a1808" stroke="#0A0812" stroke-width="2"/>
+  <!-- Tent peak pole — barely visible -->
+  <line x1="65" y1="86" x2="65" y2="64" stroke="#6b4420" stroke-width="2"/>
+  <circle cx="65" cy="62" r="2.5" fill="#4a2e12" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- TENT OPENING — dark void, this is white-space as dread -->
+  <!-- The darkness inside is the subject -->
+  <polygon points="45,112 75,92 90,118 88,215 45,215" fill="#040202" stroke="none"/>
+  <!-- Flap edges — barely open -->
+  <polygon points="45,112 30,128 28,215 45,215" fill="#3a2010" stroke="#0A0812" stroke-width="2"/>
+  <polygon points="75,92 90,118 88,215 75,215 74,128" fill="#4a2808" stroke="#0A0812" stroke-width="2"/>
+  <!-- Edge of open flap catching faintest light -->
+  <line x1="45" y1="112" x2="28" y2="215" stroke="#5a3818" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- PRONE FIGURE inside tent — barely visible, just a dark shape in darkness -->
+  <!-- This is the weight of the scene — the figure barely distinguishable from shadow -->
+  <ellipse cx="60" cy="198" rx="24" ry="7" fill="#1a0a04" opacity="0.7"/>
+  <ellipse cx="55" cy="183" rx="10" ry="6" fill="#150804" opacity="0.5"/>
+
+  <!-- Very very faint ground outside tent — ambient almost nothing -->
+  <polygon points="28,215 88,215 95,245 22,245" fill="#C87050" opacity="0.03"/>
+
+  <!-- ============ HAM — fills RIGHT TWO-THIRDS of frame ============ -->
+  <!-- He has ALREADY LEFT — turned away from tent, facing slightly left toward viewer -->
+  <!-- His body fills the right of the scene, his face is the only lit element -->
+
+  <!-- Warm face light — unflattering, catches him in the act -->
+  <rect width="400" height="300" fill="url(#facelight)"/>
+
+  <!-- Ground shadow — long, spreading right -->
+  <ellipse cx="290" cy="228" rx="70" ry="8" fill="#050302" opacity="0.7"/>
+
+  <!-- HAM lower body — turned right, walking away already -->
+  <!-- Legs — mid-stride, left foot forward -->
+  <polygon points="245,215 270,215 268,182 252,180" fill="#C87050" stroke="#0A0812" stroke-width="2.5"/>
+  <polygon points="262,215 288,215 284,182 266,180" fill="#b8643a" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Sandal/foot detail — left foot forward -->
+  <ellipse cx="254" cy="215" rx="14" ry="5" fill="#8B5E2F" stroke="#0A0812" stroke-width="2" transform="rotate(-5,254,215)"/>
+  <ellipse cx="276" cy="215" rx="13" ry="5" fill="#8B5E2F" stroke="#0A0812" stroke-width="2" transform="rotate(5,276,215)"/>
+
+  <!-- Robe/torso — turned, facing right, weight forward -->
+  <polygon points="248,185 286,182 290,145 274,136 255,138 248,158" fill="#C87050" stroke="#0A0812" stroke-width="3"/>
+  <!-- Robe folds — movement, he's already in motion -->
+  <line x1="256" y1="184" x2="259" y2="140" stroke="#a05030" stroke-width="1.5"/>
+  <line x1="270" y1="183" x2="274" y2="138" stroke="#a05030" stroke-width="1.5"/>
+  <line x1="282" y1="182" x2="287" y2="142" stroke="#a05030" stroke-width="1.5"/>
+
+  <!-- Left arm — swinging forward, away -->
+  <polygon points="250,158 238,152 228,176 240,182" fill="#C87050" stroke="#0A0812" stroke-width="2.5"/>
+  <ellipse cx="226" cy="180" rx="8" ry="5.5" fill="#C8855A" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Right arm — held slightly out, gesture of contempt/dismissal -->
+  <polygon points="284,148 298,144 312,162 300,170" fill="#C87050" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Right hand — open, dismissive flick -->
+  <ellipse cx="314" cy="166" rx="9" ry="6" fill="#C8855A" stroke="#0A0812" stroke-width="2"/>
+  <line x1="308" y1="161" x2="305" y2="154" stroke="#C8855A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="314" y1="160" x2="313" y2="152" stroke="#C8855A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="320" y1="162" x2="321" y2="154" stroke="#C8855A" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Neck -->
+  <rect x="264" y="125" width="13" height="14" rx="3" fill="#C8855A" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- HEAD — Ham's face turned slightly LEFT (toward viewer, 3/4 view) -->
+  <!-- He's looking back/aside — caught in contempt -->
+  <!-- Head shape — 3/4 view facing slightly left -->
+  <ellipse cx="268" cy="112" rx="20" ry="21" fill="#C8855A" stroke="#0A0812" stroke-width="3"/>
+
+  <!-- Hair — dark, short, younger man -->
+  <polygon points="249,107 252,93 260,85 272,84 280,90 282,103 272,99 260,100" fill="#1a0e04" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Ear — right side (camera side) visible -->
+  <ellipse cx="286" cy="113" rx="5" ry="7" fill="#C8855A" stroke="#0A0812" stroke-width="1.5"/>
+  <path d="M283,109 Q285,113 283,117" stroke="#a07045" stroke-width="1" fill="none"/>
+
+  <!-- === SMIRKING FACE — the focal point === -->
+  <!-- Eye right — open, lit, amused, contemptuous -->
+  <ellipse cx="276" cy="108" rx="5" ry="4" fill="#1a0e04"/>
+  <ellipse cx="276" cy="108" rx="3" ry="3" fill="#2a1808"/>
+  <circle cx="277" cy="107" r="1.5" fill="#fff8e0" opacity="0.8"/>
+  <!-- Highlight catch in eye — the alive quality -->
+  <!-- Eyebrow right — raised in amusement, contempt -->
+  <path d="M270,102 Q276,97 283,100" stroke="#1a0e04" stroke-width="2.5" fill="none"/>
+
+  <!-- Eye left — partially in 3/4 view, slightly narrowed -->
+  <ellipse cx="258" cy="110" rx="3.5" ry="3" fill="#1a0e04"/>
+  <!-- Eyebrow left — also raised -->
+  <path d="M253,104 Q258,100 264,102" stroke="#1a0e04" stroke-width="2" fill="none"/>
+
+  <!-- Nose — 3/4 view -->
+  <path d="M265,114 Q261,120 263,126" stroke="#a07045" stroke-width="1.5" fill="none"/>
+  <path d="M265,126 Q268,128 272,126" stroke="#a07045" stroke-width="1.5" fill="none"/>
+
+  <!-- SMIRK — the entire moral content of this face -->
+  <!-- Lower lip — pulled up right side, contemptuous curl -->
+  <path d="M258,128 Q264,124 272,126 Q278,127 280,132" stroke="#0A0812" stroke-width="2" fill="none"/>
+  <!-- Right side smirk curl — this is the moment -->
+  <path d="M272,126 Q278,122 280,127" stroke="#8b5030" stroke-width="1.5" fill="none"/>
+  <!-- Chin shadow — defining face in dark -->
+  <path d="M256,132 Q265,140 275,136" stroke="#9a6840" stroke-width="1.5" fill="none" opacity="0.6"/>
+
+  <!-- Light stubble/beard shadow — young man, not a full beard -->
+  <path d="M254,126 Q256,134 260,138 Q265,142 270,140 Q275,138 278,133" stroke="#7a5030" stroke-width="1" fill="none" opacity="0.6"/>
+
+  <!-- ============ SHADOWY BROTHERS — far background, small ============ -->
+  <!-- Two vague silhouettes, FAR LEFT background above tent, very small -->
+  <ellipse cx="335" cy="178" rx="9" ry="13" fill="#1a0a04" stroke="#0A0812" stroke-width="1.5"/>
+  <ellipse cx="335" cy="163" rx="6" ry="7" fill="#1a0a04" stroke="#0A0812" stroke-width="1.5"/>
+  <ellipse cx="358" cy="180" rx="8" ry="12" fill="#150804" stroke="#0A0812" stroke-width="1.5"/>
+  <ellipse cx="358" cy="166" rx="6" ry="7" fill="#150804" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Very faint — they are distant, almost not there -->
+  <line x1="330" y1="191" x2="325" y2="215" stroke="#1a0a04" stroke-width="2" stroke-linecap="round"/>
+  <line x1="340" y1="191" x2="344" y2="215" stroke="#1a0a04" stroke-width="2" stroke-linecap="round"/>
+  <line x1="353" y1="192" x2="348" y2="215" stroke="#150804" stroke-width="2" stroke-linecap="round"/>
+  <line x1="363" y1="193" x2="366" y2="215" stroke="#150804" stroke-width="2" stroke-linecap="round"/>
+</svg>

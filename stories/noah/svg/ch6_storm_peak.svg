@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- DEPTH LAYER 1 — pitch-dark storm sky fills ~60% of frame -->
+  <rect width="400" height="300" fill="#010306"/>
+
+  <!-- Dark cloud mass — upper 60%, extremely dense -->
+  <rect x="0" y="0" width="400" height="180" fill="#0a0812"/>
+  <!-- Cloud volume — heavy boiling forms -->
+  <ellipse cx="40"  cy="25"  rx="90"  ry="38" fill="#101828"/>
+  <ellipse cx="180" cy="12"  rx="130" ry="42" fill="#1c2a3a"/>
+  <ellipse cx="340" cy="30"  rx="100" ry="40" fill="#101828"/>
+  <ellipse cx="60"  cy="65"  rx="80"  ry="30" fill="#0c1428"/>
+  <ellipse cx="210" cy="55"  rx="120" ry="35" fill="#1c2a3a"/>
+  <ellipse cx="380" cy="60"  rx="80"  ry="28" fill="#101828"/>
+  <!-- Dark cloud underbellies — nearly black -->
+  <ellipse cx="40"  cy="55"  rx="90"  ry="18" fill="#050810"/>
+  <ellipse cx="180" cy="48"  rx="130" ry="20" fill="#040710"/>
+  <ellipse cx="340" cy="65"  rx="100" ry="18" fill="#050810"/>
+  <!-- Lower cloud layer — pressing down toward water -->
+  <ellipse cx="100" cy="95"  rx="110" ry="28" fill="#0e1a2c"/>
+  <ellipse cx="280" cy="88"  rx="130" ry="30" fill="#101828"/>
+  <ellipse cx="30"  cy="108" rx="70"  ry="22" fill="#0a1420"/>
+  <ellipse cx="370" cy="105" rx="80"  ry="24" fill="#0a1420"/>
+  <!-- Gold-lit cloud edges from lightning glow — underlit -->
+  <ellipse cx="290" cy="42"  rx="80"  ry="16" fill="#2a1e08" opacity="0.45"/>
+  <ellipse cx="320" cy="72"  rx="60"  ry="12" fill="#2a1a06" opacity="0.35"/>
+  <ellipse cx="350" cy="95"  rx="70"  ry="10" fill="#2a1804" opacity="0.28"/>
+
+  <!-- LIGHTNING BOLT — primary focal diagonal, upper-right → lower-left -->
+  <!-- Glow aura behind bolt -->
+  <polygon points="320,0 340,0 180,180 160,180" fill="#fff8e0" opacity="0.08"/>
+  <polygon points="326,0 336,0 176,180 166,180" fill="#E8B84B" opacity="0.12"/>
+  <!-- Main bolt — thick, jagged, bright -->
+  <polyline points="332,4 310,52 325,52 295,108 318,108 260,175"
+            stroke="#fff8e0" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Inner bolt — brighter white core -->
+  <polyline points="332,4 310,52 325,52 295,108 318,108 260,175"
+            stroke="#ffffff" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round" opacity="0.90"/>
+  <!-- Branch bolt off main -->
+  <polyline points="318,108 340,130 328,130 345,158"
+            stroke="#fff8e0" stroke-width="2" fill="none" stroke-linejoin="round" opacity="0.70"/>
+  <!-- Lightning halo at origin point -->
+  <ellipse cx="332" cy="10" rx="28" ry="14" fill="#E8B84B" opacity="0.20"/>
+  <!-- Lightning scatter glow mid-bolt -->
+  <ellipse cx="300" cy="108" rx="22" ry="12" fill="#E8B84B" opacity="0.15"/>
+
+  <!-- DEPTH LAYER 2 — vast dark water, lower 40% -->
+  <!-- Water body — nearly black with depth -->
+  <rect x="0" y="185" width="400" height="115" fill="#020810"/>
+  <rect x="0" y="183" width="400" height="8"   fill="#0e2a50" opacity="0.50"/>
+
+  <!-- Background wave layer — far, smaller -->
+  <path d="M-10,205 Q30,185 70,205 Q110,225 150,200 Q190,178 230,205 Q270,228 310,200 Q350,178 410,205 L410,235 L-10,235 Z"
+        fill="#0c1e38" stroke="none"/>
+  <!-- Mid wave layer -->
+  <path d="M-10,222 Q40,200 80,222 Q120,244 165,218 Q210,194 250,220 Q290,244 335,215 Q370,194 410,222 L410,255 L-10,255 Z"
+        fill="#0e2848" stroke="none"/>
+  <!-- ENORMOUS foreground wave — hitting the ark -->
+  <path d="M-10,248 Q25,222 55,245 Q85,268 120,238 Q155,210 188,242 Q220,272 258,240 Q295,210 335,245 Q368,268 410,245 L410,300 L-10,300 Z"
+        fill="#0e2848" stroke="#062040" stroke-width="2"/>
+  <!-- Wave whitecaps — foreground wave -->
+  <path d="M25,248  Q42,238 60,245"  stroke="#fff8e0" stroke-width="3" fill="none" opacity="0.75"/>
+  <path d="M125,238 Q148,227 168,238" stroke="#fff8e0" stroke-width="3" fill="none" opacity="0.72"/>
+  <path d="M262,240 Q288,229 308,240" stroke="#fff8e0" stroke-width="3" fill="none" opacity="0.68"/>
+  <path d="M358,245 Q378,236 400,242" stroke="#fff8e0" stroke-width="2.5" fill="none" opacity="0.60"/>
+  <!-- Mid wave whitecaps -->
+  <path d="M82,222  Q102,214 122,222" stroke="#c8e0f0" stroke-width="2.5" fill="none" opacity="0.55"/>
+  <path d="M248,220 Q270,212 290,220" stroke="#c8e0f0" stroke-width="2.5" fill="none" opacity="0.50"/>
+
+  <!-- DEPTH LAYER 3 — THE ARK — lower-third, tilted, in peril -->
+  <!-- Tilt the ark slightly (rotate ~−7°) using transform — off-centre mass implies motion -->
+  <g transform="translate(200,220) rotate(-7) translate(-200,-220)">
+    <!-- Hull shadow -->
+    <polygon points="128,222 272,222 286,248 114,248" fill="#3a1e08" stroke="none"/>
+    <!-- Hull main -->
+    <polygon points="132,215 268,215 282,244 118,244" fill="#8B5E2F" stroke="#0A0812" stroke-width="3"/>
+    <!-- Hull shading lower -->
+    <polygon points="132,230 268,230 282,244 118,244" fill="#6b4420"/>
+    <!-- Hull planks horizontal -->
+    <line x1="140" y1="222" x2="260" y2="222" stroke="#5a3010" stroke-width="1.5"/>
+    <line x1="136" y1="230" x2="264" y2="230" stroke="#5a3010" stroke-width="1.5"/>
+    <line x1="133" y1="238" x2="267" y2="238" stroke="#5a3010" stroke-width="1.5"/>
+    <!-- Superstructure -->
+    <rect x="147" y="186" width="106" height="29" fill="#a06a35" stroke="#0A0812" stroke-width="2.5"/>
+    <!-- Cabin planks -->
+    <line x1="167" y1="186" x2="167" y2="215" stroke="#8B5E2F" stroke-width="1"/>
+    <line x1="190" y1="186" x2="190" y2="215" stroke="#8B5E2F" stroke-width="1"/>
+    <line x1="213" y1="186" x2="213" y2="215" stroke="#8B5E2F" stroke-width="1"/>
+    <line x1="236" y1="186" x2="236" y2="215" stroke="#8B5E2F" stroke-width="1"/>
+    <!-- Cabin roof -->
+    <polygon points="138,186 200,162 262,186" fill="#C87050" stroke="#0A0812" stroke-width="2.5"/>
+    <line x1="138" y1="186" x2="262" y2="186" stroke="#0A0812" stroke-width="2"/>
+    <!-- Window -->
+    <rect x="190" y="170" width="20" height="14" fill="#3a1e08" stroke="#0A0812" stroke-width="2"/>
+    <rect x="192" y="172" width="16" height="10" fill="#E8B84B" opacity="0.50"/>
+  </g>
+  <!-- Spray/foam at ark base from wave impact -->
+  <ellipse cx="122" cy="244" rx="18" ry="6" fill="#fff8e0" opacity="0.55"/>
+  <ellipse cx="282" cy="244" rx="18" ry="6" fill="#fff8e0" opacity="0.50"/>
+  <!-- Spray streaks -->
+  <line x1="112" y1="240" x2="100" y2="232" stroke="#fff8e0" stroke-width="2" opacity="0.45"/>
+  <line x1="290" y1="240" x2="302" y2="232" stroke="#fff8e0" stroke-width="2" opacity="0.40"/>
+
+</svg>

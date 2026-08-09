@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- LAYER 1 BACKGROUND: Deep dark clouds — dramatic, overwhelming -->
+  <rect x="0" y="0" width="400" height="300" fill="#020408"/>
+  <rect x="0" y="0" width="400" height="240" fill="#061430"/>
+
+  <!-- Dark cloud masses — flanking the light source -->
+  <!-- Left cloud bank -->
+  <ellipse cx="60" cy="55" rx="90" ry="40" fill="#0c1428" stroke="#061430" stroke-width="2"/>
+  <ellipse cx="30" cy="80" rx="65" ry="32" fill="#0a1020" stroke="#061430" stroke-width="2"/>
+  <ellipse cx="90" cy="90" rx="70" ry="28" fill="#0e1830" opacity="0.9"/>
+  <!-- Right cloud bank -->
+  <ellipse cx="340" cy="60" rx="88" ry="38" fill="#0c1428" stroke="#061430" stroke-width="2"/>
+  <ellipse cx="372" cy="88" rx="60" ry="30" fill="#0a1020" stroke="#061430" stroke-width="2"/>
+  <ellipse cx="310" cy="95" rx="75" ry="26" fill="#0e1830" opacity="0.9"/>
+  <!-- Cloud underbellies — lit gold at edges by the rays -->
+  <ellipse cx="60" cy="52" rx="88" ry="12" fill="#E8B84B" opacity="0.12"/>
+  <ellipse cx="340" cy="57" rx="85" ry="11" fill="#E8B84B" opacity="0.12"/>
+  <ellipse cx="30" cy="76" rx="62" ry="9" fill="#c4956a" opacity="0.1"/>
+  <ellipse cx="372" cy="84" rx="58" ry="9" fill="#c4956a" stroke-width="0" opacity="0.1"/>
+
+  <!-- ★ FOCAL POINT: Radiant divine light source — blazing point at upper centre -->
+  <!-- Deepest glow layers building from outside in -->
+  <ellipse cx="200" cy="42" rx="180" ry="90" fill="#E8B84B" opacity="0.06"/>
+  <ellipse cx="200" cy="35" rx="130" ry="65" fill="#E8B84B" opacity="0.10"/>
+  <ellipse cx="200" cy="28" rx="88" ry="48" fill="#E8B84B" opacity="0.18"/>
+  <ellipse cx="200" cy="22" rx="55" ry="32" fill="#fff8e0" opacity="0.28"/>
+  <ellipse cx="200" cy="16" rx="32" ry="20" fill="#ffffff" opacity="0.45"/>
+  <ellipse cx="200" cy="10" rx="18" ry="12" fill="#ffffff" opacity="0.7"/>
+  <!-- Blazing centre point -->
+  <circle cx="200" cy="6" r="8" fill="#ffffff" opacity="0.95"/>
+  <circle cx="200" cy="6" r="4" fill="#ffffff"/>
+
+  <!-- ★ LIGHT RAYS — 10 bold spokes radiating from source (rhythm) -->
+  <!-- Alternating bright and slightly dimmer rays -->
+  <!-- Ray 1 — straight down -->
+  <polygon points="196,8 204,8 215,300 185,300" fill="#E8B84B" opacity="0.22"/>
+  <!-- Ray 2 — down-left 1 -->
+  <polygon points="194,10 202,8 148,300 100,300" fill="#fff8e0" opacity="0.16"/>
+  <!-- Ray 3 — down-right 1 -->
+  <polygon points="198,8 206,10 300,300 252,300" fill="#fff8e0" opacity="0.16"/>
+  <!-- Ray 4 — down-left 2 -->
+  <polygon points="192,12 200,8 68,300 18,300" fill="#E8B84B" opacity="0.14"/>
+  <!-- Ray 5 — down-right 2 -->
+  <polygon points="200,8 208,12 382,300 334,300" fill="#E8B84B" opacity="0.14"/>
+  <!-- Ray 6 — far left -->
+  <polygon points="190,14 198,8 0,210 0,260" fill="#fff8e0" opacity="0.10"/>
+  <!-- Ray 7 — far right -->
+  <polygon points="202,8 210,14 400,210 400,260" fill="#fff8e0" opacity="0.10"/>
+  <!-- Ray 8 — upper left diagonal -->
+  <polygon points="188,8 196,6 0,80 0,120" fill="#E8B84B" opacity="0.08"/>
+  <!-- Ray 9 — upper right diagonal -->
+  <polygon points="204,6 212,8 400,80 400,120" fill="#E8B84B" opacity="0.08"/>
+  <!-- Ray 10 — nearly horizontal left -->
+  <polygon points="186,10 194,6 0,30 0,55" fill="#fff8e0" opacity="0.06"/>
+
+  <!-- Ray edges — crisp bright lines along ray borders for definition -->
+  <line x1="200" y1="6" x2="0" y2="260" stroke="#E8B84B" stroke-width="1" opacity="0.3"/>
+  <line x1="200" y1="6" x2="400" y2="260" stroke="#E8B84B" stroke-width="1" opacity="0.3"/>
+  <line x1="200" y1="6" x2="100" y2="300" stroke="#E8B84B" stroke-width="0.8" opacity="0.2"/>
+  <line x1="200" y1="6" x2="300" y2="300" stroke="#E8B84B" stroke-width="0.8" opacity="0.2"/>
+  <line x1="200" y1="6" x2="18" y2="300" stroke="#fff8e0" stroke-width="0.8" opacity="0.18"/>
+  <line x1="200" y1="6" x2="382" y2="300" stroke="#fff8e0" stroke-width="0.8" opacity="0.18"/>
+  <line x1="200" y1="6" x2="0" y2="80" stroke="#E8B84B" stroke-width="0.8" opacity="0.15"/>
+  <line x1="200" y1="6" x2="400" y2="80" stroke="#E8B84B" stroke-width="0.8" opacity="0.15"/>
+  <line x1="200" y1="6" x2="0" y2="32" stroke="#E8B84B" stroke-width="0.8" opacity="0.1"/>
+
+  <!-- Cloud edges lit by rays — gold where light touches -->
+  <path d="M 0,60 C 30,50 60,44 90,52 C 70,62 40,68 0,68 Z" fill="#E8B84B" opacity="0.08"/>
+  <path d="M 310,50 C 340,44 368,50 400,60 L 400,68 C 368,60 338,56 310,62 Z" fill="#E8B84B" opacity="0.08"/>
+
+  <!-- LAYER 2 MIDGROUND: Earth — thin strip, just visible in lower 20% -->
+  <rect x="0" y="242" width="400" height="58" fill="#1a0e08"/>
+  <rect x="0" y="242" width="400" height="16" fill="#2a1608" opacity="0.8"/>
+  <!-- Faint green on ground — new earth -->
+  <ellipse cx="100" cy="254" rx="70" ry="8" fill="#1a3010" opacity="0.7"/>
+  <ellipse cx="320" cy="256" rx="65" ry="7" fill="#1a3010" opacity="0.6"/>
+
+  <!-- ★ SCALE: 8 tiny human silhouettes — arms raised — proportion, divine overwhelm -->
+  <!-- They stand at y≈250, each about 22px tall — very small against the vast rays -->
+  <!-- Figure 1 — far left -->
+  <polygon points="36,244 33,265 40,265 38,244" fill="#0a0812"/>
+  <circle cx="37" cy="240" r="5" fill="#0a0812"/>
+  <line x1="36" y1="250" x2="28" y2="242" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="38" y1="250" x2="46" y2="242" stroke="#0a0812" stroke-width="2.5"/>
+
+  <!-- Figure 2 -->
+  <polygon points="78,244 75,265 82,265 80,244" fill="#0a0812"/>
+  <circle cx="79" cy="240" r="5" fill="#0a0812"/>
+  <line x1="78" y1="250" x2="70" y2="242" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="80" y1="250" x2="88" y2="242" stroke="#0a0812" stroke-width="2.5"/>
+
+  <!-- Figure 3 -->
+  <polygon points="120,243 117,265 124,265 122,243" fill="#0a0812"/>
+  <circle cx="121" cy="239" r="5" fill="#0a0812"/>
+  <line x1="120" y1="249" x2="112" y2="241" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="122" y1="249" x2="130" y2="241" stroke="#0a0812" stroke-width="2.5"/>
+
+  <!-- Figure 4 — left of centre -->
+  <polygon points="161,242 158,265 166,265 163,242" fill="#0a0812"/>
+  <circle cx="162" cy="238" r="5.5" fill="#0a0812"/>
+  <line x1="161" y1="248" x2="152" y2="240" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="163" y1="248" x2="172" y2="240" stroke="#0a0812" stroke-width="2.5"/>
+
+  <!-- Figure 5 — centre (Noah) — slightly larger, arms highest -->
+  <polygon points="198,241 194,265 206,265 202,241" fill="#0a0812"/>
+  <circle cx="200" cy="236" r="6" fill="#0a0812"/>
+  <line x1="198" y1="247" x2="186" y2="236" stroke="#0a0812" stroke-width="3"/>
+  <line x1="202" y1="247" x2="214" y2="236" stroke="#0a0812" stroke-width="3"/>
+
+  <!-- Figure 6 — right of centre -->
+  <polygon points="238,242 235,265 243,265 240,242" fill="#0a0812"/>
+  <circle cx="239" cy="238" r="5.5" fill="#0a0812"/>
+  <line x1="238" y1="248" x2="229" y2="240" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="240" y1="248" x2="249" y2="240" stroke="#0a0812" stroke-width="2.5"/>
+
+  <!-- Figure 7 -->
+  <polygon points="280,243 277,265 284,265 282,243" fill="#0a0812"/>
+  <circle cx="281" cy="239" r="5" fill="#0a0812"/>
+  <line x1="280" y1="249" x2="272" y2="241" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="282" y1="249" x2="290" y2="241" stroke="#0a0812" stroke-width="2.5"/>
+
+  <!-- Figure 8 — far right -->
+  <polygon points="358,244 355,265 362,265 360,244" fill="#0a0812"/>
+  <circle cx="359" cy="240" r="5" fill="#0a0812"/>
+  <line x1="358" y1="250" x2="350" y2="242" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="360" y1="250" x2="368" y2="242" stroke="#0a0812" stroke-width="2.5"/>
+
+</svg>

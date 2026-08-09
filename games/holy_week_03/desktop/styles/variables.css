@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+
+/* ==========================================================================
+   VARIABLES & CORE CONFIGURATION — Roman/Antiquity Theme
+   ========================================================================== */
+
+:root {
+    /* ── Backgrounds ─────────────────────────────────────── */
+    --bg-main: #1a1208;
+    --panel-bg: rgba(28, 18, 8, 0.94);
+
+    /* ── Accents ─────────────────────────────────────────── */
+    --accent-primary: #c8965a;
+    /* warm bronze         */
+    --accent-secondary: #e8c56a;
+    /* antique gold        */
+    --accent-success: #8fbf6a;
+    /* olive green         */
+    --accent-error: #c94040;
+    /* roman red           */
+    --accent-blue: #7aa8c0;
+    /* faded fresco blue   */
+    --accent: #c8965a;
+    --gold: #e8c56a;
+    --red: #c94040;
+    --dim: #7a6a52;
+
+    /* ── Text ────────────────────────────────────────────── */
+    --text: #e9edef;
+    --text-main: #f0e6ce;
+    --text-muted: #9a8870;
+    --font-stack: "Cinzel", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --font-body: "IM Fell English", "Palatino Linotype", Georgia, serif;
+    --font-size: 1rem;
+
+    /* ── Chat bubbles ────────────────────────────────────── */
+    --bubble-out: rgba(200, 150, 90, 0.15);
+    --bubble-in: rgba(240, 230, 206, 0.06);
+
+    /* ── Borders ─────────────────────────────────────────── */
+    --border: rgba(100, 255, 218, 0.18);
+    --border-subtle: rgba(200, 150, 90, 0.18);
+    --border-accent: rgba(200, 150, 90, 0.45);
+    --border-gold: rgba(232, 197, 106, 0.50);
+
+    /* ── Panel texture / shadow ──────────────────────────── */
+    --panel-inset:
+        inset 0 1px 0 rgba(240, 230, 206, 0.06),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.30);
+
+    /* ── Glow ────────────────────────────────────────────── */
+    --glow-sm: 0 0 10px rgba(100, 255, 218, 0.25);
+    --glow-md: 0 0 22px rgba(100, 255, 218, 0.50);
+
+    /* ── Sidebar / layout sizes (fluid) ─────────────────── */
+    --sidebar-w: clamp(220px, 22vw, 320px);
+    /* left + right panels */
+    --topbar-h: 52px;
+    --bottombar-h: 96px;
+    --btn-sz: clamp(44px, 10vmin, 56px);
+    --gap: clamp(8px, 1.2vw, 16px);
+
+    /* ── Reader tokens (used in bible-reader.css AND ui-layout.css) ── */
+    --ink: #1a1208;
+    --parchment: #f5ecd7;
+    --parchment-dark: #ede0c4;
+    --parchment-mid: #f0e6cc;
+    --reader-gold: #b8860b;
+    --reader-gold-light: #d4a017;
+    --reader-gold-pale: #e8d5a0;
+    --reader-rust: #8b3a1c;
+    --sepia: #5c4a2a;
+
+    /* ── Bible-reader tokens (used in bible-reader.css AND ui-layout.css) ── */
+    --ink: #1a1208;
+    --parchment: #f5ecd7;
+    --parchment-dark: #ede0c4;
+    --parchment-mid: #f0e6cc;
+    --reader-gold: #b8860b;
+    --reader-gold-light: #d4a017;
+    --reader-gold-pale: #e8d5a0;
+    --reader-rust: #8b3a1c;
+    --sepia: #5c4a2a;
+}
+
+/* ── Resets ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg-main);
+    font-family: var(--font-body);
+
+    color: var(--text-main);
+    user-select: none;
+    background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(80, 45, 10, 0.40) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(60, 30, 5, 0.30) 0%, transparent 50%);
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.08em;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(200, 150, 90, 0.30);
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(200, 150, 90, 0.55);
+}

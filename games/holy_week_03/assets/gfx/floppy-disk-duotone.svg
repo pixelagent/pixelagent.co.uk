@@ -1,0 +1,10 @@
+<svg rx="0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+<rect x="11.1359" y="11" width="50" height="50" fill="currentColor" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" opacity="0.2"/>
+<polyline fill="currentColor" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="56.1359,60 56.1359,35.1616 16.1359,35.1616 16.1359,60" opacity="0.2"/>
+<polyline fill="currentColor" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="16.1359,12 16.1359,29.6067 47.0488,29.6067 47.0488,12" opacity="0.2"/>
+<rect x="19.9563" y="38.96" width="32.0306" height="5.7713" fill="currentColor" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" opacity="0.2"/>
+<rect x="11.1359" y="11" width="50" height="50" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+<polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="56.1359,60 56.1359,35.1616 16.1359,35.1616 16.1359,60"/>
+<polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="16.1359,12 16.1359,29.6067 47.0488,29.6067 47.0488,12"/>
+<rect x="19.9563" y="38.96" width="32.0306" height="5.7713" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+<style>svg{color:#87ceeb}path[opacity],circle[opacity],rect[opacity],ellipse[opacity],polygon[opacity],polyline[opacity],line[opacity]{fill:#ffffff}</style></svg>

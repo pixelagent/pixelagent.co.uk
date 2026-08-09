@@ -1,0 +1,19 @@
+/* ============================
+    ACT4-DESERT.CSS
+    Desert/fig tree palette theme (Act 4: the fig tree).
+    Activated via the .theme-act4 class on <body>.
+    ============================ */
+
+body.theme-act4 {
+    background-color: #d4a76a;
+    color: #3e2723;
+}
+
+body.theme-act4 #text-box {
+    background: rgba(255, 250, 240, 0.9);
+    border-left-color: #d35400;
+}
+
+body.theme-act4 #prophecy-zone {
+    border-color: #d35400;
+}

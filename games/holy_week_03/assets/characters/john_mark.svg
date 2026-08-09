@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="100%" height="100%">
+        <!-- Neck -->
+        <path d="M82,145 L82,185 C90,195 110,195 118,185 L118,145 Z" fill="#d0a47d"/>
+        <path d="M82,145 L82,165 C90,175 110,175 118,165 L118,145 Z" fill="#b2865f" opacity="0.5"/>
+        <!-- Shoulders / Base Torso -->
+        <path d="M30,240 C35,190 60,170 82,170 L118,170 C140,170 165,190 170,240 Z" fill="#d0a47d"/>
+    
+                <path d="M80,170 L100,200 L120,170 Z" fill="#4a423a" />
+                <path d="M30,240 C34,200 42,182 55,172 C70,162 130,162 145,172 C158,182 166,200 170,240 Z" fill="#362f26" />
+                <path d="M80,170 L100,200 L120,170 C140,175 145,190 170,240 L30,240 C55,190 60,175 80,170 Z" fill="#362f26" opacity="0.8"/>
+            <g transform="translate(100,100) scale(1.05) translate(-100,-100)"><g transform="translate(48,95) scale(0.9) translate(-48,-95)"><path d="M48,95 C45,90 34,90 34,108 C34,116 38,120 44,118 C46,108 47,100 48,95 Z" fill="#d0a47d"/></g><g transform="translate(152,95) scale(0.9) translate(-152,-95)"><path d="M152,95 C155,90 166,90 166,108 C166,116 162,120 156,118 C154,108 153,100 152,95 Z" fill="#d0a47d"/></g></g><g transform="translate(100,100) scale(1.05) translate(-100,-100)"><g transform="translate(100,30) scale(0.95) translate(-100,-30)"></g></g><g transform="translate(100,100) scale(1.05) translate(-100,-100)"><path d="M100,25 C148,25 166,48 162,88 C159,116 150,140 136,156 L118,178 C112,183 106,187 100,188 C94,187 88,183 82,178 L64,156 C50,140 41,116 38,88 C34,48 52,25 100,25 Z" fill="#d0a47d"/></g><g transform="translate(100,100) scale(1.05) translate(-100,-100)">
+                <path d="M76,162 L124,162 C124,172 122,180 116,184 L84,184 C78,180 76,172 76,162 Z" fill="#d0a47d"/>
+                <path d="M80,178 L120,178 L120,184 L80,184 Z" fill="#b48861" opacity="0.3"/>
+            </g><g transform="translate(100,100) scale(1.05) translate(-100,-100)"></g><path d="M88,142 C92,146 108,146 112,142 C108,146.5 92,146.5 88,142 Z" fill="#b06a5a"/><g transform="translate(100,110) scale(1.15) translate(-100,-110)"><path d="M97,94 C95,104 91,114 89,119 C88,123 91,126 96,127 L104,127 C109,126 112,123 111,119 C109,114 105,104 103,94 Z" fill="#b48861" opacity="0.32"/>
+        <ellipse cx="94.5" cy="122" rx="2" ry="1.4" fill="#b48861" opacity="0.85"/>
+        <ellipse cx="105.5" cy="122" rx="2" ry="1.4" fill="#b48861" opacity="0.85"/>
+    </g><path d="M63,77 L90,74 L90,77.5 L63,80 Z" fill="#1a1410"/><g transform="translate(200,0) scale(-1,1)"><path d="M63,77 L90,74 L90,77.5 L63,80 Z" fill="#1a1410"/></g><path d="M64,92 C69,85 85,85 90,92 C85,99 69,99 64,92 Z" fill="#fdfaf1"/><circle cx="77" cy="93" r="5" fill="#573f2c"/><circle cx="77" cy="93" r="2" fill="#1a1410"/><circle cx="78.4" cy="91.6" r="1.1" fill="#ffffff"/><path d="M61,85 C68,80 86,80 93,86 C86,84 70,84 61,85 Z" fill="#b2865f"/><g transform="translate(200,0) scale(-1,1)"><path d="M64,92 C69,85 85,85 90,92 C85,99 69,99 64,92 Z" fill="#fdfaf1"/><circle cx="77" cy="93" r="5" fill="#573f2c"/><circle cx="77" cy="93" r="2" fill="#1a1410"/><circle cx="78.4" cy="91.6" r="1.1" fill="#ffffff"/><path d="M61,85 C68,80 86,80 93,86 C86,84 70,84 61,85 Z" fill="#b2865f"/></g><g transform="translate(100,100) scale(1.05) translate(-100,-100)"><g transform="translate(100,30) scale(0.95) translate(-100,-30)"><path d="M100,22 C138,22 156,48 154,85 C154,70 148,58 140,52 C142,60 140,66 136,68 C132,50 112,38 100,38 C88,38 68,50 64,68 C60,66 58,60 60,52 C52,58 46,70 46,85 C44,48 62,22 100,22 Z" fill="#1a1410"/></g></g><g transform="translate(100,100) scale(1.05) translate(-100,-100)"></g></svg>

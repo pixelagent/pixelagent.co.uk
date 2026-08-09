@@ -1,0 +1,33 @@
+/* ============================
+   COMPASS.CSS
+   Persistent corner indicator for the Compass of the Heart system.
+   JS only ever toggles/sets CSS custom properties and classes here —
+   never inline styles.
+   ============================ */
+
+#compass-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    transition: transform 0.4s ease, filter 0.4s ease;
+    color: var(--compass-color, var(--gold));
+}
+
+#compass-indicator .icon {
+    width: 100%;
+    height: 100%;
+}
+
+/* Optional pulse state, toggled via class during a held beat (e.g. Act 2 prayer) */
+#compass-indicator.pulsing {
+    animation: compass-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes compass-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+}

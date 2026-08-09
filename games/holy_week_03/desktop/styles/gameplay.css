@@ -1,0 +1,445 @@
+/* ==========================================================================
+   GAMEPLAY SYSTEMS — Roman/Antiquity Theme
+   ========================================================================== */
+
+.panel-header {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-secondary);
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 7px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Cinzel', serif;
+}
+
+/* Decorative laurel divider motif before panel headers */
+.panel-header::before {
+    content: '✦';
+    font-size: 0.55rem;
+    color: var(--accent-primary);
+    opacity: 0.7;
+}
+
+.loc-tag {
+    font-size: 1rem;
+    color: var(--text-main);
+    font-weight: 700;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.05em;
+}
+
+.act-tag {
+    font-size: 0.65rem;
+    color: var(--accent-secondary);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-left: 12px;
+    letter-spacing: 2px;
+    font-family: 'Cinzel', serif;
+    opacity: 0.85;
+}
+
+/* ==========================================================================
+   QUEST OBJECTIVES
+   ========================================================================== */
+
+.quest-item {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 11px 13px;
+    border-radius: 2px;
+    border: 1px solid var(--border-subtle);
+    border-left: 3px solid var(--accent-primary);
+    margin-bottom: 10px;
+}
+
+.quest-title {
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 5px;
+    font-size: 0.82rem;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.04em;
+}
+
+.quest-task {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 9px;
+    line-height: 1.45;
+    font-style: italic;
+}
+
+.progress-bar-wrap {
+    background: rgba(0, 0, 0, 0.35);
+    height: 5px;
+    border-radius: 1px;
+    overflow: hidden;
+    border: 1px solid rgba(200, 150, 90, 0.12);
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+/* ==========================================================================
+   HISTORICAL FINDINGS / PROPHECY
+   ========================================================================== */
+
+.prophecy-item {
+    font-size: 0.75rem;
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, 0.22);
+    border-radius: 2px;
+    margin-bottom: 6px;
+    color: var(--accent-success);
+    border-left: 3px solid var(--accent-primary);
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   ACTION BUTTONS
+   ========================================================================== */
+
+.action-btn {
+    width: 100%;
+    background: rgba(200, 150, 90, 0.04);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-main);
+    padding: 9px 13px;
+    text-align: left;
+    margin-bottom: 7px;
+    cursor: pointer;
+    border-radius: 2px;
+    font-size: 0.78rem;
+    font-family: var(--font-body);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+}
+
+.action-btn:hover {
+    background: rgba(200, 150, 90, 0.12);
+    border-color: var(--accent-primary);
+    color: var(--accent-secondary);
+}
+
+.action-btn.talk-prompt-highlight {
+    border: 1px solid var(--accent-success);
+    background: rgba(143, 191, 106, 0.1);
+    animation: pulse-border 1.6s infinite ease-in-out;
+    font-weight: 700;
+}
+
+.action-btn.challenge-action-btn {
+    border: 1px solid rgba(201, 64, 64, 0.35);
+    background: rgba(201, 64, 64, 0.05);
+}
+
+.action-btn.challenge-action-btn:hover:not(:disabled) {
+    background: rgba(201, 64, 64, 0.12);
+    border-color: var(--accent-error);
+    color: var(--accent-error);
+}
+
+.action-btn.challenge-action-btn:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+}
+
+@keyframes pulse-border {
+
+    0%,
+    100% {
+        border-color: rgba(143, 191, 106, 0.4);
+    }
+
+    50% {
+        border-color: rgba(143, 191, 106, 0.9);
+        box-shadow: 0 0 10px rgba(143, 191, 106, 0.12);
+    }
+}
+
+/* ==========================================================================
+   EVIDENCE INVENTORY
+   ========================================================================== */
+
+.evidence-folder-container {
+    background: rgba(0, 0, 0, 0.22);
+    border-radius: 2px;
+    border: 1px solid var(--border-subtle);
+    padding: 10px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    overflow-y: auto;
+
+}
+
+.evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    overflow-y: auto;
+    padding-top: 4px;
+    max-height: 300px;
+
+}
+
+.evidence-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.evidence-grid::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.evidence-grid::-webkit-scrollbar-thumb {
+    background: rgba(200, 150, 90, 0.3);
+    border-radius: 3px;
+}
+
+.evidence-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(200, 150, 90, 0.5);
+}
+
+.evidence-slot-btn {
+    background: rgba(200, 150, 90, 0.04);
+    border: 1px solid var(--border-subtle);
+    border-radius: 2px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+    font-size: 1.3rem;
+}
+
+.evidence-slot-btn i {
+    font-size: 1.1rem;
+    color: var(--accent-primary);
+}
+
+.evidence-slot-btn:hover {
+    background: rgba(200, 150, 90, 0.12);
+    color: var(--accent-secondary);
+    border-color: var(--accent-primary);
+}
+
+.evidence-slot-btn.filled {
+    color: var(--accent-secondary);
+    background: rgba(200, 150, 90, 0.1);
+    border-color: var(--accent-primary);
+}
+
+.evidence-slot-btn.filled:hover {
+    color: var(--accent-secondary);
+    box-shadow: 0 0 8px rgba(200, 150, 90, 0.25);
+}
+
+.evidence-slot-btn.sel-a,
+.evidence-slot-btn.sel-b {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 10px rgba(200, 150, 90, 0.35);
+}
+
+.evidence-slot-btn.sel-a::after,
+.evidence-slot-btn.sel-b::after {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    font-size: 0.6rem;
+    font-weight: 900;
+    color: var(--accent-secondary);
+}
+
+.evidence-slot-btn.sel-a::after {
+    content: 'A';
+}
+
+.evidence-slot-btn.sel-b::after {
+    content: 'B';
+}
+
+/* ==========================================================================
+   MINIMAP RADAR
+   ========================================================================== */
+
+.minimap-panel {
+    width: 108px;
+    height: 108px;
+    background: rgba(16, 10, 4, 0.92);
+    border: 2px solid var(--accent-primary);
+    border-radius: 2px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 5;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 639px) {
+
+    /* Adjust minimap position for mobile to avoid overlap with navigation */
+    .minimap-panel {
+        bottom: 120px;
+        right: 40px;
+    }
+}
+
+.minimap-radar-line {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: conic-gradient(from 0deg, rgba(200, 150, 90, 0.18) 0deg, transparent 90deg);
+    transform-origin: center;
+    animation: radar-sweep 3s linear infinite;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes radar-sweep {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.minimap-grid-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px dashed rgba(200, 150, 90, 0.22);
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+.minimap-blip {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    margin-left: -2.5px;
+    margin-top: -2.5px;
+    border-radius: 1px;
+    z-index: 5;
+    background: var(--text-main);
+    box-shadow: 0 0 5px currentColor;
+}
+
+.minimap-blip.player {
+    background: var(--accent-secondary);
+    width: 7px;
+    height: 7px;
+    margin-left: -3.5px;
+    margin-top: -3.5px;
+    z-index: 6;
+}
+
+.minimap-blip.npc {
+    background: var(--accent-primary);
+}
+
+.minimap-blip.collectable {
+    background: var(--accent-success);
+}
+
+/* ==========================================================================
+   SIDEBAR PANEL HELPERS
+   ========================================================================== */
+.quest-panel {
+    flex: 0 0 auto;
+}
+
+.evidence-panel {
+    flex: 1 1 auto;
+    min-height: 160px;
+    height: 100vh;
+
+}
+
+.sidebar-panel-fill {
+    flex: 1;
+}
+
+
+/* ==========================================================================
+   POPUPS & EVIDENCE FILE SYSTEM
+   ========================================================================== */
+
+#evidence-popup-card {
+    background: rgba(20, 12, 4, 0.97);
+    border: 1px solid var(--accent-success);
+    border-radius: 2px;
+    padding: 12px 14px;
+    display: none;
+    margin-bottom: 10px;
+    animation: slideInDown 0.3s ease-out;
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-8px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 7px;
+}
+
+.popup-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent-success);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.05em;
+}
+
+.popup-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.78rem;
+    padding: 2px 4px;
+    transition: color 0.2s;
+}
+
+.popup-close:hover {
+    color: var(--text-main);
+}
+
+.popup-body {
+    font-size: 0.76rem;
+    color: var(--text-main);
+    line-height: 1.5;
+    font-style: italic;
+}

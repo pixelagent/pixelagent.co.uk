@@ -1,0 +1,155 @@
+{
+    "cases": [
+        {
+            "id": "triumphal_entry",
+            "name": "Act I: The Missing Donkey",
+            "npcs": [
+                "peter",
+                "john",
+                "owner",
+                "local_skeptic",
+                "eleazar"
+            ]
+        },
+        {
+            "id": "temple_cleansing",
+            "name": "Act I: Temple Cleansing",
+            "npcs": [
+                "money_changer",
+                "garrison_guard",
+                "barabbas_insurgent",
+                "informant_bribe",
+                "market_rumors",
+                "pontius_pilate",
+                "pilates_secretary",
+                "pharisee_critique",
+                "priest_objection",
+                "rumor_whisper",
+                "upset_buyer",
+                "woman_cloak",
+                "sadducee_opposition",
+                "corrupt_seller"
+            ]
+        },
+        {
+            "id": "fig_tree_incident",
+            "name": "Act I: The Barren Fig Tree",
+            "npcs": [
+                "peter_fig_tree",
+                "john_fig_tree",
+                "nathan_gardener",
+                "local_traveler_fig_tree"
+            ]
+        },
+        {
+            "id": "authority_challenged",
+            "name": "Act II: The Silenced Teacher",
+            "npcs": [
+                "chief_priest",
+                "scribe",
+                "pharisee"
+            ]
+        },
+        {
+            "id": "lazarus_plot",
+            "name": "Act II: The Price of Life",
+            "npcs": [
+                "temple_spy",
+                "annas_patriarch",
+                "martha_bethany",
+                "parable_meaning",
+                "parable_vineyard",
+                "trial_rumors",
+                "witness_healed",
+                "teaching_mount",
+                "nicodemus",
+                "simon_leper"
+            ]
+        },
+        {
+            "id": "olivet_discourse",
+            "name": "Act II: The End of the Age",
+            "npcs": [
+                "peter_olivet",
+                "john_olivet",
+                "andrew_disciple",
+                "thomas_olivet"
+            ]
+        },
+        {
+            "id": "last_supper",
+            "name": "Act III: The Upper Room",
+            "npcs": [
+                "john_mark",
+                "servant",
+                "judas"
+            ]
+        },
+        {
+            "id": "gethsemane_arrest",
+            "name": "Act III: The Arrest",
+            "npcs": [
+                "malchus_servant",
+                "simon_peter",
+                "roman_soldier"
+            ]
+        },
+        {
+            "id": "sanhedrin_trial",
+            "name": "Act III: The Midnight Tribunal",
+            "npcs": [
+                "caiaphas_trial",
+                "peter_denial_trial",
+                "false_witness_trial"
+            ]
+        },
+        {
+            "id": "crucifixion_site",
+            "name": "Act III: The Final Sacrifice",
+            "npcs": [
+                "centurion_longinus",
+                "temple_priest_pashhur",
+                "joseph_arimathea",
+                "upper_room_prep",
+                "secret_visit",
+                "peter_denial",
+                "peter_defense_simple",
+                "simon_cyrene",
+                "temple_curtain",
+                "centurion_witness"
+            ]
+        },
+        {
+            "id": "resurrection",
+            "name": "Act IV: The Empty Tomb",
+            "npcs": [
+                "mary_magdalene",
+                "marcus",
+                "joseph"
+            ]
+        },
+        {
+            "id": "roman_inquiry",
+            "name": "Act IV: The Guard's Report",
+            "npcs": [
+                "sentry_lucas",
+                "chief_priest_caiaphas",
+                "pilates_secretary",
+                "mary_resurrection",
+                "judas_betrayal",
+                "herods_servant",
+                "peter_restored"
+            ]
+        },
+        {
+            "id": "peter_restoration",
+            "name": "Act IV: Peter's Restoration",
+            "npcs": [
+                "peter",
+                "thomas",
+                "mary_magdalene",
+                "nathanael"
+            ]
+        }
+    ]
+}

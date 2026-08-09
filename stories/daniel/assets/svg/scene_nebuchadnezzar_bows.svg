@@ -1,0 +1,43 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bGlow" cx="50%" cy="60%" r="45%">
+      <stop offset="0%"   stop-color="#FFD84D" stop-opacity=".18"/>
+      <stop offset="100%" stop-color="#FFD84D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="200" fill="#1e0f0a"/>
+  <!-- Floor — proportion -->
+  <rect x="0" y="162" width="300" height="38" fill="#1a0a04"/>
+  <rect x="0" y="160" width="300" height="3"  fill="#3a1a08" opacity=".5"/>
+  <!-- Floor tiles — pattern -->
+  <line x1="0"   y1="180" x2="300" y2="180" stroke="#0A0812" stroke-width="1" opacity=".4"/>
+  <line x1="75"  y1="160" x2="75"  y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="150" y1="160" x2="150" y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="225" y1="160" x2="225" y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <!-- King's glow — emphasis: focal aura showing reverence -->
+  <ellipse cx="150" cy="115" rx="65" ry="55" fill="url(#bGlow)"/>
+  <!-- Witnesses in background — balance: flank the king, smaller scale -->
+  <!-- BG figure L -->
+  <circle cx="36"  cy="88" r="14" fill="#8a6040" stroke="#0A0812" stroke-width="1.5" opacity=".6"/>
+  <rect x="22"  y="102" width="28" height="60" fill="#4a2010" stroke="#0A0812" stroke-width="1.5" opacity=".6"/>
+  <!-- BG figure R -->
+  <circle cx="264" cy="88" r="14" fill="#8a6040" stroke="#0A0812" stroke-width="1.5" opacity=".6"/>
+  <rect x="250" y="102" width="28" height="60" fill="#4a2010" stroke="#0A0812" stroke-width="1.5" opacity=".6"/>
+  <!-- Prostrate king — emphasis, movement: diagonal body shows submission -->
+  <!-- Robe sweeps out — movement -->
+  <path d="M100 150 Q150 140 200 150 Q190 165 150 168 Q110 165 100 150 Z" fill="#8B0000" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Body horizontal -->
+  <rect x="96"  y="140" width="108" height="16" fill="#8B0000" stroke="#0A0812" stroke-width="2" rx="6"/>
+  <!-- Head bowed — hierarchy: lowest point, most humble -->
+  <circle cx="105" cy="133" r="16" fill="#D4A574" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Crown on ground — variety: fallen power symbol -->
+  <path d="M88 152 Q96 144 104 148 Q100 156 88 152 Z" fill="#FFD84D" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Raised arms of astonishment — movement -->
+  <path d="M180 140 Q210 120 224 108" fill="none" stroke="#8B0000" stroke-width="12" stroke-linecap="round"/>
+  <path d="M204 140 Q224 128 232 118" fill="none" stroke="#8B0000" stroke-width="10" stroke-linecap="round"/>
+  <!-- Light shaft from above — hierarchy, contrast -->
+  <path d="M130 0 L110 60 L170 60 L150 0 Z" fill="#FFD84D" opacity=".06"/>
+  <line x1="150" y1="0"  x2="150" y2="50" stroke="#FFD84D" stroke-width="2.5" opacity=".5"/>
+  <line x1="140" y1="0"  x2="130" y2="50" stroke="#FFD84D" stroke-width="1"   opacity=".25"/>
+  <line x1="160" y1="0"  x2="170" y2="50" stroke="#FFD84D" stroke-width="1"   opacity=".25"/>
+</svg>

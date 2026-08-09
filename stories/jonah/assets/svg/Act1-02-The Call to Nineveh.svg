@@ -1,0 +1,29 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <defs>
+    <linearGradient id="divineSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#05101c"/>
+      <stop offset="100%" stop-color="#1c436d"/>
+    </linearGradient>
+    <radialGradient id="holyLight" cx="50%" cy="0%" r="100%">
+      <stop offset="0%" stop-color="#FFF7E8" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#e3d5ba" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#1c3651" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#divineSky)"/>
+
+  <!-- Divine Beams -->
+  <path d="M300 -50 L100 400 L500 400 Z" fill="url(#holyLight)"/>
+  <path d="M300 -50 L-50 250 L150 400 Z" fill="url(#holyLight)" opacity="0.6"/>
+  <path d="M300 -50 L650 250 L450 400 Z" fill="url(#holyLight)" opacity="0.6"/>
+
+  <!-- Stylized Cloud Frame -->
+  <path d="M-50 50 Q50 -20, 150 30 T300 -10 T450 40 T650 -10 L650 -50 L-50 -50 Z" fill="#0A0812"/>
+  <path d="M-50 60 Q50 -10, 150 40 T300 0 T450 50 T650 0 L650 -50 L-50 -50 Z" fill="#112233" stroke="#0A0812" stroke-width="4"/>
+
+  <!-- Ground -->
+  <path d="M0 350 Q300 320, 600 350 L600 400 L0 400 Z" fill="#0a1520" stroke="#0A0812" stroke-width="5.5"/>
+  <!-- Jonah Silhouette looking up -->
+  <path d="M280 345 C280 320, 300 310, 310 330 C315 340, 320 345, 315 350 Z" fill="#0A0812"/>
+</svg>

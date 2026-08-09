@@ -1,0 +1,115 @@
+{
+    "caseId": "olivet_discourse",
+    "locationId": "olivet",
+    "locationTitle": "Mount of Olives, overlooking Jerusalem",
+    "timeOfDay": "day",
+    "environment": {
+        "floorColor": "#4a5d23",
+        "skyColor": "#ffaa00",
+        "ambientLight": 0.4
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "Overlook Wall",
+            "pos": [
+                0,
+                1,
+                -10
+            ],
+            "scale": [
+                20,
+                2,
+                1
+            ],
+            "color": "#7c6c5a"
+        },
+        {
+            "type": "box",
+            "name": "Distant Temple",
+            "pos": [
+                0,
+                10,
+                -50
+            ],
+            "scale": [
+                40,
+                20,
+                10
+            ],
+            "color": "#ffffff"
+        }
+    ],
+    "sprites": [
+        {
+            "id": "olive_grove_L",
+            "type": "foliage",
+            "pos": [
+                -8,
+                0,
+                -5
+            ],
+            "scale": [
+                3,
+                4
+            ],
+            "texture": "ancient_olive"
+        },
+        {
+            "id": "olive_grove_R",
+            "type": "foliage",
+            "pos": [
+                8,
+                0,
+                -5
+            ],
+            "scale": [
+                3,
+                4
+            ],
+            "texture": "ancient_olive"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "andrew_disciple",
+            "name": "Andrew",
+            "pos": [
+                0,
+                0,
+                -4
+            ],
+            "color": "#60a5fa",
+            "description": "Andrew looking toward the city walls",
+            "unlocksEvidence": [
+                "temple_stone_sketch",
+                "warning_scroll"
+            ],
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "temple_stone_sketch",
+            "pos": [
+                -1,
+                0.05,
+                -3
+            ],
+            "model": "parchment_scrap",
+            "glowColor": "#ffffff",
+            "hint": "A sketch of the massive stones of the Temple wall"
+        },
+        {
+            "id": "warning_scroll",
+            "pos": [
+                2,
+                0.1,
+                -2
+            ],
+            "model": "scroll_closed",
+            "glowColor": "#f46060",
+            "hint": "A collection of warnings about the coming desolation"
+        }
+    ]
+}

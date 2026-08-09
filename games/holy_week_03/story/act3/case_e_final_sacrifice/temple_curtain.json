@@ -1,0 +1,28 @@
+{
+  "start": {
+    "content": "It was three in the afternoon, yet I had to carry a lamp to see my own feet. The darkness wasn't just a shadow; it was a weight that choked the breath out of the city. I was preparing the evening ince",
+    "choices": [
+      {
+        "text": "Tell me more.",
+        "destination": "more"
+      },
+      {
+        "text": "That is enough.",
+        "destination": "closing"
+      }
+    ]
+  },
+  "more": {
+    "content": "I have more to say on this matter.",
+    "choices": [
+      {
+        "text": "Go on.",
+        "destination": "closing"
+      }
+    ]
+  },
+  "closing": {
+    "content": "That is all I can tell you.",
+    "choices": []
+  }
+}

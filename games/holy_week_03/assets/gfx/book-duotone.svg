@@ -1,0 +1,9 @@
+<svg rx="0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+<path fill="currentColor" stroke="none" d="M16,12h36a4,4,0,0,1,4,4V56a4,4,0,0,1-4,4H20a4,4,0,0,1-4-4V12Z" opacity="0.2"/>
+<rect x="20" y="20" width="28" height="6" rx="1" fill="currentColor" opacity="0.35" stroke="none"/>
+<rect x="20" y="30" width="28" height="3" rx="1" fill="currentColor" opacity="0.35" stroke="none"/>
+<rect x="20" y="36" width="20" height="3" rx="1" fill="currentColor" opacity="0.35" stroke="none"/>
+<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16,12h36a4,4,0,0,1,4,4V56a4,4,0,0,1-4,4H20a4,4,0,0,1-4-4V12Z"/>
+<line x1="24" x2="24" y1="12" y2="60" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.5"/>
+<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16,52H52a4,4,0,0,1,0,8H20"/>
+<style>svg{color:#87ceeb}path[opacity],circle[opacity],rect[opacity],ellipse[opacity],polygon[opacity],polyline[opacity],line[opacity]{fill:#ffffff}</style></svg>

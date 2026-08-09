@@ -1,0 +1,58 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="windowGlow" cx="65%" cy="45%" r="40%">
+      <stop offset="0%"   stop-color="#4ECDC4" stop-opacity=".2"/>
+      <stop offset="100%" stop-color="#4ECDC4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="prayerGlow" cx="30%" cy="55%" r="35%">
+      <stop offset="0%"   stop-color="#FFD84D" stop-opacity=".18"/>
+      <stop offset="100%" stop-color="#FFD84D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="200" fill="#061224"/>
+  <!-- Ground -->
+  <rect x="0" y="157" width="300" height="43" fill="#030b18"/>
+  <rect x="0" y="155" width="300" height="3" fill="#0d2340" opacity=".5"/>
+  <!-- Floor tiles — pattern -->
+  <line x1="75"  y1="155" x2="75"  y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="150" y1="155" x2="150" y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <!-- Room walls — hierarchy: encloses the scene -->
+  <rect x="22"  y="14"  width="204" height="144" fill="#0d1e38" stroke="#0A0812" stroke-width="3"/>
+  <!-- Window — emphasis: the crucial open window, contrasting blue-white against dark room -->
+  <rect x="130" y="36"  width="82"  height="70"  fill="#1b4965" stroke="#0A0812" stroke-width="3"/>
+  <!-- Window panes — repetition, unity: cross dividers -->
+  <line x1="171" y1="36" x2="171" y2="106" stroke="#0A0812" stroke-width="3"/>
+  <line x1="130" y1="71" x2="212" y2="71"  stroke="#0A0812" stroke-width="3"/>
+  <!-- Window arch top — variety -->
+  <path d="M130 36 Q171 18 212 36" fill="#1b4965" stroke="#0A0812" stroke-width="3"/>
+  <!-- Night sky through window — contrast: bright vs room -->
+  <rect x="133" y="39" width="76" height="64" fill="#0a1e3a"/>
+  <!-- Jerusalem stars through window — rhythm, white space -->
+  <circle cx="148" cy="54"  r="1.5" fill="white"   opacity=".8"/>
+  <circle cx="165" cy="46"  r="2"   fill="#4ECDC4" opacity=".9"/>
+  <circle cx="181" cy="52"  r="1.5" fill="white"   opacity=".7"/>
+  <circle cx="196" cy="44"  r="2"   fill="#FFD84D"  opacity=".8"/>
+  <circle cx="148" cy="82"  r="1"   fill="white"   opacity=".6"/>
+  <circle cx="196" cy="75"  r="1"   fill="white"   opacity=".5"/>
+  <!-- Window glow — emphasis: light falls into room -->
+  <path d="M130 106 Q171 116 212 106 L230 155 L112 155 Z" fill="#4ECDC4" opacity=".04"/>
+  <ellipse cx="170" cy="120" rx="60" ry="40" fill="url(#windowGlow)"/>
+  <!-- Kneeling figure — emphasis, proportion: left side, below window -->
+  <!-- Prayer glow -->
+  <ellipse cx="70" cy="120" rx="45" ry="40" fill="url(#prayerGlow)"/>
+  <!-- Robe kneeling -->
+  <rect x="46" y="108" width="48" height="47" fill="#3a5a8c" stroke="#0A0812" stroke-width="2.5" rx="3"/>
+  <!-- Head bowed toward window — movement: body angled toward Jerusalem -->
+  <circle cx="72" cy="86"  r="20" fill="#C8956C" stroke="#0A0812" stroke-width="3"/>
+  <path d="M52 78 Q72 64 92 78" fill="none" stroke="#e8e8e8" stroke-width="8" stroke-linecap="round"/>
+  <!-- Eyes closed in prayer — variety -->
+  <path d="M64 86 Q68 84 72 86" fill="none" stroke="#0A0812" stroke-width="2"/>
+  <path d="M72 86 Q76 84 80 86" fill="none" stroke="#0A0812" stroke-width="2"/>
+  <!-- Hands clasped forward — movement: reach toward window -->
+  <path d="M46 115 Q30 122 22 130" fill="none" stroke="#C8956C" stroke-width="10" stroke-linecap="round"/>
+  <!-- Knees — balance -->
+  <ellipse cx="56"  cy="156" rx="12" ry="5" fill="#3a5a8c" stroke="#0A0812" stroke-width="2"/>
+  <ellipse cx="84"  cy="156" rx="12" ry="5" fill="#3a5a8c" stroke="#0A0812" stroke-width="2"/>
+  <!-- Direction line: prayer rising toward Jerusalem — movement, hierarchy -->
+  <line x1="72"  y1="66"  x2="140" y2="60"  stroke="#FFD84D" stroke-width="1.5" stroke-dasharray="4,3" opacity=".5"/>
+</svg>

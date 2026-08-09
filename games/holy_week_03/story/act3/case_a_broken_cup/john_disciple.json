@@ -1,0 +1,50 @@
+{
+  "start": {
+    "content": "The candles are burning down, and He keeps speaking about washing feet and breaking bread like it is a farewell. I've been sitting on the stairs, trying to keep a written record of His words. Something is fracturing inside our circle tonight; I saw Judas spill the wine at the third cup.",
+    "choices": [
+      {
+        "text": "What are you writing there?",
+        "destination": "declaration"
+      },
+      {
+        "text": "Did you see the bread on the table?",
+        "destination": "table"
+      },
+      {
+        "text": "Tell me about Judas.",
+        "destination": "judas"
+      }
+    ]
+  },
+  "declaration": {
+    "content": "I am writing down His summary. He said this cup is the New Covenant in His blood. I want to make sure the declaration is perfect before the night is over.",
+    "choices": [
+      {
+        "text": "Continue.",
+        "destination": "table"
+      }
+    ]
+  },
+  "judas": {
+    "content": "His eyes kept moving. Then Jesus gave him a piece of bread, dipped in the bitter herbs \u2014 I think I saw a fragment of it fall near the door. He said, \"What you do, do quickly.\" Judas left immediately.",
+    "choices": [
+      {
+        "text": "You knew what was happening.",
+        "destination": "table"
+      }
+    ]
+  },
+  "table": {
+    "content": "Jesus took the bread and broke it. I saw the crumbs scatter as He blessed it. Then the cup... we didn't understand. We were still thinking in terms of kingdoms and swords. He was speaking of something far greater \u2014 and far more terrible.",
+    "choices": [
+      {
+        "text": "You wrote it down.",
+        "destination": "closing"
+      }
+    ]
+  },
+  "closing": {
+    "content": "The conversation is over. Go in peace.",
+    "choices": []
+  }
+}

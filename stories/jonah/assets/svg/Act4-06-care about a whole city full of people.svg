@@ -1,0 +1,216 @@
+<svg viewBox="0 0 600 400"
+     xmlns="http://www.w3.org/2000/svg"
+     width="100%"
+     height="100%">
+
+  <defs>
+
+    <!-- Evening sky -->
+    <linearGradient id="sky"
+                    x1="0" y1="0"
+                    x2="0" y2="1">
+      <stop offset="0%" stop-color="#18364f"/>
+      <stop offset="50%" stop-color="#2a5876"/>
+      <stop offset="100%" stop-color="#e6aa67"/>
+    </linearGradient>
+
+    <!-- Divine glow -->
+    <radialGradient id="godGlow">
+      <stop offset="0%" stop-color="#fff3b8" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#fff3b8" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Ground -->
+    <linearGradient id="ground"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1">
+      <stop offset="0%" stop-color="#2b3640"/>
+      <stop offset="100%" stop-color="#111920"/>
+    </linearGradient>
+
+  </defs>
+
+  <!-- Sky -->
+  <rect width="600"
+        height="400"
+        fill="url(#sky)"/>
+
+  <!-- Divine light -->
+  <circle cx="450"
+          cy="80"
+          r="55"
+          fill="#FFD84D"
+          stroke="#0A0812"
+          stroke-width="3"/>
+
+  <circle cx="450"
+          cy="80"
+          r="120"
+          fill="url(#godGlow)"/>
+
+  <!-- Soft rays -->
+  <g opacity="0.2">
+
+    <path d="M450 80 L330 320 L390 320 Z"
+          fill="#fff8d8"/>
+
+    <path d="M450 80 L440 320 L480 320 Z"
+          fill="#fff8d8"/>
+
+  </g>
+
+  <!-- Rolling hillside -->
+  <path d="
+      M0 260
+      Q140 220 260 250
+      T600 240
+      L600 400
+      L0 400 Z"
+      fill="url(#ground)"
+      stroke="#0A0812"
+      stroke-width="4"/>
+
+  <!-- Dead plant -->
+  <g transform="translate(260 190)">
+
+    <!-- patch of earth -->
+    <ellipse cx="0"
+             cy="120"
+             rx="90"
+             ry="25"
+             fill="#5d3419"/>
+
+    <!-- trunk -->
+    <path d="
+      M0 115
+      L5 40
+      M5 50
+      L-35 20
+      M0 65
+      L42 30
+      M5 80
+      L-18 55"
+      fill="none"
+      stroke="#7b4a22"
+      stroke-width="8"
+      stroke-linecap="round"/>
+
+    <!-- fallen leaves -->
+    <ellipse cx="-45"
+             cy="105"
+             rx="16"
+             ry="10"
+             fill="#8d5529"/>
+
+    <ellipse cx="40"
+             cy="108"
+             rx="16"
+             ry="10"
+             fill="#8d5529"/>
+
+    <ellipse cx="-10"
+             cy="115"
+             rx="18"
+             ry="10"
+             fill="#8d5529"/>
+
+  </g>
+
+  <!-- Jonah -->
+  <g transform="translate(145 255)">
+
+    <!-- head -->
+    <circle cx="0"
+            cy="0"
+            r="16"
+            fill="#f2d1aa"
+            stroke="#0A0812"
+            stroke-width="3"/>
+
+    <!-- sad eye -->
+    <circle cx="4"
+            cy="-2"
+            r="2"
+            fill="#0A0812"/>
+
+    <!-- frown -->
+    <path d="M-4 8 Q0 5 4 8"
+          fill="none"
+          stroke="#0A0812"
+          stroke-width="2"/>
+
+    <!-- robe -->
+    <path d="
+      M-22 18
+      L22 18
+      L28 90
+      L-28 90 Z"
+      fill="#4f6980"
+      stroke="#0A0812"
+      stroke-width="3"/>
+
+    <!-- slumped shoulders -->
+    <line x1="-22"
+          y1="35"
+          x2="-45"
+          y2="45"
+          stroke="#0A0812"
+          stroke-width="4"
+          stroke-linecap="round"/>
+
+    <line x1="22"
+          y1="35"
+          x2="40"
+          y2="50"
+          stroke="#0A0812"
+          stroke-width="4"
+          stroke-linecap="round"/>
+
+  </g>
+
+  <!-- Visual focus line (Jonah to plant) -->
+  <path d="
+      M180 265
+      Q210 235 245 230
+      Q270 225 285 245"
+      fill="none"
+      stroke="#ffffff"
+      stroke-width="2"
+      opacity="0.15"/>
+
+  <!-- Tiny distant city silhouette -->
+  <g opacity="0.25"
+     transform="translate(470 220) scale(0.5)">
+
+    <rect x="0" y="40"
+          width="140"
+          height="50"
+          fill="#d39a61"
+          stroke="#0A0812"
+          stroke-width="3"/>
+
+    <rect x="20" y="-10"
+          width="30"
+          height="100"
+          fill="#c38449"/>
+
+    <rect x="70" y="-30"
+          width="40"
+          height="120"
+          fill="#c38449"/>
+
+  </g>
+
+  <!-- First evening stars -->
+  <g fill="#ffffff" opacity="0.75">
+
+    <circle cx="90" cy="35" r="1.4"/>
+    <circle cx="130" cy="55" r="1.2"/>
+    <circle cx="220" cy="45" r="1.5"/>
+    <circle cx="540" cy="40" r="1.4"/>
+
+  </g>
+
+</svg>

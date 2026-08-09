@@ -1,0 +1,12 @@
+/* ===== FLOATING ACTION ICON ===== */
+.floating-action-icon,
+.action-floating-icon {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1000;
+    font-size: 24px;
+    color: var(--accent-primary);
+    transform-origin: center center;
+    will-change: transform, opacity;
+    transition: transform 0.1s linear;
+}

@@ -1,0 +1,163 @@
+[
+    {
+        "id": "act1_ship",
+        "act": "act1",
+        "title": "The Ship to Tarshish",
+        "modelPath": "assets/models/act1_ship.obj",
+        "palette": "sea",
+        "spawn": { "x": 0, "y": 0, "z": 4 },
+        "hotspots": [
+            {
+                "id": "cargo_pile",
+                "position": { "x": -2, "y": 0, "z": 1 },
+                "label": "Cargo",
+                "beatModule": "Act1Beats",
+                "beatFunction": "brace",
+                "triggerOnce": false
+            },
+            {
+                "id": "boarding_plank",
+                "position": { "x": 3, "y": 0, "z": 3 },
+                "label": "Boarding Plank",
+                "beatModule": "Act1Beats",
+                "beatFunction": "boardShip",
+                "triggerOnce": true
+            },
+            {
+                "id": "lots_barrel",
+                "position": { "x": 0, "y": 0, "z": -2 },
+                "label": "Cast Lots",
+                "beatModule": "Act1Beats",
+                "beatFunction": "castLots",
+                "triggerOnce": true
+            }
+        ]
+    },
+    {
+        "id": "act2_whale",
+        "act": "act2",
+        "title": "The Belly of the Fish",
+        "modelPath": "assets/models/act2_whale.obj",
+        "palette": "sea",
+        "spawn": { "x": 0, "y": 0, "z": 5 },
+        "hotspots": [
+            {
+                "id": "descent_point",
+                "position": { "x": 0, "y": 0, "z": 3 },
+                "label": "Sink Deeper",
+                "beatModule": "Act2Beats",
+                "beatFunction": "descend",
+                "triggerOnce": true
+            },
+            {
+                "id": "verse_fragment_1",
+                "position": { "x": -3, "y": 1, "z": 0 },
+                "label": "Glimmer in the Dark",
+                "beatModule": "Act2Beats",
+                "beatFunction": "collectFragment",
+                "beatArgs": ["vf_matt_12_40"],
+                "triggerOnce": true
+            },
+            {
+                "id": "verse_fragment_2",
+                "position": { "x": 3, "y": -1, "z": -1 },
+                "label": "Glimmer in the Dark",
+                "beatModule": "Act2Beats",
+                "beatFunction": "collectFragment",
+                "beatArgs": ["vf_jonah_2_2"],
+                "triggerOnce": true
+            },
+            {
+                "id": "verse_fragment_3",
+                "position": { "x": 0, "y": 2, "z": -3 },
+                "label": "Glimmer in the Dark",
+                "beatModule": "Act2Beats",
+                "beatFunction": "collectFragment",
+                "beatArgs": ["vf_jonah_2_9"],
+                "triggerOnce": true
+            },
+            {
+                "id": "prayer_alcove",
+                "position": { "x": 0, "y": 0, "z": -5 },
+                "label": "Pray",
+                "beatModule": "Act2Beats",
+                "beatFunction": "prayer",
+                "requiresHold": true,
+                "holdDurationMs": 4000,
+                "triggerOnce": true
+            }
+        ]
+    },
+    {
+        "id": "act3_nineveh",
+        "act": "act3",
+        "title": "The Streets of Nineveh",
+        "modelPath": "assets/models/act3_nineveh.obj",
+        "palette": "desert",
+        "spawn": { "x": 0, "y": 0, "z": 6 },
+        "hotspots": [
+            {
+                "id": "city_gates",
+                "position": { "x": 0, "y": 0, "z": 4 },
+                "label": "The Great Gates",
+                "beatModule": "Act3Beats",
+                "beatFunction": "walkTheCity",
+                "triggerOnce": true
+            },
+            {
+                "id": "sermon_square",
+                "position": { "x": 0, "y": 0, "z": 0 },
+                "label": "Cry Out",
+                "beatModule": "Act3Beats",
+                "beatFunction": "preachSermon",
+                "triggerOnce": true
+            },
+            {
+                "id": "kings_palace",
+                "position": { "x": -4, "y": 0, "z": -3 },
+                "label": "Watch the City",
+                "beatModule": "Act3Beats",
+                "beatFunction": "watchOrTurnAway",
+                "choiceHotspot": true,
+                "choices": ["Watch", "Turn away"],
+                "triggerOnce": true
+            }
+        ]
+    },
+    {
+        "id": "act4_figtree",
+        "act": "act4",
+        "title": "East of the City",
+        "modelPath": "assets/models/act4_figtree.obj",
+        "palette": "desert",
+        "spawn": { "x": 0, "y": 0, "z": 4 },
+        "hotspots": [
+            {
+                "id": "the_plant",
+                "position": { "x": 0, "y": 0, "z": 1 },
+                "label": "The Plant",
+                "beatModule": "Act4Beats",
+                "beatFunction": "plantTree",
+                "triggerOnce": true
+            },
+            {
+                "id": "the_worm",
+                "position": { "x": 1, "y": 0, "z": 1 },
+                "label": "The Worm",
+                "beatModule": "Act4Beats",
+                "beatFunction": "revealWorm",
+                "triggerOnce": true
+            },
+            {
+                "id": "gods_question",
+                "position": { "x": 0, "y": 0, "z": -3 },
+                "label": "Answer",
+                "beatModule": "Act4Beats",
+                "beatFunction": "finalChoice",
+                "choiceHotspot": true,
+                "choices": ["Silence", "Anger", "A real question"],
+                "triggerOnce": true
+            }
+        ]
+    }
+]

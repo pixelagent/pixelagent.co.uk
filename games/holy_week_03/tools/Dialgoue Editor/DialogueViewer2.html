@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dialogue Story Viewer</title>
+    <script src="../js/plugins/ink.js"></script>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --panel-bg: #2a2a2a;
+            --border-color: #444;
+            --text-color: #e0e0e0;
+            --primary-color: #4a90e2;
+            --accent-color: #f5a623;
+            --msg-npc-bg: #333;
+            --msg-player-bg: #005d4b;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        h1 {
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5em;
+            margin: 0 0 1em 0;
+        }
+        .toolbar {
+            display: flex;
+            gap: 1em;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 1em;
+        }
+        .toolbar select {
+            padding: 0.6em;
+            background: #333;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        .toolbar button {
+            padding: 0.6em 1em;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .toolbar button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .toolbar button.copied {
+            background: #2d6a4f;
+        }
+        .main-container {
+            display: flex;
+            flex: 1;
+            gap: 1em;
+            min-height: 0;
+            overflow: hidden;
+        }
+        .dialogue-panel {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1em;
+        }
+        .source-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1em;
+            overflow: hidden;
+        }
+        .panel-header {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.8em;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        #bub-scroll {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            padding: 1em;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 1em;
+            background-color: #1e1e1e;
+        }
+        #bar-choices {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+        }
+        #next-btn {
+            margin-top: 0.5em;
+            padding: 0.6em 1em;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #next-btn:hover {
+            opacity: 0.9;
+        }
+        .msg {
+            padding: 0.6em 1em;
+            border-radius: 18px;
+            margin-bottom: 0.5em;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .msg.npc {
+            background-color: var(--msg-npc-bg);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .msg.player {
+            background-color: var(--msg-player-bg);
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+        .msg.system {
+            background: none;
+            color: var(--accent-color);
+            text-align: center;
+            font-size: 0.8em;
+            font-style: italic;
+            max-width: 100%;
+        }
+        .choice-btn {
+            padding: 0.7em;
+            background-color: #444;
+            color: var(--text-color);
+            text-align: left;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+        .choice-btn:hover {
+            background-color: var(--primary-color);
+        }
+        #source-content {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            background: #111;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1em;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8em;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #ccc;
+        }
+        #source-content .path {
+            color: var(--accent-color);
+            font-family: var(--font-family);
+            font-size: 0.85em;
+            margin-bottom: 0.8em;
+            word-break: break-all;
+        }
+        #source-content .error {
+            color: #ff6b6b;
+            font-family: var(--font-family);
+            font-size: 0.9em;
+        }
+        #source-content .section-title {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            font-family: var(--font-family);
+        }
+    </style>
+</head>
+<body>
+    <h1>Dialogue Story Viewer</h1>
+
+    <div class="toolbar">
+        <select id="case-select">
+            <option value="">-- Select Case --</option>
+        </select>
+        <select id="story-select" disabled>
+            <option value="">-- Select Story --</option>
+        </select>
+        <button id="restart-btn" disabled>Restart</button>
+        <button id="open-ink-btn" disabled>Open .ink File</button>
+        <button id="copy-path-btn" disabled>Copy JSON Path</button>
+        <button id="test-all-btn" disabled>Test All Paths</button>
+    </div>
+
+    <div class="main-container">
+        <div class="dialogue-panel">
+            <div class="panel-header">Dialogue</div>
+            <div id="bub-scroll"></div>
+            <div id="bar-choices"></div>
+            <button id="next-btn" style="display:none;">Next</button>
+        </div>
+        <div class="source-panel">
+            <div class="panel-header">Source</div>
+            <div id="source-content">
+                <p style="color:#666; font-style:italic;">Select a story to view its .ink source.</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        const DIALOGUE_MAP_PATH = '../js/gameplay/dialogueMaps.js';
+
+        let inkLib;
+        let dialogueMap;
+        let currentStoryInstance;
+        let currentStoryPath;
+        let currentInkText = null;
+        let customDialogueData = null;
+        let customCurrentNode = null;
+        let textChunks = [];
+        let currentChunkIndex = 0;
+
+        const caseSelect = document.getElementById('case-select');
+        const storySelect = document.getElementById('story-select');
+        const restartBtn = document.getElementById('restart-btn');
+        const openInkBtn = document.getElementById('open-ink-btn');
+        const copyPathBtn = document.getElementById('copy-path-btn');
+        const testAllBtn = document.getElementById('test-all-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const bubScroll = document.getElementById('bub-scroll');
+        const barChoices = document.getElementById('bar-choices');
+        const sourceContent = document.getElementById('source-content');
+
+        async function main() {
+            try {
+                inkLib = window.inkjs || window.ink;
+                if (!inkLib || !inkLib.Story) {
+                    throw new Error('Ink library (inkjs) not loaded.');
+                }
+
+                const mapModule = await import(DIALOGUE_MAP_PATH);
+                dialogueMap = mapModule.DIALOGUE_ID_MAP;
+
+                await populateCaseSelect();
+                testAllBtn.disabled = false;
+            } catch (error) {
+                console.error("Failed to initialize:", error);
+                alert("Error loading necessary files. Check console.");
+            }
+        }
+
+        async function populateCaseSelect() {
+            const cases = new Set();
+            Object.values(dialogueMap).forEach(path => {
+                const parts = path.split('/');
+                if (parts.length > 3 && parts[1] === 'story') {
+                    cases.add(parts[3]);
+                }
+            });
+
+            caseSelect.innerHTML = '<option value="">-- Select Case --</option>';
+            [...cases].sort().forEach(caseId => {
+                const option = document.createElement('option');
+                option.value = caseId;
+                option.textContent = caseId.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                caseSelect.appendChild(option);
+            });
+        }
+
+        caseSelect.addEventListener('change', () => {
+            const caseId = caseSelect.value;
+            if (caseId) {
+                populateStorySelect(caseId);
+                storySelect.disabled = false;
+            } else {
+                storySelect.innerHTML = '<option value="">-- Select Story --</option>';
+                storySelect.disabled = true;
+            }
+            resetPreview();
+        });
+
+        storySelect.addEventListener('change', async () => {
+            const storyId = storySelect.value;
+            if (storyId) {
+                currentStoryPath = dialogueMap[storyId];
+                copyPathBtn.textContent = 'Copy JSON Path';
+                copyPathBtn.classList.remove('copied');
+                await loadAndPreviewStory(currentStoryPath);
+                await loadAndShowSource(currentStoryPath);
+                copyPathBtn.disabled = false;
+                openInkBtn.disabled = false;
+                restartBtn.disabled = false;
+            } else {
+                resetPreview();
+            }
+        });
+
+        openInkBtn.addEventListener('click', () => {
+            if (currentStoryPath) {
+                const inkPath = currentStoryPath.replace('.json', '.ink');
+                const absoluteUrl = new URL(inkPath, window.location.href).href;
+                window.open(absoluteUrl, '_blank');
+            }
+        });
+
+        copyPathBtn.addEventListener('click', async () => {
+            if (!currentStoryPath) return;
+            try {
+                await navigator.clipboard.writeText(currentStoryPath);
+                copyPathBtn.textContent = '✓ Copied!';
+                copyPathBtn.classList.add('copied');
+                setTimeout(() => {
+                    copyPathBtn.textContent = 'Copy JSON Path';
+                    copyPathBtn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                prompt('Copy this path:', currentStoryPath);
+                copyPathBtn.textContent = 'Copy JSON Path';
+                copyPathBtn.classList.remove('copied');
+            }
+        });
+
+        restartBtn.addEventListener('click', async () => {
+            if (!currentStoryPath) return;
+            restartBtn.disabled = true;
+            await loadAndPreviewStory(currentStoryPath);
+            await loadAndShowSource(currentStoryPath);
+            restartBtn.disabled = false;
+        });
+
+        testAllBtn.addEventListener('click', async () => {
+            if (!dialogueMap) return;
+            testAllBtn.disabled = true;
+            testAllBtn.textContent = 'Testing...';
+            const results = [];
+            const entries = Object.entries(dialogueMap);
+            for (let i = 0; i < entries.length; i++) {
+                const [storyId, path] = entries[i];
+                try {
+                    const response = await fetch(path);
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    await response.json();
+                    results.push({ storyId, path, status: 'OK' });
+                } catch (err) {
+                    results.push({ storyId, path, status: 'FAIL', error: err.message });
+                }
+                testAllBtn.textContent = `Testing ${i + 1}/${entries.length}...`;
+            }
+            const ok = results.filter(r => r.status === 'OK').length;
+            const fail = results.filter(r => r.status === 'FAIL').length;
+            let html = `<div class="section-title">Test Results: ${ok} OK, ${fail} FAIL</div>`;
+            if (fail > 0) {
+                html += '<div style="max-height:400px;overflow-y:auto;">';
+                results.filter(r => r.status === 'FAIL').forEach(r => {
+                    html += `<div style="color:#ff6b6b;margin:4px 0;"><strong>${r.storyId}</strong><br><small>${r.path}<br>${r.error}</small></div>`;
+                });
+                html += '</div>';
+            } else {
+                html += '<p style="color:#51cf66;">All paths are valid!</p>';
+            }
+            sourceContent.innerHTML = html;
+            testAllBtn.disabled = false;
+            testAllBtn.textContent = 'Test All Paths';
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (textChunks.length === 0) return;
+            currentChunkIndex++;
+            if (currentChunkIndex < textChunks.length) {
+                addMsg(textChunks[currentChunkIndex], 'npc');
+            }
+            if (currentChunkIndex >= textChunks.length - 1) {
+                nextBtn.style.display = 'none';
+                if (currentStoryInstance) {
+                    showChoices(currentStoryInstance.currentChoices);
+                } else if (customDialogueData) {
+                    const node = customDialogueData[customCurrentNode];
+                    showChoices(node.choices || []);
+                }
+            }
+        });
+
+        function populateStorySelect(caseId) {
+            storySelect.innerHTML = '<option value="">-- Select Story --</option>';
+            Object.entries(dialogueMap)
+                .filter(([_, path]) => path.includes(`/${caseId}/`))
+                .sort(([idA], [idB]) => idA.localeCompare(idB))
+                .forEach(([storyId, _]) => {
+                    const option = document.createElement('option');
+                    option.value = storyId;
+                    option.textContent = storyId;
+                    storySelect.appendChild(option);
+                });
+        }
+        async function loadAndPreviewStory(storyPath) {
+            resetPreview();
+            try {
+                const response = await fetch(storyPath);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const storyJson = await response.json();
+
+                let loaded = false;
+
+                if (storyJson.start && storyJson.start.content) {
+                    customDialogueData = storyJson;
+                    currentStoryInstance = null;
+                    addMsg(`Loaded custom dialogue: ${storyPath.split('/').pop()}`, 'system');
+                    loaded = true;
+                } else if (storyJson.inkVersion && storyJson.root) {
+                    try {
+                        currentStoryInstance = new inkLib.Story(storyJson);
+                        customDialogueData = null;
+                        addMsg(`Loaded Ink story: ${storyPath.split('/').pop()}`, 'system');
+                        loaded = true;
+                    } catch (inkError) {
+                        console.warn('Ink load failed, trying custom format:', inkError.message);
+                        if (storyJson.start && storyJson.start.content) {
+                            customDialogueData = storyJson;
+                            currentStoryInstance = null;
+                            addMsg(`Loaded custom dialogue (Ink fallback): ${storyPath.split('/').pop()}`, 'system');
+                            loaded = true;
+                        } else {
+                            throw inkError;
+                        }
+                    }
+                }
+
+                if (!loaded) {
+                    throw new Error('Unknown story format.');
+                }
+
+                const inkPath = storyPath.replace('.json', '.ink');
+                try {
+                    const inkResp = await fetch(inkPath);
+                    if (inkResp.ok) {
+                        currentInkText = await inkResp.text();
+                    }
+                } catch (e) {
+                    currentInkText = null;
+                }
+
+                stepStory();
+
+            } catch (error) {
+                console.error(`Failed to load story from ${storyPath}:`, error);
+                addMsg(`Error: Could not load story file. Check console.`, 'system');
+            }
+        }
+
+        async function loadAndShowSource(storyJsonPath) {
+            if (!storyJsonPath) return;
+            const inkPath = storyJsonPath.replace('.json', '.ink');
+
+            let html = '';
+            html += `<div class="path"><strong>JSON:</strong> ${storyJsonPath}</div>`;
+            html += `<div class="path"><strong>Ink:</strong> ${inkPath}</div>`;
+
+            try {
+                let inkText = currentInkText;
+                if (!inkText) {
+                    const response = await fetch(inkPath);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    inkText = await response.text();
+                }
+
+                html += '<div class="section-title">.ink Source</div>';
+                html += escapeHtml(inkText);
+            } catch (error) {
+                html += `<div class="error">.ink source not available<br><small>${error.message}</small></div>`;
+
+                try {
+                    const jsonResponse = await fetch(storyJsonPath);
+                    if (jsonResponse.ok) {
+                        const jsonData = await jsonResponse.text();
+                        html += '<div class="section-title">JSON Source (fallback)</div>';
+                        html += escapeHtml(jsonData);
+                    }
+                } catch (e) {
+                    html += `<div class="error">Could not load JSON source either: ${e.message}</div>`;
+                }
+            }
+
+            sourceContent.innerHTML = html;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function stepStory() {
+            if (currentStoryInstance) {
+                let text = "";
+                while (currentStoryInstance.canContinue) {
+                    text += currentStoryInstance.Continue();
+                }
+                if (text.trim()) {
+                    displayTextInChunks(text.trim(), 'npc');
+                } else {
+                    showChoices(currentStoryInstance.currentChoices);
+                }
+            } else if (customDialogueData) {
+                if (!customCurrentNode) {
+                    customCurrentNode = 'start';
+                }
+                const node = customDialogueData[customCurrentNode];
+                if (!node) {
+                    addMsg('End of conversation.', 'system');
+                    showChoices([]);
+                    return;
+                }
+                if (node.content) {
+                    displayTextInChunks(node.content, 'npc');
+                } else {
+                    showChoices(node.choices || []);
+                }
+            }
+        }
+
+        function displayTextInChunks(text, type) {
+            textChunks = text.split(/\n\s*\n/).filter(chunk => chunk.trim());
+            currentChunkIndex = 0;
+
+            if (textChunks.length <= 1) {
+                addMsg(textChunks[0] || text, type);
+                if (currentStoryInstance) {
+                    showChoices(currentStoryInstance.currentChoices);
+                } else if (customDialogueData) {
+                    const node = customDialogueData[customCurrentNode];
+                    showChoices(node.choices || []);
+                }
+            } else {
+                addMsg(textChunks[0], type);
+                nextBtn.style.display = 'inline-block';
+                nextBtn.textContent = 'Next';
+            }
+        }
+
+        function resetPreview() {
+            bubScroll.innerHTML = '';
+            barChoices.innerHTML = '';
+            sourceContent.innerHTML = '<p style="color:#666; font-style:italic;">Select a story to view its .ink source.</p>';
+            copyPathBtn.disabled = true;
+            copyPathBtn.textContent = 'Copy JSON Path';
+            copyPathBtn.classList.remove('copied');
+            currentStoryInstance = null;
+            currentInkText = null;
+            customDialogueData = null;
+            customCurrentNode = null;
+            textChunks = [];
+            currentChunkIndex = 0;
+            nextBtn.style.display = 'none';
+        }
+
+        function addMsg(text, type) {
+            const el = document.createElement('div');
+            el.className = 'msg ' + type;
+            el.textContent = text;
+            bubScroll.appendChild(el);
+            bubScroll.scrollTop = bubScroll.scrollHeight;
+        }
+
+        function showChoices(choices) {
+            barChoices.innerHTML = '';
+            if (!choices || choices.length === 0) {
+                if (customDialogueData) {
+                    nextBtn.style.display = 'inline-block';
+                    nextBtn.textContent = 'End';
+                    nextBtn.onclick = () => {
+                        addMsg('End of conversation.', 'system');
+                        nextBtn.style.display = 'none';
+                    };
+                } else {
+                    addMsg("End of conversation.", 'system');
+                }
+                return;
+            }
+
+            nextBtn.style.display = 'none';
+            choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = 'choice-btn';
+
+                if (currentStoryInstance) {
+                    btn.textContent = '→ ' + choice.text;
+                    btn.onclick = () => {
+                        addMsg(choice.text, 'player');
+                        currentStoryInstance.ChooseChoiceIndex(choice.index);
+                        setTimeout(() => stepStory(), 200);
+                    };
+                } else if (customDialogueData) {
+                    btn.textContent = '→ ' + choice.text;
+                    btn.onclick = () => {
+                        addMsg(choice.text, 'player');
+                        customCurrentNode = choice.destination;
+                        setTimeout(() => stepStory(), 200);
+                    };
+                }
+                barChoices.appendChild(btn);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', main);
+    </script>
+</body>
+</html>

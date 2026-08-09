@@ -1,0 +1,45 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0%"   stop-color="#FFD84D"/>
+      <stop offset="50%"  stop-color="#c8a02a"/>
+      <stop offset="100%" stop-color="#8b6010"/>
+    </linearGradient>
+    <radialGradient id="goldAura" cx="50%" cy="10%" r="70%">
+      <stop offset="0%"   stop-color="#FFD84D" stop-opacity=".18"/>
+      <stop offset="100%" stop-color="#FFD84D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="200" fill="#1a0700"/>
+  <!-- Aura around statue — emphasis, contrast -->
+  <ellipse cx="150" cy="80" rx="80" ry="100" fill="url(#goldAura)"/>
+  <!-- Ground -->
+  <rect x="0" y="155" width="300" height="45" fill="#2a0e00"/>
+  <rect x="0" y="153" width="300" height="3"  fill="#8b2500" opacity=".4"/>
+  <!-- Pedestal — hierarchy, proportion: wide, grounded -->
+  <rect x="98"  y="138" width="104" height="18" fill="#5c3010" stroke="#0A0812" stroke-width="2.5"/>
+  <rect x="106" y="128" width="88"  height="12" fill="#6b3a14" stroke="#0A0812" stroke-width="2"/>
+  <!-- Statue torso — emphasis: fills upper frame -->
+  <rect x="130" y="30"  width="40"  height="100" fill="url(#goldGrad)" stroke="#0A0812" stroke-width="3"/>
+  <!-- Arms extended — balance: symmetrical, proportion -->
+  <rect x="108" y="42"  width="24"  height="16"  fill="url(#goldGrad)" stroke="#0A0812" stroke-width="2"/>
+  <rect x="168" y="42"  width="24"  height="16"  fill="url(#goldGrad)" stroke="#0A0812" stroke-width="2"/>
+  <!-- Head box — hierarchy: uppermost, richly bordered -->
+  <rect x="128" y="8"   width="44"  height="24"  fill="#FFD84D" stroke="#0A0812" stroke-width="3"/>
+  <!-- Crown — emphasis: topmost detail -->
+  <polygon points="128,8 136,-4 145,6 150,-6 155,6 164,-4 172,8" fill="#FFD84D" stroke="#0A0812" stroke-width="2"/>
+  <!-- Highlights — variety: reflected light bands -->
+  <rect x="130" y="30"  width="6"   height="100" fill="white"   opacity=".07"/>
+  <rect x="130" y="30"  width="3"   height="100" fill="#FFD84D" opacity=".2"/>
+  <!-- Light radiating lines — movement, rhythm -->
+  <line x1="150" y1="-6" x2="90"  y2="30"  stroke="#FFD84D" stroke-width="1" opacity=".2"/>
+  <line x1="150" y1="-6" x2="210" y2="30"  stroke="#FFD84D" stroke-width="1" opacity=".2"/>
+  <line x1="150" y1="-6" x2="150" y2="-20" stroke="#FFD84D" stroke-width="2" opacity=".4"/>
+  <!-- Crowd silhouettes bowing — rhythm, balance -->
+  <ellipse cx="40"  cy="153" rx="12" ry="6"  fill="#1a0700"/>
+  <rect x="22"  y="148" width="36" height="8" fill="#3a1000" stroke="#0A0812" stroke-width="1"/>
+  <ellipse cx="260" cy="153" rx="12" ry="6"  fill="#1a0700"/>
+  <rect x="242" y="148" width="36" height="8" fill="#3a1000" stroke="#0A0812" stroke-width="1"/>
+  <ellipse cx="60"  cy="154" rx="10" ry="5"  fill="#3a1000"/>
+  <ellipse cx="240" cy="154" rx="10" ry="5"  fill="#3a1000"/>
+</svg>

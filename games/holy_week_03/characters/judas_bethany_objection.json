@@ -1,0 +1,25 @@
+{
+  "id": "judas_bethany_objection",
+  "name": "Judas (Bethany Objection)",
+  "title": "Disciple & Treasurer",
+  "faction": "disciples",
+  "icon": "coins-duotone.svg",
+  "description": "Judas Iscariot, the keeper of the disciples' money bag. At the dinner in Bethany, he objects to Mary's anointing of Jesus with expensive perfume, claiming the money could have been given to the poor. His objection is a mask for his own greed.",
+  "attitude": {
+    "neutral": "Publicly concerned with finances and charity, but privately resentful and avaricious.",
+    "positive": "Feigns practicality and concern for the poor to justify his criticism.",
+    "negative": "Becomes defensive and dismissive when his motives are questioned or when Jesus overrides his financial judgment."
+  },
+  "background": "As the group's treasurer, Judas has a history of pilfering from the money bag (John 12:6). His objection at Bethany is not born of compassion but of frustration that a valuable asset was spent instead of being added to the purse he controlled. This event hardens his resolve to betray Jesus.",
+  "colorPalette": {
+    "colorInner": "#463c30",
+    "colorOuter": "#2a2420",
+    "colorCloak": "#1a1613",
+    "colorAccent": "#4a3d2c",
+    "colorGarment2": "#7a6642",
+    "colorSkin": "#d8b088",
+    "colorHair": "#b7b0a2",
+    "colorEye": "#5c4632",
+    "colorLip": "#b06a5a"
+  }
+}

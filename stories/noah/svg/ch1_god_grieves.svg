@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- ═══ BACKGROUND: vast dark sky — 80% of frame ═══ -->
+  <rect width="400" height="300" fill="#0a0812"/>
+
+  <!-- ═══ CLOUD LAYER 1: back — darkest, broadest ═══ -->
+  <ellipse cx="60"  cy="30"  rx="90"  ry="42" fill="#0c0a18"/>
+  <ellipse cx="200" cy="18"  rx="130" ry="48" fill="#0e0c1c"/>
+  <ellipse cx="360" cy="28"  rx="100" ry="40" fill="#0c0a18"/>
+  <ellipse cx="0"   cy="55"  rx="80"  ry="36" fill="#0a0812"/>
+  <ellipse cx="400" cy="50"  rx="80"  ry="36" fill="#0a0812"/>
+
+  <!-- ═══ CLOUD LAYER 2: mid — dark purple-grey ═══ -->
+  <ellipse cx="50"  cy="72"  rx="85"  ry="40" fill="#14101e"/>
+  <ellipse cx="175" cy="58"  rx="100" ry="45" fill="#1c1828"/>
+  <ellipse cx="330" cy="68"  rx="95"  ry="42" fill="#14101e"/>
+  <ellipse cx="400" cy="90"  rx="70"  ry="32" fill="#0a0812"/>
+  <ellipse cx="0"   cy="88"  rx="70"  ry="32" fill="#0a0812"/>
+  <!-- Mid-cloud closing around beam gap -->
+  <ellipse cx="128" cy="100" rx="68"  ry="30" fill="#1c1828"/>
+  <ellipse cx="272" cy="100" rx="68"  ry="30" fill="#1c1828"/>
+
+  <!-- ═══ BEAM: focal point — vertical shaft top-centre to bottom-centre ═══ -->
+  <!-- Outer soft diffusion halos (drawn first, under sharp beam) -->
+  <polygon points="155,0 245,0 270,255 130,255" fill="#8B5E2F" opacity="0.10"/>
+  <polygon points="165,0 235,0 255,255 145,255" fill="#C87050" opacity="0.12"/>
+  <polygon points="172,0 228,0 244,255 156,255" fill="#E8B84B" opacity="0.15"/>
+  <!-- Main beam body -->
+  <polygon points="181,0 219,0 232,255 168,255" fill="#E8B84B" opacity="0.80"/>
+  <!-- Inner bright core -->
+  <polygon points="190,0 210,0 220,255 180,255" fill="#f5d070" opacity="0.85"/>
+  <!-- White-hot centre spine -->
+  <polygon points="196,0 204,0 208,255 192,255" fill="#fff8e0" opacity="0.70"/>
+
+  <!-- ═══ CLOUD LAYER 3: front edges — partially gold-lit where beam touches ═══ -->
+  <!-- Dark cloud masses flanking beam, front layer -->
+  <ellipse cx="88"  cy="110" rx="78"  ry="36" fill="#1c1828"/>
+  <ellipse cx="312" cy="110" rx="78"  ry="36" fill="#1c1828"/>
+  <ellipse cx="40"  cy="132" rx="75"  ry="34" fill="#14101e"/>
+  <ellipse cx="360" cy="128" rx="75"  ry="34" fill="#14101e"/>
+  <ellipse cx="0"   cy="148" rx="62"  ry="28" fill="#0a0812"/>
+  <ellipse cx="400" cy="148" rx="62"  ry="28" fill="#0a0812"/>
+  <!-- Cloud edges gold-lit by beam — subtle warm rim near gap -->
+  <ellipse cx="162" cy="106" rx="44"  ry="18" fill="#5a4010" opacity="0.65"/>
+  <ellipse cx="238" cy="106" rx="44"  ry="18" fill="#5a4010" opacity="0.65"/>
+  <ellipse cx="158" cy="112" rx="30"  ry="12" fill="#6b5018" opacity="0.45"/>
+  <ellipse cx="242" cy="112" rx="30"  ry="12" fill="#6b5018" opacity="0.45"/>
+  <!-- Dark cloud caps the top of beam opening -->
+  <ellipse cx="200" cy="88"  rx="30"  ry="16" fill="#1c1828"/>
+
+  <!-- Atmospheric haze: dark masses at very edges, left and right -->
+  <rect x="0"   y="0" width="60"  height="260" fill="#0a0812" opacity="0.55"/>
+  <rect x="340" y="0" width="60"  height="260" fill="#0a0812" opacity="0.55"/>
+
+  <!-- ═══ GROUND: thin dark strip — 15% of frame (~255–300) ═══ -->
+  <rect x="0" y="253" width="400" height="47" fill="#0c0604"/>
+  <rect x="0" y="249" width="400" height="8"  fill="#14100a"/>
+  <!-- Dark low earth bumps -->
+  <ellipse cx="80"  cy="256" rx="100" ry="12" fill="#0a0812" opacity="0.8"/>
+  <ellipse cx="320" cy="256" rx="100" ry="12" fill="#0a0812" opacity="0.8"/>
+
+  <!-- Pool of light on ground where beam lands — small, tight -->
+  <ellipse cx="200" cy="262" rx="52"  ry="13" fill="#6b4420"  opacity="0.55"/>
+  <ellipse cx="200" cy="264" rx="32"  ry="8"  fill="#C87050"  opacity="0.45"/>
+  <ellipse cx="200" cy="266" rx="16"  ry="5"  fill="#E8B84B"  opacity="0.50"/>
+  <ellipse cx="200" cy="267" rx="7"   ry="3"  fill="#fff8e0"  opacity="0.40"/>
+
+</svg>

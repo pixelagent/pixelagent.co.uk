@@ -1,0 +1,261 @@
+<svg viewBox="0 0 600 400"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+
+    <linearGradient id="nightSky"
+                    x1="0" y1="0"
+                    x2="0" y2="1">
+      <stop offset="0%" stop-color="#163a52"/>
+      <stop offset="100%" stop-color="#274f69"/>
+    </linearGradient>
+
+    <radialGradient id="moonGlow">
+      <stop offset="0%" stop-color="#fff8d7"/>
+      <stop offset="100%" stop-color="#fff8d7" stop-opacity="0"/>
+    </radialGradient>
+
+  </defs>
+
+  <!-- Night Sky -->
+
+  <rect width="600"
+        height="400"
+        fill="url(#nightSky)"/>
+
+  <!-- Moon -->
+
+  <circle cx="500"
+          cy="70"
+          r="30"
+          fill="#fff8d7"/>
+
+  <circle cx="500"
+          cy="70"
+          r="70"
+          fill="url(#moonGlow)"
+          opacity="0.35"/>
+
+  <!-- Stars -->
+
+  <g fill="#ffffff" opacity="0.8">
+
+    <circle cx="80" cy="40" r="1.5"/>
+    <circle cx="140" cy="65" r="1.5"/>
+    <circle cx="260" cy="45" r="1.2"/>
+    <circle cx="400" cy="35" r="1.5"/>
+
+  </g>
+
+  <!-- Ground -->
+
+  <path d="
+      M0 280
+      Q150 230 300 260
+      T600 240
+      L600 400
+      L0 400 Z"
+      fill="#16232d"
+      stroke="#0A0812"
+      stroke-width="4"/>
+
+  <!-- Plant -->
+
+  <g transform="translate(310 70)">
+
+    <!-- trunk -->
+
+    <path d="
+         M0 220
+         L0 120
+         M0 140 L-80 90
+         M0 125 L70 75
+         M0 175 L-40 130
+         M0 160 L50 115"
+         fill="none"
+         stroke="#7a4a22"
+         stroke-width="10"
+         stroke-linecap="round"/>
+
+    <!-- collapsing canopy -->
+
+    <ellipse cx="-80"
+             cy="95"
+             rx="50"
+             ry="28"
+             fill="#75963f"
+             stroke="#0A0812"
+             stroke-width="3"
+             transform="rotate(-25 -80 95)"/>
+
+    <ellipse cx="80"
+             cy="80"
+             rx="50"
+             ry="28"
+             fill="#75963f"
+             stroke="#0A0812"
+             stroke-width="3"
+             transform="rotate(20 80 80)"/>
+
+    <ellipse cx="0"
+             cy="55"
+             rx="60"
+             ry="32"
+             fill="#aac25d"
+             stroke="#0A0812"
+             stroke-width="3"/>
+
+    <!-- drooping side -->
+
+    <ellipse cx="40"
+             cy="120"
+             rx="45"
+             ry="20"
+             fill="#9f8046"
+             stroke="#0A0812"
+             stroke-width="3"
+             transform="rotate(30 40 120)"/>
+
+  </g>
+
+  <!-- FALLING LEAVES -->
+
+  <g fill="#a67f49"
+     stroke="#0A0812"
+     stroke-width="1.5">
+
+    <ellipse cx="270"
+             cy="140"
+             rx="10"
+             ry="5"
+             transform="rotate(30)"/>
+
+    <ellipse cx="330"
+             cy="160"
+             rx="10"
+             ry="5"
+             transform="rotate(-25)"/>
+
+    <ellipse cx="230"
+             cy="180"
+             rx="10"
+             ry="5"
+             transform="rotate(15)"/>
+
+    <ellipse cx="365"
+             cy="170"
+             rx="10"
+             ry="5"
+             transform="rotate(-10)"/>
+
+  </g>
+
+  <!-- Jonah sleeping -->
+
+  <g transform="translate(130 255)">
+
+    <ellipse cx="40"
+             cy="55"
+             rx="70"
+             ry="22"
+             fill="#101820"
+             opacity="0.3"/>
+
+    <circle cx="40"
+            cy="10"
+            r="14"
+            fill="#f3d1ad"
+            stroke="#0A0812"
+            stroke-width="3"/>
+
+    <path d="
+         M10 25
+         Q40 10 70 25
+         L80 80
+         L0 80 Z"
+         fill="#54708a"
+         stroke="#0A0812"
+         stroke-width="3"/>
+
+    <!-- sleeping mark -->
+
+    <text x="85"
+          y="5"
+          font-size="18"
+          font-family="sans-serif"
+          fill="#fff8d7">Z</text>
+
+    <text x="98"
+          y="-10"
+          font-size="12"
+          font-family="sans-serif"
+          fill="#fff8d7">Z</text>
+
+  </g>
+
+  <!-- Roots exposed -->
+
+  <g stroke="#8b5229"
+     stroke-width="7"
+     stroke-linecap="round"
+     fill="none">
+
+    <path d="M310 290 L280 320"/>
+    <path d="M310 290 L340 320"/>
+    <path d="M310 290 L305 345"/>
+
+  </g>
+
+  <!-- Worm: main character! -->
+
+  <g transform="translate(250 325)">
+
+    <circle cx="0" cy="0" r="14"
+            fill="#d86a4a"
+            stroke="#0A0812"
+            stroke-width="3"/>
+
+    <circle cx="24" cy="4" r="14"
+            fill="#cf5c40"
+            stroke="#0A0812"
+            stroke-width="3"/>
+
+    <circle cx="48" cy="0" r="14"
+            fill="#c85237"
+            stroke="#0A0812"
+            stroke-width="3"/>
+
+    <circle cx="72" cy="6" r="14"
+            fill="#bc442f"
+            stroke="#0A0812"
+            stroke-width="3"/>
+
+    <circle cx="78"
+            cy="2"
+            r="2"
+            fill="#0A0812"/>
+
+  </g>
+
+  <!-- Bite mark -->
+
+  <path d="
+      M300 310
+      Q310 300 320 310"
+      fill="none"
+      stroke="#ff7354"
+      stroke-width="8"
+      stroke-linecap="round"/>
+
+  <!-- viewer eye path -->
+  <path d="
+      M290 310
+      Q310 260 315 210
+      Q320 165 320 120"
+      fill="none"
+      stroke="#ffffff"
+      opacity="0.12"
+      stroke-width="2"
+      stroke-dasharray="6 8"/>
+
+</svg>

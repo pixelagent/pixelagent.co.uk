@@ -1,0 +1,13 @@
+/* ============================
+    ACT1-SEA.CSS
+    Sea palette theme (Act 1: the storm).
+    Activated via the .theme-act1 class on <body>.
+    ============================ */
+
+body.theme-act1 #text-box {
+    border-left-color: var(--sea-accent);
+}
+
+body.theme-act1 #prophecy-zone {
+    border-color: var(--sea-accent);
+}

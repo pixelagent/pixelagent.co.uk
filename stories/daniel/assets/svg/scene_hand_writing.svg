@@ -1,0 +1,45 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="handGlow" cx="72%" cy="30%" r="45%">
+      <stop offset="0%"   stop-color="#FFD84D" stop-opacity=".4"/>
+      <stop offset="100%" stop-color="#FFD84D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="200" fill="#160a14"/>
+  <!-- Chamber wall — hierarchy: large dark surface for writing -->
+  <rect x="18"  y="10"  width="264" height="160" fill="#1e0a1e" stroke="#0A0812" stroke-width="3"/>
+  <!-- Stone blocks — pattern, texture -->
+  <line x1="18" y1="50"  x2="282" y2="50"  stroke="#0A0812" stroke-width="1.5" opacity=".5"/>
+  <line x1="18" y1="90"  x2="282" y2="90"  stroke="#0A0812" stroke-width="1.5" opacity=".5"/>
+  <line x1="18" y1="130" x2="282" y2="130" stroke="#0A0812" stroke-width="1.5" opacity=".5"/>
+  <line x1="80"  y1="10" x2="80"  y2="170" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="160" y1="10" x2="160" y2="170" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="220" y1="10" x2="220" y2="170" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <!-- Glow from writing hand — emphasis, contrast -->
+  <ellipse cx="200" cy="55" rx="90" ry="70" fill="url(#handGlow)"/>
+  <!-- The three words — hierarchy: large, centred, gold on dark — highest contrast -->
+  <text x="130" y="55"  font-size="22" fill="#FFD84D" text-anchor="middle"
+        font-family="serif" font-weight="bold" opacity=".95">מְנֵא</text>
+  <text x="130" y="92"  font-size="22" fill="#FFD84D" text-anchor="middle"
+        font-family="serif" font-weight="bold" opacity=".9">תְּקֵל</text>
+  <text x="130" y="130" font-size="22" fill="#FFD84D" text-anchor="middle"
+        font-family="serif" font-weight="bold" opacity=".85">פְּרֵס</text>
+  <!-- Eerie horizontal light — movement, atmosphere -->
+  <line x1="18"  y1="60"  x2="282" y2="60"  stroke="#FFD84D" stroke-width="0.5" opacity=".08"/>
+  <line x1="18"  y1="98"  x2="282" y2="98"  stroke="#FFD84D" stroke-width="0.5" opacity=".08"/>
+  <!-- Disembodied hand — emphasis: the miracle, proportion: large for drama -->
+  <!-- Wrist/arm stub, right side — movement: emerging from off-frame -->
+  <rect x="238" y="24"  width="46" height="20" fill="#C8956C" stroke="#0A0812" stroke-width="2" rx="8"/>
+  <!-- Palm -->
+  <ellipse cx="228" cy="42"  rx="22" ry="16" fill="#C8956C" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Fingers writing — variety: natural organic curves -->
+  <path d="M216 34 Q210 20 215 16 Q220 12 223 22" fill="#C8956C" stroke="#0A0812" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M222 30 Q218 14 224 10 Q230 7  232 20" fill="#C8956C" stroke="#0A0812" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M230 28 Q228 12 234 8  Q240 7  240 20" fill="#C8956C" stroke="#0A0812" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Ink stroke beneath finger — movement: trace of writing -->
+  <path d="M208 42 Q196 52 175 58" fill="none" stroke="#FFD84D" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+  <!-- Crowd panic silhouettes at bottom — balance, proportion -->
+  <ellipse cx="30"  cy="178" rx="14" ry="8" fill="#2a0e28" stroke="#0A0812" stroke-width="1.5"/>
+  <ellipse cx="58"  cy="180" rx="14" ry="8" fill="#2a0e28" stroke="#0A0812" stroke-width="1.5"/>
+  <ellipse cx="86"  cy="178" rx="14" ry="8" fill="#2a0e28" stroke="#0A0812" stroke-width="1.5"/>
+</svg>

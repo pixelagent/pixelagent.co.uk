@@ -1,0 +1,19 @@
+/* ============================
+    ACT3-CITY.CSS
+    City palette theme (Act 3: Nineveh).
+    Activated via the .theme-act3 class on <body>.
+    ============================ */
+
+body.theme-act3 {
+    background-color: var(--desert-bg);
+    color: #2c1e11;
+}
+
+body.theme-act3 #text-box {
+    background: rgba(255, 255, 255, 0.85);
+    border-left-color: var(--desert-accent);
+}
+
+body.theme-act3 #prophecy-zone {
+    border-color: var(--desert-accent);
+}

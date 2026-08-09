@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- ===== BACKGROUND LAYER: Deep cool sky ===== -->
+  <rect width="400" height="300" fill="#14203a"/>
+  <!-- Upper sky — darker, open white space -->
+  <rect x="0" y="0" width="400" height="155" fill="#14203a"/>
+  <!-- Horizon glow band -->
+  <rect x="0" y="140" width="400" height="35" fill="#2a3d50"/>
+
+  <!-- Two flat low clouds — upper third, left-biased for asymmetry -->
+  <ellipse cx="90" cy="38" rx="62" ry="14" fill="#1c2a3a"/>
+  <ellipse cx="60" cy="44" rx="38" ry="10" fill="#1c2a3a"/>
+  <ellipse cx="290" cy="55" rx="52" ry="11" fill="#1c2a3a"/>
+  <ellipse cx="318" cy="62" rx="30" ry="8" fill="#1c2a3a"/>
+
+  <!-- ===== GROUND LAYER ===== -->
+  <rect x="0" y="228" width="400" height="72" fill="#3d2808"/>
+  <!-- Ground surface band -->
+  <rect x="0" y="222" width="400" height="10" fill="#5a3e18"/>
+  <!-- Subtle ground texture lines -->
+  <line x1="0" y1="238" x2="400" y2="238" stroke="#4a3010" stroke-width="1"/>
+  <line x1="0" y1="255" x2="400" y2="255" stroke="#4a3010" stroke-width="1"/>
+
+  <!-- ===== MIDGROUND: ARK SKELETON ===== -->
+
+  <!-- KEEL — long base beam at ground level -->
+  <rect x="22" y="214" width="310" height="13" rx="3" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Keel notch details (rhythm) -->
+  <rect x="70" y="214" width="9" height="13" fill="#5a3010" stroke="#0A0812" stroke-width="1"/>
+  <rect x="128" y="214" width="9" height="13" fill="#5a3010" stroke="#0A0812" stroke-width="1"/>
+  <rect x="186" y="214" width="9" height="13" fill="#5a3010" stroke="#0A0812" stroke-width="1"/>
+  <rect x="244" y="214" width="9" height="13" fill="#5a3010" stroke="#0A0812" stroke-width="1"/>
+  <rect x="294" y="214" width="9" height="13" fill="#5a3010" stroke="#0A0812" stroke-width="1"/>
+
+  <!-- ARK RIBS — 7 total: 4 left of centre, 3 right — warm amber against cool sky -->
+  <!-- Rib 1: far left, partial, smaller -->
+  <path d="M 48,226 Q 46,190 58,158 Q 70,128 82,118" fill="none" stroke="#8B5E2F" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 48,226 Q 46,190 58,158 Q 70,128 82,118" fill="none" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Rib 2 -->
+  <path d="M 88,226 Q 86,186 100,148 Q 114,112 128,100" fill="none" stroke="#8B5E2F" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 88,226 Q 86,186 100,148 Q 114,112 128,100" fill="none" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Rib 3 -->
+  <path d="M 138,226 Q 136,180 150,136 Q 164,95 178,80" fill="none" stroke="#C87050" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 138,226 Q 136,180 150,136 Q 164,95 178,80" fill="none" stroke="#0A0812" stroke-width="2"/>
+  <!-- Rib 4: tallest, near-centre — FOCAL EMPHASIS, curves to top of frame -->
+  <path d="M 192,226 Q 192,170 196,116 Q 198,72 198,18" fill="none" stroke="#C87050" stroke-width="7" stroke-linecap="round"/>
+  <path d="M 192,226 Q 192,170 196,116 Q 198,72 198,18" fill="none" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Rib 5: first to the right of centre -->
+  <path d="M 242,226 Q 242,180 228,136 Q 216,96 206,80" fill="none" stroke="#C87050" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 242,226 Q 242,180 228,136 Q 216,96 206,80" fill="none" stroke="#0A0812" stroke-width="2"/>
+  <!-- Rib 6 -->
+  <path d="M 288,226 Q 290,186 276,148 Q 264,114 252,102" fill="none" stroke="#8B5E2F" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 288,226 Q 290,186 276,148 Q 264,114 252,102" fill="none" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Rib 7: far right, shorter (asymmetry) -->
+  <path d="M 328,226 Q 330,196 320,168 Q 312,143 304,132" fill="none" stroke="#8B5E2F" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 328,226 Q 330,196 320,168 Q 312,143 304,132" fill="none" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- THREE HORIZONTAL STRINGER BEAMS — creating rhythm -->
+  <!-- Stringer 1: upper -->
+  <path d="M 78,116 Q 138,104 192,98 Q 236,102 268,110" fill="none" stroke="#8B5E2F" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 78,116 Q 138,104 192,98 Q 236,102 268,110" fill="none" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Stringer 2: mid -->
+  <path d="M 60,156 Q 138,146 192,142 Q 246,145 292,152" fill="none" stroke="#8B5E2F" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M 60,156 Q 138,146 192,142 Q 246,145 292,152" fill="none" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Stringer 3: lower -->
+  <path d="M 42,186 Q 138,180 192,178 Q 250,179 318,184" fill="none" stroke="#8B5E2F" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 42,186 Q 138,180 192,178 Q 250,179 318,184" fill="none" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- ===== SCAFFOLDING — right side only (asymmetric balance) ===== -->
+  <!-- Diagonal ramp — strong movement line from lower-right to upper-right -->
+  <line x1="332" y1="224" x2="395" y2="100" stroke="#6b4420" stroke-width="4" stroke-linecap="round"/>
+  <line x1="332" y1="224" x2="395" y2="100" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Vertical scaffold poles -->
+  <line x1="348" y1="90" x2="348" y2="224" stroke="#6b4420" stroke-width="3" stroke-linecap="round"/>
+  <line x1="376" y1="104" x2="376" y2="224" stroke="#6b4420" stroke-width="3" stroke-linecap="round"/>
+  <!-- Horizontal scaffold platforms -->
+  <line x1="342" y1="116" x2="382" y2="120" stroke="#6b4420" stroke-width="2.5"/>
+  <line x1="340" y1="144" x2="382" y2="147" stroke="#6b4420" stroke-width="2.5"/>
+  <line x1="338" y1="172" x2="382" y2="174" stroke="#6b4420" stroke-width="2.5"/>
+  <line x1="336" y1="200" x2="382" y2="201" stroke="#6b4420" stroke-width="2.5"/>
+  <!-- Diagonal braces -->
+  <line x1="348" y1="116" x2="376" y2="144" stroke="#5a3010" stroke-width="1.5"/>
+  <line x1="376" y1="116" x2="348" y2="144" stroke="#5a3010" stroke-width="1.5"/>
+  <line x1="348" y1="144" x2="376" y2="172" stroke="#5a3010" stroke-width="1.5"/>
+  <line x1="376" y1="144" x2="348" y2="172" stroke="#5a3010" stroke-width="1.5"/>
+
+  <!-- Worker on scaffold mid-height -->
+  <rect x="360" y="134" width="8" height="12" rx="2" fill="#C87050" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="364" cy="131" r="5" fill="#E8B84B" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- ===== FOREGROUND: Ground level — scale reference ===== -->
+  <!-- Stacked lumber — left side -->
+  <rect x="14" y="216" width="30" height="6" rx="1" fill="#8B5E2F" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="14" y="210" width="30" height="6" rx="1" fill="#C87050" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="14" y="204" width="30" height="6" rx="1" fill="#a06a35" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- Rope coil on ground -->
+  <circle cx="108" cy="222" r="8" fill="none" stroke="#C87050" stroke-width="2.5"/>
+  <circle cx="108" cy="222" r="4" fill="none" stroke="#C87050" stroke-width="1.5"/>
+
+  <!-- WORKER 1: far left, standing, looking up at ribs -->
+  <rect x="56" y="210" width="8" height="14" rx="2" fill="#C87050" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="60" cy="207" r="5" fill="#E8B84B" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- WORKER 2: mid-left, carrying lumber -->
+  <rect x="148" y="210" width="8" height="14" rx="2" fill="#8B5E2F" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="152" cy="207" r="5" fill="#E8B84B" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- carried plank -->
+  <line x1="155" y1="213" x2="170" y2="211" stroke="#8B5E2F" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- WORKER 3: centre-foreground, crouching at keel, hammer arm -->
+  <rect x="214" y="215" width="8" height="10" rx="2" fill="#C87050" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="218" cy="212" r="5" fill="#E8B84B" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="222" y1="216" x2="232" y2="222" stroke="#E8B84B" stroke-width="3" stroke-linecap="round"/>
+
+</svg>

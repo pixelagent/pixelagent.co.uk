@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="sky_d" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#040202"/>
+      <stop offset="50%" stop-color="#0c0604"/>
+      <stop offset="100%" stop-color="#1a0e08"/>
+    </linearGradient>
+    <linearGradient id="ground_d" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#150804"/>
+      <stop offset="100%" stop-color="#0a0604"/>
+    </linearGradient>
+    <!-- Amber tent glow — very faint, almost nothing -->
+    <radialGradient id="tentglow" cx="25%" cy="70%" r="30%">
+      <stop offset="0%" stop-color="#C87050" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#C87050" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Night sky — almost black -->
+  <rect width="400" height="300" fill="url(#sky_d)"/>
+
+  <!-- Ground — dark earth -->
+  <rect x="0" y="210" width="400" height="90" fill="url(#ground_d)"/>
+  <line x1="0" y1="210" x2="400" y2="210" stroke="#2a1408" stroke-width="2"/>
+
+  <!-- Stars — very few, very faint, Ch.10 has fewer -->
+  <circle cx="80" cy="22" r="1" fill="#fff8e0" opacity="0.45"/>
+  <circle cx="170" cy="14" r="1.2" fill="#fff8e0" opacity="0.35"/>
+  <circle cx="280" cy="30" r="1" fill="#fff8e0" opacity="0.4"/>
+  <circle cx="350" cy="18" r="1.2" fill="#fff8e0" opacity="0.3"/>
+  <circle cx="310" cy="55" r="0.8" fill="#fff8e0" opacity="0.3"/>
+  <circle cx="45" cy="48" r="0.8" fill="#fff8e0" opacity="0.25"/>
+
+  <!-- === VINEYARD ROWS — background, barely lit === -->
+  <!-- Vine row far back — silhouettes -->
+  <line x1="190" y1="172" x2="190" y2="162" stroke="#2e4018" stroke-width="1.5"/>
+  <ellipse cx="190" cy="160" rx="7" ry="5" fill="#1e2e10" stroke="#0A0812" stroke-width="1"/>
+  <line x1="218" y1="173" x2="218" y2="163" stroke="#2e4018" stroke-width="1.5"/>
+  <ellipse cx="218" cy="161" rx="7" ry="5" fill="#1e2e10" stroke="#0A0812" stroke-width="1"/>
+  <line x1="246" y1="174" x2="246" y2="164" stroke="#2e4018" stroke-width="1.5"/>
+  <ellipse cx="246" cy="162" rx="7" ry="5" fill="#1e2e10" stroke="#0A0812" stroke-width="1"/>
+  <line x1="274" y1="174" x2="274" y2="164" stroke="#2e4018" stroke-width="1.5"/>
+  <ellipse cx="274" cy="162" rx="7" ry="5" fill="#1e2e10" stroke="#0A0812" stroke-width="1"/>
+  <line x1="300" y1="175" x2="300" y2="165" stroke="#2e4018" stroke-width="1"/>
+  <ellipse cx="300" cy="163" rx="6" ry="4" fill="#1e2e10" stroke="#0A0812" stroke-width="1"/>
+  <line x1="326" y1="175" x2="326" y2="166" stroke="#2e4018" stroke-width="1"/>
+  <ellipse cx="326" cy="164" rx="6" ry="4" fill="#1e2e10" stroke="#0A0812" stroke-width="1"/>
+  <line x1="350" y1="175" x2="350" y2="167" stroke="#2e4018" stroke-width="1"/>
+  <ellipse cx="350" cy="165" rx="5" ry="3.5" fill="#1e2e10" stroke="#0A0812" stroke-width="1"/>
+  <!-- Trellis wires — very dark -->
+  <line x1="180" y1="170" x2="400" y2="171" stroke="#1e2e10" stroke-width="1" opacity="0.6"/>
+  <!-- Second deeper row -->
+  <line x1="205" y1="166" x2="205" y2="158" stroke="#1e2e10" stroke-width="1" opacity="0.6"/>
+  <ellipse cx="205" cy="156" rx="5" ry="3" fill="#142008" stroke="#0A0812" stroke-width="1" opacity="0.5"/>
+  <line x1="232" y1="166" x2="232" y2="158" stroke="#1e2e10" stroke-width="1" opacity="0.6"/>
+  <ellipse cx="232" cy="156" rx="5" ry="3" fill="#142008" stroke="#0A0812" stroke-width="1" opacity="0.5"/>
+  <line x1="258" y1="166" x2="258" y2="159" stroke="#1e2e10" stroke-width="1" opacity="0.5"/>
+  <ellipse cx="258" cy="157" rx="5" ry="3" fill="#142008" stroke="#0A0812" stroke-width="1" opacity="0.4"/>
+
+  <!-- === TENT — left, half-open flap, dim amber within === -->
+  <!-- Tent body -->
+  <polygon points="0,210 105,210 100,120 52,96 0,120" fill="#6b4420" stroke="#0A0812" stroke-width="3"/>
+  <!-- Shadow side -->
+  <polygon points="52,96 100,120 105,210 72,210 70,138" fill="#3a2010" stroke="#0A0812" stroke-width="2"/>
+  <!-- Peak pole -->
+  <line x1="52" y1="96" x2="52" y2="76" stroke="#8B5E2F" stroke-width="2"/>
+  <circle cx="52" cy="74" r="3" fill="#6b4420" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- Tent flap — half-open, asymmetric -->
+  <!-- Left side of flap — swung open slightly -->
+  <polygon points="52,96 28,122 24,210 44,210 46,145 65,118" fill="#5a3818" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Dark void interior — the weight of what's inside -->
+  <polygon points="46,145 65,118 68,210 44,210" fill="#0c0604" stroke="none"/>
+  <polygon points="52,96 72,112 75,210 46,210 46,145 65,118" fill="#080402" stroke="#0A0812" stroke-width="1"/>
+  <!-- Right flap side — barely open -->
+  <polygon points="52,96 72,112 74,210 65,210 63,128 58,115" fill="#4a2e12" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Dim amber glow leaking from tent interior — barely perceptible -->
+  <rect width="400" height="300" fill="url(#tentglow)"/>
+
+  <!-- Very faint ground glow from tent -->
+  <polygon points="24,210 75,210 85,240 15,240" fill="#C87050" opacity="0.05"/>
+
+  <!-- === NOAH — slumped, defeated, right of tent entrance === -->
+  <!-- Ground shadow — heavy, pooled beneath him -->
+  <ellipse cx="165" cy="222" rx="40" ry="7" fill="#050302" opacity="0.8"/>
+
+  <!-- Lower robe / legs — crumpled, folded beneath him -->
+  <polygon points="130,222 200,222 196,210 184,202 148,200 134,210" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="130" y1="222" x2="200" y2="222" stroke="#5c3010" stroke-width="2"/>
+
+  <!-- Upper torso — slumped, weight forward -->
+  <polygon points="138,210 194,208 190,175 175,167 152,168 142,182" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Robe folds — weight bearing down -->
+  <line x1="150" y1="208" x2="153" y2="173" stroke="#5c3010" stroke-width="1.5"/>
+  <line x1="168" y1="208" x2="170" y2="172" stroke="#5c3010" stroke-width="1.5"/>
+  <line x1="183" y1="207" x2="186" y2="173" stroke="#5c3010" stroke-width="1.5"/>
+
+  <!-- Left arm — dropped to knee, slack -->
+  <polygon points="142,188 154,185 156,210 144,212" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+  <ellipse cx="150" cy="213" rx="8" ry="5" fill="#D4956A" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Right arm — drooping outward, loosely toward the jug -->
+  <polygon points="186,178 199,174 208,202 196,206" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+  <ellipse cx="210" cy="207" rx="8" ry="5" fill="#D4956A" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Neck -->
+  <rect x="157" y="158" width="14" height="13" rx="3" fill="#D4956A" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Head — drooping heavily, chin down, defeated -->
+  <ellipse cx="163" cy="146" rx="19" ry="18" fill="#D4956A" stroke="#0A0812" stroke-width="3"/>
+  <!-- White beard — full, pooling downward -->
+  <polygon points="146,152 150,168 162,176 174,168 178,152 170,157 162,159 154,157" fill="#e8ddd0" stroke="#0A0812" stroke-width="2"/>
+  <!-- Head cloth — heavy, over-wrapped, slightly dishevelled -->
+  <polygon points="145,142 147,130 157,121 170,122 176,131 175,144 165,139 152,140" fill="#6b4420" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Eyes — fully closed, not asleep but avoiding -->
+  <path d="M153,144 Q158,141 163,143" stroke="#0A0812" stroke-width="2" fill="none"/>
+  <path d="M163,143 Q168,141 173,144" stroke="#0A0812" stroke-width="2" fill="none"/>
+  <!-- Brow — heavy, weighted down -->
+  <path d="M151,141 Q157,137 163,139" stroke="#7a5030" stroke-width="2" fill="none"/>
+  <path d="M163,139 Q169,137 175,141" stroke="#7a5030" stroke-width="2" fill="none"/>
+  <!-- Mouth — slack, downward curve, not grief but emptiness -->
+  <path d="M156,167 Q162,164 168,167" stroke="#8b6040" stroke-width="1.5" fill="none"/>
+
+  <!-- === WINE JUG — FOCAL POINT === -->
+  <!-- Clay vessel — heavy, dark, slightly right of Noah -->
+  <!-- Jug body — larger, dominant -->
+  <ellipse cx="228" cy="207" rx="18" ry="22" fill="#5a3010" stroke="#0A0812" stroke-width="3"/>
+  <!-- Jug shoulder / neck -->
+  <ellipse cx="228" cy="184" rx="11" ry="8" fill="#4a2808" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Jug mouth — dark open throat -->
+  <ellipse cx="228" cy="178" rx="8" ry="4" fill="#1a0804" stroke="#0A0812" stroke-width="2"/>
+  <!-- Handle -->
+  <path d="M244,193 Q258,198 254,212 Q252,220 244,220" stroke="#4a2808" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Highlight on jug shoulder — very subtle -->
+  <path d="M216,190 Q212,196 214,206" stroke="#8B5E2F" stroke-width="1.5" fill="none" opacity="0.5"/>
+
+  <!-- WINE SPILL — the detail that matters, this caused everything -->
+  <!-- Dark puddle spreading on earth, irregular -->
+  <ellipse cx="232" cy="229" rx="22" ry="7" fill="#6b1818" opacity="0.85"/>
+  <ellipse cx="220" cy="232" rx="14" ry="4" fill="#8B2020" opacity="0.6"/>
+  <!-- Drip down jug side -->
+  <path d="M226,228 Q228,232 227,235" stroke="#6b1818" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Puddle edge — darkens into ground -->
+  <ellipse cx="238" cy="231" rx="10" ry="3" fill="#3a0808" opacity="0.7"/>
+</svg>

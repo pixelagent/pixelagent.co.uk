@@ -1,0 +1,51 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="conspGlow" cx="50%" cy="55%" r="45%">
+      <stop offset="0%"   stop-color="#FF6B5B" stop-opacity=".1"/>
+      <stop offset="100%" stop-color="#FF6B5B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="200" fill="#061224"/>
+  <!-- Ground -->
+  <rect x="0" y="158" width="300" height="42" fill="#030b18"/>
+  <rect x="0" y="156" width="300" height="3"  fill="#0d2340" opacity=".5"/>
+  <!-- Floor tiles — pattern -->
+  <line x1="75"  y1="156" x2="75"  y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="150" y1="156" x2="150" y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="225" y1="156" x2="225" y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <!-- Column half-visible — hierarchy: places scene in palace -->
+  <rect x="268" y="30" width="32" height="128" fill="#1b4965" stroke="#0A0812" stroke-width="2" opacity=".7"/>
+  <rect x="266" y="26" width="34" height="10"  fill="#4ECDC4" opacity=".3" stroke="#0A0812" stroke-width="1" opacity=".5"/>
+  <!-- Conspiracy glow — atmosphere, emphasis -->
+  <ellipse cx="150" cy="108" rx="100" ry="70" fill="url(#conspGlow)"/>
+  <!-- Figure L: satrap 1 — balance -->
+  <circle cx="74"  cy="68"  r="22" fill="#D4A574" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M52 60 Q74 46 96 60" fill="none" stroke="#2a1a0a" stroke-width="7" stroke-linecap="round"/>
+  <!-- Furrowed brow — variety: anger expression -->
+  <path d="M64 64 Q68 60 74 64" fill="none" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M74 64 Q80 60 84 64" fill="none" stroke="#0A0812" stroke-width="2.5"/>
+  <circle cx="68"  cy="68"  r="3"  fill="#0A0812"/>
+  <circle cx="80"  cy="68"  r="3"  fill="#0A0812"/>
+  <path d="M69 78 Q74 74 79 78" fill="none" stroke="#0A0812" stroke-width="2" stroke-linecap="round"/>
+  <rect x="54"  y="90"  width="40" height="66" fill="#2a4a6a" stroke="#0A0812" stroke-width="2"/>
+  <path d="M54 90 L34 158" stroke="#2a4a6a" stroke-width="9" stroke-linecap="round"/>
+  <path d="M94 90 L114 158" stroke="#2a4a6a" stroke-width="9" stroke-linecap="round"/>
+  <!-- Figure R: satrap 2 — balance: slightly different posture, leaning in -->
+  <circle cx="226" cy="70"  r="22" fill="#C89060" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M204 62 Q226 48 248 62" fill="none" stroke="#2a1a0a" stroke-width="7" stroke-linecap="round"/>
+  <path d="M216 66 Q220 62 226 66" fill="none" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M226 66 Q232 62 236 66" fill="none" stroke="#0A0812" stroke-width="2.5"/>
+  <circle cx="220" cy="70"  r="3"  fill="#0A0812"/>
+  <circle cx="232" cy="70"  r="3"  fill="#0A0812"/>
+  <path d="M221 80 Q226 76 231 80" fill="none" stroke="#0A0812" stroke-width="2" stroke-linecap="round"/>
+  <rect x="206" y="92"  width="40" height="66" fill="#1b3a5a" stroke="#0A0812" stroke-width="2"/>
+  <path d="M206 92 L186 158" stroke="#1b3a5a" stroke-width="9" stroke-linecap="round"/>
+  <path d="M246 92 L266 158" stroke="#1b3a5a" stroke-width="9" stroke-linecap="round"/>
+  <!-- Conspiracy line between them — movement, emphasis -->
+  <path d="M96 100 Q150 116 204 100" fill="none" stroke="#FF6B5B" stroke-width="1.5" stroke-dasharray="4,3" opacity=".7"/>
+  <!-- Scroll/document between them — variety: the law being written -->
+  <rect x="128" y="100" width="44" height="28" fill="#0d2340" stroke="#4ECDC4" stroke-width="1.5" rx="2"/>
+  <line x1="134" y1="108" x2="166" y2="108" stroke="#4ECDC4" stroke-width="1" opacity=".5"/>
+  <line x1="134" y1="116" x2="166" y2="116" stroke="#4ECDC4" stroke-width="1" opacity=".4"/>
+  <line x1="134" y1="124" x2="155" y2="124" stroke="#4ECDC4" stroke-width="1" opacity=".3"/>
+</svg>

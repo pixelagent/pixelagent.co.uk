@@ -1,0 +1,52 @@
+/* ============================
+   BASE.CSS
+   Resets, layout shell, typography defaults.
+   No component-specific or theme-specific rules belong here.
+   ============================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital@0;1&display=swap');
+
+:root {
+    --sea-bg: #0b3d33;
+    --sea-accent: #20b2aa;
+    --desert-bg: #e2a76f;
+    --desert-accent: #8b4513;
+    --ui-overlay: rgba(0, 0, 0, 0.7);
+    --gold: #f1c40f;
+
+    --font-display: 'Cormorant Garamond', 'Palatino Linotype', serif;
+    --font-body: 'EB Garamond', 'Book Antiqua', serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--sea-bg);
+    transition: background-color 2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: var(--font-body);
+    color: #ffffff;
+}
+
+h1 {
+    margin-top: 0;
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+}
+
+p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.hidden {
+    display: none;
+}

@@ -1,0 +1,195 @@
+[
+  {
+    "id": "warning",
+    "name": "Ch.1 · The Warning",
+    "bg": "radial-gradient(circle at 40% 30%, #2e2010, #14100a 65%, #080604)",
+    "particle": "dusk",
+    "svg": "ch1_corrupt_world",
+    "lines": [
+      { "speaker": "narrator", "fx": "fade", "align": "left",   "svg": "ch1_corrupt_world",  "text": "Long ago, the earth was full of people — but their hearts had gone wrong." },
+      { "speaker": "narrator", "fx": "fade", "align": "center", "svg": "ch1_corrupt_world",  "text": "Violence everywhere. Every thought twisted. Every day worse than the last.", "cite": "Genesis 6:5" },
+      { "speaker": "narrator", "fx": "fade", "align": "center", "svg": "ch1_god_grieves",    "text": "And the LORD looked at what he had made... and His heart broke.", "cite": "Genesis 6:6" },
+      { "speaker": "narrator", "fx": "fade", "align": "left",   "svg": "ch1_noah_walks",     "text": "But one man walked differently. His name was Noah." },
+      { "speaker": "narrator", "fx": "fade", "align": "center", "svg": "ch1_noah_walks",     "text": "Righteous. Blameless. A man who actually listened.", "cite": "Genesis 6:9" },
+      { "speaker": "god",      "fx": "bounce","align": "center","svg": "ch1_god_speaks",     "text": "Noah. The end of all flesh has come before me. The earth is filled with violence because of them." },
+      { "speaker": "god",      "fx": "bounce","align": "center","svg": "ch1_god_speaks",     "text": "Make yourself an ark of cypress wood.", "cite": "Genesis 6:14" },
+      { "speaker": "noah",     "fx": "type",  "align": "left",  "svg": "ch1_noah_listens",   "text": "An... ark. Here. In the middle of dry land. Where it has never rained like this." },
+      { "speaker": "narrator", "fx": "fade", "align": "center", "svg": "ch1_noah_listens",   "text": "No flood had ever come. No one would believe him. He had every reason to walk away.",
+        "choices": [
+          { "label": "Trust the voice — pick up the axe 🪓", "note": "\"Noah did everything just as God commanded him.\" — Gen 6:22" },
+          { "label": "Ask for a sign first... 🌩️",           "note": "Noah waits. The silence is the sign. He picks up the axe anyway." }
+        ]
+      },
+      { "speaker": "narrator", "fx": "type", "align": "center", "svg": "ch1_noah_axe", "text": "So Noah picked up his axe, and began." }
+    ]
+  },
+  {
+    "id": "blueprint",
+    "name": "Ch.2 · The Blueprint",
+    "bg": "radial-gradient(circle at 50% 40%, #2a1e0c, #150e06 65%, #080502)",
+    "particle": "dusk",
+    "svg": "ch2_blueprint_scroll",
+    "lines": [
+      { "speaker": "god",      "fx": "bounce","align": "center","svg": "ch2_blueprint_scroll","text": "Three hundred cubits long. Fifty wide. Thirty high. Cypress wood. Sealed with pitch.", "cite": "Genesis 6:15–16" },
+      { "speaker": "noah",     "fx": "type",  "align": "left",  "svg": "ch2_noah_measures",  "text": "That is... enormous. Three stories. Rooms inside. A window at the top." },
+      { "speaker": "wife",     "fx": "fade",  "align": "right", "svg": "ch2_wife_skeptical", "text": "Noah. The neighbours already think you've lost your mind. And now THIS?" },
+      { "speaker": "noah",     "fx": "fade",  "align": "left",  "svg": "ch2_wife_skeptical", "text": "I know how it looks. I'm building it anyway." },
+      { "speaker": "narrator", "fx": "fade",  "align": "center","svg": "ch2_blueprint_scroll","text": "Three hundred cubits is the length of three football fields. Built by hand, with no machinery.",
+        "choices": [
+          { "label": "Follow the specs exactly 📐",    "note": "Every joint measured twice. Every plank cut to the cubit." },
+          { "label": "Estimate a few measurements 🤷", "note": "It'll look about right... but a joint or two will be weaker for it." }
+        ]
+      },
+      { "speaker": "narrator", "fx": "fade", "align": "center", "svg": "ch2_keel_laid", "text": "Noah marked out the keel on the ground. The first timber went down.", "cite": "Genesis 6:22" }
+    ]
+  },
+  {
+    "id": "build",
+    "name": "Ch.3 · The Long Build",
+    "bg": "radial-gradient(circle at 35% 50%, #281808, #120c04 65%, #080402)",
+    "particle": "dusk",
+    "svg": "ch3_ark_under_construction",
+    "lines": [
+      { "speaker": "narrator", "fx": "fade",  "align": "left",  "svg": "ch3_ark_under_construction","text": "Years passed. Ten. Twenty. The ribs of the ark rose above the treeline." },
+      { "speaker": "crowd",    "fx": "shake", "align": "right", "svg": "ch3_mockery",               "text": "HAHAHA! Noah's still at it! Building his boat in the desert! Send for the doctor!" },
+      { "speaker": "noah",     "fx": "type",  "align": "left",  "svg": "ch3_noah_works",            "text": "One plank. Then another. Don't look up. Keep going." },
+      { "speaker": "narrator", "fx": "fade",  "align": "center","svg": "ch3_decades_pass",          "text": "Fifty years. The ark's hull was sealed with pitch. The crowd's laughter got louder.",
+        "choices": [
+          { "label": "Skip a coat of pitch to save time ⏩", "note": "One thin section. The wood will probably hold... probably." },
+          { "label": "Seal every plank twice 🔨",            "note": "Slow work. Honest work. Every seam watertight." }
+        ]
+      },
+      { "speaker": "narrator", "fx": "fade", "align": "center", "svg": "ch3_decades_pass", "text": "Nobody believed him. But the ark kept growing, plank by plank, year after year." },
+      { "speaker": "son",      "fx": "fade", "align": "right",  "svg": "ch3_son_helps",   "text": "Father... why keep going when no one understands what you're doing?" },
+      { "speaker": "noah",     "fx": "fade", "align": "left",   "svg": "ch3_son_helps",   "text": "Because I was told. And I said yes. That has to be enough." }
+    ]
+  },
+  {
+    "id": "gathering",
+    "name": "Ch.4 · The Gathering",
+    "bg": "radial-gradient(circle at 60% 30%, #1a2e10, #0d1808 65%, #060a04)",
+    "particle": "dusk",
+    "svg": "ch4_animals_arrive",
+    "lines": [
+      { "speaker": "god",      "fx": "bounce","align": "center","svg": "ch4_animals_arrive","text": "Seven pairs of every clean animal. One pair of every unclean. Two of every bird.", "cite": "Genesis 7:2–3" },
+      { "speaker": "narrator", "fx": "fade",  "align": "left", "svg": "ch4_animals_arrive","text": "And then something impossible happened. The animals came to Noah." },
+      { "speaker": "narrator", "fx": "bounce","align": "center","svg": "ch4_parade",        "sfx": "TWO BY TWO!", "text": "Lions and lambs. Elephants and doves. Bears and deer. Marching, pair by pair." },
+      { "speaker": "wife",     "fx": "fade",  "align": "right","svg": "ch4_parade",         "text": "Are those... elephants? Walking TOWARD us?!" },
+      { "speaker": "narrator", "fx": "fade",  "align": "center","svg": "ch4_loading",       "text": "Noah provisioned the ark with food for every creature. It took days.",
+        "choices": [
+          { "label": "Pack enough for a long journey 📦", "note": "Every stall stocked. Every animal fed for weeks." },
+          { "label": "Pack light — it won't last long 🤞","note": "Maybe the flood will be brief. Maybe not." }
+        ]
+      },
+      { "speaker": "narrator", "fx": "type", "align": "center", "svg": "ch4_door_open", "text": "When the last pair walked up the ramp, the ark was full. Seven days remained." }
+    ]
+  },
+  {
+    "id": "door",
+    "name": "Ch.5 · The Door Shuts",
+    "bg": "radial-gradient(circle at 50% 20%, #101828, #060c18 65%, #020408)",
+    "particle": "storm",
+    "svg": "ch5_dark_clouds",
+    "lines": [
+      { "speaker": "narrator", "fx": "fade",  "align": "left",  "svg": "ch5_dark_clouds",  "text": "On the seventh day, the sky changed. The horizon turned the colour of a bruise." },
+      { "speaker": "narrator", "fx": "shake", "align": "center","svg": "ch5_first_rain",   "sfx": "RUMBLE...", "text": "The first drops fell. Then more. Then the sky opened." },
+      { "speaker": "narrator", "fx": "fade",  "align": "center","svg": "ch5_first_rain",   "text": "Great springs burst from the deep. Floodgates of heaven broke open.", "cite": "Genesis 7:11" },
+      { "speaker": "narrator", "fx": "fade",  "align": "right", "svg": "ch5_door_closes",  "text": "And then — from the outside — the LORD shut the door.", "cite": "Genesis 7:16" },
+      { "speaker": "noah",     "fx": "type",  "align": "left",  "svg": "ch5_door_closes",  "text": "That sound. The latch. From the outside." },
+      { "speaker": "narrator", "fx": "fade",  "align": "center","svg": "ch5_door_closes",  "text": "No more choices. No more preparation. No more anything to do but endure." }
+    ]
+  },
+  {
+    "id": "flood",
+    "name": "Ch.6 · Forty Days",
+    "bg": "radial-gradient(circle at 50% 60%, #061430, #020810 65%, #010306)",
+    "particle": "flood",
+    "svg": "ch6_water_rising",
+    "lines": [
+      { "speaker": "narrator", "fx": "shake", "align": "left",  "svg": "ch6_water_rising",  "text": "For forty days, the rain hammered the hull without stopping.", "cite": "Genesis 7:17" },
+      { "speaker": "narrator", "fx": "shake", "align": "center","svg": "ch6_storm_peak",    "sfx": "CRACK!", "text": "The water rose until the highest mountains vanished beneath it.", "cite": "Genesis 7:19" },
+      { "speaker": "narrator", "fx": "fade",  "align": "center","svg": "ch6_ark_floating",  "text": "Every living thing outside was gone. Only the ark floated on the face of the waters." },
+      { "speaker": "wife",     "fx": "fade",  "align": "right", "svg": "ch6_inside_ark",    "text": "Is it ever going to stop? The animals are restless. The children are frightened." },
+      { "speaker": "noah",     "fx": "type",  "align": "left",  "svg": "ch6_inside_ark",    "text": "Keep feeding them. Keep the pens clean. One day at a time.",
+        "choices": [
+          { "label": "Check on every animal yourself 🐘",    "note": "Exhausting. But every creature is calm and cared for." },
+          { "label": "Let the family manage on their own 🙏","note": "They cope. But an unattended pen floods at the worst moment." }
+        ]
+      },
+      { "speaker": "narrator", "fx": "fade", "align": "center", "svg": "ch6_water_still", "text": "After forty days, the rain stopped. But the water held its height for another hundred and ten days." }
+    ]
+  },
+  {
+    "id": "waiting",
+    "name": "Ch.7 · The Long Wait",
+    "bg": "radial-gradient(circle at 50% 40%, #0c1428, #060a18 65%, #020408)",
+    "particle": "flood",
+    "svg": "ch7_ark_on_ararat",
+    "lines": [
+      { "speaker": "narrator", "fx": "fade",  "align": "left",  "svg": "ch7_ark_on_ararat",    "text": "The ark came to rest on the mountains of Ararat. Still no land in sight.", "cite": "Genesis 8:4" },
+      { "speaker": "noah",     "fx": "type",  "align": "left",  "svg": "ch7_raven_sent",        "text": "He opened the window and sent out the raven. It flew back and forth, never returning." },
+      { "speaker": "narrator", "fx": "fade",  "align": "center","svg": "ch7_raven_sent",        "text": "No news. No land. Just the raven, circling." },
+      { "speaker": "noah",     "fx": "fade",  "align": "left",  "svg": "ch7_dove_sent",         "text": "Seven days later: the dove. Please come back with something." },
+      { "speaker": "narrator", "fx": "wave",  "align": "center","svg": "ch7_dove_returns",      "text": "The dove came back with a fresh olive leaf in its beak.", "cite": "Genesis 8:11" },
+      { "speaker": "narrator", "fx": "bounce","align": "center","svg": "ch7_dove_returns",      "sfx": "OLIVE LEAF!", "text": "Somewhere beneath the water — trees. Living trees. The earth was coming back." },
+      { "speaker": "narrator", "fx": "fade",  "align": "center","svg": "ch7_dove_not_return",   "text": "Seven more days. The dove went out — and did not come back. Dry land was waiting.",
+        "choices": [
+          { "label": "Open the hatch and look 👀",            "note": "Blue sky. Mud. The outline of mountains. Real." },
+          { "label": "Wait for God's word before moving 🙏",  "note": "Noah waits. It's the right call. The word comes." }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dryground",
+    "name": "Ch.8 · Dry Ground",
+    "bg": "radial-gradient(circle at 50% 40%, #1a3010, #0c1a08 65%, #050a04)",
+    "particle": "dawn",
+    "svg": "ch8_ramp_down",
+    "lines": [
+      { "speaker": "god",      "fx": "bounce","align": "center","svg": "ch8_command_leave",    "text": "Come out of the ark — you and your wife, your sons and their wives.", "cite": "Genesis 8:16" },
+      { "speaker": "god",      "fx": "bounce","align": "center","svg": "ch8_command_leave",    "text": "Bring out every kind of living creature — so they can multiply on the earth." },
+      { "speaker": "narrator", "fx": "bounce","align": "center","svg": "ch8_ramp_down",        "sfx": "FRESH AIR!", "text": "The ramp came down. For the first time in over a year, Noah stepped onto solid ground." },
+      { "speaker": "narrator", "fx": "fade",  "align": "left", "svg": "ch8_animals_released", "text": "The animals poured out — running, flying, leaping. The world filling back up with life." },
+      { "speaker": "narrator", "fx": "fade",  "align": "center","svg": "ch8_animals_released", "text": "The whole long year — the building, the waiting, the enduring — this was what it was for." },
+      { "speaker": "narrator", "fx": "type",  "align": "center","svg": "ch8_noah_stands",      "text": "A year and seventeen days after the door was shut — Noah stood on dry land.", "cite": "Genesis 8:14" }
+    ]
+  },
+  {
+    "id": "covenant",
+    "name": "Ch.9 · The Altar & the Covenant",
+    "bg": "radial-gradient(circle at 50% 50%, #141e2e, #081018 65%, #020508)",
+    "particle": "rainbow",
+    "svg": "ch9_altar",
+    "lines": [
+      { "speaker": "narrator", "fx": "fade",  "align": "left",  "svg": "ch9_altar",       "text": "The first thing Noah did on dry land was not rebuild a house. It was build an altar." },
+      { "speaker": "narrator", "fx": "fade",  "align": "center","svg": "ch9_altar",       "text": "He took one of every clean animal and offered it as a burnt offering.", "cite": "Genesis 8:20" },
+      { "speaker": "god",      "fx": "bounce","align": "center","svg": "ch9_god_covenant","text": "Never again will I curse the ground because of humans. Never again will I destroy all life.", "cite": "Genesis 8:21" },
+      { "speaker": "god",      "fx": "bounce","align": "center","svg": "ch9_rainbow",     "text": "I have set my rainbow in the clouds. It is the sign of the covenant between me and the earth.", "cite": "Genesis 9:13" },
+      { "speaker": "narrator", "fx": "wave",  "align": "center","svg": "ch9_rainbow",     "sfx": "RAINBOW!", "text": "Colour tore across the sky — red, gold, green, blue — a promise written in light." },
+      { "speaker": "family",   "fx": "fade",  "align": "center","svg": "ch9_rainbow",     "text": "All eight of them stood in the mud and stared at the sky. Nobody spoke." },
+      { "speaker": "narrator", "fx": "type",  "align": "center","svg": "ch9_rainbow",     "text": "The story looked like it was over. It was not over." }
+    ]
+  },
+  {
+    "id": "vineyard",
+    "name": "Ch.10 · The Vineyard",
+    "bg": "radial-gradient(circle at 30% 70%, #1a0e08, #0c0604 65%, #040202)",
+    "particle": "ember",
+    "svg": "ch10_noah_plants",
+    "lines": [
+      { "speaker": "narrator", "fx": "fade",  "align": "left",  "svg": "ch10_noah_plants",    "text": "Time passed. Noah planted a vineyard. He worked the soil. He waited for the harvest." },
+      { "speaker": "narrator", "fx": "fade",  "align": "center","svg": "ch10_noah_drinks",    "text": "Then he drank the wine. He drank too much. And he lay uncovered in his tent.", "cite": "Genesis 9:21" },
+      { "speaker": "son",      "fx": "fade",  "align": "right", "svg": "ch10_ham_mocks",      "text": "(Ham went out and told his brothers, mocking what he had seen.)" },
+      { "speaker": "narrator", "fx": "type",  "align": "left",  "svg": "ch10_shem_japheth",   "text": "But Shem and Japheth took a garment and walked in backwards, covering their father without looking.", "cite": "Genesis 9:23" },
+      { "speaker": "narrator", "fx": "fade",  "align": "center","svg": "ch10_choice",         "text": "The one righteous man, who built the ark and survived the flood, stumbled here.",
+        "choices": [
+          { "label": "You are Shem or Japheth — cover without looking 🙈", "note": "\"Blessed be the LORD, the God of Shem.\" — Gen 9:26. Dignity over exposure." },
+          { "label": "You are Ham — go and tell 👁️",                        "note": "\"Cursed be Canaan.\" — Gen 9:25. The long shadow of a moment's disrespect." }
+        ]
+      },
+      { "speaker": "narrator", "fx": "fade", "align": "center", "svg": "ch10_end", "text": "The story doesn't end with the rainbow. It ends with a man who built everything right — and then failed in a tent." },
+      { "speaker": "narrator", "fx": "type", "align": "center", "svg": "ch10_end", "text": "And it ends with two sons who chose, quietly, to show him grace anyway." }
+    ]
+  }
+]

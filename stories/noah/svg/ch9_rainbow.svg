@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- LAYER 1 BACKGROUND: Sky — dark storm LEFT, bright clear RIGHT -->
+  <!-- Base sky -->
+  <rect x="0" y="0" width="400" height="300" fill="#4a6090"/>
+  <!-- Dark storm side — left half -->
+  <rect x="0" y="0" width="210" height="300" fill="#0c1428"/>
+  <!-- Bright clear side — right half -->
+  <rect x="200" y="0" width="200" height="300" fill="#7ab0d8"/>
+  <!-- Blend zone at centre -->
+  <rect x="190" y="0" width="28" height="300" fill="#3a5880" opacity="0.7"/>
+  <!-- Bright sky lightens toward upper right -->
+  <rect x="260" y="0" width="140" height="160" fill="#b8d8f0" opacity="0.5"/>
+  <rect x="330" y="0" width="70" height="100" fill="#ddeeff" opacity="0.4"/>
+
+  <!-- Storm clouds LEFT — heavy, dark, towering -->
+  <ellipse cx="38" cy="42" rx="70" ry="30" fill="#0a1020" stroke="#061428" stroke-width="2"/>
+  <ellipse cx="80" cy="25" rx="55" ry="22" fill="#0e1830" stroke="#061428" stroke-width="2"/>
+  <ellipse cx="18" cy="70" rx="52" ry="24" fill="#061020"/>
+  <ellipse cx="105" cy="48" rx="60" ry="26" fill="#0a1428" opacity="0.9"/>
+  <ellipse cx="55" cy="80" rx="75" ry="28" fill="#0c1830" opacity="0.85"/>
+  <ellipse cx="130" cy="68" rx="50" ry="22" fill="#0e1c34" opacity="0.8"/>
+  <!-- Rain lines — diagonal, fading toward centre -->
+  <line x1="18" y1="0" x2="8" y2="90" stroke="#6888a8" stroke-width="1" opacity="0.35"/>
+  <line x1="42" y1="0" x2="32" y2="90" stroke="#6888a8" stroke-width="1" opacity="0.3"/>
+  <line x1="68" y1="0" x2="58" y2="85" stroke="#6888a8" stroke-width="1" opacity="0.3"/>
+  <line x1="94" y1="0" x2="86" y2="78" stroke="#6888a8" stroke-width="0.8" opacity="0.22"/>
+  <line x1="120" y1="0" x2="114" y2="65" stroke="#6888a8" stroke-width="0.8" opacity="0.18"/>
+  <line x1="148" y1="0" x2="144" y2="52" stroke="#6888a8" stroke-width="0.8" opacity="0.12"/>
+
+  <!-- Clear sky RIGHT — a few bright clouds -->
+  <ellipse cx="328" cy="48" rx="56" ry="15" fill="#e8f4fc" stroke="#b0d0e8" stroke-width="1.5"/>
+  <ellipse cx="362" cy="37" rx="34" ry="11" fill="#f0f8ff" stroke="#b0d0e8" stroke-width="1"/>
+  <ellipse cx="295" cy="65" rx="38" ry="11" fill="#e4f0fa" opacity="0.85"/>
+  <ellipse cx="380" cy="70" rx="24" ry="8" fill="#f0f8ff" opacity="0.8"/>
+
+  <!-- ★ RAINBOW — dominates top 70% of frame, full width, BOLD -->
+  <!-- Each band: thick arc, bold colour, left edge behind storm clouds, right in clear sky -->
+  <!-- Outermost: RED -->
+  <path d="M -2,248 Q 200,18 402,248" stroke="#CC2200" stroke-width="22" fill="none" stroke-linecap="round"/>
+  <!-- Orange -->
+  <path d="M -2,248 Q 200,40 402,248" stroke="#E87030" stroke-width="20" fill="none" stroke-linecap="round"/>
+  <!-- Yellow -->
+  <path d="M -2,248 Q 200,62 402,248" stroke="#E8B84B" stroke-width="20" fill="none" stroke-linecap="round"/>
+  <!-- Green -->
+  <path d="M -2,248 Q 200,84 402,248" stroke="#4A8A2A" stroke-width="20" fill="none" stroke-linecap="round"/>
+  <!-- Blue -->
+  <path d="M -2,248 Q 200,106 402,248" stroke="#2255AA" stroke-width="20" fill="none" stroke-linecap="round"/>
+  <!-- Violet — innermost -->
+  <path d="M -2,248 Q 200,128 402,248" stroke="#7744AA" stroke-width="20" fill="none" stroke-linecap="round"/>
+
+  <!-- Band separation lines — thin dark strokes between each colour band -->
+  <path d="M -2,248 Q 200,7 402,248" stroke="#0A0812" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M -2,248 Q 200,29 402,248" stroke="#0A0812" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <path d="M -2,248 Q 200,51 402,248" stroke="#0A0812" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <path d="M -2,248 Q 200,73 402,248" stroke="#0A0812" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <path d="M -2,248 Q 200,95 402,248" stroke="#0A0812" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <path d="M -2,248 Q 200,117 402,248" stroke="#0A0812" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <path d="M -2,248 Q 200,139 402,248" stroke="#0A0812" stroke-width="2" fill="none" opacity="0.5"/>
+
+  <!-- Rainbow emerges from behind storm cloud on LEFT — cloud overlaps the left base -->
+  <ellipse cx="0" cy="200" rx="55" ry="60" fill="#0c1428"/>
+  <ellipse cx="15" cy="175" rx="48" ry="38" fill="#0a1020"/>
+  <ellipse cx="0" cy="155" rx="42" ry="35" fill="#0e1830"/>
+  <!-- Right edge of left cloud — slightly lit by rainbow colour spill -->
+  <ellipse cx="48" cy="190" rx="28" ry="22" fill="#1a2840" opacity="0.8"/>
+
+  <!-- LAYER 2 MIDGROUND: Muddy earth — narrow strip -->
+  <rect x="0" y="268" width="400" height="32" fill="#3d2808"/>
+  <rect x="0" y="268" width="400" height="12" fill="#2a1808" opacity="0.8"/>
+  <!-- A few green shoots on muddy earth -->
+  <ellipse cx="80" cy="275" rx="22" ry="4" fill="#4A6A2A" opacity="0.7"/>
+  <ellipse cx="200" cy="277" rx="18" ry="3.5" fill="#4A6A2A" opacity="0.6"/>
+  <ellipse cx="320" cy="274" rx="20" ry="4" fill="#4A6A2A" opacity="0.7"/>
+
+  <!-- ★ SECONDARY EMPHASIS: 8 tiny silhouettes — looking up, arms raised, providing human scale -->
+  <!-- They are very small (18px tall) against the enormous rainbow above -->
+  <!-- Spread across the lower edge, looking upward -->
+
+  <!-- Figure 1 — far left -->
+  <polygon points="26,260 23,278 30,278 28,260" fill="#0a0812"/>
+  <circle cx="27" cy="256" r="5" fill="#0a0812"/>
+  <line x1="26" y1="264" x2="18" y2="256" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="28" y1="264" x2="36" y2="256" stroke="#0a0812" stroke-width="2.5"/>
+
+  <!-- Figure 2 -->
+  <polygon points="62,260 59,278 66,278 64,260" fill="#0a0812"/>
+  <circle cx="63" cy="256" r="5" fill="#0a0812"/>
+  <line x1="62" y1="264" x2="54" y2="256" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="64" y1="264" x2="72" y2="256" stroke="#0a0812" stroke-width="2.5"/>
+
+  <!-- Figure 3 -->
+  <polygon points="104,260 101,278 108,278 106,260" fill="#0a0812"/>
+  <circle cx="105" cy="256" r="5" fill="#0a0812"/>
+  <line x1="104" y1="264" x2="96" y2="256" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="106" y1="264" x2="114" y2="256" stroke="#0a0812" stroke-width="2.5"/>
+
+  <!-- Figure 4 — left of centre -->
+  <polygon points="148,259 145,278 153,278 150,259" fill="#0a0812"/>
+  <circle cx="149" cy="255" r="5.5" fill="#0a0812"/>
+  <line x1="148" y1="263" x2="139" y2="255" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="150" y1="263" x2="159" y2="255" stroke="#0a0812" stroke-width="2.5"/>
+
+  <!-- Figure 5 — centre (Noah) — tallest, arms highest -->
+  <polygon points="197,257 193,278 207,278 203,257" fill="#0a0812"/>
+  <circle cx="200" cy="252" r="6" fill="#0a0812"/>
+  <line x1="197" y1="263" x2="185" y2="252" stroke="#0a0812" stroke-width="3"/>
+  <line x1="203" y1="263" x2="215" y2="252" stroke="#0a0812" stroke-width="3"/>
+
+  <!-- Figure 6 — right of centre -->
+  <polygon points="250,259 247,278 255,278 252,259" fill="#0a0812"/>
+  <circle cx="251" cy="255" r="5.5" fill="#0a0812"/>
+  <line x1="250" y1="263" x2="241" y2="255" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="252" y1="263" x2="261" y2="255" stroke="#0a0812" stroke-width="2.5"/>
+
+  <!-- Figure 7 -->
+  <polygon points="298,260 295,278 302,278 300,260" fill="#0a0812"/>
+  <circle cx="299" cy="256" r="5" fill="#0a0812"/>
+  <line x1="298" y1="264" x2="290" y2="256" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="300" y1="264" x2="308" y2="256" stroke="#0a0812" stroke-width="2.5"/>
+
+  <!-- Figure 8 — far right -->
+  <polygon points="358,260 355,278 362,278 360,260" fill="#0a0812"/>
+  <circle cx="359" cy="256" r="5" fill="#0a0812"/>
+  <line x1="358" y1="264" x2="350" y2="256" stroke="#0a0812" stroke-width="2.5"/>
+  <line x1="360" y1="264" x2="368" y2="256" stroke="#0a0812" stroke-width="2.5"/>
+
+</svg>

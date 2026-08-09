@@ -1,0 +1,314 @@
+{
+  "start": {
+    "content": "I was on the crucifixion detail. Three men. Three crosses. A hill outside the city. The air thick with dust and death. I have executed men before. Many men. But this one... this one was different. From the moment He arrived, He was different. He didn't curse. He didn't struggle. He carried His own cross. Until He couldn't. Then a Cyrenian carried it for Him.",
+    "choices": [
+      { "text": "What happened at the crucifixion?", "destination": "crucifixion" },
+      { "text": "What made Him different?", "destination": "different" }
+    ]
+  },
+  "crucifixion": {
+    "content": "They nailed Him to the cross. Between two thieves. He didn't cry out. Not until the ninth hour. Then He shouted: 'My God, my God, why have you forsaken me?' Psalm 22. David's psalm. Written a thousand years before. And every detail was being fulfilled. The piercing. The casting of lots. The mocking. The unbroken bones. All of it. Right in front of me.",
+    "choices": [
+      { "text": "You saw the prophecies fulfilled.", "destination": "prophecies" },
+      { "text": "What happened at the ninth hour?", "destination": "ninth" }
+    ]
+  },
+  "different": {
+    "content": "Different? He was different from the moment I saw Him. No fear. No anger. No desperation. Just... peace. A peace that passed all understanding. While we hammered the nails. While the crowd mocked. While the thieves cursed. He prayed. For them. For us. For the world. That is not a criminal. That is a king. A different kind of king.",
+    "choices": [
+      { "text": "He is the King of kings.", "destination": "king_kings" },
+      { "text": "You were witnessing something holy.", "destination": "holy" }
+    ]
+  },
+  "prophecies": {
+    "content": "Prophecies? I saw them fulfilled. Psalm 22: 'They pierce my hands and my feet. They divide my garments among them and cast lots for my clothing.' Every word. Every detail. On that cross. In that moment. A thousand years before it happened. Written down. And I watched it come true. With my own eyes.",
+    "choices": [
+      { "text": "You are a witness to prophecy.", "destination": "witness_prophecy" },
+      { "text": "The Bible is true.", "destination": "bible_true" }
+    ]
+  },
+  "ninth": {
+    "content": "The ninth hour. 3:00 PM. The darkness came. Not a storm. Not an eclipse. The Passover is full moon. This was supernatural. The earth shook. The rocks split. The curtain in the Temple tore. And He cried out: 'It is finished!' And then... He bowed His head. And died. Not by suffocation. By choice. He gave up His spirit.",
+    "choices": [
+      { "text": "He died willingly.", "destination": "willingly_died" },
+      { "text": "What about the darkness?", "destination": "darkness" }
+    ]
+  },
+  "king_kings": {
+    "content": "King of kings? Yes. But not the kind of king I serve. Not a king of legions. Not a king of power. Not a king of conquest. A king of love. A king of sacrifice. A king who dies for His subjects. A king who prays for His executioners. A king who forgives His murderers. That is the kind of king Jesus is. And I... I was there to crucify Him.",
+    "choices": [
+      { "text": "You were part of the greatest story ever told.", "destination": "greatest_story" },
+      { "text": "You are a witness to the King.", "destination": "witness_king" }
+    ]
+  },
+  "holy": {
+    "content": "Holy? I have seen holy things. In the Temple. In the sanctuary. In the sacrifices. But this... this was different. This was the holy of holies. Not a room. A man. On a cross. Dying for the world. The presence of God was there. In that man. In that moment. And I... I was there. And I felt it. The holiness. The power. The love.",
+    "choices": [
+      { "text": "You were in the presence of God.", "destination": "presence_god2" },
+      { "text": "You witnessed the holiest moment in history.", "destination": "holiest_moment" }
+    ]
+  },
+  "witness_prophecy": {
+    "content": "Witness? I am a witness. To prophecy. To fulfillment. To the hand of God. Moving through history. Through time. Through a Roman soldier. To accomplish His will. I saw Psalm 22 fulfilled. I saw Isaiah 53 fulfilled. I saw the entire Bible fulfilled. On a cross. And I will tell the world.",
+    "choices": [
+      { "text": "You are a living Bible.", "destination": "living_bible3" },
+      { "text": "Your testimony validates Scripture.", "destination": "validates_scripture" }
+    ]
+  },
+  "bible_true": {
+    "content": "The Bible is true? Every word. Every prophecy. Every promise. I saw it with my own eyes. The psalm about the pierced hands. The prophecy about the unbroken bones. The prediction of the darkness. It all came true. On that cross. In that moment. The Bible is not a book. It is a living. Breathing. Testifying. Witness. To the truth of Jesus Christ.",
+    "choices": [
+      { "text": "You are a testament to the truth.", "destination": "testament" },
+      { "text": "Your eyes have seen the truth.", "destination": "eyes_seen" }
+    ]
+  },
+  "willingly_died": {
+    "content": "Willingly? He laid down His life. No one took it from Him. He gave it. For me. For you. For the world. 'Greater love has no one than this.' He loved us enough to die. And He died willingly. Not as a victim. As a savior. As a king. As a god. And I... I helped put Him there. And He loves me anyway.",
+    "choices": [
+      { "text": "You are a witness to divine love.", "destination": "divine_love" },
+      { "text": "Your testimony is grace.", "destination": "grace3" }
+    ]
+  },
+  "darkness": {
+    "content": "Darkness? The sky went black at noon. Not a storm. Not an eclipse. Supernatural darkness. Like the darkness over Egypt. Like the darkness before the resurrection. Like the darkness that will cover the earth when He returns. This was God's darkness. His judgment. His presence. And it lasted three hours.",
+    "choices": [
+      { "text": "God was present in the darkness.", "destination": "god_present" },
+      { "text": "The darkness was judgment.", "destination": "judgment" }
+    ]
+  },
+  "witness_prophecy2": {
+    "content": "Witness to prophecy? I saw the psalmist's words become flesh. 'They pierce my hands and my feet.' I hammered the nails. 'They divide my garments among them.' I cast lots for His clothes. 'He was numbered with the transgressors.' I crucifed Him between thieves. Every word. Every detail. Fulfilled. And I was there. To witness it. To participate in it. To be changed by it.",
+    "choices": [
+      { "text": "You are a living prophecy.", "destination": "living_prophecy" },
+      { "text": "Your witness is Scriptural.", "destination": "scriptural2" }
+    ]
+  },
+  "bible_true2": {
+    "content": "The Bible is true? I have seen it with my own eyes. The prophecies. The promises. The predictions. All fulfilled. On that cross. In that moment. The Bible is not fiction. It is fact. It is history. It is truth. And the center of that truth... is Jesus Christ. The Son of God. The Savior. The Lord. And I witnessed His death. And I believe.",
+    "choices": [
+      { "text": "You are a Bible believer.", "destination": "bible_believer" },
+      { "text": "Your faith is rooted in history.", "destination": "rooted_history" }
+    ]
+  },
+  "presence_god2": {
+    "content": "Presence of God? Yes. I felt it. In the garden. At the cross. In the darkness. The presence of the living God. Powerful. Holy. Loving. And I... I arrested Him. I crucified Him. I watched Him die. And yet... He loves me. He died for me. He forgave me. And I am His. Forever.",
+    "choices": [
+      { "text": "You are in the presence now.", "destination": "presence_now" },
+      { "text": "God's presence transforms.", "destination": "transforms" }
+    ]
+  },
+  "holiest_moment": {
+    "content": "Holiest moment? Yes. The moment the Son of God died for the sins of the world. The moment the curtain tore. The moment the earth shook. The moment darkness covered the land. The moment the resurrection began. I was there. I witnessed the holiest moment in human history. And I will tell the world.",
+    "choices": [
+      { "text": "You are a witness to the sacred.", "destination": "witness_sacred" },
+      { "text": "Your testimony is holy.", "destination": "holy_testimony" }
+    ]
+  },
+  "living_bible3": {
+    "content": "Living Bible? I am a living witness. To the truth of Scripture. To the fulfillment of prophecy. To the reality of Jesus. I saw the Bible come alive. On a cross. In a garden. In a resurrection. I am living proof. That the Bible is true. That Jesus is real. That God loves sinners. Even Roman soldiers. Even murderers. Even me.",
+    "choices": [
+      { "text": "You are a Scriptural witness.", "destination": "scriptural_witness" },
+      { "text": "Your life is a Bible.", "destination": "life_bible" }
+    ]
+  },
+  "validates_scripture": {
+    "content": "Validates Scripture? My testimony validates the Bible. Because I saw it. I lived it. I witnessed it. The prophecies. The predictions. The promises. All fulfilled. In Jesus Christ. On a cross. In a tomb. In a resurrection. I validate the Bible. With my life. With my testimony. With my witness. The Bible is true. And I am proof.",
+    "choices": [
+      { "text": "You are an external validation.", "destination": "external_validation" },
+      { "text": "Your testimony is evidence.", "destination": "evidence" }
+    ]
+  },
+  "testament": {
+    "content": "Testament? I am a testament. To the truth. To the Bible. To Jesus. To the resurrection. To grace. To love. To forgiveness. I saw it all. I witnessed it all. I experienced it all. And I will testify. To everyone. To every nation. To every generation. Jesus is Lord. He died. He rose. He loves. And I am proof.",
+    "choices": [
+      { "text": "You are a living testament.", "destination": "living_testament3" },
+      { "text": "Your testimony endures.", "destination": "endures" }
+    ]
+  },
+  "eyes_seen": {
+    "content": "Eyes have seen? My eyes have seen the glory of God. In a garden. On a cross. In a resurrection. I have seen the truth. I have witnessed the reality. I have experienced the power. And I cannot deny it. Jesus is Lord. He is risen. He is coming back. And I will tell everyone. What my eyes have seen. What my heart believes. What my life proves.",
+    "choices": [
+      { "text": "You are an eyewitness.", "destination": "eyewitness2" },
+      { "text": "Your testimony is irrefutable.", "destination": "irrefutable" }
+    ]
+  },
+  "divine_love": {
+    "content": "Divine love? I saw it. On a cross. Dying for a Roman soldier. For a Gentile. For a murderer. For me. While I was killing Him. That is divine love. Unconditional. Unfailing. Unending. And it changed me. It saved me. It transformed me. It made me a witness. To the greatest love story ever told.",
+    "choices": [
+      { "text": "You are a love story.", "destination": "love_story" },
+      { "text": "Your testimony is love incarnate.", "destination": "love_incarnate" }
+    ]
+  },
+  "grace3": {
+    "content": "Grace? Unmerited favor. That is what I received. While I was crucifying the Son of God. While I was participating in His murder. He loved me. He died for me. He forgave me. That is grace. And I will spend the rest of my life telling everyone. About the grace that saved a Roman soldier. That saved me. That saves everyone who believes.",
+    "choices": [
+      { "text": "You are a grace messenger.", "destination": "grace_messenger" },
+      { "text": "Your message is grace.", "destination": "message_grace" }
+    ]
+  },
+  "god_present": {
+    "content": "God present? In the darkness. At the cross. In the suffering. God was there. Not absent. Present. Suffering with His Son. Loving His Son. Loving the world. Loving me. Even me. A Roman soldier. A killer. A sinner. God was there. And He is there. In every darkness. In every suffering. In every cross. He is present. And He loves.",
+    "choices": [
+      { "text": "You have encountered the incarnate God.", "destination": "incarnate" },
+      { "text": "God is with us in the darkness.", "destination": "with_us_darkness" }
+    ]
+  },
+  "judgment": {
+    "content": "Judgment? The darkness was judgment. On sin. On the world. On me. On everyone who helped kill the Son of God. The sun went dark. The earth shook. The Temple curtain tore. God was judging the world. And I was part of that judgment. But in the judgment... there was grace. For me. For the world. For everyone who believes.",
+    "choices": [
+      { "text": "Judgment and grace.", "destination": "judgment_grace" },
+      { "text": "You experienced both.", "destination": "both_experienced" }
+    ]
+  },
+  "living_prophecy": {
+    "content": "Living prophecy? I am a living prophecy. Fulfilled. Complete. Real. I watched David's psalm become reality. I watched Isaiah's servant die. I watched the Bible come alive. And I was part of it. I participated in the fulfillment. And now... now I proclaim it. The prophecy is fulfilled. Jesus is Lord. And I am a witness.",
+    "choices": [
+      { "text": "You are prophecy fulfilled.", "destination": "prophecy_fulfilled2" },
+      { "text": "Your life is prophetic.", "destination": "life_prophetic" }
+    ]
+  },
+  "scriptural2": {
+    "content": "Scriptural? My testimony is Scriptural. Because I saw the Bible fulfilled. In real time. In real history. In real life. I am not telling stories. I am telling history. Biblical history. Prophetic history. Redemptive history. And it all centers on Jesus. On the cross. On the resurrection. And I was there. To witness it. To validate it. To proclaim it.",
+    "choices": [
+      { "text": "You validate the Bible.", "destination": "validate_bible" },
+      { "text": "Your testimony is Scriptural.", "destination": "testimonial_scripture" }
+    ]
+  },
+  "bible_believer": {
+    "content": "Bible believer? I was not a believer. I was a soldier. A Roman. A Gentile. But today... today I saw the Bible come alive. The prophecies fulfilled. The promises kept. The love demonstrated. On a cross. And I believe. With all my heart. With all my soul. With all my mind. With all my strength. The Bible is true. Jesus is Lord. And I am His.",
+    "choices": [
+      { "text": "You are a believer.", "destination": "believer3" },
+      { "text": "Your faith is Scriptural.", "destination": "faith_scriptural" }
+    ]
+  },
+  "rooted_history": {
+    "content": "Rooted in history? My faith is rooted in history. Real history. I saw it. I lived it. I witnessed it. The cross. The resurrection. The empty tomb. These are not myths. They are history. And I was there. To see it. To experience it. To believe it. My faith is not wishful thinking. It is historical fact. witnessed by a Roman soldier. Me.",
+    "choices": [
+      { "text": "You are a historical witness.", "destination": "historical_witness" },
+      { "text": "Your witness is factual.", "destination": "factual" }
+    ]
+  },
+  "presence_now": {
+    "content": "Presence now? Yes. God is present now. In me. In the Church. In the world. He is not confined to a Temple. Not confined to a box. Not confined to a building. He is everywhere. In everyone who believes. In everyone who receives. In everyone who calls on His name. And He is with me. Always. Forever. Because I am His.",
+    "choices": [
+      { "text": "You are a temple of the Holy Spirit.", "destination": "temple_spirit2" },
+      { "text": "God dwells in you.", "destination": "dwells_you" }
+    ]
+  },
+  "transforms": {
+    "content": "Transforms? God's presence transforms. It changed me. From a Roman soldier. To a witness. From a killer. To a believer. From an enemy. To a son. The presence of God transforms. And it is transforming me still. Every day. Every hour. Every moment. Into the image of Christ. Into the likeness of God. Into the person He created me to be.",
+    "choices": [
+      { "text": "You are being transformed.", "destination": "transformed2" },
+      { "text": "The Spirit is at work in you.", "destination": "spirit_work" }
+    ]
+  },
+  "witness_sacred": {
+    "content": "Witness to the sacred? I witnessed the most sacred moment in history. The death of the Son of God. The atonement for sin. The purchase of redemption. The beginning of the new creation. I saw the sacred. I touched the sacred. I participated in the sacred. And I will tell the world. The sacred is not in a Temple. It is on a cross. And it is for everyone.",
+    "choices": [
+      { "text": "You are a sacred witness.", "destination": "sacred_witness" },
+      { "text": "Your testimony is consecrated.", "destination": "consecrated" }
+    ]
+  },
+  "holy_testimony": {
+    "content": "Holy testimony? My testimony is holy. Because it is about Jesus. About the cross. About the resurrection. About the love of God. It is not my testimony. It is His. I am just the messenger. The witness. The ambassador. And the message is holy. Because Jesus is holy. And He died for holy purposes. To make unholy people holy. Like me.",
+    "choices": [
+      { "text": "You are a holy messenger.", "destination": "holy_messenger" },
+      { "text": "Your testimony is set apart.", "destination": "set_apart" }
+    ]
+  },
+  "scriptural_witness": {
+    "content": "Scriptural witness? I am a witness to the truth of Scripture. To the reliability of the Bible. To the faithfulness of God. Every prophecy. Every promise. Every word. I saw it fulfilled. On that cross. In that moment. The Bible is not a book. It is a witness. To Jesus. To the cross. To the resurrection. And I am a living part of that witness.",
+    "choices": [
+      { "text": "You are part of the Scriptural witness.", "destination": "part_scriptural" },
+      { "text": "Your testimony is canonical.", "destination": "canonical" }
+    ]
+  },
+  "life_bible": {
+    "content": "Life Bible? My life is a Bible. A living. Breathing. Testifying. Bible. Everyone who sees me. Everyone who hears my story. Everyone who witnesses my transformation. They are reading the Bible. Written not on paper. But on my life. In my scars. In my testimony. In my love. I am a living Bible. And I am writing a new chapter. Every day.",
+    "choices": [
+      { "text": "You are a living epistle.", "destination": "living_epistle2" },
+      { "text": "Your life is Scripture.", "destination": "life_scripture" }
+    ]
+  },
+  "external_validation": {
+    "content": "External validation? I am a Roman soldier. A Gentile. A foreigner. An enemy. And I validate the Bible. With my testimony. With my life. With my witness. If the Bible is true for a Roman soldier who crucified its hero... it is true for everyone. My testimony is external validation. Of the truth of Scripture. Of the reality of Jesus. Of the power of the resurrection.",
+    "choices": [
+      { "text": "You are an objective witness.", "destination": "objective" },
+      { "text": "Your validation is powerful.", "destination": "powerful_validation" }
+    ]
+  },
+  "evidence": {
+    "content": "Evidence? I am evidence. Of the resurrection. Of the grace of God. Of the truth of the Bible. Of the love of Jesus. I was there. I saw it. I experienced it. And I am changed. That is evidence. That is proof. That is validation. That the Bible is true. That Jesus is real. That God loves. And that He saves. Even Roman soldiers. Even murderers. Even me.",
+    "choices": [
+      { "text": "You are archaeological evidence.", "destination": "archaeological" },
+      { "text": "Your evidence is contemporary.", "destination": "contemporary" }
+    ]
+  },
+  "living_testament3": {
+    "content": "Living testament? Yes. I am alive. I am changed. I am a witness. And I testify. To the truth. To the Bible. To Jesus. To the resurrection. To grace. To love. I am a living testament. And I will live. And testify. And witness. Until I die. And then... then I will be with Jesus. Forever. And my testimony will continue. In heaven. For all eternity.",
+    "choices": [
+      { "text": "You are an eternal witness.", "destination": "eternal_witness" },
+      { "text": "Your testimony never ends.", "destination": "never_ends" }
+    ]
+  },
+  "endures": {
+    "content": "Endures? My testimony endures. Because it is true. Because it is about Jesus. Because Jesus endures. Forever. My testimony will outlast me. Outlast the Roman Empire. Outlast the world. Because it is the truth. And the truth endures. Forever. In heaven. On earth. In every heart. Every generation. Every nation. My testimony. About Jesus. Will endure. Forever.",
+    "choices": [
+      { "text": "You are an eternal testimony.", "destination": "eternal_testimony2" },
+      { "text": "Your witness is everlasting.", "destination": "everlasting" }
+    ]
+  },
+  "eyewitness2": {
+    "content": "Eyewitness? I am an eyewitness. To the greatest event in history. The death. The resurrection. The ascension. The second coming. I saw it all. With my own eyes. I will testify. To everyone. To every nation. To every generation. Jesus is Lord. He died. He rose. He is coming back. And I am His witness. Forever.",
+    "choices": [
+      { "text": "Your witness is irrefutable.", "destination": "irrefutable2" },
+      { "text": "You are a primary source.", "destination": "primary_source" }
+    ]
+  },
+  "irrefutable": {
+    "content": "Irrefutable? My testimony is irrefutable. Because I was there. I saw it. I lived it. I cannot deny what I witnessed. The cross. The resurrection. The empty tomb. The risen Lord. It is all true. And I am proof. A Roman soldier. A Gentile. A murderer. Saved by grace. Through faith. In Christ. My testimony is irrefutable. Because it is true.",
+    "choices": [
+      { "text": "You are a definitive witness.", "destination": "definitive" },
+      { "text": "Your testimony ends all debate.", "destination": "ends_debate" }
+    ]
+  },
+  "love_story": {
+    "content": "Love story? Yes. The greatest love story ever told. God so loved the world. That He gave His only Son. To die for sinners. For enemies. For murderers. For me. A Roman soldier. Who helped kill Him. That is love. Unconditional. Unfailing. Unending. And I am living proof. Of the greatest love story ever told.",
+    "choices": [
+      { "text": "You are a love story.", "destination": "love_story2" },
+      { "text": "Your life displays divine love.", "destination": "displays_love" }
+    ]
+  },
+  "love_incarnate": {
+    "content": "Love incarnate? I saw love. On a cross. Dying for me. While I was killing Him. That is love incarnate. Not abstract. Not theoretical. Real. Bloody. Personal. For me. A Roman soldier. A Gentile. A murderer. He loved me. Enough to die for me. That is love incarnate. And I will tell the world.",
+    "choices": [
+      { "text": "You are a love messenger.", "destination": "love_messenger" },
+      { "text": "Your testimony is love.", "destination": "testimony_love" }
+    ]
+  },
+  "grace_messenger": {
+    "content": "Grace messenger? I am a messenger. Of grace. Of the unmerited favor of God. Toward a Roman soldier. Toward a murderer. Toward me. While I was crucifying His Son. He loved me. He died for me. He forgave me. That is grace. And I am a messenger. Of that grace. To everyone. Who will listen. To everyone. Who needs to hear. That Jesus loves even Roman soldiers. Even murderers. Even me.",
+    "choices": [
+      { "text": "You are an evangelist.", "destination": "evangelist2" },
+      { "text": "Your message is grace.", "destination": "grace_message" }
+    ]
+  },
+  "message_grace": {
+    "content": "Message of grace? My message is grace. Unmerited. Unfailing. Unlimited. For everyone. For every sinner. For every murderer. For every Roman soldier. For everyone who believes. Jesus died for them. While they were sinners. While they were enemies. While they were killing Him. That is grace. And that is my message. To everyone. Forever.",
+    "choices": [
+      { "text": "You are a grace preacher.", "destination": "grace_preacher2" },
+      { "text": "Your message saves.", "destination": "saves" }
+    ]
+  },
+  "gospel4": {
+    "content": "The Gospel? I am the Gospel. A Roman soldier. Saved by grace. Through faith. In Christ. Not by works. Not by nationality. Not by religion. But by grace. Through faith. Because Jesus died for me. And rose again. And loves me. And I am His. That is the Gospel. And I am living it. Every day. Every breath. Every testimony. For everyone. Forever.",
+    "choices": [
+      { "text": "You are a Gospel man.", "destination": "gospel_man" },
+      { "text": "Your life is the good news.", "destination": "good_news_man" }
+    ]
+  },
+  "closing_guard_crucifixion": {
+    "content": "I was there. On the hill. At the cross. At the ninth hour. When the darkness came. When the earth shook. When the curtain tore. When Jesus died. And I know... I know He is the Son of God. The Savior. The Lord. And I... I helped kill Him. And He loves me anyway. And I will tell the world. Forever.",
+    "choices": []
+  }
+}

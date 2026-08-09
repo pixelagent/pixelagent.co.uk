@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Miracle Maker 3D — A series of game tools exploring 3D rendering, UI systems, dialogue mechanics, VFX, and atmospheric effects using Three.js. Each variant focuses on a different aspect of game development.">
+    <title>Miracle Maker 3D — Tools </title>
+    <!--
+
+        ============================================
+        MIRACLE MAKER 3D —  TOOLS
+        ============================================
+
+        PROJECT OVERVIEW
+        ----------------
+        Miracle Maker is a collection of 3D game prototypes built with Three.js and
+        Cannon-es physics. Each variant explores a different facet of interactive
+        gameplay: UI systems, visual effects, dialogue engines, rendering styles,
+        and atmospheric rendering. All demos share the same core premise — a red
+        capsule navigating a green planet — but differ wildly in aesthetics and
+        feature emphasis.
+
+        ORIGINS
+        -------
+        Born from a creative experiment to answer the question: "How many different
+        ways can you build the same game?" Each prototype starts from a common base
+        (explore-collect-interact) and diverges through focused iteration. The
+        result is a laboratory of techniques: toon shading, particle systems,
+        dynamic lighting, UI patterns, and narrative integration.
+
+   
+
+        QUICK START
+        -----------
+        Open any .html file directly in a browser. No build step required.
+        All dependencies loaded via CDN (Three.js, Cannon-es, Howler, Inkjs).
+
+        BROWSER REQUIREMENTS
+        -------------------
+        WebGL-compatible browser. Desktop recommended for keyboard controls.
+        Touch devices: tap to move (where implemented), UI buttons sized ~12vmin.
+
+        PROJECT STRUCTURE
+        -----------------
+        /tests/           — All prototype builds (this gallery)
+        /assets/         — Sound files, images, and dialogue JSON (optional)
+        /docs/           — Detailed API documentation (optional)
+
+        TECHNICAL STACK
+        ---------------
+        Three.js (r160) — 3D rendering
+        Cannon-es (v0.20.0) — Physics simulation
+        Inkjs (v2.2.1) — Narrative scripting
+        Howler (v2.2.4) — Audio playback
+        Vanilla JS + CSS custom properties
+
+        DESIGN PRINCIPLES
+        -----------------
+        1. Ship early. Each prototype is a single HTML file.
+        2. Iterate fast. Copy base, modify specific subsystem.
+        3. Fail fast. Discard variants that don't sing.
+        4. Preserve insights. Document lessons in code comments.
+        5. Compare side-by-side. Run in iframes to spot differences.
+
+        RESOURCES
+        ---------
+        Three.js docs: https://threejs.org/docs
+        Cannon-es:   https://github.com/pmndrs/cannon-es
+        Ink:         https://github.com/inkle/ink
+        Howler:      https://howlerjs.com
+
+        CREDITS
+        -------
+        Created by the Miracle Maker team.
+        Inspired by "Messanger Abeto", "The Cathedral and the Bazaar," "The Pragmatic Programmer,"
+        and "The Mythical Man-Month."
+
+
+        LICENSE
+        -------
+        MIT. See LICENSE file for details.
+
+        Last updated: 2026-05-19
+    -->
+
+    <style>
+        :root {
+            --bg: #010105;
+            --panel: rgba(0, 10, 20, 0.88);
+            --accent: #00f2ff;
+            --accent2: #ffaa00;
+            --text: #ffffff;
+            --glow: 0 0 20px rgba(0, 242, 255, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            color: var(--accent2);
+            font-size: 3em;
+            margin: 0;
+            letter-spacing: 4px;
+            text-shadow: var(--glow);
+        }
+
+        .subtitle {
+            color: var(--accent);
+            font-size: 1.2em;
+            margin-top: 10px;
+            opacity: 0.8;
+            letter-spacing: 2px;
+        }
+
+        .intro {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            line-height: 1.6;
+            opacity: 0.7;
+            font-size: 0.95em;
+            text-align: center;
+        }
+
+        .quote {
+            max-width: 600px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            border-left: 3px solid var(--accent);
+            background: rgba(0, 242, 255, 0.05);
+            font-style: italic;
+            font-size: 1.1em;
+            line-height: 1.5;
+        }
+
+        .quote cite {
+            display: block;
+            margin-top: 10px;
+            font-style: normal;
+            font-size: 0.85em;
+            opacity: 0.6;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            padding: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: var(--glow);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2), 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .card h2 {
+            color: var(--accent2);
+            margin: 0 0 8px 0;
+            font-size: 1.3em;
+            letter-spacing: 1px;
+        }
+
+        .card .tag {
+            display: inline-block;
+            background: var(--accent);
+            color: black;
+            padding: 2px 8px;
+            font-size: 0.7em;
+            border-radius: 3px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .card p {
+            margin: 0;
+            opacity: 0.7;
+            line-height: 1.5;
+            font-size: 0.9em;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 16px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 20px;
+            opacity: 0.5;
+            font-size: 0.85em;
+            border-top: 1px solid #333;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Miracle Maker 3D</h1>
+            <div class="subtitle">TOOLS </div>
+        </header>
+
+        <div class="intro">
+            A collection of 3D game tools built with Three.js and Cannon-es physics.
+            Each variant explores a different facet of interactive gameplay: UI systems,
+            visual effects, dialogue engines, rendering styles, and atmospheric rendering.
+        </div>
+
+        <div class="quote">
+            "Always build a throwaway prototype. The second system is what the user
+            really wants, but you can only design the second system after you've
+            built and discarded the first."<br>
+            <cite>— Fred Brooks, "The Mythical Man-Month"</cite>
+        </div>
+
+        <div class="grid">
+
+
+            <div class="card">
+                <span class="tag">Editor Tool</span>
+                <h2>Earth Grid Editor</h2>
+                <p>Flatten the planet into a 60×30 longitude/latitude grid. Hover to select cells, choose an object
+                    type, and click or double-click to place. Shows all 3D object positions on the 2D map. Export or
+                    import the full grid as JSON.</p>
+                <a href="grid-editor2.html">Open Demo →</a>
+            </div>
+
+            <div class="card">
+                <span class="tag">Editor Tool</span>
+                <h2>Dialogue Editor</h2>
+                <p>Visual tool for creating and editing Ink-based dialogue graphs. Features include node-based editing,
+                    live preview, Ink script synchronization, export/import capabilities, and responsive design for
+                    desktop and mobile use.</p>
+                <a href="DialogueEditor.html">Open Demo →</a>
+            </div>
+
+            <div class="card">
+                <span class="tag">Editor Tool</span>
+                <h2>Dialogue Viewer</h2>
+                <p>Visual tool for viewing Ink-based dialogue graphs. Features include node-based visualization,
+                    live preview.</p>
+                <a href="DialogueViewer.html">Open Demo →</a>
+            </div>
+
+              <div class="card">
+                <span class="tag">Tilemap Editor</span>
+                <h2>Tilemap Designer</h2>
+                <p>Create the tilemaps for the 2d game.</p>
+                <a href="tilemap-editor.html">Open Demo →</a>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <footer>
+        Miracle Maker — Built with Three.js, Cannon-es, Ink, and Howler.<br>
+        Tools demonstrate rapid iteration and orthogonal design exploration.
+    </footer>
+    </div>
+
+    <script>
+        console.log('Miracle Maker 3D Gallery loaded');
+    </script>
+</body>
+
+</html>

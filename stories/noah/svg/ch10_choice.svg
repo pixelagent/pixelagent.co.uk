@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="sky_c" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e1a14"/>
+      <stop offset="55%" stop-color="#2a2218"/>
+      <stop offset="100%" stop-color="#1a1508"/>
+    </linearGradient>
+    <linearGradient id="ground_c" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1408"/>
+      <stop offset="100%" stop-color="#0c0a06"/>
+    </linearGradient>
+    <!-- Warm left path — amber glow from tent direction -->
+    <linearGradient id="warmpath" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C87050" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#C87050" stop-opacity="0.02"/>
+    </linearGradient>
+    <!-- Cold right path — dark, narrowing -->
+    <linearGradient id="coldpath" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0812" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#0a0812" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky — grey-neutral, waiting, neither dark nor light -->
+  <rect width="400" height="300" fill="url(#sky_c)"/>
+  <!-- Ground -->
+  <rect x="0" y="210" width="400" height="90" fill="url(#ground_c)"/>
+  <line x1="0" y1="210" x2="400" y2="210" stroke="#2e2010" stroke-width="2"/>
+
+  <!-- Stars — 4 only, neutral -->
+  <circle cx="60" cy="22" r="0.8" fill="#fff8e0" opacity="0.3"/>
+  <circle cx="200" cy="16" r="1" fill="#fff8e0" opacity="0.35"/>
+  <circle cx="330" cy="28" r="0.8" fill="#fff8e0" opacity="0.3"/>
+  <circle cx="120" cy="48" r="0.8" fill="#fff8e0" opacity="0.25"/>
+
+  <!-- ============ PATH APPROACHING FROM BOTTOM — the single road that becomes two ============ -->
+  <!-- Approach road — centre bottom, converging on fork -->
+  <polygon points="165,300 235,300 222,210 178,210" fill="#1e1608" stroke="#2e2010" stroke-width="2"/>
+  <!-- Path texture — subtle tracks -->
+  <line x1="190" y1="220" x2="194" y2="295" stroke="#2a1c0a" stroke-width="1" opacity="0.5"/>
+  <line x1="210" y1="220" x2="207" y2="295" stroke="#2a1c0a" stroke-width="1" opacity="0.5"/>
+
+  <!-- ============ FORK STONE MARKER — FOCAL POINT at exact centre ============ -->
+  <!-- The stone at the split — this is the still pivot of the whole composition -->
+  <!-- Stone base — heavy, grounded -->
+  <ellipse cx="200" cy="213" rx="16" ry="8" fill="#2a2010" stroke="#0A0812" stroke-width="2"/>
+  <!-- Stone body — irregular, ancient -->
+  <polygon points="186,213 188,198 196,191 204,191 212,198 214,213" fill="#3a2e18" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Stone top — worn flat -->
+  <ellipse cx="200" cy="192" rx="13" ry="6" fill="#4a3a20" stroke="#0A0812" stroke-width="2"/>
+  <!-- Stone highlight edge — catches grey sky -->
+  <path d="M188,198 Q196,190 212,198" stroke="#6a5a30" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <!-- Deep shadow side -->
+  <polygon points="204,191 214,198 214,213 204,213" fill="#1e1808" stroke="none"/>
+
+  <!-- ============ LEFT PATH — warm light toward tent ============ -->
+  <!-- Path surface -->
+  <polygon points="178,210 0,210 0,300 165,300" fill="#1e1608" stroke="#2e2010" stroke-width="1.5"/>
+  <!-- Warm amber wash over left path — the right choice glows faintly -->
+  <polygon points="178,210 0,210 0,300 165,300" fill="url(#warmpath)"/>
+  <!-- Ruts and tracks -->
+  <line x1="175" y1="213" x2="4" y2="213" stroke="#3a2810" stroke-width="1" opacity="0.4"/>
+  <line x1="172" y1="225" x2="8" y2="225" stroke="#3a2810" stroke-width="1" opacity="0.3"/>
+
+  <!-- Ambient glow source on left — coming from tent direction -->
+  <ellipse cx="25" cy="195" rx="70" ry="55" fill="#C87050" opacity="0.07"/>
+  <ellipse cx="25" cy="195" rx="40" ry="30" fill="#C87050" opacity="0.06"/>
+
+  <!-- LEFT TENT — calm, warm, dignified -->
+  <polygon points="0,210 80,210 76,130 40,108 0,128" fill="#6b4420" stroke="#0A0812" stroke-width="3"/>
+  <!-- Lit face of tent — facing the path, warm -->
+  <polygon points="40,108 76,130 80,210 55,210 54,145" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+  <!-- Peak pole -->
+  <line x1="40" y1="108" x2="40" y2="88" stroke="#8B5E2F" stroke-width="2"/>
+  <circle cx="40" cy="86" r="2.5" fill="#6b4420" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Tent flap — slightly ajar, calm light spilling -->
+  <polygon points="40,108 54,128 52,210 28,210 26,132" fill="#5a3010" stroke="#0A0812" stroke-width="2"/>
+  <!-- Warm interior glow — amber, gentle, not dramatic -->
+  <polygon points="26,132 52,126 52,210 26,210" fill="#C87050" opacity="0.10"/>
+
+  <!-- GARMENT — draped gently on post outside tent, #FFF7E8 -->
+  <!-- Post -->
+  <line x1="62" y1="210" x2="62" y2="150" stroke="#4a2e12" stroke-width="2.5"/>
+  <circle cx="62" cy="148" r="3.5" fill="#5a3818" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Garment hanging — still, soft, the gesture of honour -->
+  <path d="M50,152 Q62,149 74,152 Q78,164 74,180 Q62,184 50,180 Q46,164 50,152Z" fill="#FFF7E8" stroke="#0A0812" stroke-width="2"/>
+  <!-- Garment folds — quiet -->
+  <line x1="57" y1="153" x2="55" y2="180" stroke="#d4c8a8" stroke-width="1.5" opacity="0.7"/>
+  <line x1="66" y1="153" x2="68" y2="180" stroke="#d4c8a8" stroke-width="1.5" opacity="0.7"/>
+  <!-- Very faint amber edge on garment -->
+  <path d="M50,152 Q62,149 74,152" stroke="#C87050" stroke-width="1" fill="none" opacity="0.3"/>
+
+  <!-- ============ RIGHT PATH — cold, darker, narrower ============ -->
+  <!-- Path surface -->
+  <polygon points="222,210 400,210 400,300 235,300" fill="#14100a" stroke="#1e1408" stroke-width="1.5"/>
+  <!-- Cold dark overlay — this path is less welcoming -->
+  <polygon points="222,210 400,210 400,300 235,300" fill="url(#coldpath)"/>
+  <!-- Path is slightly narrower, less defined — uncertainty -->
+  <line x1="225" y1="215" x2="396" y2="215" stroke="#1a1208" stroke-width="1" opacity="0.3"/>
+
+  <!-- RIGHT — three shadowy figures, huddled, gossiping -->
+  <!-- Fig 1 — slightly left of group -->
+  <ellipse cx="298" cy="180" rx="11" ry="15" fill="#1a0e08" stroke="#0A0812" stroke-width="2"/>
+  <ellipse cx="298" cy="163" rx="8" ry="9" fill="#1a0e08" stroke="#0A0812" stroke-width="2"/>
+  <!-- Fig 2 — leaning toward 1 -->
+  <ellipse cx="326" cy="183" rx="10" ry="14" fill="#150a06" stroke="#0A0812" stroke-width="2"/>
+  <ellipse cx="324" cy="167" rx="7" ry="8" fill="#150a06" stroke="#0A0812" stroke-width="2"/>
+  <!-- Fig 3 — behind, slightly smaller -->
+  <ellipse cx="354" cy="185" rx="9" ry="12" fill="#100806" stroke="#0A0812" stroke-width="1.5"/>
+  <ellipse cx="352" cy="171" rx="6" ry="7" fill="#100806" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Conspiratorial gesture — fig1 arm toward fig2 -->
+  <line x1="309" y1="174" x2="318" y2="172" stroke="#2a1408" stroke-width="2" stroke-linecap="round"/>
+  <!-- Figure legs -->
+  <line x1="292" y1="195" x2="287" y2="210" stroke="#1a0e08" stroke-width="2" stroke-linecap="round"/>
+  <line x1="304" y1="195" x2="308" y2="210" stroke="#1a0e08" stroke-width="2" stroke-linecap="round"/>
+  <line x1="320" y1="197" x2="315" y2="210" stroke="#150a06" stroke-width="2" stroke-linecap="round"/>
+  <line x1="332" y1="197" x2="335" y2="210" stroke="#150a06" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Dead/bare vegetation right — the barren side -->
+  <line x1="385" y1="210" x2="380" y2="148" stroke="#1e1408" stroke-width="2.5"/>
+  <line x1="380" y1="148" x2="366" y2="126" stroke="#1e1408" stroke-width="2"/>
+  <line x1="380" y1="148" x2="394" y2="130" stroke="#1e1408" stroke-width="2"/>
+  <line x1="372" y1="162" x2="358" y2="152" stroke="#1e1408" stroke-width="1.5"/>
+
+  <!-- Subtle dividing line — from stone to horizon, barely visible -->
+  <line x1="200" y1="210" x2="200" y2="175" stroke="#4a3818" stroke-width="1" stroke-dasharray="3,7" opacity="0.3"/>
+</svg>

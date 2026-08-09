@@ -1,0 +1,66 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a1520"/>
+      <stop offset="60%" stop-color="#112233"/>
+      <stop offset="100%" stop-color="#1c3651"/>
+    </linearGradient>
+    <linearGradient id="sea1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1c436d"/>
+      <stop offset="50%" stop-color="#0e2540"/>
+      <stop offset="100%" stop-color="#05101c"/>
+    </linearGradient>
+    <linearGradient id="hullGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e65c40"/>
+      <stop offset="70%" stop-color="#bc462e"/>
+      <stop offset="100%" stop-color="#8a2e1c"/>
+    </linearGradient>
+    <linearGradient id="sailGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#fff4e0"/>
+      <stop offset="100%" stop-color="#e3d5ba"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Deep Comic Sky -->
+  <rect width="600" height="400" fill="url(#sky1)"/>
+  <circle cx="500" cy="90" r="45" fill="#FFF7E8" opacity="0.1"/>
+  <circle cx="500" cy="90" r="25" fill="#FFF7E8" opacity="0.15"/>
+
+  <!-- Distant Sea Horizon -->
+  <rect y="230" width="600" height="170" fill="url(#sea1)"/>
+
+  <!-- The Merchant Ship Structure -->
+  <g transform="translate(40, -10)">
+    <!-- Ropes & Rigging -->
+    <line x1="240" y1="70" x2="100" y2="250" stroke="#0A0812" stroke-width="2.5"/>
+    <line x1="240" y1="40" x2="350" y2="80" stroke="#0A0812" stroke-width="2.5"/>
+    <line x1="350" y1="80" x2="440" y2="250" stroke="#0A0812" stroke-width="2"/>
+
+    <!-- Masts -->
+    <line x1="240" y1="250" x2="240" y2="40" stroke="#0A0812" stroke-width="9" stroke-linecap="round"/>
+    <line x1="350" y1="250" x2="350" y2="80" stroke="#0A0812" stroke-width="7" stroke-linecap="round"/>
+
+    <!-- Billowing Main Sail -->
+    <path d="M240 55 C330 85, 320 195, 240 220 C280 165, 280 100, 240 55 Z" fill="url(#sailGrad)" stroke="#0A0812" stroke-width="4.5" stroke-linejoin="round"/>
+    <!-- Fore Sail -->
+    <path d="M350 90 C410 115, 400 195, 350 215 C375 175, 375 125, 350 90 Z" fill="url(#sailGrad)" stroke="#0A0812" stroke-width="4" stroke-linejoin="round"/>
+
+    <!-- Ship Hull Body -->
+    <path d="M80 230 L420 230 C455 230, 480 255, 455 295 L400 295 L120 295 Z" fill="url(#hullGrad)" stroke="#0A0812" stroke-width="5.5" stroke-linejoin="round"/>
+    <!-- Hull Highlight Trim -->
+    <path d="M92 236 L412 236 L402 255 L110 255 Z" fill="#ff8a73" stroke="#0A0812" stroke-width="2.5"/>
+
+    <!-- Deck Portholes -->
+    <circle cx="170" cy="265" r="9" fill="#FFF7E8" stroke="#0A0812" stroke-width="3"/>
+    <circle cx="250" cy="265" r="9" fill="#FFF7E8" stroke="#0A0812" stroke-width="3"/>
+    <circle cx="330" cy="265" r="9" fill="#FFF7E8" stroke="#0A0812" stroke-width="3"/>
+
+    <!-- Figurehead Detail -->
+    <path d="M75 230 C50 220, 35 195, 42 190 C55 190, 70 215, 75 230 Z" fill="#FFF7E8" stroke="#0A0812" stroke-width="3"/>
+  </g>
+
+  <!-- Dynamic Foreground Wave Caps -->
+  <path d="M0 265 Q75 240, 150 265 T300 265 T450 265 T600 265 L600 400 L0 400 Z" fill="#143254" stroke="#0A0812" stroke-width="5.5"/>
+  <path d="M-20 305 Q80 285, 180 305 T360 305 T540 305 T620 315 L620 400 L-20 400 Z" fill="#0d213a"/>
+</svg>

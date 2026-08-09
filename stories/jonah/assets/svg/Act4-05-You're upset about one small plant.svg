@@ -1,0 +1,253 @@
+<svg viewBox="0 0 600 400"
+     xmlns="http://www.w3.org/2000/svg"
+     width="100%"
+     height="100%">
+
+  <defs>
+
+    <linearGradient id="sky"
+                    x1="0" y1="0"
+                    x2="0" y2="1">
+      <stop offset="0%" stop-color="#17384f"/>
+      <stop offset="45%" stop-color="#2b5d7a"/>
+      <stop offset="100%" stop-color="#e7af6a"/>
+    </linearGradient>
+
+    <radialGradient id="sunGlow">
+      <stop offset="0%" stop-color="#fff4c2" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#fff4c2" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="hill"
+                    x1="0" y1="0"
+                    x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a3843"/>
+      <stop offset="100%" stop-color="#121920"/>
+    </linearGradient>
+
+  </defs>
+
+  <!-- SKY -->
+
+  <rect width="600"
+        height="400"
+        fill="url(#sky)"/>
+
+  <!-- DIVINE SUN -->
+
+  <circle cx="460"
+          cy="85"
+          r="48"
+          fill="#FFD84D"
+          stroke="#0A0812"
+          stroke-width="3"/>
+
+  <circle cx="460"
+          cy="85"
+          r="110"
+          fill="url(#sunGlow)"
+          opacity="0.6"/>
+
+  <!-- GENTLE DIVINE LIGHT -->
+
+  <g opacity="0.18">
+
+    <path d="M460 85 L295 340 L355 340 Z"
+          fill="#fff9de"/>
+
+    <path d="M460 85 L400 340 L460 340 Z"
+          fill="#fff9de"/>
+
+  </g>
+
+  <!-- DISTANT HORIZON -->
+
+  <path d="
+      M0 230
+      Q120 200 240 220
+      T600 210
+      L600 400
+      L0 400 Z"
+      fill="#344957"
+      opacity="0.5"/>
+
+  <!-- MAIN HILLSIDE -->
+
+  <path d="
+      M0 280
+      Q170 220 320 270
+      T600 250
+      L600 400
+      L0 400 Z"
+      fill="url(#hill)"
+      stroke="#0A0812"
+      stroke-width="4"/>
+
+  <!-- WITHERED PLANT (MAIN FOCAL OBJECT) -->
+
+  <g transform="translate(315 175)">
+
+    <!-- ground patch -->
+    <ellipse cx="0"
+             cy="145"
+             rx="95"
+             ry="28"
+             fill="#5f3417"
+             stroke="#0A0812"
+             stroke-width="3"/>
+
+    <!-- trunk -->
+
+    <path d="
+        M0 140
+        L5 35
+
+        M0 55
+        L-40 15
+
+        M0 80
+        L50 30
+
+        M5 95
+        L-18 65
+
+        M10 65
+        L35 50"
+        fill="none"
+        stroke="#774824"
+        stroke-width="9"
+        stroke-linecap="round"/>
+
+    <!-- fallen leaves -->
+
+    <ellipse cx="-50"
+             cy="130"
+             rx="18"
+             ry="10"
+             fill="#8f5829"/>
+
+    <ellipse cx="55"
+             cy="128"
+             rx="18"
+             ry="10"
+             fill="#8f5829"/>
+
+    <ellipse cx="-5"
+             cy="137"
+             rx="15"
+             ry="9"
+             fill="#8f5829"/>
+
+  </g>
+
+  <!-- JONAH -->
+
+  <g transform="translate(165 235)">
+
+    <!-- head -->
+
+    <circle cx="0"
+            cy="0"
+            r="16"
+            fill="#f2d1aa"
+            stroke="#0A0812"
+            stroke-width="3"/>
+
+    <!-- sad eye -->
+
+    <circle cx="4"
+            cy="-2"
+            r="2"
+            fill="#0A0812"/>
+
+    <!-- frown -->
+
+    <path d="
+        M-5 8
+        Q0 4 5 8"
+        fill="none"
+        stroke="#0A0812"
+        stroke-width="2"/>
+
+    <!-- robe -->
+
+    <path d="
+        M-25 18
+        L25 18
+        L30 95
+        L-30 95 Z"
+        fill="#4b667d"
+        stroke="#0A0812"
+        stroke-width="3"/>
+
+    <!-- one arm reaching toward plant -->
+
+    <line x1="25"
+          y1="38"
+          x2="60"
+          y2="30"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+    <!-- slumped arm -->
+
+    <line x1="-25"
+          y1="42"
+          x2="-45"
+          y2="58"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+  </g>
+
+  <!-- VISUAL CONNECTION -->
+
+  <path d="
+      M220 260
+      Q255 235 290 235
+      Q320 235 340 255"
+      fill="none"
+      stroke="#ffffff"
+      stroke-width="2"
+      opacity="0.2"/>
+
+  <!-- TINY DISTANT NINEVEH -->
+
+  <g transform="translate(500 245)"
+     opacity="0.18">
+
+    <rect x="0"
+          y="30"
+          width="80"
+          height="30"
+          fill="#d09b66"/>
+
+    <rect x="12"
+          y="-10"
+          width="18"
+          height="70"
+          fill="#d09b66"/>
+
+    <rect x="42"
+          y="-20"
+          width="24"
+          height="80"
+          fill="#d09b66"/>
+
+  </g>
+
+  <!-- EARLY STARS -->
+
+  <g fill="#ffffff"
+     opacity="0.75">
+
+    <circle cx="80" cy="45" r="1.5"/>
+    <circle cx="140" cy="28" r="1.2"/>
+    <circle cx="220" cy="42" r="1.5"/>
+    <circle cx="535" cy="52" r="1.3"/>
+
+  </g>
+
+</svg>

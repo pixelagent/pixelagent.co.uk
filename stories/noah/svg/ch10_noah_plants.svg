@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="sky_p" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a2510"/>
+      <stop offset="55%" stop-color="#C87050" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#5a3010"/>
+    </linearGradient>
+    <linearGradient id="earth_p" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a2008"/>
+      <stop offset="100%" stop-color="#1a0e04"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky — muted amber afternoon, lower brightness -->
+  <rect width="400" height="300" fill="url(#sky_p)"/>
+
+  <!-- Dark earth — lower two-thirds -->
+  <rect x="0" y="175" width="400" height="125" fill="url(#earth_p)"/>
+  <!-- Horizon line — subtle -->
+  <line x1="0" y1="175" x2="400" y2="175" stroke="#5a3010" stroke-width="2"/>
+
+  <!-- FURROW LINES — rhythmic dark rows, perspective narrowing upper-right -->
+  <!-- Near rows — wide spacing, foreground -->
+  <line x1="0" y1="220" x2="400" y2="208" stroke="#2a1408" stroke-width="2.5" opacity="0.7"/>
+  <line x1="0" y1="240" x2="400" y2="226" stroke="#2a1408" stroke-width="2" opacity="0.6"/>
+  <line x1="0" y1="260" x2="400" y2="244" stroke="#2a1408" stroke-width="2" opacity="0.5"/>
+  <line x1="0" y1="280" x2="400" y2="263" stroke="#2a1408" stroke-width="2" opacity="0.4"/>
+  <!-- Mid rows — tighter spacing -->
+  <line x1="0" y1="198" x2="400" y2="190" stroke="#2a1408" stroke-width="1.5" opacity="0.6"/>
+  <line x1="0" y1="186" x2="400" y2="180" stroke="#1a0e04" stroke-width="1" opacity="0.5"/>
+
+  <!-- VINE ROWS — diagonal perspective to upper-right -->
+  <!-- Row 1 — mid distance -->
+  <line x1="230" y1="175" x2="230" y2="165" stroke="#3d5020" stroke-width="2"/>
+  <ellipse cx="230" cy="163" rx="9" ry="6" fill="#2e4018" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="260" y1="177" x2="260" y2="167" stroke="#3d5020" stroke-width="2"/>
+  <ellipse cx="260" cy="165" rx="9" ry="6" fill="#2e4018" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="290" y1="178" x2="290" y2="168" stroke="#3d5020" stroke-width="2"/>
+  <ellipse cx="290" cy="166" rx="9" ry="6" fill="#2e4018" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="318" y1="179" x2="318" y2="169" stroke="#3d5020" stroke-width="1.5"/>
+  <ellipse cx="318" cy="167" rx="8" ry="5" fill="#2e4018" stroke="#0A0812" stroke-width="1"/>
+  <line x1="344" y1="179" x2="344" y2="170" stroke="#3d5020" stroke-width="1.5"/>
+  <ellipse cx="344" cy="168" rx="7" ry="4.5" fill="#2e4018" stroke="#0A0812" stroke-width="1"/>
+  <line x1="368" y1="180" x2="368" y2="172" stroke="#3d5020" stroke-width="1"/>
+  <ellipse cx="368" cy="170" rx="6" ry="4" fill="#2e4018" stroke="#0A0812" stroke-width="1"/>
+  <!-- Trellis wire row 1 -->
+  <line x1="220" y1="172" x2="400" y2="174" stroke="#2e4018" stroke-width="1" opacity="0.7"/>
+
+  <!-- Row 2 — farther back, smaller, higher -->
+  <line x1="245" y1="168" x2="245" y2="161" stroke="#2e4018" stroke-width="1.5"/>
+  <ellipse cx="245" cy="159" rx="7" ry="4.5" fill="#2e4018" stroke="#0A0812" stroke-width="1"/>
+  <line x1="272" y1="169" x2="272" y2="162" stroke="#2e4018" stroke-width="1.5"/>
+  <ellipse cx="272" cy="160" rx="7" ry="4.5" fill="#2e4018" stroke="#0A0812" stroke-width="1"/>
+  <line x1="298" y1="170" x2="298" y2="163" stroke="#2e4018" stroke-width="1.5"/>
+  <ellipse cx="298" cy="161" rx="6" ry="4" fill="#2e4018" stroke="#0A0812" stroke-width="1"/>
+  <line x1="324" y1="170" x2="324" y2="164" stroke="#2e4018" stroke-width="1"/>
+  <ellipse cx="324" cy="162" rx="6" ry="3.5" fill="#2e4018" stroke="#0A0812" stroke-width="1"/>
+  <line x1="350" y1="171" x2="350" y2="165" stroke="#2e4018" stroke-width="1"/>
+  <ellipse cx="350" cy="163" rx="5" ry="3" fill="#2e4018" stroke="#0A0812" stroke-width="1"/>
+  <!-- Trellis wire row 2 -->
+  <line x1="235" y1="166" x2="400" y2="167" stroke="#2e4018" stroke-width="1" opacity="0.5"/>
+
+  <!-- Row 3 — furthest, barely readable -->
+  <line x1="260" y1="163" x2="260" y2="158" stroke="#2e4018" stroke-width="1" opacity="0.7"/>
+  <ellipse cx="260" cy="156" rx="5" ry="3" fill="#1e3010" stroke="#0A0812" stroke-width="1" opacity="0.7"/>
+  <line x1="285" y1="163" x2="285" y2="158" stroke="#2e4018" stroke-width="1" opacity="0.7"/>
+  <ellipse cx="285" cy="156" rx="5" ry="3" fill="#1e3010" stroke="#0A0812" stroke-width="1" opacity="0.7"/>
+  <line x1="310" y1="164" x2="310" y2="159" stroke="#2e4018" stroke-width="1" opacity="0.6"/>
+  <ellipse cx="310" cy="157" rx="4" ry="2.5" fill="#1e3010" stroke="#0A0812" stroke-width="1" opacity="0.6"/>
+  <line x1="335" y1="164" x2="335" y2="160" stroke="#2e4018" stroke-width="1" opacity="0.5"/>
+  <ellipse cx="335" cy="158" rx="4" ry="2.5" fill="#1e3010" stroke="#0A0812" stroke-width="1" opacity="0.5"/>
+
+  <!-- === NOAH — kneeling LEFT-CENTRE, diminished, bent over earth === -->
+  <!-- Ground shadow beneath him -->
+  <ellipse cx="120" cy="225" rx="45" ry="8" fill="#0c0604" opacity="0.5"/>
+
+  <!-- Back leg (right) — kneeling, knee on ground -->
+  <polygon points="95,225 115,225 118,200 100,198" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Front leg (left) — foot planted -->
+  <polygon points="110,225 130,225 133,205 115,202" fill="#7a5025" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Foot flat -->
+  <ellipse cx="115" cy="225" rx="16" ry="5" fill="#5a3010" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Torso — bending forward, weight over hands -->
+  <polygon points="100,202 135,198 140,170 125,162 105,166 98,180" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Robe fold shadows -->
+  <line x1="110" y1="200" x2="112" y2="168" stroke="#5a3010" stroke-width="1.5"/>
+  <line x1="125" y1="198" x2="128" y2="166" stroke="#5a3010" stroke-width="1.5"/>
+
+  <!-- Left arm — reaching forward and down, hand near soil -->
+  <polygon points="100,175 88,170 72,200 85,206" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Left hand — fingers pressing into earth -->
+  <ellipse cx="74" cy="208" rx="10" ry="6" fill="#D4956A" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Finger suggestions -->
+  <line x1="66" y1="207" x2="63" y2="214" stroke="#D4956A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="72" y1="207" x2="70" y2="215" stroke="#D4956A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="78" y1="207" x2="78" y2="215" stroke="#D4956A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="83" y1="207" x2="85" y2="213" stroke="#D4956A" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Right arm — steadying on ground to the right -->
+  <polygon points="130,172 142,168 155,192 142,198" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Right hand on earth -->
+  <ellipse cx="157" cy="198" rx="9" ry="5.5" fill="#D4956A" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Neck and head — bowed, looking down -->
+  <rect x="112" y="153" width="12" height="12" rx="3" fill="#D4956A" stroke="#0A0812" stroke-width="2"/>
+  <ellipse cx="118" cy="143" rx="17" ry="16" fill="#D4956A" stroke="#0A0812" stroke-width="3"/>
+
+  <!-- White beard — full, aged patriarch -->
+  <polygon points="103,148 108,162 118,168 128,162 133,148 126,152 118,154 110,152" fill="#e8ddd0" stroke="#0A0812" stroke-width="2"/>
+  <!-- Head covering — cloth wound, aged -->
+  <polygon points="102,140 105,128 115,120 126,121 132,130 131,142 122,137 110,138" fill="#6b4420" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Face — bowed, eyes downward, quiet focus -->
+  <path d="M108,142 Q113,138 118,140" stroke="#7a5030" stroke-width="1.5" fill="none"/>
+  <path d="M118,140 Q123,138 128,142" stroke="#7a5030" stroke-width="1.5" fill="none"/>
+  <path d="M109,146 Q113,144 117,146" stroke="#0A0812" stroke-width="1.5" fill="none"/>
+  <path d="M119,146 Q123,144 127,146" stroke="#0A0812" stroke-width="1.5" fill="none"/>
+
+  <!-- ======== VINE CUTTING — FOCAL POINT (foreground, close) ======== -->
+  <!-- Small hole in dark earth -->
+  <ellipse cx="74" cy="215" rx="6" ry="3" fill="#0c0604" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Disturbed soil mound -->
+  <ellipse cx="74" cy="218" rx="11" ry="4" fill="#5a3010" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- The cutting stem — thin, pressed in -->
+  <line x1="74" y1="215" x2="74" y2="240" stroke="#3d5020" stroke-width="3" stroke-linecap="round"/>
+  <!-- Leaf ONE — larger, left -->
+  <path d="M74,224 C64,216 56,218 58,226 C60,232 70,230 74,226Z" fill="#4A6A2A" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Leaf vein -->
+  <line x1="74" y1="224" x2="59" y2="225" stroke="#2e4018" stroke-width="1" opacity="0.7"/>
+  <!-- Leaf TWO — right, slightly lower -->
+  <path d="M74,232 C84,224 92,226 90,234 C88,240 78,238 74,234Z" fill="#4A6A2A" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Leaf vein -->
+  <line x1="74" y1="232" x2="89" y2="233" stroke="#2e4018" stroke-width="1" opacity="0.7"/>
+
+  <!-- Tiny root tip at base — soil detail -->
+  <line x1="72" y1="240" x2="70" y2="245" stroke="#2e4018" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="74" y1="241" x2="75" y2="246" stroke="#2e4018" stroke-width="1" stroke-linecap="round"/>
+  <line x1="76" y1="240" x2="79" y2="244" stroke="#2e4018" stroke-width="1" stroke-linecap="round"/>
+</svg>

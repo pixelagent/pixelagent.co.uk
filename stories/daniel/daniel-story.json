@@ -1,0 +1,147 @@
+[
+  {
+    "id": "table",
+    "name": "The King's Table",
+    "bg": "radial-gradient(circle at 30% 20%, #5c4033, #2b1d0c 65%, #1a0e06)",
+    "particle": "dusk",
+    "svg": "babylon_court",
+    "lines": [
+      { "speaker": "narrator", "fx": "fade", "text": "Babylon, 605 BCE. The young men of Judah had been taken far from home.", "align": "left", "svg": "babylon_city" },
+      { "speaker": "narrator", "fx": "type", "text": "King Nebuchadnezzar ordered his best captives trained for royal service. Among them: Daniel, Hananiah, Mishael, and Azariah.", "align": "center", "svg": "training_house" },
+      { "speaker": "nebuchadnezzar", "fx": "bounce", "text": "You will eat from MY royal table — the finest food and wine in all Babylon!", "align": "right", "svg": "royal_table" },
+      { "speaker": "narrator", "fx": "fade", "text": "The food was rich. The wine was powerful. And accepting it would have been the easy thing to do.", "align": "left", "svg": "royal_table" },
+      {
+        "speaker": "daniel",
+        "fx": "type",
+        "text": "I cannot eat the king's food. Not because I'm ungrateful. But because there's one thing I won't give up.",
+        "align": "center",
+        "svg": "daniel_decides",
+        "choices": [
+          { "label": "Tell the guard directly 🗣️", "note": "Daniel speaks plainly. The guard is surprised but hears him out." },
+          { "label": "Request a test instead 🌿", "note": "Daniel proposes ten days of simple food. The guard nervously agrees." }
+        ]
+      },
+      { "speaker": "daniel", "fx": "fade", "text": "Give us vegetables and water for ten days. Then judge us against the others.", "svg": "daniel_vegetable_test" },
+      { "speaker": "narrator", "fx": "fade", "text": "At the end of ten days, Daniel and his friends looked healthier than all the young men who ate the king's food.", "svg": "daniel_healthier" },
+      { "speaker": "narrator", "fx": "type", "text": "They didn't make a speech about it. They didn't demand to be noticed. They just held the line.", "svg": "daniel_serve" },
+      { "speaker": "narrator", "fx": "fade", "text": "And God gave them knowledge, wisdom, and understanding — more than all the wise men of Babylon.", "svg": "babylon_city" }
+    ]
+  },
+  {
+    "id": "statue",
+    "name": "The Dream",
+    "bg": "radial-gradient(circle at 50% 20%, #3d1c08, #1e0f0a 65%, #0d0705)",
+    "particle": "dream",
+    "svg": "throne_room",
+    "lines": [
+      { "speaker": "narrator", "fx": "shake", "text": "The king had a dream that terrified him. He demanded his wise men tell him not just what it meant — but what it was.", "align": "left", "svg": "throne_room" },
+      { "sfx": "TELL ME!", "speaker": "nebuchadnezzar", "fx": "shake", "text": "Interpret my dream — or ALL the wise men of Babylon die. Including you, Daniel.", "align": "center", "svg": "throne_room" },
+      { "speaker": "narrator", "fx": "fade", "text": "No human could answer. But Daniel didn't guess. He prayed first.", "align": "right", "svg": "daniel_prays" },
+      { "speaker": "daniel", "fx": "fade", "text": "There is a God in heaven who reveals mysteries.", "svg": "daniel_prays" },
+      { "speaker": "daniel", "fx": "type", "text": "Your dream: a statue of terrifying brightness. Gold head. Silver chest. Bronze belly. Iron legs. Feet of clay.", "svg": "statue_dream" },
+      { "speaker": "daniel", "fx": "bounce", "text": "You are the gold head, O King. But after you will come other kingdoms — and in the end, God's kingdom will crush them all and stand forever.", "svg": "statue_dream" },
+      {
+        "speaker": "narrator",
+        "fx": "fade",
+        "text": "The king could have been angry at the news. Instead, he did something no one expected.",
+        "align": "center",
+        "svg": "nebuchadnezzar_bows",
+        "choices": [
+          { "label": "Daniel softens the message 😬", "note": "If Daniel had flattered the king here, later chapters would ring hollow. He didn't." },
+          { "label": "Daniel delivers it plainly ✅", "note": "The true reading, even the uncomfortable parts. That's what earns the king's respect." }
+        ]
+      },
+      { "speaker": "nebuchadnezzar", "fx": "bounce", "text": "Your God is the God of gods and Lord of kings — a revealer of mysteries!", "svg": "nebuchadnezzar_bows" },
+      { "speaker": "narrator", "fx": "fade", "text": "Daniel used his promotion not to protect himself, but to save the other wise men who had no power to answer.", "svg": "daniel_serve" }
+    ]
+  },
+  {
+    "id": "furnace",
+    "name": "The Furnace",
+    "bg": "radial-gradient(circle at 50% 80%, #8b2500, #3d1200 60%, #1a0700)",
+    "particle": "fire",
+    "svg": "plain_of_dura",
+    "lines": [
+      { "speaker": "narrator", "fx": "fade", "text": "Years later, Nebuchadnezzar built a colossal golden statue on the plain of Dura.", "align": "left", "svg": "golden_statue" },
+      { "sfx": "BOW DOWN!", "speaker": "nebuchadnezzar", "fx": "shake", "text": "When the music plays — EVERYONE bows to my image. Anyone who doesn't will be thrown into the furnace!", "align": "center", "svg": "golden_statue" },
+      { "speaker": "narrator", "fx": "fade", "text": "This test was not designed for Daniel. It was designed for his friends: Shadrach, Meshach, and Abednego.", "align": "right", "svg": "plain_of_dura" },
+      { "speaker": "narrator", "fx": "type", "text": "Daniel is nowhere in this chapter. Sometimes faithfulness means watching people you love take the risk you didn't have to take.", "align": "center", "svg": "friends_standing" },
+      { "speaker": "friends", "fx": "bounce", "text": "O king — our God is able to save us. But even if he doesn't — we will not bow.", "svg": "friends_standing" },
+      { "sfx": "THROW THEM IN!", "speaker": "nebuchadnezzar", "fx": "shake", "text": "Heat the furnace SEVEN TIMES HOTTER! Bind them! THROW THEM IN!", "svg": "furnace_lit" },
+      { "speaker": "narrator", "fx": "shake", "text": "The furnace was so hot it killed the soldiers who threw them in. But the three men walked in it — and a fourth figure walked with them.", "svg": "furnace_lit" },
+      {
+        "speaker": "nebuchadnezzar",
+        "fx": "fade",
+        "text": "...I threw THREE men in. But I see FOUR walking in the fire. And the fourth looks like a son of the gods.",
+        "align": "center",
+        "svg": "four_in_furnace",
+        "choices": [
+          { "label": "They are rescued before the fire 🙏", "note": "No. They walk IN it. The rescue happens inside the thing they refused to avoid." },
+          { "label": "They walk out unharmed ✅", "note": "Not a hair singed. No smell of smoke. The fire had no power over them." }
+        ]
+      },
+      { "speaker": "friends", "fx": "bounce", "text": "We told you. Whether he saves us or not — we will not bow.", "svg": "friends_standing" },
+      { "speaker": "narrator", "fx": "fade", "text": "This is the design thesis of the whole story: conviction that doesn't require the rescue to happen.", "svg": "four_in_furnace" }
+    ]
+  },
+  {
+    "id": "writing",
+    "name": "The Writing on the Wall",
+    "bg": "radial-gradient(circle at 30% 30%, #2b1220, #160a14 60%, #090510)",
+    "particle": "constellation",
+    "svg": "belshazzar_feast",
+    "lines": [
+      { "speaker": "narrator", "fx": "fade", "text": "Decades later. Babylon was falling. And Belshazzar, its last king, held a feast — using the sacred cups stolen from Jerusalem's temple.", "align": "left", "svg": "belshazzar_feast" },
+      { "speaker": "belshazzar", "fx": "bounce", "text": "BRING the gold and silver cups from the temple! Tonight we drink from the vessels of Judah's God!", "align": "center", "svg": "belshazzar_feast" },
+      { "sfx": "MENE...", "speaker": "narrator", "fx": "shake", "text": "Suddenly, a human hand appeared and wrote on the wall.", "svg": "hand_writing" },
+      { "speaker": "belshazzar", "fx": "shake", "text": "My legs... they've turned to water. BRING ME A WISE MAN — anyone who can read this gets gold and the third rank in my kingdom!", "svg": "hand_writing" },
+      { "speaker": "narrator", "fx": "fade", "text": "No one could read it. The queen remembered Daniel. And Daniel, now an old man, was brought in.", "align": "right", "svg": "daniel_reads" },
+      {
+        "speaker": "daniel",
+        "fx": "type",
+        "text": "Keep your gold, O King. I'll tell you what it means anyway.",
+        "align": "left",
+        "svg": "daniel_reads",
+        "choices": [
+          { "label": "Daniel asks for the reward 💰", "note": "He doesn't. When there's nothing left to gain, the truth still costs something to tell." },
+          { "label": "Daniel refuses the reward ✅", "note": "Integrity in a moment with no long game left to protect. That's the point." }
+        ]
+      },
+      { "speaker": "daniel", "fx": "fade", "text": "MENE: God has numbered your kingdom and brought it to an end. TEKEL: You have been weighed and found wanting. PERES: Your kingdom is divided and given to the Medes and Persians.", "svg": "daniel_reads" },
+      { "speaker": "narrator", "fx": "type", "text": "That very night, Belshazzar was killed. And Babylon fell to the Persians.", "svg": "babylon_falls" }
+    ]
+  },
+  {
+    "id": "den",
+    "name": "The Den",
+    "bg": "radial-gradient(circle at 50% 20%, #0d1b2a, #061224 65%, #030b18)",
+    "particle": "stars",
+    "svg": "persian_court",
+    "lines": [
+      { "speaker": "narrator", "fx": "fade", "text": "Under King Darius the Mede, Daniel rose again to the highest rank. And the satraps hated him for it.", "align": "left", "svg": "persian_court" },
+      { "speaker": "narrator", "fx": "type", "text": "They searched for something — anything — to accuse him of. But they found no fault. Not one.", "align": "center", "svg": "satraps_plotting" },
+      { "speaker": "narrator", "fx": "fade", "text": "So they built a trap from the one thing they could not take from him.", "align": "right", "svg": "satraps_plotting" },
+      {
+        "speaker": "narrator",
+        "fx": "shake",
+        "text": "A new law: for thirty days, anyone who prays to anyone but the king is thrown to the lions.",
+        "align": "center",
+        "svg": "satraps_plotting",
+        "choices": [
+          { "label": "Daniel closes his window 🪟", "note": "He didn't. They couldn't find fault in him by catching him pray — so the window was always open." },
+          { "label": "Daniel prays as usual ✅", "note": "Three times a day. Window open. Facing Jerusalem. Exactly as he always had. Because that's what faithfulness looks like." }
+        ]
+      },
+      { "speaker": "narrator", "fx": "fade", "text": "Daniel went home. He opened the window facing Jerusalem. He got down on his knees. And he prayed.", "svg": "daniel_praying_window" },
+      { "speaker": "narrator", "fx": "type", "text": "Three times a day. Just like always. Not as a protest. Not to make a point. Simply because it was time to pray.", "svg": "daniel_praying_window" },
+      { "speaker": "darius", "fx": "shake", "text": "I cannot reverse my own law. I'm so sorry, Daniel.", "svg": "darius_distressed" },
+      { "sfx": "ROAR!", "speaker": "narrator", "fx": "shake", "text": "Daniel was thrown in. The stone was sealed. And Darius paced his palace all through the long night.", "svg": "lions_den_sealed" },
+      { "speaker": "narrator", "fx": "fade", "text": "At dawn, the king ran.", "svg": "darius_running" },
+      { "speaker": "darius", "fx": "bounce", "text": "DANIEL! Servant of the living God — has your God been able to save you?!", "svg": "darius_running" },
+      { "speaker": "daniel", "fx": "bounce", "text": "O king, live forever. My God sent his angel, and the lions' mouths were shut. Because I was found innocent before him.", "svg": "lions_den_open" },
+      { "speaker": "narrator", "fx": "fade", "text": "Daniel was lifted out. Not a scratch on him. Because he had trusted in his God.", "svg": "lions_den_open" },
+      { "speaker": "narrator", "fx": "type", "text": "And Daniel prospered. Under Darius. Under Cyrus. Through four kings and two empires — seventy years of exile — he held the line.", "svg": "daniel_old_man" },
+      { "speaker": "narrator", "fx": "fade", "text": "THE END", "svg": "daniel_old_man" }
+    ]
+  }
+]

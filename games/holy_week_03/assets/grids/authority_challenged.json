@@ -1,0 +1,140 @@
+{
+    "caseId": "authority_challenged",
+    "locationId": "temple_inner",
+    "locationTitle": "Temple Courtyard",
+    "timeOfDay": "day",
+    "environment": {
+        "floorColor": "#f5f5f5",
+        "skyColor": "#87ceeb",
+        "ambientLight": 0.8
+    },
+    "primitives": [
+        {
+            "type": "cylinder",
+            "name": "Main Pillar L",
+            "pos": [
+                -8,
+                5,
+                -10
+            ],
+            "scale": [
+                1,
+                10,
+                1
+            ],
+            "color": "#ffffff"
+        },
+        {
+            "type": "cylinder",
+            "name": "Main Pillar R",
+            "pos": [
+                8,
+                5,
+                -10
+            ],
+            "scale": [
+                1,
+                10,
+                1
+            ],
+            "color": "#ffffff"
+        },
+        {
+            "type": "box",
+            "name": "Steps to Holy Place",
+            "pos": [
+                0,
+                0.5,
+                -15
+            ],
+            "scale": [
+                15,
+                1,
+                4
+            ],
+            "color": "#dcdcdc"
+        }
+    ],
+    "sprites": [
+        {
+            "id": "sanhedrin_banner",
+            "type": "cloth",
+            "pos": [
+                0,
+                7,
+                -14.5
+            ],
+            "scale": [
+                4,
+                6
+            ],
+            "texture": "temple_insignia"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "caiaphas",
+            "name": "Caiaphas",
+            "pos": [
+                0,
+                0,
+                -12
+            ],
+            "color": "#a78bfa",
+            "description": "The High Priest presiding over the questioning",
+            "unlocksEvidence": [
+                "authority_scroll",
+                "caesar_denarius",
+                "widow_leptons"
+            ],
+            "hasDialogue": true
+        },
+        {
+            "id": "simon_pharisee",
+            "name": "Simon",
+            "pos": [
+                -5,
+                0,
+                -8
+            ],
+            "color": "#94a3b8",
+            "description": "Simon watching with critical interest",
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "authority_scroll",
+            "pos": [
+                1,
+                0.1,
+                -11
+            ],
+            "model": "scroll_legal",
+            "glowColor": "#4fa3e8",
+            "hint": "A formal challenge prepared by the Sanhedrin"
+        },
+        {
+            "id": "caesar_denarius",
+            "pos": [
+                -4,
+                0.05,
+                -7
+            ],
+            "model": "roman_coin",
+            "glowColor": "#f5c842",
+            "hint": "Used to test the Nazarene's loyalty to Rome"
+        },
+        {
+            "id": "widow_leptons",
+            "pos": [
+                6,
+                0.05,
+                -5
+            ],
+            "model": "small_coins",
+            "glowColor": "#3dd68c",
+            "hint": "Two small bronze coins left near the treasury"
+        }
+    ]
+}

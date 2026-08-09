@@ -1,0 +1,154 @@
+{
+    "caseId": "gethsemane_arrest",
+    "locationId": "gethsemane",
+    "locationTitle": "Gethsemane Garden, Mount of Olives",
+    "timeOfDay": "night",
+    "environment": {
+        "floorColor": "#1a1a0d",
+        "skyColor": "#050510",
+        "ambientLight": 0.2
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "Garden Wall North",
+            "pos": [
+                0,
+                1.5,
+                -12
+            ],
+            "scale": [
+                25,
+                3,
+                1
+            ],
+            "color": "#2c2c1e"
+        },
+        {
+            "type": "box",
+            "name": "Rock Formation",
+            "pos": [
+                8,
+                1,
+                -5
+            ],
+            "scale": [
+                3,
+                2,
+                3
+            ],
+            "color": "#3d3d2e"
+        }
+    ],
+    "sprites": [
+        {
+            "id": "olive_tree_1",
+            "type": "foliage",
+            "pos": [
+                -6,
+                0,
+                -8
+            ],
+            "scale": [
+                2.5,
+                4
+            ],
+            "texture": "ancient_olive"
+        },
+        {
+            "id": "olive_tree_2",
+            "type": "foliage",
+            "pos": [
+                4,
+                0,
+                -10
+            ],
+            "scale": [
+                2,
+                3.5
+            ],
+            "texture": "ancient_olive"
+        },
+        {
+            "id": "torch_light_bg",
+            "type": "effect",
+            "pos": [
+                -15,
+                2,
+                -15
+            ],
+            "scale": [
+                5,
+                5
+            ],
+            "texture": "fire_glow"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "judas",
+            "name": "Judas",
+            "pos": [
+                2,
+                0,
+                -2
+            ],
+            "color": "#7c8fa8",
+            "description": "Judas standing apart from the guards",
+            "unlocksEvidence": [
+                "bloodied_scarf"
+            ],
+            "hasDialogue": true
+        },
+        {
+            "id": "malchus",
+            "name": "Malchus",
+            "pos": [
+                -3,
+                0,
+                -5
+            ],
+            "color": "#f46060",
+            "description": "High Priest's servant holding his ear",
+            "unlocksEvidence": [
+                "dropped_torch"
+            ],
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "dropped_torch",
+            "pos": [
+                -2,
+                0.1,
+                -4
+            ],
+            "model": "torch_extinguished",
+            "glowColor": "#fbbf24",
+            "hint": "Dropped during the initial confrontation"
+        },
+        {
+            "id": "bloodied_scarf",
+            "pos": [
+                -3.5,
+                0.1,
+                -5.5
+            ],
+            "model": "cloth_scrap",
+            "glowColor": "#f46060",
+            "hint": "Discarded near where Malchus was struck"
+        },
+        {
+            "id": "linen_wrapper",
+            "pos": [
+                10,
+                0.1,
+                -8
+            ],
+            "model": "folded_linen",
+            "glowColor": "#ffffff",
+            "hint": "Abandoned in the shadows by a fleeing youth"
+        }
+    ]
+}

@@ -1,0 +1,146 @@
+{
+    "editor": "Earth Grid Editor Framework",
+    "grid": {
+        "numLon": 60,
+        "numLat": 30,
+        "radiusEnforced": true,
+        "exclusionRadius": 3
+    },
+    "objects": [
+        {
+            "r": 2,
+            "c": 21,
+            "type": "prop"
+        },
+        {
+            "r": 3,
+            "c": 40,
+            "type": "location"
+        },
+        {
+            "r": 6,
+            "c": 9,
+            "type": "location"
+        },
+        {
+            "r": 9,
+            "c": 26,
+            "type": "prop"
+        },
+        {
+            "r": 9,
+            "c": 42,
+            "type": "item"
+        },
+        {
+            "r": 10,
+            "c": 55,
+            "type": "decoy"
+        },
+        {
+            "r": 11,
+            "c": 21,
+            "type": "item"
+        },
+        {
+            "r": 13,
+            "c": 32,
+            "type": "npc",
+            "name": "John (Donkey)",
+            "description": "An interactive citizen of the world.",
+            "color": "#ffaa00",
+            "shape": "cylinder",
+            "glb": "",
+            "dialogue": "assets/dialogue/act1/case_a_missing_donkey/john_donkey.json",
+            "questId": 0,
+            "characterId": "john"
+        },
+        {
+            "r": 14,
+            "c": 56,
+            "type": "npc",
+            "name": "Simon Peter (Donkey)",
+            "description": "An interactive citizen of the world.",
+            "color": "#ffaa00",
+            "shape": "cylinder",
+            "glb": "",
+            "dialogue": "assets/dialogue/act1/case_a_missing_donkey/peter_donkey.json",
+            "questId": 0,
+            "characterId": "peter"
+        },
+        {
+            "r": 15,
+            "c": 9,
+            "type": "decoy"
+        },
+        {
+            "r": 15,
+            "c": 45,
+            "type": "location",
+            "name": "East Gate",
+            "description": "A trick designed to distract scanners.",
+            "color": "#88ff00",
+            "shape": "cone",
+            "glb": ""
+        },
+        {
+            "r": 19,
+            "c": 38,
+            "type": "npc",
+            "name": "Tobias (Donkey Owner)",
+            "description": "An interactive citizen of the world.",
+            "color": "#ffaa00",
+            "shape": "cylinder",
+            "glb": "",
+            "dialogue": "assets/dialogue/act1/case_a_missing_donkey/galilean_pilgrim.json",
+            "questId": 0,
+            "characterId": "owner"
+        },
+        {
+            "r": 22,
+            "c": 15,
+            "type": "npc",
+            "name": "Eleazar (Sadducee)",
+            "description": "An interactive citizen of the world.",
+            "color": "#ffaa00",
+            "shape": "cylinder",
+            "glb": "",
+            "dialogue": "assets/dialogue/act1/case_a_missing_donkey/eleazar_sadducee.json",
+            "questId": 0,
+            "characterId": "eleazar"
+        },
+        {
+            "r": 24,
+            "c": 23,
+            "type": "npc",
+            "name": "Jemimah (Local)",
+            "description": "An interactive citizen of the world.",
+            "color": "#ffaa00",
+            "shape": "cylinder",
+            "glb": "",
+            "dialogue": "assets/dialogue/act1/case_a_missing_donkey/jerusalem_local.json",
+            "questId": 0,
+            "characterId": "local_skeptic"
+        },
+        {
+            "r": 24,
+            "c": 36,
+            "type": "decoy"
+        },
+        {
+            "r": 24,
+            "c": 50,
+            "type": "decoy"
+        },
+        {
+            "r": 25,
+            "c": 10,
+            "type": "location",
+            "name": "Batheny",
+            "description": "A trick designed to distract scanners.",
+            "color": "#88ff00",
+            "shape": "cone",
+            "glb": ""
+        }
+    ]
+}

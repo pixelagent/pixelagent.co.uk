@@ -1,0 +1,43 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6b4226"/>
+      <stop offset="100%" stop-color="#3a1e0a"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="200" fill="#2b1d0c"/>
+  <!-- Sky strip — white space, breathing room -->
+  <rect x="0" y="0" width="300" height="30" fill="#1a0e04"/>
+  <circle cx="250" cy="14" r="6" fill="#FFD84D" opacity=".8"/>
+  <circle cx="30"  cy="10" r="2" fill="white"  opacity=".6"/>
+  <circle cx="80"  cy="18" r="1.5" fill="white" opacity=".5"/>
+  <circle cx="180" cy="8"  r="1.5" fill="white" opacity=".4"/>
+  <!-- Ground — proportion: bottom 25% -->
+  <rect x="0" y="152" width="300" height="48" fill="#1a0e06"/>
+  <rect x="0" y="150" width="300" height="4"  fill="#3a1e08" opacity=".6"/>
+  <!-- Main building body — balance: centred mass -->
+  <rect x="45" y="55" width="210" height="100" fill="url(#wallG)" stroke="#0A0812" stroke-width="3"/>
+  <!-- Roof — hierarchy: crowns the composition -->
+  <polygon points="30,55 150,12 270,55" fill="#8b5a2b" stroke="#0A0812" stroke-width="3"/>
+  <!-- Ridge finial — emphasis -->
+  <line x1="150" y1="12" x2="150" y2="0"  stroke="#FFD84D" stroke-width="3"/>
+  <circle cx="150" cy="0" r="5" fill="#FFD84D" opacity=".9"/>
+  <!-- Door — hierarchy: centred, golden, draws eye -->
+  <rect x="124" y="110" width="52" height="45" fill="#1a0e06" stroke="#FFD84D" stroke-width="2.5" rx="2"/>
+  <rect x="150" y="110" width="2"  height="45" fill="#FFD84D" opacity=".4"/>
+  <path d="M124 110 Q150 96 176 110" fill="#FFD84D" opacity=".5" stroke="#FFD84D" stroke-width="1.5"/>
+  <!-- Windows — rhythm, repetition: evenly spaced pairs -->
+  <rect x="60"  y="72" width="32" height="24" fill="#1a0e06" stroke="#FFD84D" stroke-width="2" rx="1"/>
+  <line x1="76" y1="72" x2="76" y2="96" stroke="#FFD84D" stroke-width="1" opacity=".5"/>
+  <rect x="208" y="72" width="32" height="24" fill="#1a0e06" stroke="#FFD84D" stroke-width="2" rx="1"/>
+  <line x1="224" y1="72" x2="224" y2="96" stroke="#FFD84D" stroke-width="1" opacity=".5"/>
+  <rect x="60"  y="105" width="32" height="22" fill="#1a0e06" stroke="#FFD84D" stroke-width="2" rx="1"/>
+  <rect x="208" y="105" width="32" height="22" fill="#1a0e06" stroke="#FFD84D" stroke-width="2" rx="1"/>
+  <!-- Corner pillars — proportion, variety -->
+  <rect x="45"  y="55" width="14" height="100" fill="#4a2e18" stroke="#0A0812" stroke-width="2"/>
+  <rect x="241" y="55" width="14" height="100" fill="#4a2e18" stroke="#0A0812" stroke-width="2"/>
+  <!-- Frieze — unity band -->
+  <rect x="45" y="55" width="210" height="12" fill="#8b5a2b" opacity=".4" stroke="#0A0812" stroke-width="1"/>
+  <!-- Path to door — movement: leads eye inward -->
+  <path d="M108 200 Q124 155 140 152 M192 200 Q176 155 160 152" fill="none" stroke="#3a1e08" stroke-width="3"/>
+</svg>

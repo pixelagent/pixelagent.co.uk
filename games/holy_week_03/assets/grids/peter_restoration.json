@@ -1,0 +1,115 @@
+{
+    "caseId": "peter_restoration",
+    "locationId": "galilee",
+    "locationTitle": "Sea of Galilee",
+    "timeOfDay": "dawn",
+    "environment": {
+        "floorColor": "#c2b280",
+        "skyColor": "#ffcc33",
+        "ambientLight": 0.9
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "Shoreline Water",
+            "pos": [
+                0,
+                -0.1,
+                10
+            ],
+            "scale": [
+                50,
+                0.1,
+                20
+            ],
+            "color": "#4fa3e8"
+        },
+        {
+            "type": "box",
+            "name": "Fishing Boat",
+            "pos": [
+                12,
+                0.5,
+                5
+            ],
+            "scale": [
+                6,
+                1.5,
+                3
+            ],
+            "color": "#5d4037"
+        }
+    ],
+    "sprites": [
+        {
+            "id": "morning_mist",
+            "type": "effect",
+            "pos": [
+                0,
+                1,
+                5
+            ],
+            "scale": [
+                20,
+                4
+            ],
+            "texture": "haze"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "jesus_reinstated",
+            "name": "Jesus",
+            "pos": [
+                0,
+                0,
+                -2
+            ],
+            "color": "#ffffff",
+            "description": "Preparing a meal on the shore",
+            "unlocksEvidence": [
+                "charcoal_fire_coals"
+            ],
+            "hasDialogue": true
+        },
+        {
+            "id": "peter_restored",
+            "name": "Peter",
+            "pos": [
+                3,
+                0,
+                -2
+            ],
+            "color": "#60a5fa",
+            "description": "Peter approaching the fire",
+            "unlocksEvidence": [
+                "mended_net_strand"
+            ],
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "charcoal_fire_coals",
+            "pos": [
+                0,
+                0.1,
+                -1.5
+            ],
+            "model": "ember_pile",
+            "glowColor": "#f97316",
+            "hint": "A second charcoal fire, this time for healing"
+        },
+        {
+            "id": "mended_net_strand",
+            "pos": [
+                8,
+                0.1,
+                2
+            ],
+            "model": "rope_fragment",
+            "glowColor": "#3dd68c",
+            "hint": "Part of a net that did not break despite the weight"
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Dark background -->
+  <rect width="400" height="300" fill="#0c0604"/>
+
+  <!-- Outer border frame — gold -->
+  <rect x="8" y="8" width="384" height="284" fill="none" stroke="#E8B84B" stroke-width="3"/>
+  <!-- Inner frame line -->
+  <rect x="14" y="14" width="372" height="272" fill="none" stroke="#E8B84B" stroke-width="1" opacity="0.5"/>
+
+  <!-- X from corner to corner — gold lines -->
+  <line x1="14" y1="14" x2="386" y2="286" stroke="#E8B84B" stroke-width="2.5" opacity="0.6"/>
+  <line x1="386" y1="14" x2="14" y2="286" stroke="#E8B84B" stroke-width="2.5" opacity="0.6"/>
+
+  <!-- Centre ark symbol — dark background panel so it reads clearly -->
+  <rect x="152" y="108" width="96" height="84" rx="4" fill="#1a0e08" stroke="#E8B84B" stroke-width="2"/>
+
+  <!-- ARK SYMBOL: rectangle hull + triangle roof -->
+  <!-- Hull — wide flat rectangle -->
+  <rect x="165" y="155" width="70" height="28" rx="3" fill="#0c0604" stroke="#E8B84B" stroke-width="2.5"/>
+  <!-- Roof — triangle/pitched top -->
+  <polygon points="160,155 200,118 240,155" fill="#0c0604" stroke="#E8B84B" stroke-width="2.5"/>
+  <!-- Roof ridge line -->
+  <line x1="200" y1="118" x2="200" y2="155" stroke="#E8B84B" stroke-width="1.5" opacity="0.5"/>
+  <!-- Hull detail: a single window line on the hull -->
+  <rect x="186" y="160" width="28" height="12" rx="2" fill="none" stroke="#E8B84B" stroke-width="1.5" opacity="0.7"/>
+  <!-- Waterline below hull — wavy simple lines -->
+  <path d="M160,186 Q170,190 180,186 Q190,182 200,186 Q210,190 220,186 Q230,182 240,186" stroke="#E8B84B" stroke-width="1.5" fill="none" opacity="0.5"/>
+  <path d="M165,192 Q175,196 185,192 Q195,188 205,192 Q215,196 225,192 Q232,188 235,192" stroke="#E8B84B" stroke-width="1" fill="none" opacity="0.3"/>
+
+  <!-- Corner decorations — small amber diamonds -->
+  <polygon points="8,8 16,8 8,16" fill="#E8B84B" opacity="0.7"/>
+  <polygon points="392,8 384,8 392,16" fill="#E8B84B" opacity="0.7"/>
+  <polygon points="8,292 16,292 8,284" fill="#E8B84B" opacity="0.7"/>
+  <polygon points="392,292 384,292 392,284" fill="#E8B84B" opacity="0.7"/>
+</svg>

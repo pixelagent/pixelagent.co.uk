@@ -1,0 +1,37 @@
+{
+  "start": {
+    "content": "My friend, I was just walking home from the quarry when they seized me. I was carrying my own cross to the place of the skull. I did not know his name then.",
+    "choices": [
+      {
+        "text": "They forced you to carry the cross.",
+        "destination": "forced"
+      },
+      {
+        "text": "What was He like?",
+        "destination": "his_words"
+      }
+    ]
+  },
+  "forced": {
+    "content": "The soldiers saw I was from Cyrene \u2014 a Greek-speaking Jew from North Africa. They needed someone strong enough to carry that beam when the Nazarene collapsed from blood loss and exhaustion. They didn't ask. They drafted.",
+    "choices": [
+      {
+        "text": "And you carried it.",
+        "destination": "his_words"
+      }
+    ]
+  },
+  "his_words": {
+    "content": "I heard Him speak to the women along the way. \"Daughters of Jerusalem, do not weep for me.\" Not a word of anger. Not a curse. He spoke to them as if He were already beyond their grief.",
+    "choices": [
+      {
+        "text": "He was heading to His death.",
+        "destination": "closing"
+      }
+    ]
+  },
+  "closing": {
+    "content": "I set the cross down at Golgotha and I left. I did not know who He was. But I have thought about those words every day since.",
+    "choices": []
+  }
+}

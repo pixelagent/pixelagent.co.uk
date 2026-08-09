@@ -1,0 +1,55 @@
+{
+  "start": {
+    "content": "Governments are not built on passion, young man. They are built on stone and historical continuity. I have watched procurators come and go. They all think they command Judea, but the temple remains. This Galilean speaks well, but he does not recognize that systems outlive prophets.",
+    "choices": [
+      {
+        "text": "Why was Jesus brought in at midnight?",
+        "destination": "midnight"
+      },
+      {
+        "text": "Do you fear His popularity?",
+        "destination": "popularity"
+      }
+    ]
+  },
+  "midnight": {
+    "content": "Daylight belongs to the crowds, and crowds are easily confused by noise. Silence allows for careful administrative evaluation. Certain matters require discretion \u2014 particularly when a man's following threatens both religious and civil order simultaneously.",
+    "choices": [
+      {
+        "text": "What did the council decide?",
+        "destination": "decree_reveal"
+      }
+    ]
+  },
+  "popularity": {
+    "content": "A crowd that shouts \"Hosanna\" on Sunday will shout something entirely different by Friday if the narrative shifts. Popularity is water \u2014 it finds the lowest level and erodes everything it touches. We saw the palm branches and the disciples' cloaks on the road. The Galilean must be stopped before Passover ends.",
+    "choices": [
+      {
+        "text": "So there is a plan against Him.",
+        "destination": "decree_reveal"
+      }
+    ]
+  },
+  "decree_reveal": {
+    "content": "The council is reviewing its options. I have drafted a memorandum \u2014 a secret decree to handle this structural problem. When a man can raise the dead, the Sanhedrin does not act hastily, but it does act decisively.",
+    "choices": [
+      {
+        "text": "But Lazarus is alive \u2014 you can't undo that.",
+        "destination": "exposed"
+      }
+    ]
+  },
+  "exposed": {
+    "content": "You think a dynamic miracle justifies civic chaos? If a man is raised from the dead after four days, and you find trace limestone dust from a Bethany tomb on our own courthouse floor, his existence sparks a war that levels Jerusalem. His life is an unacceptable expense. The security of the temple requires the eradication of the asset.",
+    "choices": [
+      {
+        "text": "You're planning to kill Lazarus.",
+        "destination": "closing"
+      }
+    ]
+  },
+  "closing": {
+    "content": "Our conversation has reached its logical conclusion. Guard, show this investigator out.",
+    "choices": []
+  }
+}

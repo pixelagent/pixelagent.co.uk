@@ -1,0 +1,38 @@
+{
+  "start": {
+    "content": "Peter and I fished together all night and caught nothing. Then He stood on the shore and called to us — none of us asked who He was. We simply knew. And yet I, of all people, needed to see before I could believe.",
+    "choices": [
+      { "text": "You doubted the resurrection?", "destination": "doubt" },
+      { "text": "What did you see on the shore?", "destination": "shore_scene" }
+    ]
+  },
+  "doubt": {
+    "content": "A week after the resurrection I had said I would not believe unless I touched His wounds myself. He appeared again — and He let me touch them. 'Stop doubting and believe.' I did not need to touch anything. The sight of Him was enough.",
+    "choices": [
+      { "text": "And now you believe completely?", "destination": "shore_scene" }
+    ]
+  },
+  "shore_scene": {
+    "content": "He made a charcoal fire on the beach and invited us to breakfast. The risen Lord — cooking fish. He could have appeared in glory. He chose intimacy. After we ate, He took Peter aside, away from the rest of us.",
+    "choices": [
+      { "text": "What passed between them?", "destination": "peter_commission" },
+      { "text": "Why Peter specifically?", "destination": "peter_denial_context" }
+    ]
+  },
+  "peter_denial_context": {
+    "content": "Because Peter had denied Him three times. Three times, beside a charcoal fire very much like this one. He needed a restoration that matched the weight of the failure — not one question, but three.",
+    "choices": [
+      { "text": "And what was the restoration?", "destination": "peter_commission" }
+    ]
+  },
+  "peter_commission": {
+    "content": "Three times He asked: 'Do you love me?' Three times Peter answered yes. Three times He said: 'Feed my sheep.' Peter wept on the third question. We all understood — this was not interrogation. This was grace, precisely calibrated to undo a precise wound.",
+    "choices": [
+      { "text": "Then Peter is restored?", "destination": "closing" }
+    ]
+  },
+  "closing": {
+    "content": "Restored and commissioned. He told Peter to follow Him — the same two words He used at the very beginning beside the Sea of Galilee. Three years, a death, a resurrection, and it ends with the same invitation. Follow me. I think that is the point.",
+    "choices": []
+  }
+}

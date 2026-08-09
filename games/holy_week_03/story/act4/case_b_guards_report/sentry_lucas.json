@@ -1,0 +1,38 @@
+{
+  "start": {
+    "content": "We fell asleep. The night was long. The Galilean's disciples came during the darkness and stole the body while we slumbered. That is our authorized statement, and that is what I will repeat to anyone who asks.",
+    "choices": [
+      { "text": "A Roman guard sleeping on post faces execution.", "destination": "execution_threat" },
+      { "text": "Where did those coins in your locker come from?", "destination": "bribe_question" }
+    ]
+  },
+  "execution_threat": {
+    "content": "Which is why the High Priest has given his personal word to Pilate that our unit will not face the standard military penalty. The Sanhedrin covers our negligence. In return we keep the official story. This is how the province functions.",
+    "choices": [
+      { "text": "That sounds like a bribe.", "destination": "bribe_question" }
+    ]
+  },
+  "bribe_question": {
+    "content": "That silver is a... security stipend. A goodwill payment for our cooperation in maintaining public order. The chief priests weighed it out to us directly in the Sanhedrin chamber. It has nothing to do with the body.",
+    "choices": [
+      { "text": "Then tell me what you actually saw.", "destination": "pressure" }
+    ]
+  },
+  "pressure": {
+    "content": "I cannot give you anything beyond the authorized narrative. I have a unit to protect. Soldiers who talk outside the chain of command have short careers and shorter lives in this province.",
+    "choices": [
+      { "text": "The seal was shattered, not pried. Nothing human did that.", "destination": "truth" },
+      { "text": "You were awake when it happened.", "destination": "truth" }
+    ]
+  },
+  "truth": {
+    "content": "We did not close our eyes! No human thief could have bypassed our array without drawing steel. The earth groaned — the ground shook with a concussive force that knocked every man flat. Then a light, white like lightning but silent, and the stone moved as if it weighed nothing. We woke up paralyzed. When our sight returned, the chamber was empty. We ran straight to the Temple because Pilate would have nailed us to a timber for it.",
+    "choices": [
+      { "text": "So you witnessed the impossible.", "destination": "closing" }
+    ]
+  },
+  "closing": {
+    "content": "We witnessed something that has no place in a Roman military report. So the priests gave us a story that does. Call me a liar — but understand that I am a liar because the truth is more terrifying than any court martial I have ever faced.",
+    "choices": []
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "nathan_fig_tree",
+  "name": "Nathan the Gardener",
+  "role": "Orchard Gardener",
+  "avatar": "nathan_fig_tree.svg",
+  "truthfulness": 0.8,
+  "faction": "local",
+  "bibleRef": "Mark 11:12\u201314, 20\u201325",
+  "background": "A local gardener who maintains the orchards along the Bethany road and witnesses the fig tree's sudden withering. Speaks in simple, observational, botanical terms that highlight the unnatural speed of the event. Provides a neutral, third-party confirmation of the fig tree miracle (Act I fig_tree_incident).",
+  "factions": [
+    "local"
+  ],
+  "personality": "neutral",
+  "genericReactions": {
+    "physical": "Looks like a piece of that withered tree. Brittle.",
+    "testimonial": "I just said what I saw. The tree was green one day, dead the next.",
+    "digital": "I don't know about scrolls. I know about soil and seasons.",
+    "environmental": "That fig tree... it withered from the roots up. No blight does that.",
+    "analytical": "It takes years for a tree to grow, and years for it to die. Not one night.",
+    "prophecy": "I'm just a gardener. But what I saw wasn't natural."
+  },
+  "earSize": 1.0,
+  "headSize": 1.0,
+  "colorPalette": {
+    "colorInner": "#3f382f",
+    "colorOuter": "#28241e",
+    "colorCloak": "#1a1815",
+    "colorAccent": "#4a4438",
+    "colorGarment2": "#8a7a5a",
+    "colorSkin": "#d8b088",
+    "colorHair": "#a8a294",
+    "colorEye": "#2e2016",
+    "colorLip": "#966355"
+  }
+}

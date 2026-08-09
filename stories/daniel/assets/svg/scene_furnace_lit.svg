@@ -1,0 +1,52 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="fireCore" cx="50%" cy="100%" r="80%">
+      <stop offset="0%"   stop-color="#fff"    stop-opacity=".9"/>
+      <stop offset="20%"  stop-color="#FFD84D" stop-opacity=".9"/>
+      <stop offset="60%"  stop-color="#FF4500" stop-opacity=".7"/>
+      <stop offset="100%" stop-color="#1a0700" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="furnaceWall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#5a1a00"/>
+      <stop offset="100%" stop-color="#3d1200"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="200" fill="#1a0700"/>
+  <!-- Furnace structure — hierarchy, proportion: takes 80% of width -->
+  <rect x="30"  y="28"  width="240" height="158" fill="url(#furnaceWall)" stroke="#0A0812" stroke-width="4"/>
+  <!-- Top opening/chimney — variety -->
+  <rect x="30"  y="24"  width="240" height="14"  fill="#6a2000"  stroke="#0A0812" stroke-width="2"/>
+  <rect x="56"  y="14"  width="22"  height="14"  fill="#5a1a00"  stroke="#0A0812" stroke-width="2"/>
+  <rect x="222" y="14"  width="22"  height="14"  fill="#5a1a00"  stroke="#0A0812" stroke-width="2"/>
+  <!-- Furnace brickwork — pattern, rhythm -->
+  <line x1="30" y1="60"  x2="270" y2="60"  stroke="#0A0812" stroke-width="1.5" opacity=".5"/>
+  <line x1="30" y1="90"  x2="270" y2="90"  stroke="#0A0812" stroke-width="1.5" opacity=".5"/>
+  <line x1="30" y1="120" x2="270" y2="120" stroke="#0A0812" stroke-width="1.5" opacity=".5"/>
+  <line x1="30" y1="150" x2="270" y2="150" stroke="#0A0812" stroke-width="1.5" opacity=".5"/>
+  <!-- Vertical brick offsets — pattern -->
+  <line x1="90"  y1="28" x2="90"  y2="186" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="150" y1="28" x2="150" y2="186" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="210" y1="28" x2="210" y2="186" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <!-- Fire — emphasis: extreme heat, hierarchy: most intense at centre -->
+  <ellipse cx="150" cy="186" rx="110" ry="14" fill="#FF4500" opacity=".4"/>
+  <!-- Outer flames -->
+  <polygon points="70,186  82,108 102,148 118,90  136,130 150,70 164,130 182,90 198,148 218,108 230,186"
+           fill="#FF4500" opacity=".85"/>
+  <!-- Mid flames -->
+  <polygon points="90,186  100,128 116,158 130,106 144,138 150,90 156,138 170,106 184,158 200,128 210,186"
+           fill="#FF6B5B" opacity=".9"/>
+  <!-- Inner yellow flames -->
+  <polygon points="110,186 118,148 132,166 142,128 150,108 158,128 168,166 182,148 190,186"
+           fill="#FFD84D" opacity=".85"/>
+  <!-- White hot core — contrast: maximum brightness at focal point -->
+  <polygon points="130,186 136,160 144,172 150,144 156,172 164,160 170,186"
+           fill="white" opacity=".6"/>
+  <!-- Fire radial glow -->
+  <ellipse cx="150" cy="140" rx="90" ry="60" fill="url(#fireCore)" opacity=".3"/>
+  <!-- Ember sparks — rhythm, movement: rises upward -->
+  <circle cx="118" cy="50"  r="2"   fill="#FFD84D" opacity=".8"/>
+  <circle cx="145" cy="38"  r="2.5" fill="#FFD84D" opacity=".7"/>
+  <circle cx="168" cy="44"  r="2"   fill="#FF6B5B" opacity=".8"/>
+  <circle cx="188" cy="56"  r="1.5" fill="#FFD84D" opacity=".6"/>
+  <circle cx="108" cy="62"  r="1.5" fill="#FF6B5B" opacity=".7"/>
+</svg>

@@ -1,0 +1,56 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="oldBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#030a18"/>
+      <stop offset="100%" stop-color="#0a1e38"/>
+    </linearGradient>
+    <radialGradient id="legacyGlow" cx="50%" cy="45%" r="50%">
+      <stop offset="0%"   stop-color="#4ECDC4" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#4ECDC4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="200" fill="url(#oldBg)"/>
+  <!-- Starfield — rhythm, white space: many stars, long life -->
+  <circle cx="18"  cy="12" r="1.2" fill="white"   opacity=".7"/>
+  <circle cx="44"  cy="22" r="1"   fill="#4ECDC4" opacity=".6"/>
+  <circle cx="72"  cy="8"  r="1.5" fill="white"   opacity=".8"/>
+  <circle cx="98"  cy="18" r="1"   fill="white"   opacity=".5"/>
+  <circle cx="134" cy="10" r="1.2" fill="#FFD84D" opacity=".6"/>
+  <circle cx="168" cy="20" r="1"   fill="white"   opacity=".6"/>
+  <circle cx="200" cy="8"  r="1.5" fill="#4ECDC4" opacity=".7"/>
+  <circle cx="230" cy="18" r="1"   fill="white"   opacity=".5"/>
+  <circle cx="258" cy="10" r="1.2" fill="white"   opacity=".7"/>
+  <circle cx="282" cy="22" r="1.5" fill="#FFD84D" opacity=".6"/>
+  <!-- Ground -->
+  <rect x="0" y="158" width="300" height="42" fill="#061224"/>
+  <rect x="0" y="156" width="300" height="3"  fill="#0d2340" opacity=".5"/>
+  <!-- Legacy glow — emphasis: quiet dignity -->
+  <ellipse cx="150" cy="100" rx="90" ry="70" fill="url(#legacyGlow)"/>
+  <!-- Old Daniel — emphasis, hierarchy: centred, large, calm -->
+  <!-- Body — seated or still, robed -->
+  <rect x="120" y="108" width="60" height="50" fill="#3a5a8c" stroke="#0A0812" stroke-width="3"/>
+  <!-- Legs/robe pooling — proportion: wider base, grounded -->
+  <path d="M110 155 Q150 148 190 155 Q186 175 150 178 Q114 175 110 155 Z"
+        fill="#3a5a8c" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M136 108 L150 135 L164 108" fill="#FFD84D" stroke="#0A0812" stroke-width="2"/>
+  <!-- Head — white haired elder, large — hierarchy -->
+  <circle cx="150" cy="74"  r="32" fill="#C8956C" stroke="#0A0812" stroke-width="3.5"/>
+  <!-- White hair/beard — variety: distinguished -->
+  <path d="M118 66 Q150 48 182 66" fill="none" stroke="#e8e8e8" stroke-width="11" stroke-linecap="round"/>
+  <path d="M120 80 Q134 72 150 78 Q166 72 180 80" fill="none" stroke="#d0d0d0" stroke-width="6" opacity=".6"/>
+  <!-- Smile — variety: peace, contentment -->
+  <path d="M136 88 Q150 100 164 88" fill="none" stroke="#0A0812" stroke-width="3" stroke-linecap="round"/>
+  <!-- Eyes — wise, calm -->
+  <circle cx="140" cy="74"  r="4.5" fill="#0A0812"/>
+  <circle cx="160" cy="74"  r="4.5" fill="#0A0812"/>
+  <circle cx="141" cy="73"  r="1.5" fill="white" opacity=".5"/>
+  <circle cx="161" cy="73"  r="1.5" fill="white" opacity=".5"/>
+  <!-- Arms resting — balance: symmetrical, calm posture -->
+  <path d="M120 118 Q96 126 76 128"  fill="none" stroke="#C8956C" stroke-width="11" stroke-linecap="round"/>
+  <path d="M180 118 Q204 126 224 128" fill="none" stroke="#C8956C" stroke-width="11" stroke-linecap="round"/>
+  <!-- Subtle empire markers — proportion: small vs figure, variety -->
+  <rect x="18"  y="140" width="36" height="18" fill="#2a6e5a" stroke="#4ECDC4" stroke-width="1.5" rx="2" opacity=".7"/>
+  <text x="36" y="152" font-size="6" fill="#4ECDC4" text-anchor="middle" font-family="monospace">DARIUS</text>
+  <rect x="246" y="140" width="36" height="18" fill="#4a2010" stroke="#FFD84D" stroke-width="1.5" rx="2" opacity=".7"/>
+  <text x="264" y="152" font-size="6" fill="#FFD84D" text-anchor="middle" font-family="monospace">CYRUS</text>
+</svg>

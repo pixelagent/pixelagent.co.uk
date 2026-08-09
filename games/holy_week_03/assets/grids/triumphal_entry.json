@@ -1,0 +1,158 @@
+{
+    "caseId": "triumphal_entry",
+    "locationId": "jerusalem",
+    "locationTitle": "Bethphage, Mount of Olives",
+    "timeOfDay": "day",
+    "environment": {
+        "floorColor": "#3d3d29",
+        "skyColor": "#87ceeb",
+        "ambientLight": 0.6
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "East Gate Wall",
+            "pos": [
+                0,
+                2,
+                -10
+            ],
+            "scale": [
+                20,
+                5,
+                1
+            ],
+            "color": "#8b7355"
+        },
+        {
+            "type": "box",
+            "name": "House A",
+            "pos": [
+                -8,
+                2,
+                -5
+            ],
+            "scale": [
+                4,
+                4,
+                4
+            ],
+            "color": "#d2b48c"
+        },
+        {
+            "type": "box",
+            "name": "House B",
+            "pos": [
+                8,
+                2,
+                -5
+            ],
+            "scale": [
+                4,
+                4,
+                4
+            ],
+            "color": "#c19a6b"
+        }
+    ],
+    "sprites": [
+        {
+            "id": "palm_tree_1",
+            "type": "foliage",
+            "pos": [
+                -5,
+                0,
+                -8
+            ],
+            "scale": [
+                1,
+                3
+            ],
+            "texture": "palm_tree"
+        },
+        {
+            "id": "palm_tree_2",
+            "type": "foliage",
+            "pos": [
+                5,
+                0,
+                -8
+            ],
+            "scale": [
+                1,
+                3
+            ],
+            "texture": "palm_tree"
+        },
+        {
+            "id": "crowd_left",
+            "type": "npc_billboard",
+            "pos": [
+                -12,
+                0,
+                -2
+            ],
+            "scale": [
+                4,
+                2
+            ],
+            "texture": "crowd_silhouette"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "peter",
+            "name": "Peter",
+            "pos": [
+                -2,
+                0,
+                -4
+            ],
+            "color": "#60a5fa",
+            "description": "Peter standing by the road entrance",
+            "unlocksEvidence": [
+                "rope_fibers"
+            ],
+            "hasDialogue": true
+        },
+        {
+            "id": "market_vendor",
+            "name": "Vendor",
+            "pos": [
+                4,
+                0,
+                -2
+            ],
+            "color": "#fbbf24",
+            "description": "Vendor watching the entrance",
+            "unlocksEvidence": [
+                "cloaks"
+            ],
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "rope_fibers",
+            "pos": [
+                0,
+                0.1,
+                -9
+            ],
+            "model": "rope_fragment",
+            "glowColor": "#4fa3e8",
+            "hint": "Near the post where the colt was tied"
+        },
+        {
+            "id": "cloaks",
+            "pos": [
+                -3,
+                0.1,
+                -3
+            ],
+            "model": "folded_cloth",
+            "glowColor": "#f5c842",
+            "hint": "Dropped near the road edge"
+        }
+    ]
+}

@@ -2,47 +2,79 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Journey of Jonah</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Adventures of Jonah — Enhanced Single Panel Comic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@700;900&family=Bangers&family=Space+Mono:wght@400;700&family=Press+Start+2P&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles/jonah-story_10.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
 
 <body>
-    <!-- Particle Canvas -->
-    <div id="tsparticles"></div>
+  <div id="startScreen">
+    <div class="comic-cover">
+      <div class="issue">SPECIAL EDITION #1</div>
+      <h1>JONAH!</h1>
+      <div class="subtitle">&amp; the Ominous Depths</div>
+      <div class="bigfish">🐋</div>
+      <p>An interactive single-panel comic book experience! Interact using actions, arrows, or touch swipes.</p>
+      <button id="startBtn">LAUNCH COMIC</button>
+    </div>
+  </div>
 
-    <!-- 3D Canvas -->
-    <div id="threejs-container"></div>
+  <div id="app">
+    <div id="bgGradient"></div>
+    <canvas id="particles"></canvas>
+    <div id="stormLayer">
+      <div id="stormStars"></div>
+      <div class="wave-container">
+        <div class="air air1"></div>
+        <div class="air air2"></div>
+        <div class="air air3"></div>
+        <div class="air air4"></div>
+      </div>
+    </div>
+    <div id="ambientLayer">
+      <div class="dune-container">
+        <div class="dune dune1"></div>
+        <div class="dune dune2"></div>
+      </div>
+      <div class="firefly-container">
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+      </div>
+    </div>
+    <div id="halftoneOverlay"></div>
 
-    <main id="story-ui">
-        <div id="text-box">
-            <h1 id="scene-title">1. The Storm at Sea</h1>
-            <p id="bible-text">"But the Lord sent out a great wind into the sea, and there was a mighty tempest in the
-                sea, so that the ship was like to be broken." - Jonah 1:4</p>
+    <div id="hud">
+      <select id="chapterSelect"></select>
+      <div id="dots"></div>
+    </div>
 
-            <div id="prophecy-zone" class="hidden">
-                <p class="prophecy-header">✨ Fulfillment in Christ:</p>
-                <a href="https://www.biblegateway.com/passage/?search=Matthew+12%3A40&version=KJV" target="_blank"
-                    id="prophecy-link">
-                    Matthew 12:40: "For as Jonas was three days and three nights in the whale's belly..."
-                </a>
-            </div>
-        </div>
+    <div id="stageWrap">
+      <div id="stage"></div>
+    </div>
 
-        <div class="navigation">
-            <button class="nav-btn" id="prevBtn" onclick="StoryEngine.prev()">← Back</button>
-            <div id="chapter-indicator">Chapter 1</div>
-            <button class="nav-btn" id="nextBtn" onclick="StoryEngine.next()">Next Scene →</button>
-        </div>
-    </main>
+    <div id="choices"></div>
+    <div id="delayNote"></div>
 
-    <!-- External Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
+    <div id="navHints">
+      <span><span class="arrowL">◀</span> Use Left/Right Arrow keys or drag horizontally <span
+          class="arrowR">▶</span></span>
+      <span>· ↓ Scroll down at line end to drop into next act ·</span>
+    </div>
+    <button id="nextBtn">Next Chapter ↴</button>
+    <button id="nextLineBtn">Next →</button>
+  </div>
 
-    <script src="app.js"></script>
+  <div id="portal"></div>
+
+  <script src="jonah-story.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 709.44 529.59">
+  <!-- Generator: Adobe Illustrator 30.6.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 109)  -->
+  <defs>
+    <style>
+      .st0, .st1, .st2, .st3, .st4, .st5, .st6, .st7, .st8, .st9, .st10, .st11 {
+        stroke: #0a0812;
+      }
+
+      .st0, .st1, .st3, .st8, .st11 {
+        stroke-linejoin: round;
+        stroke-width: 5.75px;
+      }
+
+      .st0, .st7 {
+        fill: #805024;
+      }
+
+      .st1, .st6 {
+        fill: #381d08;
+      }
+
+      .st12 {
+        isolation: isolate;
+        opacity: .15;
+      }
+
+      .st12, .st2 {
+        fill: #ffd84d;
+      }
+
+      .st2 {
+        stroke-width: 3px;
+      }
+
+      .st3 {
+        fill: #fff7e8;
+      }
+
+      .st4 {
+        fill: #6e3f19;
+        stroke-width: 5px;
+      }
+
+      .st13 {
+        fill: url(#linear-gradient);
+      }
+
+      .st5 {
+        fill: #ffad87;
+      }
+
+      .st5, .st9 {
+        stroke-width: 2.63px;
+      }
+
+      .st5, .st9, .st10 {
+        stroke-miterlimit: 3;
+      }
+
+      .st6, .st7 {
+        stroke-width: 4px;
+      }
+
+      .st8 {
+        fill: url(#linear-gradient1);
+      }
+
+      .st9 {
+        fill: #6e3f16;
+      }
+
+      .st10 {
+        fill: none;
+        stroke-linecap: round;
+        stroke-width: 3.38px;
+      }
+
+      .st11 {
+        fill: #0a0812;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-291.51" y1="747.43" x2="-291.51" y2="746.43" gradientTransform="translate(175207.5 299098.8536) scale(600 -400)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3d2a1e"/>
+      <stop offset=".6" stop-color="#965a25"/>
+      <stop offset="1" stop-color="#c48246"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient1" x1="-291.47" y1="746.13" x2="-290.47" y2="745.13" gradientTransform="translate(82269.3733 90433.0301) scale(281.75 -120.75)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b57c43"/>
+      <stop offset="1" stop-color="#805024"/>
+    </linearGradient>
+  </defs>
+  <rect class="st13" x="2.5" y="127.09" width="600" height="400"/>
+  <circle class="st12" cx="497.04" cy="217.09" r="143.44"/>
+  <circle class="st2" cx="502.5" cy="217.09" r="45"/>
+  <circle class="st12" cx="502.5" cy="217.09" r="70"/>
+  <path class="st7" d="M2.5,352.09c93.33-36.67,193.33-38.33,300-5,106.67,33.33,206.67,26.67,300-20v120H2.5v-95Z"/>
+  <path class="st4" d="M2.5,412.09c93.33-36.67,193.33-38.33,300-5,106.67,33.33,206.67,26.67,300-20v140H2.5v-115Z"/>
+  <path class="st6" d="M2.5,447.09c133.33-26.67,266.67-26.67,400,0,133.33,26.67,200,23.33,200-10v90H2.5v-80Z"/>
+  <g>
+    <circle class="st5" cx="466.72" cy="333.93" r="12"/>
+    <path class="st9" d="M451.03,367.58c13.88-13.03,30.32-19.02,49.33-17.96l4.5,34.28-35.24,12.83-18.59-29.15Z"/>
+    <line class="st10" x1="456.79" y1="361.49" x2="452" y2="403.14"/>
+    <line class="st10" x1="492.03" y1="348.66" x2="520.87" y2="362.11"/>
+    <line class="st10" x1="476.67" y1="394.16" x2="473.79" y2="419.15"/>
+    <line class="st10" x1="497.81" y1="386.47" x2="516.08" y2="403.76"/>
+  </g>
+  <circle class="st12" cx="497.81" cy="217.09" r="103.22"/>
+  <circle class="st12" cx="485.89" cy="223.55" r="223.55"/>
+  <g>
+    <path class="st8" d="M152.5,395.59c46-80.5,195.5-80.5,281.75,0-86.25,80.5-235.75,80.5-281.75,0Z"/>
+    <path class="st0" d="M152.5,395.59l-103.5-69,23,69-23,69,103.5-69Z"/>
+    <path class="st1" d="M394,366.84c61.33,19.17,61.33,38.33,0,57.5v-57.5Z"/>
+    <circle class="st3" cx="325" cy="361.09" r="11.5"/>
+    <circle class="st11" cx="328.45" cy="361.09" r="4.6"/>
+  </g>
+</svg>

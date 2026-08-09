@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ark & The Covenant | An Interactive Journey</title>
+    <link rel="stylesheet" href="style.css">
+    
+    
+</head>
+<body>
+    <!-- Three.js Scene Container -->
+    <div id="canvas-container"></div>
+
+    <!-- UI Overlay -->
+    <div id="ui-layer">
+        <div class="content-box">
+            <h1 id="chapter-title">Loading...</h1>
+            <p id="verse-text"></p>
+            
+            <!-- Dynamic Image Placeholder -->
+            <div id="image-container">
+                <div class="placeholder-box" id="scene-image">
+                    <span id="img-desc"></span>
+                </div>
+            </div>
+
+            <!-- Interative Foreshadowing Links -->
+            <div id="prophecy-zone" class="hidden">
+                <hr>
+                <p><strong>Foretelling Jesus:</strong></p>
+                <a id="prophecy-link" href="#" target="_blank">View Connection</a>
+            </div>
+        </div>
+
+        <nav class="navigation">
+            <button onclick="changeScene(-1)">← Previous</button>
+            <span id="scene-indicator">1 / 2</span>
+            <button onclick="changeScene(1)">Next →</button>
+        </nav>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <script src="app.js"></script>
+</body>
+</html>

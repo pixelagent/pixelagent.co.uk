@@ -1,0 +1,48 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="twilight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#143547"/>
+      <stop offset="100%" stop-color="#1e4d6b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="600" height="400" fill="url(#twilight)"/>
+  
+  <rect y="335" width="600" height="65" fill="#07131c" stroke="#0A0812" stroke-width="4"/>
+
+  <!-- Tilted Deck/Ground -->
+  <path d="M0 320 Q150 280, 300 310 T600 290 L600 400 L0 400 Z" fill="#0f2638"/>
+
+  <!-- Thick Knotted Trunk and Branch Layout -->
+  <path d="M265 340 L285 190 Q230 150, 190 140 L195 125 Q250 140, 295 170 Q335 130, 390 100 L400 112 Q345 150, 320 190 L335 340 Z" fill="#422d22" stroke="#0A0812" stroke-width="5.5" stroke-linejoin="round"/>
+  
+  <!-- Leaf Bunches -->
+  <g stroke="#0A0812" stroke-width="5.5" stroke-linejoin="round">
+    <circle cx="175" cy="135" r="60" fill="#22577a"/>
+    <circle cx="285" cy="105" r="70" fill="#1f4e70"/>
+    <circle cx="395" cy="115" r="65" fill="#22577a"/>
+    <circle cx="230" cy="80" r="55" fill="#38a3a5"/>
+    <circle cx="335" cy="70" r="60" fill="#38a3a5"/>
+  </g>
+
+  <!-- Bright Growing Fig Fruits -->
+  <circle cx="205" cy="180" r="11" fill="#ffccd5" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M205 169 L205 155" stroke="#0A0812" stroke-width="2.5"/>
+  <circle cx="355" cy="165" r="11" fill="#ffccd5" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M355 154 L355 140" stroke="#0A0812" stroke-width="2.5"/>
+
+  <!-- Distant Cool Nineveh Spires and Struts (Faded) -->
+  <g transform="translate(450, 150) scale(0.6)" stroke="#0A0812" stroke-width="4.5" stroke-linejoin="round" opacity="0.4">
+    <rect x="60" y="60" width="55" height="140" fill="#22577a"/>
+    <polygon points="60,60 87.5,15 115,60" fill="#1f4e70"/>
+    <path d="M100 130 L200 30 L250 130" fill="#38a3a5" stroke="#0A0812" stroke-width="4"/> 
+  </g>
+
+  <!-- Armored/Robed Jonah (Stomping motion) -->
+  <g transform="translate(100, 240) scale(1.1)">
+    <circle cx="50" cy="35" r="16" fill="#FFAD87" stroke="#0A0812" stroke-width="3.5"/>
+    <path d="M15 70 Q50 55 85 70 L75 115 L25 115 Z" fill="#6e3f16" stroke="#0A0812" stroke-width="3.5"/>
+    <line x1="25" y1="65" x2="5" y2="120" stroke="#0A0812" stroke-width="4.5" stroke-linecap="round"/> 
+  </g>
+</svg>

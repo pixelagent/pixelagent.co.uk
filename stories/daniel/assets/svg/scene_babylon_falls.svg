@@ -1,0 +1,56 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fallBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#060210"/>
+      <stop offset="100%" stop-color="#160820"/>
+    </linearGradient>
+    <radialGradient id="explosionGlow" cx="38%" cy="52%" r="40%">
+      <stop offset="0%"   stop-color="#FF4500" stop-opacity=".3"/>
+      <stop offset="100%" stop-color="#FF4500" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="200" fill="url(#fallBg)"/>
+  <!-- Ominous sky — white space, contrast -->
+  <circle cx="242" cy="22" r="14" fill="#B98CFF" opacity=".12"/>
+  <circle cx="242" cy="22" r="8"  fill="#B98CFF" opacity=".2"/>
+  <circle cx="242" cy="22" r="3"  fill="#B98CFF" opacity=".7"/>
+  <circle cx="30"  cy="16" r="2"  fill="white"   opacity=".5"/>
+  <circle cx="80"  cy="8"  r="1.5" fill="white"  opacity=".4"/>
+  <!-- Ground — proportion: lower third -->
+  <rect x="0" y="148" width="300" height="52" fill="#1a0810"/>
+  <rect x="0" y="146" width="300" height="3"  fill="#3a1020" opacity=".6"/>
+  <!-- Explosion/fire glow — emphasis -->
+  <ellipse cx="110" cy="100" rx="80" ry="70" fill="url(#explosionGlow)"/>
+  <!-- Main tower — hierarchy: tallest, tilted, falling — movement: rotation -->
+  <rect x="88" y="28" width="60" height="120"
+        fill="#3a2010" stroke="#0A0812" stroke-width="3"
+        transform="rotate(-12 118 88)"/>
+  <!-- Roof of tower falling -->
+  <polygon points="88,28 118,4 148,28" fill="#5a2a10" stroke="#0A0812" stroke-width="2.5"
+           transform="rotate(-12 118 88)"/>
+  <!-- Window debris pattern — pattern, rhythm -->
+  <rect x="96"  y="44"  width="10" height="14" fill="#1a0e06" stroke="#0A0812" stroke-width="1.5"
+        transform="rotate(-12 101 51)"/>
+  <rect x="116" y="44"  width="10" height="14" fill="#1a0e06" stroke="#0A0812" stroke-width="1.5"
+        transform="rotate(-12 121 51)"/>
+  <rect x="96"  y="68"  width="10" height="14" fill="#1a0e06" stroke="#0A0812" stroke-width="1.5"
+        transform="rotate(-12 101 75)"/>
+  <rect x="116" y="68"  width="10" height="14" fill="#1a0e06" stroke="#0A0812" stroke-width="1.5"
+        transform="rotate(-12 121 75)"/>
+  <!-- Secondary ruin R — balance: leaning opposite way -->
+  <rect x="192" y="50"  width="50" height="90"
+        fill="#2a1808" stroke="#0A0812" stroke-width="2"
+        transform="rotate(8 217 95)"/>
+  <polygon points="192,50 217,30 242,50" fill="#3a2010" stroke="#0A0812" stroke-width="2"
+           transform="rotate(8 217 95)"/>
+  <!-- Rubble at ground — variety: organic shapes, weight -->
+  <ellipse cx="60"  cy="152" rx="30" ry="10" fill="#3a2010" stroke="#0A0812" stroke-width="2"/>
+  <ellipse cx="110" cy="156" rx="22" ry="8"  fill="#2a1808" stroke="#0A0812" stroke-width="1.5"/>
+  <ellipse cx="185" cy="153" rx="26" ry="9"  fill="#3a2010" stroke="#0A0812" stroke-width="2"/>
+  <ellipse cx="250" cy="155" rx="20" ry="7"  fill="#2a1808" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Dust/smoke plumes — movement, atmosphere -->
+  <path d="M90 100 Q70 80 55 60 Q50 50 65 52 Q72 68 88 78 Q105 65 95 100 Z"
+        fill="#B98CFF" opacity=".08"/>
+  <path d="M170 90 Q195 70 210 48 Q215 38 228 44 Q218 60 208 78 Q220 72 215 95 Z"
+        fill="#B98CFF" opacity=".07"/>
+</svg>

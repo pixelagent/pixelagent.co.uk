@@ -1,0 +1,30 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Purple robe — variety: distinctive from Nebuchadnezzar -->
+  <path d="M18 76 Q50 64 82 76 L78 100 L22 100 Z" fill="#B98CFF" stroke="#0A0812" stroke-width="3"/>
+  <!-- Gold goblet accent at chest — emphasis, variety -->
+  <circle cx="50" cy="82" r="7" fill="#FFD84D" stroke="#0A0812" stroke-width="2"/>
+  <!-- Robe folds — rhythm -->
+  <line x1="36" y1="78" x2="32" y2="100" stroke="#0A0812" stroke-width="1" opacity=".4"/>
+  <line x1="64" y1="78" x2="68" y2="100" stroke="#0A0812" stroke-width="1" opacity=".4"/>
+  <!-- Shoulder mantle — hierarchy -->
+  <path d="M24 66 Q50 56 76 66 L76 76 Q50 68 24 76 Z" fill="#9a6ccc" stroke="#0A0812" stroke-width="2"/>
+  <!-- Head -->
+  <circle cx="50" cy="42" r="28" fill="#C89060" stroke="#0A0812" stroke-width="3.5"/>
+  <!-- Crown — variety: slightly different from Nebuchadnezzar, less grand -->
+  <path d="M26 34 L32 42 L40 30 L48 38 L50 26 L52 38 L60 30 L68 42 L74 34 L70 44 L30 44 Z"
+        fill="#B98CFF" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Crown gem — emphasis -->
+  <circle cx="50" cy="27" r="5" fill="#FFD84D" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Eyes — arrogance, wide set -->
+  <circle cx="40" cy="46" r="4"  fill="#0A0812"/>
+  <circle cx="60" cy="46" r="4"  fill="#0A0812"/>
+  <circle cx="41" cy="45" r="1.5" fill="white" opacity=".5"/>
+  <circle cx="61" cy="45" r="1.5" fill="white" opacity=".5"/>
+  <!-- Raised brow — variety: arrogance -->
+  <path d="M34 39 Q40 35 46 39" fill="none" stroke="#0A0812" stroke-width="2"/>
+  <path d="M54 39 Q60 35 66 39" fill="none" stroke="#0A0812" stroke-width="2"/>
+  <!-- Smirk — variety -->
+  <path d="M38 58 Q50 66 62 60" fill="none" stroke="#0A0812" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Beard: short, neat -->
+  <path d="M34 60 Q50 70 66 60 Q62 72 50 74 Q38 72 34 60 Z" fill="#9a6030" stroke="#0A0812" stroke-width="1.5"/>
+</svg>

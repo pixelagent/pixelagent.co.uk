@@ -1,0 +1,51 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="hallBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a0c04"/>
+      <stop offset="100%" stop-color="#2b1d0c"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="200" fill="url(#hallBg)"/>
+  <!-- Floor plane — proportion -->
+  <rect x="0" y="158" width="300" height="42" fill="#1a0e06"/>
+  <rect x="0" y="156" width="300" height="3"  fill="#4a2e10" opacity=".4"/>
+  <!-- Floor tiles — pattern, rhythm -->
+  <line x1="0"   y1="175" x2="300" y2="175" stroke="#0A0812" stroke-width="1" opacity=".4"/>
+  <line x1="60"  y1="156" x2="60"  y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="120" y1="156" x2="120" y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="180" y1="156" x2="180" y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="240" y1="156" x2="240" y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <!-- Columns — repetition, rhythm -->
+  <rect x="8"   y="30" width="16" height="128" fill="#4a2010" stroke="#0A0812" stroke-width="2"/>
+  <rect x="6"   y="26" width="20" height="10"  fill="#6b3a18" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="46"  y="30" width="16" height="128" fill="#4a2010" stroke="#0A0812" stroke-width="2"/>
+  <rect x="44"  y="26" width="20" height="10"  fill="#6b3a18" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="238" y="30" width="16" height="128" fill="#4a2010" stroke="#0A0812" stroke-width="2"/>
+  <rect x="236" y="26" width="20" height="10"  fill="#6b3a18" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="276" y="30" width="16" height="128" fill="#4a2010" stroke="#0A0812" stroke-width="2"/>
+  <rect x="274" y="26" width="20" height="10"  fill="#6b3a18" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Frieze band — unity -->
+  <rect x="0" y="26" width="300" height="8" fill="#8b5a2b" opacity=".45"/>
+  <!-- Ceiling lantern chain — movement: leads to centre -->
+  <line x1="150" y1="0"  x2="150" y2="24" stroke="#FFD84D" stroke-width="2" opacity=".5"/>
+  <circle cx="150" cy="28" r="7"  fill="#FFD84D" opacity=".85"/>
+  <!-- Two figures standing together — balance: side by side, proportion: human scale vs hall -->
+  <!-- Figure L -->
+  <circle cx="116" cy="72" r="18" fill="#C8956C" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M98 64 Q116 52 134 64" fill="none" stroke="#2a1a0a" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="110" cy="70" r="3" fill="#0A0812"/>
+  <circle cx="122" cy="70" r="3" fill="#0A0812"/>
+  <path d="M111 80 Q116 86 121 80" fill="none" stroke="#0A0812" stroke-width="2" stroke-linecap="round"/>
+  <rect x="100" y="90" width="32" height="66" fill="#3a5a8c" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M136 100 L150 158" stroke="#3a5a8c" stroke-width="9" stroke-linecap="round"/>
+  <!-- Figure R — balance: mirrored but slightly different posture -->
+  <circle cx="186" cy="72" r="18" fill="#D4A574" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M168 64 Q186 52 204 64" fill="none" stroke="#2a1a0a" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="180" cy="70" r="3" fill="#0A0812"/>
+  <circle cx="192" cy="70" r="3" fill="#0A0812"/>
+  <path d="M181 80 Q186 86 191 80" fill="none" stroke="#0A0812" stroke-width="2" stroke-linecap="round"/>
+  <rect x="170" y="90" width="32" height="66" fill="#4a6a9c" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M166 100 L152 158" stroke="#4a6a9c" stroke-width="9" stroke-linecap="round"/>
+  <!-- Glow between figures — emphasis on their bond, white space -->
+  <ellipse cx="151" cy="110" rx="22" ry="40" fill="#FFD84D" opacity=".04"/>
+</svg>

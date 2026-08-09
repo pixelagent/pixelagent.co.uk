@@ -1,0 +1,145 @@
+{
+    "caseId": "temple_cleansing",
+    "locationId": "temple",
+    "locationTitle": "Temple Courts, Jerusalem",
+    "timeOfDay": "day",
+    "environment": {
+        "floorColor": "#e0e0e0",
+        "skyColor": "#f0f8ff",
+        "ambientLight": 0.8
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "Colonnade North",
+            "pos": [
+                0,
+                4,
+                -15
+            ],
+            "scale": [
+                30,
+                8,
+                2
+            ],
+            "color": "#ffffff"
+        },
+        {
+            "type": "cylinder",
+            "name": "Pillar 1",
+            "pos": [
+                -10,
+                4,
+                -12
+            ],
+            "scale": [
+                0.5,
+                8,
+                0.5
+            ],
+            "color": "#f5f5f5"
+        },
+        {
+            "type": "cylinder",
+            "name": "Pillar 2",
+            "pos": [
+                10,
+                4,
+                -12
+            ],
+            "scale": [
+                0.5,
+                8,
+                0.5
+            ],
+            "color": "#f5f5f5"
+        },
+        {
+            "type": "box",
+            "name": "Altar Base",
+            "pos": [
+                0,
+                0.5,
+                0
+            ],
+            "scale": [
+                4,
+                1,
+                4
+            ],
+            "color": "#dcdcdc"
+        }
+    ],
+    "sprites": [
+        {
+            "id": "temple_banner",
+            "type": "cloth",
+            "pos": [
+                0,
+                6,
+                -14.8
+            ],
+            "scale": [
+                2,
+                4
+            ],
+            "texture": "sacred_symbols"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "malachi_moneychanger",
+            "name": "Malachi",
+            "pos": [
+                -6,
+                0,
+                -5
+            ],
+            "color": "#f46060",
+            "description": "Standing by his overturned stall",
+            "unlocksEvidence": [
+                "scattered_coins"
+            ],
+            "hasDialogue": true
+        },
+        {
+            "id": "temple_merchant",
+            "name": "Jadan",
+            "pos": [
+                6,
+                0,
+                -8
+            ],
+            "color": "#94a3b8",
+            "description": "Gathering loose items",
+            "unlocksEvidence": [
+                "overturned_tables"
+            ],
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "scattered_coins",
+            "pos": [
+                -5,
+                0.05,
+                -4
+            ],
+            "model": "coins_cluster",
+            "glowColor": "#f5c842",
+            "hint": "Roman Denarii mixed with Temple Shekels"
+        },
+        {
+            "id": "overturned_tables",
+            "pos": [
+                -7,
+                0.5,
+                -6
+            ],
+            "model": "wooden_debris",
+            "glowColor": "#a78bfa",
+            "hint": "Fragments of the money-changing stalls"
+        }
+    ]
+}

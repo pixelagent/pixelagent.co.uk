@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miracle Maker — Case Editor</title>
+    <link rel="stylesheet" href="case-editor.css">
+</head>
+<body>
+    <div class="editor-container">
+        <h1>Case Editor</h1>
+
+        <div class="io-section">
+            <div class="field">
+                <label for="file-input">Load Case File(s)</label>
+                <input type="file" id="file-input" accept=".js" multiple>
+            </div>
+            <div class="field">
+                <label for="act-select">Act</label>
+                <select id="act-select">
+                    <option value="">-- Load files first --</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="case-select">Case</label>
+                <select id="case-select">
+                    <option value="">-- Select an Act first --</option>
+                </select>
+            </div>
+            <div class="field search-field">
+                <label for="search-input">Filter Sections</label>
+                <input type="text" id="search-input" placeholder="e.g. clues, timelineOrder, Peter...">
+            </div>
+            <div class="field export-field">
+                <label>&nbsp;</label>
+                <div class="button-row">
+                    <button id="reset-btn" class="hidden" type="button" title="Discard edits to this case and reload it as originally imported">Reset Case</button>
+                    <button id="export-btn" class="hidden" type="button" title="Download only this case as a standalone .json file">Export Case JSON</button>
+                    <button id="save-file-btn" class="hidden" type="button" title="Download the whole act file (.js) with all your edits spliced back in">Save Act File (.js)</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="status">Load one or more <code>actN_case.js</code> files to begin.</div>
+
+        <div id="sections-container"></div>
+    </div>
+
+    <script type="module" src="case-editor.js"></script>
+</body>
+</html>

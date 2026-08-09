@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Miracle Maker — Interactive 3D game prototypes and mobile applications exploring visual effects, dialogue systems, and atmospheric rendering.">
+    <title>Miracle Maker</title>
+
+    <style>
+        :root {
+            --bg: #010105;
+            --panel: rgba(0, 10, 20, 0.88);
+            --accent: #00f2ff;
+            --accent2: #ffaa00;
+            --text: #ffffff;
+            --glow: 0 0 20px rgba(0, 242, 255, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            color: var(--accent2);
+            font-size: 3em;
+            margin: 0;
+            letter-spacing: 4px;
+            text-shadow: var(--glow);
+        }
+
+        .subtitle {
+            color: var(--accent);
+            font-size: 1.2em;
+            margin-top: 10px;
+            opacity: 0.8;
+            letter-spacing: 2px;
+        }
+
+        .intro {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            line-height: 1.6;
+            opacity: 0.7;
+            font-size: 0.95em;
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            padding: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: var(--glow);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2), 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .card h2 {
+            color: var(--accent2);
+            margin: 0 0 8px 0;
+            font-size: 1.3em;
+            letter-spacing: 1px;
+        }
+
+        .card .tag {
+            display: inline-block;
+            background: var(--accent);
+            color: black;
+            padding: 2px 8px;
+            font-size: 0.7em;
+            border-radius: 3px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .card p {
+            margin: 0;
+            opacity: 0.7;
+            line-height: 1.5;
+            font-size: 0.9em;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 16px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 20px;
+            opacity: 0.5;
+            font-size: 0.85em;
+            border-top: 1px solid #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Miracle Maker</h1>
+            <div class="subtitle">Interactive Demo Collection</div>
+        </header>
+
+        <div class="intro">
+            A collection of interactive demos exploring 3D rendering, visual effects, dialogue systems,
+            and atmospheric rendering using Three.js. Navigate below to explore the different variants.
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <span class="tag">Mobile</span>
+                <h2>Mobile A</h2>
+                <p>Mobile-first educational detective game built with Three.js. Collect clues,
+                    interview suspects and solve mysteries in a Holy Week setting.</p>
+                <a href="mobileA/">Open Demo →</a>
+            </div>
+
+            <div class="card">
+                <span class="tag">Mobile</span>
+                <h2>Mobile B</h2>
+                <p>Enhanced mobile variant with 3D scene integration and improved UI components.
+                    Features additional3d visual effects and streamlined gameplay.</p>
+                <a href="mobileB/">Open Demo →</a>
+            </div>
+
+                  <div class="card">
+                <span class="tag">Mobile</span>
+                <h2>Mobile C</h2>
+                <p>Enhanced mobile variant with 2D scene integration and improved UI components.
+                    Features additional 2d visual effects and streamlined gameplay.</p>
+                <a href="mobileC/">Open Demo →</a>
+            </div>
+
+            <div class="card">
+                <span class="tag">Desktop</span>
+                <h2>Desktop Version</h2>
+                <p>Full desktop experience with enhanced controls, expanded UI features,
+                    and optimized for keyboard/mouse interaction.</p>
+                <a href="desktop/">Open Demo →</a>
+            </div>
+
+            <div class="card">
+                <span class="tag">Tools</span>
+                <h2>Development Tools</h2>
+                <p>Editor tools including Dialogue Editor, Grid Editor, and utilities for
+                    building and testing game content.</p>
+                <a href="tools/">Open Tools →</a>
+            </div>
+
+            <div class="card">
+                <span class="tag">Gallery</span>
+                <h2>Prototypes</h2>
+                <p>The prototype gallery featuring 3D game experiments: fog effects, particle
+                    systems, toon shading, day/night cycles, and WhatsApp-style dialogue UI.</p>
+                <a href="prototypes/">View Gallery →</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Miracle Maker — Built with Three.js, Cannon-es, Ink, and Howler.<br>
+        Interactive prototypes demonstrating rapid iteration and orthogonal design exploration.
+    </footer>
+</body>
+
+</html>

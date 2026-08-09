@@ -1,0 +1,31 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sunsetSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1c3651"/>
+      <stop offset="50%" stop-color="#bc462e"/>
+      <stop offset="100%" stop-color="#ff8a73"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sunset Sky -->
+  <rect width="600" height="400" fill="url(#sunsetSky)"/>
+  
+  <!-- Setting Sun -->
+  <circle cx="300" cy="230" r="80" fill="#FFF7E8" stroke="#0A0812" stroke-width="4"/>
+
+  <!-- Open Sea -->
+  <rect y="230" width="600" height="170" fill="#05101c" stroke="#0A0812" stroke-width="5"/>
+
+  <!-- Ship Scaling Away (Silhouette) -->
+  <g transform="translate(180, 110) scale(0.6)">
+    <line x1="240" y1="250" x2="240" y2="40" stroke="#0A0812" stroke-width="12" stroke-linecap="round"/>
+    <path d="M240 55 C330 85, 320 195, 240 220 C280 165, 280 100, 240 55 Z" fill="#1c3651" stroke="#0A0812" stroke-width="6"/>
+    <path d="M80 230 L420 230 C455 230, 480 255, 455 295 L400 295 L120 295 Z" fill="#0A0812"/>
+  </g>
+
+  <!-- Speed wake / Waves -->
+  <path d="M300 270 L150 350 L50 350 Z" fill="#143254" opacity="0.8"/>
+  <path d="M300 270 L450 350 L550 350 Z" fill="#143254" opacity="0.8"/>
+  
+  <path d="M0 340 Q150 300, 300 340 T600 340" fill="none" stroke="#0A0812" stroke-width="5" stroke-linecap="round"/>
+</svg>

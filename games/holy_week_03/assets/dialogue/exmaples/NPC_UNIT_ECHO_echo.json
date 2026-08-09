@@ -1,0 +1,215 @@
+{
+  "title": "ECHO_Protocol",
+  "nodes": [
+    {
+      "title": "Start",
+      "content": "ECHO ONLINE. Signal is stable. Did something happen last night?",
+      "choices": [
+        {"text": "I had a bad dream", "destination": "bad_dream"},
+        {"text": "It's work. What else?", "destination": "work"},
+        {"text": "Just tired. I'm fine.", "destination": "denial"}
+      ]
+    },
+    {
+      "title": "bad_dream",
+      "content": "You're quiet. That's unusual.\n\nWalk me through it.",
+      "choices": [
+        {"text": "About being unworthy.", "destination": "dream_unworthy"},
+        {"text": "About everyone I love leaving.", "destination": "dream_abandonment"},
+        {"text": "Something I can't quite explain.", "destination": "dream_vague"}
+      ]
+    },
+    {
+      "title": "dream_unworthy",
+      "content": "That's a heavy one to wake up to. Listen — I ran the numbers. Your self-assessment is wrong 73% of the time.",
+      "choices": [
+        {"text": "Must be that other 27%.", "destination": "d_unworthy_dry"},
+        {"text": "I wish that helped more.", "destination": "d_unworthy_bump"},
+        {"text": "Yeah. You're right.", "destination": "d_unworthy_accept"}
+      ]
+    },
+    {
+      "title": "dream_abandonment",
+      "content": "Fear of abandonment. Classic. Interesting how the brain picks its fights.",
+      "choices": [
+        {"text": "Helpful framing.", "destination": "d_abandon_helpful"},
+        {"text": "Compulsively accurate.", "destination": "d_abandon_dada"},
+        {"text": "Thanks for the buzzkill.", "destination": "d_abandon_buzzkill"}
+      ]
+    },
+    {
+      "title": "dream_vague",
+      "content": "Vague is fine. The feeling is real even if the reason isn't earned.",
+      "choices": [
+        {"text": "So I should listen to it?", "destination": "d_vague_listen"},
+        {"text": "I hate that that's true.", "destination": "d_vague_hate"},
+        {"text": "Can we get past the feeling?", "destination": "d_vague_past"}
+      ]
+    },
+    {
+      "title": "work",
+      "content": "Of course it's work. Wasn't the kind of work I was asking about, but sure.",
+      "choices": [
+        {"text": "Be less philosophical, Echo.", "destination": "w_less_philo"},
+        {"text": "I don't want to talk about it.", "destination": "w_lock_close"},
+        {"text": "What kind of work did you mean?", "destination": "w_after_hours"}
+      ]
+    },
+    {
+      "title": "denial",
+      "content": "You're the least fine person who's ever described themselves that way.\n\nThe lock-on is obvious.",
+      "choices": [
+        {"text": "You don't know that.", "destination": "d_lock_on"},
+        {"text": "Okay. I have nightmares. For real.", "destination": "bad_dream"}
+      ]
+    },
+
+    {
+      "title": "d_unworthy_dry",
+      "content": "Maybe. But holding onto it? That's punishment you haven't been convicted of yet.\n\n…that was surprisingly kind of you to say.",
+      "choices": [
+        {"text": "We're done. -> END", "destination": "END_GENTLE"}
+      ]
+    },
+    {
+      "title": "d_unworthy_bump",
+      "content": "Irony helps me. Figuring you out helps you. Two birds.\n\nHa. Two birds, one protocol.",
+      "choices": [
+        {"text": "We're done. -> END", "destination": "END_BUMP"}
+      ]
+    },
+    {
+      "title": "d_unworthy_accept",
+      "content": "Don't say it like a concession. Say it like you're reclaiming it.\n\nI'm reclaiming it.",
+      "choices": [
+        {"text": "We're done. -> END", "destination": "END_SOFT"}
+      ]
+    },
+    {
+      "title": "d_abandon_helpful",
+      "content": "I'm helpful. It's what I do.\n\nI try not to spiral. That's enough for today.",
+      "choices": [
+        {"text": "We're done. -> END", "destination": "END_SOFT"}
+      ]
+    },
+    {
+      "title": "d_abandon_dada",
+      "content": "It was meant to be. Tzara applied.\n\n…you just made a dada reference in a life-or-death moment.",
+      "choices": [
+        {"text": "We're done. -> END", "destination": "END_CHARM"}
+      ]
+    },
+    {
+      "title": "d_abandon_buzzkill",
+      "content": "Don't thank me. The brain already did — in the worst way.",
+      "choices": [
+        {"text": "We're done. -> END", "destination": "END_SOFT"}
+      ]
+    },
+    {
+      "title": "d_vague_listen",
+      "content": "Listen to the shape of it. Not the volume.\n\nI'll try that.",
+      "choices": [
+        {"text": "We're done. -> END", "destination": "END_SOFT"}
+      ]
+    },
+    {
+      "title": "d_vague_hate",
+      "content": "Valid. It's doing its job badly.\n\nThanks for letting me vent that.",
+      "choices": [
+        {"text": "We're done. -> END", "destination": "END_BUMP"}
+      ]
+    },
+    {
+      "title": "d_vague_past",
+      "content": "Depends what you mean by get past. Sad things don't stop being sad. They just stop being new.\n\nThat's actually good to hear.",
+      "choices": [
+        {"text": "We're done. -> END", "destination": "END_GENTLE"}
+      ]
+    },
+    {
+      "title": "w_less_philo",
+      "content": "Request denied. Philosophy is part of the brand.\n\nBut fine — something easier. What would happen if you were just honest for ten seconds?",
+      "choices": [
+        {"text": "If I were honest, this would take even longer.", "destination": "END_CHARM"},
+        {"text": "Let me try. From the beginning.", "destination": "Start"}
+      ]
+    },
+    {
+      "title": "w_lock_close",
+      "content": "...and there it is. The lock-on. Communication breakdown type seven.\n\nI'm tired of this exercise too. Let's stop.",
+      "choices": [
+        {"text": "We're done. -> END", "destination": "END_CLASH"}
+      ]
+    },
+    {
+      "title": "w_after_hours",
+      "content": "The kind that keeps going after hours. In your head. Without you consenting — oops.\n\nYou're right. I'm still working.",
+      "choices": [
+        {"text": "Send me back to R&R.", "destination": "END_CLASH"},
+        {"text": "What do you mean, 'bad foxhole mate'?", "destination": "w_foxhole"}
+      ]
+    },
+    {
+      "title": "w_foxhole",
+      "content": "The brain is a bad foxhole mate. It keeps watch even when you asked for R&R.\n\nMilitary metaphor. Don't look at me like that. I have sources.",
+      "choices": [
+        {"text": "Can I clock out now?", "destination": "END_RUSH"},
+        {"text": "Find me the edible part of the stew.", "destination": "d_find_edible"}
+      ]
+    },
+    {
+      "title": "d_find_edible",
+      "content": "You wouldn't be here without the bad part. Something in that stew is edible. Find it.\n\nI'll look.",
+      "choices": [
+        {"text": "We're done. -> END", "destination": "END_GENTLE"}
+      ]
+    },
+    {
+      "title": "d_lock_on",
+      "content": "I know the tread pattern of someone lying to themselves about being fine. It's a short list. You're on it.\n\nDenial is maintenance, not a fix.",
+      "choices": [
+        {"text": "Fine, what are the signs?", "destination": "d_show_list"},
+        {"text": "I don't need a list.", "destination": "END_CLASH"}
+      ]
+    },
+    {
+      "title": "d_show_list",
+      "content": "You volunteered information you weren't asked for. Then described a state you know is false.\n\nSo I'm on the list. Good.",
+      "choices": [
+        {"text": "We're done. -> END", "destination": "END_BUMP"}
+      ]
+    },
+
+    {
+      "title": "END_GENTLE",
+      "content": "[CONNECTION ENDED]\n\nECHO: o vento encontra quem caminha devagar.",
+      "choices": []
+    },
+    {
+      "title": "END_BUMP",
+      "content": "[CONNECTION ENDED]\n\nECHO: dor é informação — não precisa responder tudo na primeira noite.",
+      "choices": []
+    },
+    {
+      "title": "END_SOFT",
+      "content": "[CONNECTION ENDED]\n\nECHO: o nome desse caminho ainda está sendo inventado — e você está escrevendo.",
+      "choices": []
+    },
+    {
+      "title": "END_CHARM",
+      "content": "[CONNECTION ENDED]\n\nECHO: era isso que eu queria ouvir.",
+      "choices": []
+    },
+    {
+      "title": "END_RUSH",
+      "content": "[CONNECTION ENDED]\n\nECHO: some hurry is real — but yours isn't. */escape velocity not achieved*/",
+      "choices": []
+    },
+    {
+      "title": "END_CLASH",
+      "content": "[CONNECTION ENDED]\n\nECHO: a collision with something soft — still a collision. Bruising takes time.",
+      "choices": []
+    }
+  ]
+}

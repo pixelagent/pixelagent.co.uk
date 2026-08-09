@@ -1,0 +1,363 @@
+{
+  "start": {
+    "content": "I am on duty at the Antonia fortress. I have been stationed on the high outer wall walkways for three years. I have seen riots. I have seen rebellions. I have seen crucifixions. But I have never seen anything like what happened in the Temple courts today. The Galilean — Jesus — He walked into the Court of the Gentiles with a whip made of rushes and turned the whole place upside down.",
+    "choices": [
+      { "text": "What did you see?", "destination": "saw" },
+      { "text": "Why didn't you intervene?", "destination": "intervene" }
+    ]
+  },
+  "saw": {
+    "content": "I saw tables overturned. Coins flying. Doves scattering. Merchants running. The Galilean standing in the middle of it all, looking like He owned the place. He didn't strike anyone. Didn't yell. Didn't even raise His voice. Just... looked at them. And they ran. Like sheep before a shepherd. Or convicts before a centurion.",
+    "choices": [
+      { "text": "What was He saying?", "destination": "saying" },
+      { "text": "The crowd followed Him?", "destination": "crowd" }
+    ]
+  },
+  "intervene": {
+    "content": "Intervene? Our orders were clear: do not engage unless there is a full-scale rebellion. Flipped tables don't count. Scattered coins don't count. Even a broken dove cage doesn't count. The Romans don't die for Jewish commerce. We die for Roman order. And this... this was not a threat to Roman order.",
+    "choices": [
+      { "text": "It was a threat to the Temple.", "destination": "temple_threat" },
+      { "text": "The priests were furious.", "destination": "priests_furious" }
+    ]
+  },
+  "saying": {
+    "content": "He was quoting Scripture. Psalm 69:9 — 'Zeal for your house will consume me.' His disciples were shouting it afterward. They say it proves He is the Messiah. But from where I stood, it looked like a man with a whip and a grievance. A dangerous combination in this city.",
+    "choices": [
+      { "text": "He had zeal, not violence.", "destination": "zeal" },
+      { "text": "The priests feared that zeal.", "destination": "priests_fear" }
+    ]
+  },
+  "crowd": {
+    "content": "Followed Him? They didn't just follow Him. They surged. Like a tide. One minute they were buying doves and changing money. The next minute they were chasing after this Galilean like He was the emperor returning to Rome. I have never seen anything like it. Not even at the Passover pilgrimages.",
+    "choices": [
+      { "text": "He had that kind of authority.", "destination": "authority" },
+      { "text": "It was a dangerous moment.", "destination": "dangerous" }
+    ]
+  },
+  "temple_threat": {
+    "content": "Threat to the Temple? Maybe. But the Temple has its own guards. Its own police. Its own way of handling prophets. They don't need Roman auxiliaries to clean up their markets. They need to clean up their own corruption. That Galilean... He might have done them a favor.",
+    "choices": [
+      { "text": "You sympathize with Him?", "destination": "sympathize" },
+      { "text": "The priests see it differently.", "destination": "priests_differently" }
+    ]
+  },
+  "priests_furious": {
+    "content": "Furious? They came to Pilate himself. Demanding action. Calling it insurrection. But when Pilate asked for the bodies — for the wounded, for the dead — they had nothing. No Roman casualties. No property damage to Rome. Just their precious temple tax scattered in the dirt. Pilate sent them packing.",
+    "choices": [
+      { "text": "Pilate saw through it.", "destination": "pilate_saw" },
+      { "text": "But the priests will not stop.", "destination": "priests_not_stop" }
+    ]
+  },
+  "zeal": {
+    "content": "Zeal? The man had the eyes of a zealot. But zealots kill. Zealots burn. Zealots start wars. This man... He broke cages and scattered coins. He released doves. He didn't hurt anyone. That's not zeal. That's... something else. Something I can't name. Something that made the bravest centurion in the legion pause.",
+    "choices": [
+      { "text": "It was prophetic zeal.", "destination": "prophetic" },
+      { "text": "You were affected by it too.", "destination": "affected" }
+    ]
+  },
+  "priests_fear": {
+    "content": "Fear? The priests fear everything. They fear the Romans. They fear the crowds. They fear the prophets. They fear losing their power. This Galilean threatens all of it. His zeal. His authority. His following. He is everything they fear wrapped in one man. And they will stop at nothing to destroy Him.",
+    "choices": [
+      { "text": "They will succeed.", "destination": "succeed" },
+      { "text": "They are already plotting.", "destination": "plotting" }
+    ]
+  },
+  "authority": {
+    "content": "Authority? He had authority. Not the kind you see in the legions. Not the kind you see in the Sanhedrin. Something deeper. Something older. The kind of authority that makes men obey without thinking. The kind that makes crowds follow without question. It was... unsettling. Even from the parapet.",
+    "choices": [
+      { "text": "Divine authority.", "destination": "divine" },
+      { "text": "It frightened you.", "destination": "frightened" }
+    ]
+  },
+  "dangerous": {
+    "content": "Dangerous? To the Temple, yes. To the priests, definitely. To Rome? I don't think so. A man who cleanses a market is not a military threat. A man who quotes Psalms is not a revolutionary. He is a prophet. And prophets are dangerous — but not to the empire. To the establishment.",
+    "choices": [
+      { "text": "The priests made Him a threat to Rome.", "destination": "made_threat" },
+      { "text": "You see the distinction.", "destination": "distinction" }
+    ]
+  },
+  "sympathize": {
+    "content": "Sympathize? I'm a Roman soldier. I don't sympathize with Jewish prophets. I follow orders. But... there was something about that man. The way He looked at the merchants. Not with anger. With sorrow. Like a father looking at wayward children. That got to me. And I've seen things that don't get to me.",
+    "choices": [
+      { "text": "You saw His heart.", "destination": "heart" },
+      { "text": "That's why you didn't intervene.", "destination": "didnt_intervene" }
+    ]
+  },
+  "priests_differently": {
+    "content": "Differently? The priests see a threat. I see a man cleaning up a mess. They see blasphemy. I see a prophet calling them out. They see a criminal. I see... I'm not sure what I see. But it's not a criminal. That much I know.",
+    "choices": [
+      { "text": "You know more than you admit.", "destination": "know_more" },
+      { "text": "Your perspective is valuable.", "destination": "valuable" }
+    ]
+  },
+  "pilate_saw": {
+    "content": "Pilate saw through it. Of course he did. He's a Roman governor. He deals in facts. In evidence. In Roman law. The priests came to him with accusations of insurrection. He asked for bodies. They had nothing. Just their wounded pride and scattered coins. Pilate doesn't care about Jewish religious disputes. He cares about Roman order.",
+    "choices": [
+      { "text": "But he will yield to the crowd.", "destination": "yield" },
+      { "text": "Pilate is more complex than you think.", "destination": "complex" }
+    ]
+  },
+  "priests_not_stop": {
+    "content": "They won't stop? They never stop. The High Priest has decided. The Sanhedrin is plotting. They will find a way to make this Roman business. They will fabricate a sedition charge. They will bring Him to Pilate's praetorium. And then... then we will see what Pilate does.",
+    "choices": [
+      { "text": "Pilate will crucify Him.", "destination": "crucify" },
+      { "text": "Pilate might resist.", "destination": "resist" }
+    ]
+  },
+  "prophetic": {
+    "content": "Prophetic zeal? Maybe. I don't know much about Jewish prophets. But I know what I saw. A man with a whip of reeds. A crowd of terrified merchants. A Temple in chaos. And a peace that passed all understanding. That's not revolution. That's... something else. Something I can't explain.",
+    "choices": [
+      { "text": "You are seeing the Kingdom.", "destination": "kingdom" },
+      { "text": "Your Roman mind cannot process it.", "destination": "roman_mind" }
+    ]
+  },
+  "affected": {
+    "content": "Affected? I'm a guard. I'm supposed to be unaffected. But that man... He looked right at me. From the parapet. Through the crowd. Right at me. And I felt... something. Not fear. Not respect. Something deeper. Like I was in the presence of something holy. Something I don't have a category for.",
+    "choices": [
+      { "text": "You encountered the divine.", "destination": "divine2" },
+      { "text": "That will stay with you forever.", "destination": "forever" }
+    ]
+  },
+  "succeed": {
+    "content": "Succeed? The priests will arrest Him. The Sanhedrin will convict Him. Pilate will sentence Him. The Romans will crucify Him. And the crowds will cheer. Success is not the issue. Justice is. And in this city, justice is whatever the powerful say it is.",
+    "choices": [
+      { "text": "You are more perceptive than you look.", "destination": "perceptive" },
+      { "text": "You see the injustice.", "destination": "injustice" }
+    ]
+  },
+  "plotting": {
+    "content": "Plotting? They are always plotting. The priests. The Sanhedrin. The Herodians. They plot against each other. Against the Romans. Against the prophets. Against anyone who threatens their power. This Galilean is just the latest target. But He is different. He has something they don't. Something they can't kill.",
+    "choices": [
+      { "text": "The truth.", "destination": "truth" },
+      { "text": "The resurrection.", "destination": "resurrection" }
+    ]
+  },
+  "divine": {
+    "content": "Divine authority? I don't believe in your gods. But I know power when I see it. And that man had power. Not the power of a legion. Not the power of a procurator. Something else. Something older. Something that made men obey without weapons. Without threats. Without fear.",
+    "choices": [
+      { "text": "You are believing.", "destination": "believing" },
+      { "text": "That is the Holy Spirit.", "destination": "holy_spirit" }
+    ]
+  },
+  "frightened": {
+    "content": "Frightened? I haven't been frightened since I was a recruit. But that man... He looked at the crowd like He owned them. Like He created them. And they followed Him. Not out of fear. Out of love. Out of devotion. I have never seen anything like it. And it frightened me. Because I knew... I knew that I was in the presence of something real.",
+    "choices": [
+      { "text": "You were in the presence of God.", "destination": "presence_god" },
+      { "text": "That fear is the beginning of faith.", "destination": "beginning_faith" }
+    ]
+  },
+  "made_threat": {
+    "content": "Made Him a threat? The priests will take a prophet and turn Him into a revolutionary. They will take a healer and turn Him into a criminal. They will take a man who loves people and turn Him into a threat to Rome. And Pilate... Pilate will sign the death warrant. Because he fears the crowd more than he fears the truth.",
+    "choices": [
+      { "text": "You are a prophet.", "destination": "prophet_guard" },
+      { "text": "You see the whole picture.", "destination": "whole_picture" }
+    ]
+  },
+  "distinction": {
+    "content": "Distinction? A man who cleanses the Temple is not a rebel. A man who heals the sick is not a criminal. A man who teaches love is not a threat. But the priests need Him to be all those things. Because if He is just a prophet... if He is just a good man... then they have no excuse to kill Him. So they make Him a threat. To Rome. To order. To everything.",
+    "choices": [
+      { "text": "You understand the conspiracy.", "destination": "conspiracy" },
+      { "text": "You are a truth-teller.", "destination": "truth_teller" }
+    ]
+  },
+  "heart": {
+    "content": "His heart? He had the heart of a shepherd. Looking at lost sheep. At wounded sheep. At sheep that didn't even know they were lost. That's what I saw in His eyes. Not anger. Not judgment. Sorrow. Love. A love that would die for those sheep. And did.",
+    "choices": [
+      { "text": "You saw the Good Shepherd.", "destination": "good_shepherd" },
+      { "text": "You are a watcher.", "destination": "watcher" }
+    ]
+  },
+  "didnt_intervene": {
+    "content": "Didn't intervene? My orders were to stand down. But even if they weren't... even if I had been ordered to attack... I don't think I could have. That man had a power over me. Not magic. Not fear. Something deeper. Something that made me want to follow Him instead of fight Him.",
+    "choices": [
+      { "text": "You were called.", "destination": "called" },
+      { "text": "That is the beginning of faith.", "destination": "beginning_faith2" }
+    ]
+  },
+  "know_more": {
+    "content": "Know more? I know what I saw. A man with a whip of reeds. A Temple in chaos. A crowd of followers. And a peace that passed all understanding. I know the priests are lying. I know Pilate is conflicted. I know the Galilean is innocent. And I know... I know that I will never be the same.",
+    "choices": [
+      { "text": "You are a witness.", "destination": "witness" },
+      { "text": "Your testimony matters.", "destination": "matters" }
+    ]
+  },
+  "valuable": {
+    "content": "Valuable? I'm a Roman guard. My testimony doesn't matter. I'm a nobody. A pawn. A piece on the board. But... what I saw today. The Galilean. The whip. The crowd. The peace. That matters. And if I tell someone... if I write it down... maybe it will matter. Maybe it will make a difference.",
+    "choices": [
+      { "text": "It already has.", "destination": "already_mattered" },
+      { "text": "Your witness is important.", "destination": "important" }
+    ]
+  },
+  "yield": {
+    "content": "Yield? He already did. When the priests brought Him. When the crowd screamed. When they demanded Barabbas instead. Pilate yielded. He washed his hands. He signed the warrant. He sent an innocent man to the cross. And he will live with that decision for the rest of his life.",
+    "choices": [
+      { "text": "Pilate is a coward.", "destination": "coward" },
+      { "text": "You are more honest than Pilate.", "destination": "more_honest" }
+    ]
+  },
+  "complex": {
+    "content": "Complex? Pilate is a Roman governor. He deals in power. In politics. In survival. But today... today he faced a choice. Between a prophet and a province. Between justice and peace. And he chose peace. He chose survival. He chose to crucify an innocent man. That is not complex. That is cowardice.",
+    "choices": [
+      { "text": "You are judging Pilate.", "destination": "judging_pilate" },
+      { "text": "You have a moral compass.", "destination": "compass" }
+    ]
+  },
+  "crucify": {
+    "content": "Crucify Him? The Romans will crucify Him. Not because He is guilty. But because the priests want Him dead. And Pilate wants peace. And the crowd wants blood. Three powerful forces. One innocent man. And the cross. That is how this city works. Innocent men die. Powerful men sleep soundly.",
+    "choices": [
+      { "text": "You are angry about injustice.", "destination": "angry" },
+      { "text": "You are becoming a believer.", "destination": "becoming" }
+    ]
+  },
+  "resist": {
+    "content": "Resist? Pilate tried. He offered them Barabbas. He offered them a titulus. He offered them a choice. But they chose Barabbas. They chose blood. They chose death. And Pilate... Pilate yielded. Because in this province, the crowd is always right. Even when they are wrong.",
+    "choices": [
+      { "text": "Pilate found no fault in Him.", "destination": "no_fault" },
+      { "text": "The crowd chose a murderer.", "destination": "chose_murderer" }
+    ]
+  },
+  "kingdom": {
+    "content": "Kingdom? I don't know much about Jewish kingdoms. But I know power. And that man had power. The kind that doesn't need swords. Doesn't need shields. Doesn't need legions. The kind that makes men follow freely. The kind that makes crowds obey willingly. That is not of this world. That is... from another kingdom.",
+    "choices": [
+      { "text": "The Kingdom of God.", "destination": "kingdom_god" },
+      { "text": "You are seeing the truth.", "destination": "seeing_truth" }
+    ]
+  },
+  "roman_mind": {
+    "content": "Roman mind? I think in formations. In tactics. In logistics. But today... today I saw something that doesn't fit any formation. A man with a whip. A crowd of followers. A Temple in chaos. And a peace that defied explanation. My Roman mind cannot process it. But my heart... my heart knows it is real.",
+    "choices": [
+      { "text": "Your heart is being awakened.", "destination": "awakened" },
+      { "text": "You are experiencing faith.", "destination": "experiencing_faith" }
+    ]
+  },
+  "believing": {
+    "content": "Believing? I don't believe in your Jewish God. Not yet. But I believe in what I saw. A man who could command a crowd with a look. A man who could cleanse a Temple with a whip of reeds. A man who could make a Roman centurion pause in awe. I believe in that man. And I think... I think He might be who they say He is.",
+    "choices": [
+      { "text": "You are on the edge of faith.", "destination": "edge_faith" },
+      { "text": "The Holy Spirit is working.", "destination": "spirit_working" }
+    ]
+  },
+  "holy_spirit": {
+    "content": "Spirit? I don't know about spirits. But I know what I felt. When that man looked at me... through the crowd... from the parapet... I felt something. Warm. Powerful. Real. Like a presence. Like a voice. Like... like God. And I haven't been the same since.",
+    "choices": [
+      { "text": "That was the Holy Spirit.", "destination": "holy_spirit2" },
+      { "text": "You have been called.", "destination": "called2" }
+    ]
+  },
+  "presence_god": {
+    "content": "Presence of God? I am a Roman. I worship Jupiter. Mars. The emperor. But today... today I felt a presence. In that Galilean. In that crowd. In that moment. A presence that made me tremble. Not with fear. With awe. With wonder. With something I have never felt before.",
+    "choices": [
+      { "text": "You encountered the one true God.", "destination": "one_true_god" },
+      { "text": "That presence is Jesus.", "destination": "jesus_presence" }
+    ]
+  },
+  "beginning_faith": {
+    "content": "Beginning of faith? Maybe. I don't know much about your faith. But I know what I saw. And what I saw changed me. A man who could command crowds without weapons. A man who could cleanse a Temple without violence. A man who could make a Roman guard feel something holy. That is the beginning of something. For me. For the world. For everyone.",
+    "choices": [
+      { "text": "You are a new creation.", "destination": "new_creation" },
+      { "text": "Your journey has just begun.", "destination": "journey_begins" }
+    ]
+  },
+  "prophet_guard": {
+    "content": "A prophet? I'm a Roman guard. I don't judge prophets. I arrest them. I guard them. I crucify them. But this one... this one is different. He doesn't act like a prophet. He acts like... like a king. But not a king of this world. A king of something else. Something better. Something I want to be part of.",
+    "choices": [
+      { "text": "You are becoming a disciple.", "destination": "disciple" },
+      { "text": "You see the Kingdom.", "destination": "see_kingdom" }
+    ]
+  },
+  "whole_picture": {
+    "content": "The whole picture? I see a man. A mission. A movement. A mystery. The priests want Him dead. Pilate wants peace. The crowd wants blood. And Jesus... Jesus wants something else. Something I can't quite see. But I want to see it. I want to be part of it. Whatever it is.",
+    "choices": [
+      { "text": "You are seeking the truth.", "destination": "seeking" },
+      { "text": "You will find Him.", "destination": "find_him" }
+    ]
+  },
+  "good_shepherd": {
+    "content": "The Good Shepherd? I don't know your Scriptures. But I know that look. I've seen it in centurions who care for their men. In fathers who protect their children. In masters who love their servants. That was the look of a shepherd. And those were His sheep. The crowd. The disciples. The world. He loves them. All of them. Even the ones who will kill Him.",
+    "choices": [
+      { "text": "You have recognized the Shepherd.", "destination": "recognized_shepherd" },
+      { "text": "You are one of His sheep.", "destination": "his_sheep" }
+    ]
+  },
+  "watcher": {
+    "content": "A watcher? I watch from the walls. I see everything. The Temple rituals. The market chaos. The crowd movements. The Roman patrols. I see it all. And today... today I saw something that changed my watching. From observing to believing. From duty to devotion. I am a watcher. And I will watch for Him. Forever.",
+    "choices": [
+      { "text": "You are a sentry for Christ.", "destination": "sentry" },
+      { "text": "Your watch is not in vain.", "destination": "not_vain" }
+    ]
+  },
+  "called": {
+    "content": "Called? I don't know about calls. But something happened today. Something inside me. Something that won't let me forget what I saw. That Galilean. That whip. That crowd. That peace. It's like a seed. Planted in my soul. Growing. Sprouting. Becoming something. I don't know what yet. But I know it's real.",
+    "choices": [
+      { "text": "You are being drawn to Christ.", "destination": "drawn" },
+      { "text": "That seed will grow into faith.", "destination": "seed_faith" }
+    ]
+  },
+  "beginning_faith2": {
+    "content": "Beginning? My faith is just beginning. I saw a man die today. A good man. An innocent man. A man who loved people so much He died for them. And I... I was there. I watched it happen. And I couldn't stop it. But now... now I can tell the story. I can be a witness. I can help people see what I saw. The truth. The love. The resurrection.",
+    "choices": [
+      { "text": "You are a witness to the truth.", "destination": "witness_truth2" },
+      { "text": "Your faith will grow.", "destination": "will_grow" }
+    ]
+  },
+  "truth": {
+    "content": "Truth? The truth is this: a good man died today. Not a criminal. Not a rebel. A good man. And the world killed Him. Because the world hates goodness. The world hates truth. The world hates love. And the world killed the best man who ever lived. But that's not the end. Because I saw something today. Something that says the story is not over.",
+    "choices": [
+      { "text": "The resurrection is coming.", "destination": "resurrection_coming" },
+      { "text": "You saw the beginning.", "destination": "beginning" }
+    ]
+  },
+  "resurrection": {
+    "content": "Resurrection? I don't know if I believe in resurrections. But I know what I saw. A man die with a prayer on His lips. A curtain tear at the exact moment of His death. An earthquake that shook the fortress. And a peace that defied explanation. If that's not resurrection power... I don't know what is.",
+    "choices": [
+      { "text": "You are a resurrection witness.", "destination": "resurrection_witness2" },
+      { "text": "You believe.", "destination": "you_believe" }
+    ]
+  },
+  "divine2": {
+    "content": "Divine? I serve Rome. Rome has gods. Jupiter. Mars. The emperor. But this... this was different. This was not Roman power. This was not Jewish power. This was something else. Something older. Something stronger. Something that made centurions tremble and crowds obey and priests plot and governors yield. Whatever it was... it was divine.",
+    "choices": [
+      { "text": "You have seen the one true God.", "destination": "one_true_god2" },
+      { "text": "You are a believer.", "destination": "believer2" }
+    ]
+  },
+  "frightened2": {
+    "content": "Frightened? I was. I am. Because I know what I saw. And I know what it means. That man is not just a prophet. He is not just a teacher. He is the Son of God. And I... I watched Him die. And I did nothing. I just stood there. On the wall. Watching. While the world killed its Savior. And that frightens me more than any battle.",
+    "choices": [
+      { "text": "You are a witness to the crucifixion.", "destination": "crucifixion_witness" },
+      { "text": "Your fear is the beginning of faith.", "destination": "fear_faith" }
+    ]
+  },
+  "perceptive": {
+    "content": "Perceptive? I see what's in front of me. A man with a whip. A Temple in chaos. A crowd of followers. A Roman governor who can't make up his mind. And a priesthood that wants blood. That's not perceptive. That's just watching. And watching is my job.",
+    "choices": [
+      { "text": "You are more than a watcher.", "destination": "more_than_watcher" },
+      { "text": "Your observations are profound.", "destination": "profound" }
+    ]
+  },
+  "injustice": {
+    "content": "Injustice? I've seen injustice in this province. I've seen Romans crucify innocent men. I've seen priests exploit the poor. I've seen crowds demand blood for no reason. But this... this is different. This is the murder of innocence. The killing of goodness. The destruction of truth. And it's happening in broad daylight. With the approval of the most powerful men in the city.",
+    "choices": [
+      { "text": "You are a voice for justice.", "destination": "voice_justice" },
+      { "text": "Your testimony will matter.", "destination": "matter" }
+    ]
+  },
+  "conspiracy": {
+    "content": "Conspiracy? It's not a conspiracy. It's a system. The priests. The Sanhedrin. The Romans. The crowds. They all work together. To maintain power. To maintain order. To maintain the status quo. And anyone who threatens that system — anyone who speaks truth to power — gets eliminated. This Galilean is just the latest victim.",
+    "choices": [
+      { "text": "But the system cannot kill the truth.", "destination": "cannot_kill" },
+      { "text": "You understand the world.", "destination": "understand_world" }
+    ]
+  },
+  "truth_teller": {
+    "content": "Truth-teller? I tell the truth about what I see. A man with a whip. A Temple in chaos. A crowd of followers. A Roman governor who yields. A priesthood that plots. That's the truth. And the truth is... the truth is that this Galilean is innocent. And He is going to die. Because the world kills innocent men. Every day. Everywhere.",
+    "choices": [
+      { "text": "You are a prophet.", "destination": "prophet_simple" },
+      { "text": "Your truth-telling is important.", "destination": "important_truth" }
+    ]
+  },
+  "closing_guard": {
+    "content": "I was on the wall. I saw the whole thing. The whip. The coins. The doves. The crowd. The peace. And I know... I know that man is who they say He is. The Son of God. The Savior. The Lamb. And I... I watched Him die. And I couldn't stop it. But I can tell the story. I can be a witness. And I will. For the rest of my life. Until He comes again.",
+    "choices": []
+  }
+}

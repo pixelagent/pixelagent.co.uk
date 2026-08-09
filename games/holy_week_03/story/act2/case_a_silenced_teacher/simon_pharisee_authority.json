@@ -1,0 +1,31 @@
+{
+  "start": {
+    "content": "This man teaches as one who has authority — not as the scribes. Do you understand what that implies? The scribes cite precedent. Prophets claim divine mandate. But He does neither. He simply says: 'I tell you the truth.' That is either supreme arrogance or something far more dangerous.",
+    "choices": [
+      { "text": "Why more dangerous?", "destination": "dangerous" },
+      { "text": "The crowds seem to love it.", "destination": "crowd_response" }
+    ]
+  },
+  "dangerous": {
+    "content": "Because if He is right — if He genuinely speaks with authority over the Law itself — then every institution built to interpret the Law is made redundant overnight. The Sanhedrin, the scribal tradition, the whole system of oral Torah. Gone. You see the problem.",
+    "choices": [
+      { "text": "Have you tested His teaching?", "destination": "testing" }
+    ]
+  },
+  "crowd_response": {
+    "content": "The crowd loves spectacle. They loved John the Baptist too, until Herod removed him from the equation. Crowds are not theologians. They cannot distinguish a brilliant teacher from a legitimate prophet from a dangerous revolutionary.",
+    "choices": [
+      { "text": "Which is He?", "destination": "testing" }
+    ]
+  },
+  "testing": {
+    "content": "We sent three separate delegations to trap Him with questions. The coin of Caesar — He turned it back on both Rome and the Pharisees simultaneously. The resurrection — He silenced the Sadducees with a text they use every week. The greatest commandment — He quoted Deuteronomy and Leviticus in a combination no school had framed before.",
+    "choices": [
+      { "text": "You could not answer Him?", "destination": "closing" }
+    ]
+  },
+  "closing": {
+    "content": "After the commandment question, no one dared ask Him anything further. I am a man of the Law. I have studied it for thirty years. And I could not find a single flaw in His answers. That should terrify you. It terrifies me.",
+    "choices": []
+  }
+}

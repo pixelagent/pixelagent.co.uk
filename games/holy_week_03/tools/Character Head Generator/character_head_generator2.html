@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Character Profile SVG Generator — Front View</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- JSZip for bulk exporting -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+  :root {
+    --bg-color: #0d0d12;
+    --panel-bg: #16161c;
+    --panel-2: #1e1e26;
+    --text-color: #d1d1d6;
+    --text-dim: #9aa0a6;
+    --accent: #4a5c78;
+    --accent-alt: #3d8f5c;
+    --border: #2a2a35;
+    --iron: #333340;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0; height: 100vh; overflow: hidden;
+    font-family: var(--font-body);
+    background: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+  }
+
+  /* Landscape Layout Enforced */
+  .workspace { display: flex; flex-direction: row; width: 100%; height: 100%; }
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar {
+    width: 400px; min-width: 400px;
+    background: var(--panel-bg);
+    border-right: 1px solid var(--border);
+    padding: 22px 20px 18px;
+    overflow-y: auto;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .sidebar::-webkit-scrollbar { width: 8px; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .brand {
+    font-family: var(--font-display);
+    font-size: 1.55rem; font-weight: 600; letter-spacing: .02em;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    display: flex; align-items: baseline; justify-content: space-between;
+  }
+  .brand small { font-family: var(--font-body); font-size: .62rem; text-transform: uppercase; letter-spacing: .14em; color: var(--accent); font-weight: 600; }
+
+  h3.section-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem; font-weight: 600; color: var(--accent);
+    margin: 0 0 10px; letter-spacing: .05em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+  }
+  h3.section-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+
+  .control-group { display: flex; flex-direction: column; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+  .control-group:last-of-type { border-bottom: none; }
+
+  label.field { font-size: .78rem; color: var(--text-dim); display: flex; flex-direction: column; gap: 5px; }
+  label.field span.val { color: var(--accent); font-weight: 600; }
+  label.row { flex-direction: row; align-items: center; justify-content: space-between; }
+
+  select, input[type="range"] {
+    width: 100%; padding: 7px 8px;
+    background: var(--panel-2); color: var(--text-color);
+    border: 1px solid var(--border); border-radius: 4px;
+    font-family: var(--font-body); font-size: .82rem;
+  }
+  select:focus, input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  .color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+  .color-field { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: .76rem; color: var(--text-dim); min-height: 28px; }
+  input[type="color"] {
+    width: 40px; height: 28px; padding: 0; border: 1px solid var(--border); border-radius: 4px;
+    background: none; cursor: pointer; flex-shrink: 0;
+  }
+
+  button {
+    font-family: var(--font-body); font-weight: 600; font-size: .8rem;
+    background: var(--accent); color: #fff;
+    border: 1px solid var(--accent); padding: 10px 12px; border-radius: 4px;
+    cursor: pointer; letter-spacing: .02em;
+    transition: background .15s ease, transform .1s ease;
+  }
+  button:hover { opacity: 0.9; }
+  button:active { transform: translateY(1px); }
+  button.secondary { background: var(--panel-2); border-color: var(--border); color: var(--text-color); }
+  button.secondary:hover { background: var(--border); }
+  button.success { background: var(--accent-alt); border-color: var(--accent-alt); }
+  button.wide { width: 100%; }
+
+  .preset-row { display: flex; gap: 8px; }
+  .preset-row select { flex: 1; }
+  .preset-row button { flex: 0 0 auto; }
+
+  .action-buttons { display: flex; flex-direction: column; gap: 8px; margin-top: auto; padding-top: 14px; }
+  .row-buttons { display: flex; gap: 8px; }
+
+  /* ---------- CANVAS AREA ---------- */
+  .canvas-area {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: radial-gradient(circle at 50% 50%, #1e1e26 0%, var(--bg-color) 80%);
+    background-image: radial-gradient(var(--border) 1px, transparent 1px);
+    background-size: 24px 24px;
+    position: relative;
+    gap: 24px;
+  }
+  
+  .medallion {
+    width: 440px; height: 440px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 30%, #b3b3b3 0%, #666666 50%, #333333 100%);
+    border: 4px solid #111;
+    box-shadow:
+      0 0 0 6px var(--bg-color),
+      0 0 0 10px var(--iron),
+      0 25px 50px rgba(0,0,0,0.8);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .medallion::before {
+    content: ""; position: absolute; inset: 0; border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.8); pointer-events: none;
+  }
+  #svg-container { width: 100%; height: 100%; }
+  #svg-container svg { width: 100%; height: 100%; display: block; }
+  
+  /* Strictly enforce solid fills, preventing strokes globally inside SVG */
+  #svg-container svg * { stroke: none !important; }
+
+  .caption { text-align: center; font-family: var(--font-display); color: var(--text-color); }
+  .caption .name { font-size: 1.8rem; font-weight: 600; letter-spacing: .03em; }
+  .caption .name::before, .caption .name::after { content: "✦"; color: var(--iron); font-size: 1rem; margin: 0 14px; vertical-align: middle; }
+  .caption .sub { font-family: var(--font-body); font-size: .75rem; text-transform: uppercase; letter-spacing: .2em; color: var(--accent); margin-top: 4px; }
+
+</style>
+</head>
+<body>
+
+<div class="workspace">
+  <!-- ============ SIDEBAR ============ -->
+  <div class="sidebar">
+    <div class="brand">Head Forge <small>Front View</small></div>
+
+    <div class="control-group">
+      <h3 class="section-title">Character Presets</h3>
+      <div class="preset-row">
+        <select id="preset-select"></select>
+        <button id="load-preset">Load</button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <h3 class="section-title">Facial Structure</h3>
+      <label class="field">Face Shape
+        <select id="face-shape">
+          <option value="oval">Oval</option>
+          <option value="square">Square</option>
+          <option value="round">Round</option>
+          <option value="heart">Heart</option>
+        </select>
+      </label>
+      <label class="field">Forehead Height
+        <select id="forehead-height">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+      <label class="field row">Eye Spacing <span class="val" id="eye-spacing-val">1.0×</span>
+        <input type="range" id="eye-spacing" min="0.5" max="1.5" step="0.1" value="1">
+      </label>
+      <label class="field">Chin Shape
+        <select id="chin-shape">
+          <option value="rounded">Rounded</option>
+          <option value="square">Square</option>
+          <option value="pointed">Pointed</option>
+          <option value="cleft">Cleft</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="control-group">
+      <h3 class="section-title">Facial Features</h3>
+      <label class="field">Eye Shape
+        <select id="eye-shape">
+          <option value="almond">Almond</option>
+          <option value="round">Round</option>
+          <option value="narrow">Narrow</option>
+          <option value="downturned">Downturned</option>
+          <option value="upturned">Upturned</option>
+          <option value="hooded">Hooded</option>
+        </select>
+      </label>
+      <label class="field">Eyebrows
+        <select id="eyebrow-style">
+          <option value="arched">Arched</option>
+          <option value="straight">Straight</option>
+          <option value="thick">Thick</option>
+          <option value="thin">Thin</option>
+          <option value="furrowed">Furrowed</option>
+        </select>
+      </label>
+      <label class="field">Nose Shape
+        <select id="nose-shape">
+          <option value="straight">Straight</option>
+          <option value="aquiline">Aquiline / Hooked</option>
+          <option value="wide">Wide</option>
+          <option value="button">Button</option>
+        </select>
+      </label>
+      <label class="field">
+        <span class="row">Nose Scale <span class="val" id="nose-scale-val">1.0×</span></span>
+        <input type="range" id="nose-scale" min="0.75" max="1.4" step="0.05" value="1">
+      </label>
+      <label class="field">Mouth
+        <select id="mouth-style">
+          <option value="neutral">Neutral</option>
+          <option value="smile">Smile</option>
+          <option value="frown">Frown</option>
+          <option value="small">Small</option>
+          <option value="open">Open / Speaking</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="control-group">
+      <h3 class="section-title">Hair & Assets</h3>
+      <label class="field">Hair Style
+        <select id="hair-style">
+          <option value="bald">Bald</option>
+          <option value="buzz">Buzz Cut</option>
+          <option value="short">Short</option>
+          <option value="wavy">Wavy</option>
+          <option value="curly">Curly</option>
+          <option value="afro">Afro</option>
+          <option value="receding">Receding</option>
+          <option value="flowing">Flowing</option>
+          <option value="braids">Braids</option>
+          <option value="tied_back">Tied Back</option>
+        </select>
+      </label>
+      <label class="field">Beard
+        <select id="beard-style">
+          <option value="none">Clean Shaven</option>
+          <option value="stubble">Stubble</option>
+          <option value="short">Short</option>
+          <option value="medium">Medium</option>
+          <option value="full_round">Full & Rounded</option>
+          <option value="pointed">Pointed</option>
+          <option value="long">Long / Patriarch</option>
+        </select>
+      </label>
+      <label class="field">Head Covering
+        <select id="hat-style">
+          <option value="none">None</option>
+          <option value="hood">Hood / Mantle</option>
+          <option value="turban">Turban</option>
+          <option value="skullcap">Skullcap</option>
+          <option value="headscarf">Headscarf</option>
+          <option value="helmet">Roman Helmet</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="control-group">
+      <h3 class="section-title">Wardrobe Setup</h3>
+      <label class="field">Clothing Layering
+        <select id="clothing-type">
+          <option value="tunic">Basic Tunic</option>
+          <option value="layered_robe">Layered Robe</option>
+          <option value="priestly_ephod">Priestly Ephod</option>
+          <option value="military_lorica">Military Lorica</option>
+          <option value="merchant_sash">Merchant Sash</option>
+          <option value="peasant_rags">Peasant Rags</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="control-group">
+      <h3 class="section-title">Wardrobe Colors (4-Tier)</h3>
+      <div class="color-grid">
+        <div class="color-field">Inner Dress <input type="color" id="color-inner" value="#2a2a2a"></div>
+        <div class="color-field">Outer Dress <input type="color" id="color-outer" value="#1a1a1a"></div>
+        <div class="color-field">Heavy Cloak <input type="color" id="color-cloak" value="#0d0d0d"></div>
+        <div class="color-field">Decorations <input type="color" id="color-accent" value="#8b0000"></div>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="dual-stripe">
+        <label for="dual-stripe">Dual-color stripe (sash / trim)</label>
+      </div>
+      <div class="color-field" id="stripe-row" style="display:none;">Stripe Color <input type="color" id="color-garment2" value="#d4af37"></div>
+    </div>
+
+    <div class="control-group">
+      <h3 class="section-title">Physique Colors</h3>
+      <div class="color-grid">
+        <div class="color-field">Face / Body <input type="color" id="color-skin" value="#d2a679"></div>
+        <div class="color-field">Eyes <input type="color" id="color-eye" value="#4a3b32"></div>
+        <div class="color-field">Lips <input type="color" id="color-lip" value="#a85d5d"></div>
+        <div class="color-field">Hair / Beard <input type="color" id="color-hair" value="#2a2a2a"></div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <div class="row-buttons">
+        <button class="wide" id="export-svg">Download .SVG</button>
+        <button class="wide secondary" id="export-json">Save .JSON</button>
+      </div>
+      <button class="wide success" id="export-batch">Batch Download All Presets (ZIP)</button>
+    </div>
+  </div>
+
+  <!-- ============ CANVAS ============ -->
+  <div class="canvas-area">
+    <div class="medallion">
+      <div id="svg-container"></div>
+    </div>
+    <div class="caption">
+      <div class="name" id="caption-name">Custom Character</div>
+      <div class="sub" id="caption-sub">unsaved configuration</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ==========================================================
+   CORE RENDER LOGIC — Front View SVG Construction
+   Strictly solid fills. Pure modular functions.
+   ========================================================== */
+
+function shadeColor(hex, amt) {
+    let c = hex.replace('#','');
+    if (c.length === 3) c = c.split('').map(x => x+x).join('');
+    const num = parseInt(c, 16);
+    let r = (num>>16)+amt, g = ((num>>8)&0xff)+amt, b = (num&0xff)+amt;
+    r = Math.max(Math.min(255,r),0); g = Math.max(Math.min(255,g),0); b = Math.max(Math.min(255,b),0);
+    return "#" + r.toString(16).padStart(2,'0') + g.toString(16).padStart(2,'0') + b.toString(16).padStart(2,'0');
+}
+
+function mirror(inner) {
+    return `<g transform="translate(200,0) scale(-1,1)">${inner}</g>`;
+}
+
+/* ---------- ANATOMY ---------- */
+function anatomyBase(colorSkin) {
+    const neckShadow = shadeColor(colorSkin, -30);
+    return `
+        <!-- Neck -->
+        <path d="M82,145 L82,185 C90,195 110,195 118,185 L118,145 Z" fill="${colorSkin}"/>
+        <path d="M82,145 L82,165 C90,175 110,175 118,165 L118,145 Z" fill="${neckShadow}" opacity="0.5"/>
+        <!-- Shoulders / Base Torso -->
+        <path d="M30,240 C35,190 60,170 82,170 L118,170 C140,170 165,190 170,240 Z" fill="${colorSkin}"/>
+    `;
+}
+
+/* ---------- EARS ---------- */
+function earMarkup(colorSkin, earSize) {
+    const leftEar = `<path d="M48,96 C42,92 26,96 28,108 C30,118 38,124 46,120 C48,114 48,105 48,96 Z" fill="${colorSkin}"/>`;
+    const rightEar = `<path d="M152,96 C158,92 174,96 172,108 C170,118 162,124 154,120 C152,114 152,105 152,96 Z" fill="${colorSkin}"/>`;
+    const scaleLeft = (svg) => `<g transform="translate(48,95) scale(${earSize}) translate(-48,-95)">${svg}</g>`;
+    const scaleRight = (svg) => `<g transform="translate(152,95) scale(${earSize}) translate(-152,-95)">${svg}</g>`;
+    return scaleLeft(leftEar) + scaleRight(rightEar);
+}
+
+/* ---------- FACE SHAPES ---------- */
+function faceMarkup(shape, foreHeight, colorSkin, headSize) {
+    const shadow = shadeColor(colorSkin, -28);
+    let path;
+    const fy = foreHeight === "high" ? 18 : (foreHeight === "low" ? 30 : 25);
+    switch(shape) {
+        case "square":
+            path = `M100,${fy} C140,${fy} 158,55 158,95 C158,132 145,162 130,178 L70,178 C55,162 42,132 42,95 C42,55 60,${fy} 100,${fy} Z`;
+            break;
+        case "round":
+            path = `M100,${fy} C142,${fy} 162,58 162,102 C162,132 152,162 142,178 C130,192 116,196 100,196 C84,196 70,192 58,178 C48,162 38,132 38,102 C38,58 58,${fy} 100,${fy} Z`;
+            break;
+        case "heart":
+            path = `M100,${fy} C145,${fy} 163,50 160,92 C157,128 147,158 134,178 L122,186 C112,194 105,197 100,197 C95,197 88,194 78,186 L66,178 C53,158 43,128 40,92 C37,50 55,${fy} 100,${fy} Z`;
+            break;
+        case "oval":
+        default:
+            path = `M100,${fy} C132,${fy} 152,52 152,92 C152,128 142,152 128,166 C117,176 108,180 100,180 C92,180 83,176 72,166 C58,152 48,128 48,92 C48,52 68,${fy} 100,${fy} Z`;
+    }
+    const facePath = `<path d="${path}" fill="${colorSkin}"/>`;
+    if (headSize !== 1.0) {
+        return `<g transform="translate(100,100) scale(${headSize}) translate(-100,-100)">${facePath}</g>`;
+    }
+    return facePath;
+}
+
+/* ---------- CHIN SHAPES ---------- */
+function chinMarkup(shape, colorSkin) {
+    const shadow = shadeColor(colorSkin, -28);
+    switch(shape) {
+        case "square":
+            return `<path d="M88,164 L112,164 L112,177 C108,182 92,182 88,177 Z" fill="${shadow}" opacity="0.25"/>`;
+        case "pointed":
+            return `<path d="M100,162 L90,180 L110,180 Z" fill="${shadow}" opacity="0.25"/>`;
+        case "cleft":
+            return `<path d="M93,164 L100,174 L107,164 L107,177 C103,182 97,182 93,177 Z" fill="${shadow}" opacity="0.25"/>`;
+        case "rounded":
+        default:
+            return `<path d="M93,164 L107,164 C107,176 107,179 100,181 C93,179 93,176 93,164 Z" fill="${shadow}" opacity="0.25"/>`;
+    }
+}
+
+/* ---------- WARDROBE ---------- */
+function wardrobeMarkup(style, cInner, cOuter, cCloak, cAccent) {
+    let result = "";
+
+    if (["layered_robe", "military_lorica", "priestly_ephod"].includes(style)) {
+        result += `<path d="M20,240 L30,165 C60,150 140,150 170,165 L180,240 Z" fill="${cCloak}" opacity="0.9"/>`;
+    }
+
+    switch (style) {
+        case "tunic":
+            result += `
+                <path d="M80,170 L100,200 L120,170 Z" fill="${cInner}" />
+                <path d="M30,240 L45,185 C65,165 135,165 155,185 L170,240 Z" fill="${cOuter}" />
+                <path d="M80,170 L100,200 L120,170 C140,175 145,190 170,240 L30,240 C55,190 60,175 80,170 Z" fill="${cOuter}" opacity="0.8"/>
+            `;
+            break;
+        case "layered_robe":
+            result += `
+                <path d="M50,240 L60,165 L100,210 L140,165 L150,240 Z" fill="${cInner}" />
+                <path d="M30,240 L40,180 L80,210 L30,240 Z" fill="${cOuter}" />
+                <path d="M170,240 L160,180 L120,210 L170,240 Z" fill="${cOuter}" />
+                <path d="M70,240 L80,180 L120,180 L130,240 Z" fill="${cAccent}" opacity="0.6"/>
+            `;
+            break;
+        case "priestly_ephod":
+            result += `
+                <path d="M30,240 L45,180 C60,165 140,165 155,180 L170,240 Z" fill="${cInner}" />
+                <path d="M70,175 L130,175 L130,240 L70,240 Z" fill="${cOuter}" />
+                <rect x="85" y="185" width="30" height="30" fill="${cAccent}" rx="4"/>
+                <circle cx="92" cy="192" r="3" fill="#ffffff" opacity="0.5"/>
+                <circle cx="108" cy="192" r="3" fill="#ffffff" opacity="0.5"/>
+                <circle cx="92" cy="208" r="3" fill="#ffffff" opacity="0.5"/>
+                <circle cx="108" cy="208" r="3" fill="#ffffff" opacity="0.5"/>
+            `;
+            break;
+        case "military_lorica":
+            result += `
+                <path d="M50,240 L60,170 L140,170 L150,240 Z" fill="${cInner}" />
+                <path d="M45,200 L155,200 L155,215 L45,215 Z" fill="${cOuter}" />
+                <path d="M42,220 L158,220 L158,235 L42,235 Z" fill="${cOuter}" />
+                <path d="M30,240 C35,190 60,170 80,170 L85,210 C50,210 40,240 30,240 Z" fill="${cOuter}" />
+                <path d="M170,240 C165,190 140,170 120,170 L115,210 C150,210 160,240 170,240 Z" fill="${cOuter}" />
+                <circle cx="100" cy="185" r="10" fill="${cAccent}" />
+            `;
+            break;
+        case "merchant_sash":
+            result += `
+                <path d="M30,240 L170,240 L155,175 C120,160 80,160 45,175 Z" fill="${cInner}" />
+                <path d="M30,240 L60,170 C100,180 140,200 170,240 Z" fill="${cOuter}" />
+                <path d="M40,240 L65,170 L100,190 L160,240 Z" fill="${cAccent}" />
+            `;
+            break;
+        case "peasant_rags":
+            result += `
+                <path d="M40,240 L50,180 L65,195 L80,175 L100,190 L120,175 L135,195 L150,180 L160,240 Z" fill="${cOuter}" />
+                <path d="M35,240 L45,190 L55,200 L70,180 L80,240 Z" fill="${cInner}" opacity="0.7"/>
+                <path d="M165,240 L155,190 L145,200 L130,180 L120,240 Z" fill="${cInner}" opacity="0.7"/>
+            `;
+            break;
+    }
+
+    return result;
+}
+
+/* ---------- GARMENT STRIPE OVERLAY ---------- */
+function garmentStripeMarkup(dual, cStripe) {
+    if (!dual) return "";
+    return `<clipPath id="garmentClip"><path d="M40,240 L40,202 C40,178 66,168 100,168 C134,168 160,178 160,202 L160,240 Z"/></clipPath>
+        <g clip-path="url(#garmentClip)">
+            <path d="M55,168 L80,168 L58,240 L33,240 Z" fill="${cStripe}"/>
+        </g>`;
+}
+
+/* ---------- EYES ---------- */
+function eyeMarkup(style, spacing, colorEye, colorSkin) {
+    const cx = 77 + (spacing - 1) * 6, cy = 93;
+    let white, irisR = 5, irisCx = cx, irisCy = cy, lid = "";
+    switch(style) {
+        case "round":
+            white = `<circle cx="${cx}" cy="${cy}" r="9" fill="#fdfaf1"/>`;
+            irisR = 5.5; break;
+        case "narrow":
+            white = `<ellipse cx="${cx}" cy="${cy}" rx="13" ry="4.2" fill="#fdfaf1"/>`;
+            irisR = 3.6; break;
+        case "downturned":
+            white = `<path d="M63,90 C68,85 87,86 91,93 C86,101 68,100 63,90 Z" fill="#fdfaf1"/>`;
+            irisCx = cx + 1; irisCy = cy + 2; break;
+        case "upturned":
+            white = `<path d="M63,95 C69,84 88,84 91,90 C85,98 68,99 63,95 Z" fill="#fdfaf1"/>`;
+            irisCx = cx + 1; irisCy = cy - 2; break;
+        case "hooded":
+            white = `<path d="M64,92 C69,85 85,85 90,92 C85,99 69,99 64,92 Z" fill="#fdfaf1"/>`;
+            lid = `<path d="M61,85 C68,80 86,80 93,86 C86,84 70,84 61,85 Z" fill="${colorSkin}"/>`;
+            break;
+        case "almond":
+        default:
+            white = `<path d="M64,92 C69,85 85,85 90,92 C85,99 69,99 64,92 Z" fill="#fdfaf1"/>`;
+    }
+    const iris  = `<circle cx="${irisCx}" cy="${irisCy}" r="${irisR}" fill="${colorEye}"/>`;
+    const pupil = `<circle cx="${irisCx}" cy="${irisCy}" r="${irisR*0.4}" fill="#1a1410"/>`;
+    const glint = `<circle cx="${irisCx+1.4}" cy="${irisCy-1.4}" r="${irisR*0.22}" fill="#ffffff"/>`;
+    const singleEye = `${white}${iris}${pupil}${glint}${lid}`;
+    return singleEye + mirror(singleEye);
+}
+
+/* ---------- EYEBROWS ---------- */
+function eyebrowMarkup(style, colorHair) {
+    let path;
+    switch(style) {
+        case "straight":  path = "M63,77 L90,74 L90,77.5 L63,80 Z"; break;
+        case "thick":     path = "M62,80 C69,68 84,67 91,75 C84,70 69,71 62,80 Z"; break;
+        case "thin":      path = "M64,77 L90,75 L90,76.3 L64,78.3 Z"; break;
+        case "furrowed":  path = "M63,71 L90,81 L90,84.5 L63,74.5 Z"; break;
+        case "arched":
+        default:          path = "M64,78 C70,68 84,67 90,76 C84,71 70,72 64,78 Z";
+    }
+    const singleBrow = `<path d="${path}" fill="${colorHair}"/>`;
+    return singleBrow + mirror(singleBrow);
+}
+
+/* ---------- NOSE ---------- */
+function noseMarkup(shape, scale, colorSkin) {
+    const shadowClr = shadeColor(colorSkin, -28);
+    let path;
+    switch(shape) {
+        case "aquiline":
+            path = `M99,93 C104,100 108,108 105,116 C109,118 111,122 109,125 L91,125 C89,122 91,118 95,116 C92,108 96,100 99,93 Z`; break;
+        case "wide":
+            path = `M97,94 C94,104 89,113 87,119 C86,124 90,127 96,128 L104,128 C110,127 114,124 113,119 C111,113 106,104 103,94 Z`; break;
+        case "button":
+            path = `M99,100 C96,107 93,112 93,116 C93,121 106,121 106,116 C106,112 103,107 100,100 Z`; break;
+        case "straight":
+        default:
+            path = `M97,94 C95,104 91,114 89,119 C88,123 91,126 96,127 L104,127 C109,126 112,123 111,119 C109,114 105,104 103,94 Z`;
+    }
+    const nostrils = `
+        <ellipse cx="94.5" cy="122" rx="2" ry="1.4" fill="${shadowClr}" opacity="0.85"/>
+        <ellipse cx="105.5" cy="122" rx="2" ry="1.4" fill="${shadowClr}" opacity="0.85"/>
+    `;
+    const body = `<path d="${path}" fill="${shadowClr}" opacity="0.32"/>${nostrils}`;
+    return `<g transform="translate(100,110) scale(${scale}) translate(-100,-110)">${body}</g>`;
+}
+
+/* ---------- MOUTH ---------- */
+function mouthMarkup(style, colorLip) {
+    let d, extra = "";
+    switch(style) {
+        case "smile":  d = "M78,140 C85,152 115,152 122,140 C115,148 85,148 78,140 Z"; break;
+        case "frown":  d = "M78,150 C85,140 115,140 122,150 C115,144 85,144 78,150 Z"; break;
+        case "small":  d = "M88,142 C92,146 108,146 112,142 C108,146.5 92,146.5 88,142 Z"; break;
+        case "open":
+            d = "M80,139 C88,144 112,144 120,139 C115,150 85,150 80,139 Z";
+            extra = `<path d="M85,141 C90,145 110,145 115,141 C112,144 88,144 85,141 Z" fill="#3a1f1f"/>`;
+            break;
+        case "neutral":
+        default:       d = "M82,142 C90,146 110,146 118,142 C110,150 90,150 82,142 Z";
+    }
+    return `<path d="${d}" fill="${colorLip}"/>${extra}`;
+}
+
+/* ---------- HAIR & BEARD ---------- */
+function hairBackMarkup(style, colorHair) {
+    if (style === "flowing") {
+        return `<path d="M100,25 C60,22 38,50 40,90 C41,130 35,175 30,215 C28,228 34,238 46,238 L64,238 C58,200 58,150 62,110 C64,80 78,55 100,50 C122,55 136,80 138,110 C142,150 142,200 136,238 L154,238 C166,238 172,228 170,215 C165,175 159,130 160,90 C162,50 140,22 100,25 Z" fill="${colorHair}"/>`;
+    }
+    if (style === "tied_back") {
+        const bun = `<circle cx="40" cy="110" r="20" fill="${colorHair}"/>`;
+        return bun + mirror(bun);
+    }
+    if (style === "braids") {
+        const braidStr = `
+            <circle cx="35" cy="120" r="12" fill="${colorHair}"/>
+            <circle cx="38" cy="140" r="10" fill="${colorHair}"/>
+            <circle cx="35" cy="160" r="10" fill="${colorHair}"/>
+            <circle cx="38" cy="180" r="8" fill="${colorHair}"/>
+            <circle cx="35" cy="195" r="7" fill="${colorHair}"/>
+        `;
+        return `<path d="M100,25 C60,22 35,50 35,90 L35,130 L60,130 L60,90 Z" fill="${colorHair}"/>` + 
+               mirror(`<path d="M100,25 C60,22 35,50 35,90 L35,130 L60,130 L60,90 Z" fill="${colorHair}"/>`) +
+               braidStr + mirror(braidStr);
+    }
+    return "";
+}
+
+function hairFrontMarkup(style, colorHair) {
+    switch(style) {
+        case "bald": return "";
+        case "buzz":
+            return `<path d="M100,26 C132,26 148,48 147,76 C147,66 142,57 135,52 C136,58 134,63 131,65 C127,50 114,40 100,40 C86,40 73,50 69,65 C66,63 64,58 65,52 C58,57 53,66 53,76 C52,48 68,26 100,26 Z" fill="${colorHair}"/>`;
+        case "wavy":
+            return `<path d="M100,22 C136,22 154,46 152,80 C151,68 145,56 136,50 C138,58 136,64 132,66 C129,48 114,36 100,36 C86,36 71,48 68,66 C64,64 62,58 64,50 C55,56 49,68 48,80 C46,46 64,22 100,22 Z" fill="${colorHair}"/>
+                <circle cx="50" cy="85" r="8" fill="${colorHair}"/>
+                <circle cx="150" cy="85" r="8" fill="${colorHair}"/>`;
+        case "curly":
+            return `<path d="M100,28 C130,28 146,48 145,72 C145,64 140,56 133,52 C134,57 132,61 129,63 C126,48 113,38 100,38 C87,38 74,48 71,63 C68,61 66,57 67,52 C60,56 55,64 55,72 C54,48 70,28 100,28 Z" fill="${colorHair}"/>
+                <circle cx="52" cy="60" r="7" fill="${colorHair}"/><circle cx="60" cy="45" r="7" fill="${colorHair}"/>
+                <circle cx="76" cy="33" r="7" fill="${colorHair}"/><circle cx="100" cy="28" r="7.5" fill="${colorHair}"/>
+                <circle cx="124" cy="33" r="7" fill="${colorHair}"/><circle cx="140" cy="45" r="7" fill="${colorHair}"/>
+                <circle cx="148" cy="60" r="7" fill="${colorHair}"/>`;
+        case "afro":
+            return `<path d="M100,15 C145,15 168,45 165,85 C165,68 158,54 148,48 C150,58 147,66 141,69 C137,45 118,30 100,30 C82,30 63,45 59,69 C53,66 50,58 52,48 C42,54 35,68 35,85 C32,45 55,15 100,15 Z" fill="${colorHair}"/>`;
+        case "receding":
+            return `<path d="M100,40 C126,38 145,52 148,78 C148,66 142,58 135,53 C136,59 134,64 131,66 C129,52 118,44 108,42 C112,46 112,50 108,52 C102,44 96,44 92,52 C88,50 88,46 92,42 C82,44 71,52 69,66 C66,64 64,59 65,53 C58,58 52,66 52,78 C55,52 74,42 100,40 Z" fill="${colorHair}"/>`;
+        case "flowing":
+            return `<path d="M100,26 C132,26 148,46 147,72 C147,62 142,54 135,50 C136,56 134,61 131,63 C127,48 114,38 100,38 C86,38 73,48 69,63 C66,61 64,56 65,50 C58,54 53,62 53,72 C52,46 68,26 100,26 Z" fill="${colorHair}"/>`;
+        case "braids":
+            return `<path d="M100,22 C138,22 156,48 154,85 C154,70 148,58 140,52 C142,60 140,66 136,68 C132,50 112,38 100,38 C88,38 68,50 64,68 C60,66 58,60 60,52 C52,58 46,70 46,85 C44,48 62,22 100,22 Z" fill="${colorHair}"/>`;
+        case "tied_back":
+            return `<path d="M100,28 C130,28 145,45 145,75 C145,65 140,55 130,50 C125,55 120,58 115,58 C115,45 108,40 100,40 C92,40 85,45 85,58 C80,58 75,55 70,50 C60,55 55,65 55,75 C55,45 70,28 100,28 Z" fill="${colorHair}"/>`;
+        case "short":
+        default:
+            return `<path d="M100,22 C138,22 156,48 154,85 C154,70 148,58 140,52 C142,60 140,66 136,68 C132,50 112,38 100,38 C88,38 68,50 64,68 C60,66 58,60 60,52 C52,58 46,70 46,85 C44,48 62,22 100,22 Z" fill="${colorHair}"/>`;
+    }
+}
+
+function beardMarkup(style, colorHair) {
+    switch(style) {
+        case "none": return "";
+        case "stubble": {
+            const pts = [[72,132],[80,138],[88,144],[96,150],[104,150],[112,144],[120,138],[128,132],[76,140],[84,146],[92,152],[100,154],[108,152],[116,146],[124,140],[80,148],[90,156],[100,159],[110,156],[120,148]];
+            return pts.map(([x,y]) => `<circle cx="${x}" cy="${y}" r="1.1" fill="${colorHair}" opacity="0.6"/>`).join("");
+        }
+        case "short":
+            return `<path d="M70,130 C64,142 66,158 76,168 C84,175 92,178 100,178 C108,178 116,175 124,168 C134,158 136,142 130,130 C126,144 118,152 100,154 C82,152 74,144 70,130 Z" fill="${colorHair}"/>`;
+        case "medium":
+            return `<path d="M69,129 C61,144 62,162 73,176 C82,186 91,190 100,190 C109,190 118,186 127,176 C138,162 139,144 131,129 C127,146 118,156 100,158 C82,156 73,146 69,129 Z" fill="${colorHair}"/>`;
+        case "full_round":
+            return `<path d="M66,120 C58,130 58,148 62,160 C55,158 50,150 50,140 C50,155 56,172 70,182 C82,192 92,195 100,195 C108,195 118,192 130,182 C144,172 150,155 150,140 C150,150 145,158 138,160 C142,148 142,130 134,120 C132,140 122,152 100,154 C78,152 68,140 66,120 Z" fill="${colorHair}"/>`;
+        case "pointed":
+            return `<path d="M68,128 C50,145 65,185 100,210 C135,185 150,145 132,128 C128,148 118,158 100,160 C82,158 72,148 68,128 Z" fill="${colorHair}"/>`;
+        case "long":
+        default:
+            return `<path d="M70,128 C60,140 58,165 68,185 C78,198 92,204 100,205 C108,204 122,198 132,185 C142,165 140,140 130,128 C126,148 118,160 100,162 C82,160 74,148 70,128 Z" fill="${colorHair}"/>`;
+    }
+}
+
+/* ---------- HEAD COVERING ---------- */
+function hatMarkup(style, cInner, cOuter) {
+    switch(style) {
+        case "none": return "";
+        case "turban":
+            return `
+                <path d="M55,55 C55,30 75,15 100,15 C125,15 145,30 145,55 C145,65 140,70 133,68 C136,50 122,32 100,32 C78,32 64,50 67,68 C60,70 55,65 55,55 Z" fill="${cOuter}"/>
+                <path d="M62,42 C78,36 122,36 138,42 C138,46 134,48 128,46 C112,42 88,42 72,46 C66,48 62,46 62,42 Z" fill="${cOuter}" opacity="0.6"/>
+                <path d="M95,15 C90,20 90,28 96,32 L104,32 C110,28 110,20 105,15 Z" fill="${cInner}"/>
+            `;
+        case "hood":
+            return `
+                <path d="M100,10 C60,10 42,42 44,85 C45,120 42,160 36,205 C34,222 42,236 58,236 L74,236 C68,195 68,140 72,100 C74,68 84,40 100,38 C116,40 126,68 128,100 C132,140 132,195 126,236 L142,236 C158,236 166,222 164,205 C158,160 155,120 156,85 C158,42 140,10 100,10 Z" fill="${cOuter}"/>
+                <path d="M70,60 C78,50 122,50 130,60 C130,64 126,66 120,63 C108,58 92,58 80,63 C74,66 70,64 70,60 Z" fill="${cInner}"/>
+            `;
+        case "skullcap":
+            return `<path d="M72,32 C72,18 84,10 100,10 C116,10 128,18 128,32 C128,36 125,38 121,37 C121,26 112,20 100,20 C88,20 79,26 79,37 C75,38 72,36 72,32 Z" fill="${cOuter}"/>`;
+        case "headscarf":
+            return `
+                <path d="M100,12 C65,12 46,38 47,72 C48,100 44,130 40,160 C38,175 46,186 60,186 C58,150 60,110 66,80 C70,55 82,38 100,36 C118,38 130,55 134,80 C140,110 142,150 140,186 C154,186 162,175 160,160 C156,130 152,100 153,72 C154,38 135,12 100,12 Z" fill="${cOuter}"/>
+                <path d="M64,66 C76,58 124,58 136,66 C136,71 131,73 124,69 C110,63 90,63 76,69 C69,73 64,71 64,66 Z" fill="${cInner}"/>
+            `;
+        case "helmet":
+            return `
+                <path d="M62,50 C62,20 78,8 100,8 C122,8 138,20 138,50 L138,80 L120,80 C120,45 112,28 100,28 C88,28 80,45 80,80 L62,80 Z" fill="#666666"/>
+                <path d="M96,4 C90,4 86,8 86,60 L98,60 C99,40 99,20 100,4 Z" fill="#444444"/>
+                <path d="M102,4 C108,4 112,8 112,60 L100,60 C99,40 99,20 100,4 Z" fill="#444444"/>
+                <path d="M60,78 L140,78 L140,88 L60,88 Z" fill="#555555"/>
+                <path d="M60,50 L58,86 L68,86 L70,52 Z" fill="#555555"/>
+                <path d="M140,50 L142,86 L132,86 L130,52 Z" fill="#555555"/>
+                <path d="M92,2 C92,-10 108,-10 108,2 L108,12 L92,12 Z" fill="${cOuter}"/>
+            `;
+        default: return "";
+    }
+}
+
+function buildSVG(s) {
+    return [
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="100%" height="100%">`,
+        anatomyBase(s.colorSkin),
+        wardrobeMarkup(s.clothingType, s.colorInner, s.colorOuter, s.colorCloak, s.colorAccent),
+        garmentStripeMarkup(s.dualStripe, s.colorGarment2),
+        earMarkup(s.colorSkin, s.earSize),
+        hairBackMarkup(s.hairStyle, s.colorHair),
+        faceMarkup(s.faceShape, s.foreheadHeight, s.colorSkin, s.headSize),
+        chinMarkup(s.chinShape, s.colorSkin),
+        beardMarkup(s.beardStyle, s.colorHair),
+        mouthMarkup(s.mouthStyle, s.colorLip),
+        noseMarkup(s.noseShape, s.noseScale, s.colorSkin),
+        eyebrowMarkup(s.eyebrowStyle, s.colorHair),
+        eyeMarkup(s.eyeShape, s.eyeSpacing, s.colorEye, shadeColor(s.colorSkin, -30)),
+        hairFrontMarkup(s.hairStyle, s.colorHair),
+        hatMarkup(s.hatStyle, s.colorInner, s.colorOuter),
+        `</svg>`
+    ].join("");
+}
+
+/* ==========================================================
+   APPLICATION STATE & PRESETS
+   ========================================================== */
+const characterNames = [
+    "senior_scribe", "samuel_scribe", "thomas", "simon_pharisee", "temple_priest", "peter",
+    "centurion_longinus", "garrison_guard", "execution_soldier", "lucas_sentry", "marcus_garrison_guard",
+    "pontius_pilate", "pilates_secretary", "caiaphas", "annas", "eleazar", "joseph_arimathea",
+    "nathanael_pharisee", "nicodemus", "pashhur", "sadducee_authority", "judas", "john_apostle",
+    "andrew_disciple", "nathanael_disciple", "john_mark", "mary_magdalene", "martha", "rhoda",
+    "jemimah", "devout_follower", "claudia_procula", "market_informant", "city_gossip", "market_vendor",
+    "galilean_pilgrim", "jerusalem_local", "money_changer", "corrupt_seller", "malachi_moneychanger",
+    "malchus", "maluch", "barabbas", "ananias_witness", "trial_rumors", "simon_leper", "tobias_owner",
+    "nathan_gardener", "simon_cyrene", "rich_young_ruler", "secret_visit", "upset_buyer", "local_traveler",
+    "bethesda_witness", "mount_teacher", "upper_room_prep"
+];
+
+const presets = {};
+characterNames.forEach(name => {
+    let role = "civilian";
+    if (name.includes("guard") || name.includes("soldier") || name.includes("sentry") || name.includes("centurion") || name.includes("pilate") || name.includes("secretary")) role = "roman";
+    if (name.includes("pharisee") || name.includes("priest") || name.includes("scribe") || name.includes("caiaphas") || name.includes("annas") || name.includes("nicodemus") || name.includes("sadducee") || name.includes("eleazar")) role = "authority";
+    if (name.includes("mary") || name.includes("martha") || name.includes("rhoda") || name.includes("jemimah") || name.includes("woman") || name.includes("claudia")) role = "female";
+    if (name.includes("barabbas") || name.includes("judas") || name.includes("informant") || name.includes("spy")) role = "underground";
+
+    presets[name] = {
+        name: name,
+        noseScale: role === "authority" ? 1.15 : 1.0,
+        noseShape: role === "roman" ? "straight" : (role === "authority" ? "aquiline" : "straight"),
+        eyeShape: role === "underground" ? "hooded" : (role === "authority" ? "narrow" : "almond"),
+        eyebrowStyle: role === "roman" ? "thick" : (role === "authority" ? "furrowed" : "arched"),
+        mouthStyle: role === "authority" ? "frown" : "neutral",
+        hairStyle: role === "roman" ? "short" : (role === "female" ? "flowing" : "wavy"),
+        beardStyle: role === "female" ? "none" : (role === "authority" ? "long" : (role === "roman" ? "stubble" : "medium")),
+        hatStyle: role === "roman" ? "helmet" : (role === "authority" ? "turban" : (role === "female" ? "headscarf" : "none")),
+        clothingType: role === "roman" ? "military_lorica" : (role === "authority" ? "priestly_ephod" : "tunic"),
+        faceShape: role === "authority" ? "square" : (role === "female" ? "heart" : (Math.random() > 0.5 ? "oval" : "round")),
+        foreheadHeight: role === "authority" ? "high" : (role === "underground" ? "low" : "medium"),
+        eyeSpacing: role === "authority" ? 0.9 : (role === "underground" ? 0.8 : 1.0),
+        chinShape: role === "authority" ? "square" : (role === "female" ? "rounded" : (Math.random() > 0.5 ? "rounded" : "square")),
+        earSize: role === "female" ? 0.6 : (role === "authority" ? 1.2 : (role === "roman" ? 1.05 : 1.0)),
+        headSize: role === "female" ? 0.9 : (role === "authority" ? 1.05 : 1.0),
+        dualStripe: role === "authority" ? true : false,
+        colorInner: role === "roman" ? "#4a0000" : (role === "authority" ? "#e6e6e6" : "#4a423a"),
+        colorOuter: role === "roman" ? "#222222" : (role === "authority" ? "#3b2342" : "#2f2b25"),
+        colorCloak: role === "roman" ? "#6b1111" : (role === "authority" ? "#1a1224" : "#1a1815"),
+        colorAccent: role === "roman" ? "#c4a045" : (role === "authority" ? "#375273" : "#3b3831"),
+        colorGarment2: role === "authority" ? "#d4af37" : (role === "roman" ? "#8c2a2a" : "#8a7a5a"),
+        
+        colorSkin: "#b39e8e", colorHair: "#1a1614", colorEye: "#4a3b32", colorLip: "#9a5f52"
+    };
+});
+
+// Iconic Overrides
+presets["caiaphas"].headSize = 1.1; presets["caiaphas"].earSize = 1.4; presets["caiaphas"].clothingType = "priestly_ephod"; presets["caiaphas"].colorOuter = "#2b0f38"; presets["caiaphas"].colorAccent = "#d4af37"; presets["caiaphas"].beardStyle = "long"; presets["caiaphas"].faceShape = "square"; presets["caiaphas"].foreheadHeight = "high"; presets["caiaphas"].eyeSpacing = 0.9; presets["caiaphas"].chinShape = "square";
+presets["senior_scribe"].headSize = 1.05; presets["senior_scribe"].earSize = 1.15; presets["senior_scribe"].hatStyle = "turban"; presets["senior_scribe"].clothingType = "priestly_ephod"; presets["senior_scribe"].beardStyle = "long"; presets["senior_scribe"].eyebrowStyle = "furrowed"; presets["senior_scribe"].noseShape = "aquiline"; presets["senior_scribe"].faceShape = "square"; presets["senior_scribe"].foreheadHeight = "high"; presets["senior_scribe"].eyeSpacing = 0.9; presets["senior_scribe"].chinShape = "square"; presets["senior_scribe"].colorGarment2 = "#8a7a5a";
+presets["samuel_scribe"].headSize = 1.0; presets["samuel_scribe"].earSize = 1.05; presets["samuel_scribe"].hatStyle = "skullcap"; presets["samuel_scribe"].clothingType = "layered_robe"; presets["samuel_scribe"].beardStyle = "medium"; presets["samuel_scribe"].eyebrowStyle = "straight"; presets["samuel_scribe"].noseShape = "straight"; presets["samuel_scribe"].faceShape = "oval"; presets["samuel_scribe"].foreheadHeight = "medium"; presets["samuel_scribe"].eyeSpacing = 1.0; presets["samuel_scribe"].chinShape = "rounded";
+presets["peter"].headSize = 1.0; presets["peter"].earSize = 1.1; presets["peter"].clothingType = "layered_robe"; presets["peter"].beardStyle = "full_round"; presets["peter"].hairStyle = "short"; presets["peter"].eyeShape = "round"; presets["peter"].faceShape = "oval"; presets["peter"].foreheadHeight = "medium"; presets["peter"].eyeSpacing = 1.1; presets["peter"].chinShape = "rounded";
+presets["mary_magdalene"].headSize = 0.9; presets["mary_magdalene"].earSize = 0.6; presets["mary_magdalene"].clothingType = "layered_robe"; presets["mary_magdalene"].colorOuter = "#8c3a3a"; presets["mary_magdalene"].hairStyle = "flowing"; presets["mary_magdalene"].eyebrowStyle = "arched"; presets["mary_magdalene"].faceShape = "heart"; presets["mary_magdalene"].foreheadHeight = "medium"; presets["mary_magdalene"].eyeSpacing = 1.0; presets["mary_magdalene"].chinShape = "rounded"; presets["mary_magdalene"].dualStripe = false;
+presets["barabbas"].headSize = 1.0; presets["barabbas"].earSize = 1.05; presets["barabbas"].clothingType = "peasant_rags"; presets["barabbas"].hairStyle = "curly"; presets["barabbas"].beardStyle = "full_round"; presets["barabbas"].eyeShape = "hooded"; presets["barabbas"].eyebrowStyle = "furrowed"; presets["barabbas"].faceShape = "square"; presets["barabbas"].foreheadHeight = "low"; presets["barabbas"].eyeSpacing = 1.2; presets["barabbas"].chinShape = "square"; presets["barabbas"].dualStripe = true; presets["barabbas"].colorGarment2 = "#8c2a2a";
+presets["market_informant"].headSize = 0.95; presets["market_informant"].earSize = 0.9; presets["market_informant"].clothingType = "merchant_sash"; presets["market_informant"].hatStyle = "hood"; presets["market_informant"].eyeShape = "narrow"; presets["market_informant"].noseShape = "wide"; presets["market_informant"].faceShape = "oval"; presets["market_informant"].foreheadHeight = "medium"; presets["market_informant"].eyeSpacing = 0.8; presets["market_informant"].chinShape = "pointed";
+presets["market_vendor"].headSize = 0.95; presets["market_vendor"].earSize = 0.9; presets["market_vendor"].clothingType = "merchant_sash"; presets["market_vendor"].hairStyle = "wavy"; presets["market_vendor"].beardStyle = "short"; presets["market_vendor"].faceShape = "round"; presets["market_vendor"].foreheadHeight = "low"; presets["market_vendor"].eyeSpacing = 1.0; presets["market_vendor"].chinShape = "rounded";
+presets["judas"].headSize = 1.0; presets["judas"].earSize = 1.0; presets["judas"].eyeShape = "hooded"; presets["judas"].eyebrowStyle = "furrowed"; presets["judas"].noseShape = "straight"; presets["judas"].mouthStyle = "frown"; presets["judas"].faceShape = "square"; presets["judas"].foreheadHeight = "low"; presets["judas"].eyeSpacing = 0.9; presets["judas"].chinShape = "pointed";
+presets["pontius_pilate"].headSize = 1.05; presets["pontius_pilate"].earSize = 1.35; presets["pontius_pilate"].hatStyle = "helmet"; presets["pontius_pilate"].clothingType = "military_lorica"; presets["pontius_pilate"].beardStyle = "stubble"; presets["pontius_pilate"].noseShape = "straight"; presets["pontius_pilate"].faceShape = "square"; presets["pontius_pilate"].foreheadHeight = "high"; presets["pontius_pilate"].eyeSpacing = 1.0; presets["pontius_pilate"].chinShape = "square"; presets["pontius_pilate"].dualStripe = true; presets["pontius_pilate"].colorGarment2 = "#8c2a2a";
+presets["peter"].beardStyle = "full_round"; presets["peter"].hairStyle = "short"; presets["peter"].eyebrowStyle = "thick"; presets["peter"].faceShape = "oval"; presets["peter"].foreheadHeight = "medium"; presets["peter"].eyeSpacing = 1.1; presets["peter"].chinShape = "rounded";
+presets["thomas"].headSize = 1.0; presets["thomas"].earSize = 1.0; presets["thomas"].eyeShape = "narrow"; presets["thomas"].eyebrowStyle = "straight"; presets["thomas"].noseShape = "straight"; presets["thomas"].mouthStyle = "neutral"; presets["thomas"].faceShape = "oval"; presets["thomas"].foreheadHeight = "medium"; presets["thomas"].eyeSpacing = 1.0; presets["thomas"].chinShape = "square";
+presets["simon_pharisee"].headSize = 1.05; presets["simon_pharisee"].earSize = 1.25; presets["simon_pharisee"].eyebrowStyle = "furrowed"; presets["simon_pharisee"].noseShape = "aquiline"; presets["simon_pharisee"].mouthStyle = "frown"; presets["simon_pharisee"].beardStyle = "long"; presets["simon_pharisee"].hatStyle = "skullcap"; presets["simon_pharisee"].faceShape = "square"; presets["simon_pharisee"].foreheadHeight = "high"; presets["simon_pharisee"].eyeSpacing = 0.9; presets["simon_pharisee"].chinShape = "square"; presets["simon_pharisee"].colorGarment2 = "#c9a63c";
+presets["temple_priest"].headSize = 1.05; presets["temple_priest"].earSize = 1.3; presets["temple_priest"].clothingType = "priestly_ephod"; presets["temple_priest"].hatStyle = "turban"; presets["temple_priest"].beardStyle = "medium"; presets["temple_priest"].eyebrowStyle = "thick"; presets["temple_priest"].faceShape = "square"; presets["temple_priest"].foreheadHeight = "high"; presets["temple_priest"].eyeSpacing = 0.9; presets["temple_priest"].chinShape = "square"; presets["temple_priest"].colorGarment2 = "#b8934a";
+presets["centurion_longinus"].headSize = 1.0; presets["centurion_longinus"].earSize = 1.15; presets["centurion_longinus"].hatStyle = "helmet"; presets["centurion_longinus"].clothingType = "military_lorica"; presets["centurion_longinus"].beardStyle = "short"; presets["centurion_longinus"].eyebrowStyle = "thick"; presets["centurion_longinus"].faceShape = "square"; presets["centurion_longinus"].foreheadHeight = "high"; presets["centurion_longinus"].eyeSpacing = 1.0; presets["centurion_longinus"].chinShape = "square";
+presets["garrison_guard"].headSize = 1.0; presets["garrison_guard"].earSize = 1.05; presets["garrison_guard"].hatStyle = "helmet"; presets["garrison_guard"].clothingType = "military_lorica"; presets["garrison_guard"].beardStyle = "stubble"; presets["garrison_guard"].hairStyle = "buzz"; presets["garrison_guard"].faceShape = "square"; presets["garrison_guard"].foreheadHeight = "medium"; presets["garrison_guard"].eyeSpacing = 1.0; presets["garrison_guard"].chinShape = "square";
+presets["execution_soldier"].headSize = 1.0; presets["execution_soldier"].earSize = 1.0; presets["execution_soldier"].hatStyle = "helmet"; presets["execution_soldier"].clothingType = "military_lorica"; presets["execution_soldier"].beardStyle = "short"; presets["execution_soldier"].noseShape = "wide"; presets["execution_soldier"].faceShape = "square"; presets["execution_soldier"].foreheadHeight = "low"; presets["execution_soldier"].eyeSpacing = 1.0; presets["execution_soldier"].chinShape = "square"; presets["execution_soldier"].dualStripe = true; presets["execution_soldier"].colorGarment2 = "#9a9a9e";
+presets["lucas_sentry"].headSize = 1.0; presets["lucas_sentry"].earSize = 1.0; presets["lucas_sentry"].hatStyle = "helmet"; presets["lucas_sentry"].clothingType = "military_lorica"; presets["lucas_sentry"].beardStyle = "stubble"; presets["lucas_sentry"].hairStyle = "short"; presets["lucas_sentry"].faceShape = "oval"; presets["lucas_sentry"].foreheadHeight = "medium"; presets["lucas_sentry"].eyeSpacing = 1.0; presets["lucas_sentry"].chinShape = "rounded"; presets["lucas_sentry"].dualStripe = true; presets["lucas_sentry"].colorGarment2 = "#9a9a9e";
+presets["marcus_garrison_guard"].headSize = 1.0; presets["marcus_garrison_guard"].earSize = 1.05; presets["marcus_garrison_guard"].hatStyle = "helmet"; presets["marcus_garrison_guard"].clothingType = "military_lorica"; presets["marcus_garrison_guard"].beardStyle = "medium"; presets["marcus_garrison_guard"].hairStyle = "short"; presets["marcus_garrison_guard"].eyebrowStyle = "thick"; presets["marcus_garrison_guard"].faceShape = "square"; presets["marcus_garrison_guard"].foreheadHeight = "high"; presets["marcus_garrison_guard"].eyeSpacing = 0.9; presets["marcus_garrison_guard"].chinShape = "square";
+presets["pontius_pilate"].hatStyle = "helmet"; presets["pontius_pilate"].clothingType = "military_lorica"; presets["pontius_pilate"].beardStyle = "stubble"; presets["pontius_pilate"].noseShape = "straight"; presets["pontius_pilate"].faceShape = "square"; presets["pontius_pilate"].foreheadHeight = "high"; presets["pontius_pilate"].eyeSpacing = 1.0; presets["pontius_pilate"].chinShape = "square"; presets["pontius_pilate"].dualStripe = true; presets["pontius_pilate"].colorGarment2 = "#8c2a2a";
+presets["pilates_secretary"].headSize = 0.95; presets["pilates_secretary"].earSize = 1.0; presets["pilates_secretary"].clothingType = "layered_robe"; presets["pilates_secretary"].hatStyle = "none"; presets["pilates_secretary"].hairStyle = "short"; presets["pilates_secretary"].beardStyle = "none"; presets["pilates_secretary"].eyebrowStyle = "thin"; presets["pilates_secretary"].faceShape = "oval"; presets["pilates_secretary"].foreheadHeight = "medium"; presets["pilates_secretary"].eyeSpacing = 1.0; presets["pilates_secretary"].chinShape = "rounded"; presets["pilates_secretary"].dualStripe = true; presets["pilates_secretary"].colorGarment2 = "#5b2a86";
+presets["annas"].headSize = 1.05; presets["annas"].earSize = 1.3; presets["annas"].hatStyle = "turban"; presets["annas"].clothingType = "priestly_ephod"; presets["annas"].beardStyle = "long"; presets["annas"].eyebrowStyle = "furrowed"; presets["annas"].noseShape = "aquiline"; presets["annas"].faceShape = "square"; presets["annas"].foreheadHeight = "high"; presets["annas"].eyeSpacing = 0.9; presets["annas"].chinShape = "square";
+presets["eleazar"].headSize = 1.05; presets["eleazar"].earSize = 1.2; presets["eleazar"].hatStyle = "turban"; presets["eleazar"].clothingType = "priestly_ephod"; presets["eleazar"].beardStyle = "medium"; presets["eleazar"].eyebrowStyle = "thick"; presets["eleazar"].noseShape = "aquiline"; presets["eleazar"].faceShape = "square"; presets["eleazar"].foreheadHeight = "high"; presets["eleazar"].eyeSpacing = 0.9; presets["eleazar"].chinShape = "square";
+presets["joseph_arimathea"].headSize = 0.95; presets["joseph_arimathea"].earSize = 0.95; presets["joseph_arimathea"].hatStyle = "skullcap"; presets["joseph_arimathea"].clothingType = "layered_robe"; presets["joseph_arimathea"].beardStyle = "medium"; presets["joseph_arimathea"].eyebrowStyle = "arched"; presets["joseph_arimathea"].faceShape = "oval"; presets["joseph_arimathea"].foreheadHeight = "medium"; presets["joseph_arimathea"].eyeSpacing = 1.0; presets["joseph_arimathea"].chinShape = "rounded";
+presets["nathanael_pharisee"].headSize = 1.0; presets["nathanael_pharisee"].earSize = 1.1; presets["nathanael_pharisee"].hatStyle = "skullcap"; presets["nathanael_pharisee"].clothingType = "layered_robe"; presets["nathanael_pharisee"].beardStyle = "short"; presets["nathanael_pharisee"].eyebrowStyle = "arched"; presets["nathanael_pharisee"].faceShape = "oval"; presets["nathanael_pharisee"].foreheadHeight = "medium"; presets["nathanael_pharisee"].eyeSpacing = 1.0; presets["nathanael_pharisee"].chinShape = "rounded";
+presets["nicodemus"].headSize = 1.0; presets["nicodemus"].earSize = 1.1; presets["nicodemus"].hatStyle = "turban"; presets["nicodemus"].clothingType = "priestly_ephod"; presets["nicodemus"].beardStyle = "long"; presets["nicodemus"].eyebrowStyle = "furrowed"; presets["nicodemus"].noseShape = "aquiline"; presets["nicodemus"].faceShape = "oval"; presets["nicodemus"].foreheadHeight = "high"; presets["nicodemus"].eyeSpacing = 1.0; presets["nicodemus"].chinShape = "square";
+presets["pashhur"].headSize = 1.0; presets["pashhur"].earSize = 1.05; presets["pashhur"].hatStyle = "skullcap"; presets["pashhur"].clothingType = "layered_robe"; presets["pashhur"].beardStyle = "short"; presets["pashhur"].eyebrowStyle = "arched"; presets["pashhur"].noseShape = "straight"; presets["pashhur"].faceShape = "oval"; presets["pashhur"].foreheadHeight = "medium"; presets["pashhur"].eyeSpacing = 1.0; presets["pashhur"].chinShape = "rounded";
+presets["sadducee_authority"].headSize = 1.05; presets["sadducee_authority"].earSize = 1.35; presets["sadducee_authority"].hatStyle = "turban"; presets["sadducee_authority"].clothingType = "priestly_ephod"; presets["sadducee_authority"].beardStyle = "long"; presets["sadducee_authority"].eyebrowStyle = "furrowed"; presets["sadducee_authority"].noseShape = "aquiline"; presets["sadducee_authority"].faceShape = "square"; presets["sadducee_authority"].foreheadHeight = "high"; presets["sadducee_authority"].eyeSpacing = 0.9; presets["sadducee_authority"].chinShape = "square";
+presets["john_apostle"].headSize = 1.0; presets["john_apostle"].earSize = 1.0; presets["john_apostle"].hairStyle = "short"; presets["john_apostle"].beardStyle = "short"; presets["john_apostle"].eyebrowStyle = "arched"; presets["john_apostle"].mouthStyle = "smile"; presets["john_apostle"].faceShape = "oval"; presets["john_apostle"].foreheadHeight = "medium"; presets["john_apostle"].eyeSpacing = 1.0; presets["john_apostle"].chinShape = "rounded";
+presets["andrew_disciple"].headSize = 1.0; presets["andrew_disciple"].earSize = 1.0; presets["andrew_disciple"].hairStyle = "wavy"; presets["andrew_disciple"].beardStyle = "stubble"; presets["andrew_disciple"].eyebrowStyle = "arched"; presets["andrew_disciple"].noseShape = "wide"; presets["andrew_disciple"].faceShape = "oval"; presets["andrew_disciple"].foreheadHeight = "medium"; presets["andrew_disciple"].eyeSpacing = 1.1; presets["andrew_disciple"].chinShape = "rounded";
+presets["nathanael_disciple"].headSize = 1.0; presets["nathanael_disciple"].earSize = 1.0; presets["nathanael_disciple"].hairStyle = "short"; presets["nathanael_disciple"].beardStyle = "short"; presets["nathanael_disciple"].eyebrowStyle = "straight"; presets["nathanael_disciple"].faceShape = "oval"; presets["nathanael_disciple"].foreheadHeight = "medium"; presets["nathanael_disciple"].eyeSpacing = 1.0; presets["nathanael_disciple"].chinShape = "square";
+presets["john_mark"].headSize = 1.0; presets["john_mark"].earSize = 0.95; presets["john_mark"].hairStyle = "short"; presets["john_mark"].beardStyle = "none"; presets["john_mark"].eyebrowStyle = "arched"; presets["john_mark"].mouthStyle = "small"; presets["john_mark"].faceShape = "oval"; presets["john_mark"].foreheadHeight = "medium"; presets["john_mark"].eyeSpacing = 1.0; presets["john_mark"].chinShape = "rounded";
+presets["martha"].headSize = 0.9; presets["martha"].earSize = 0.6; presets["martha"].hairStyle = "wavy"; presets["martha"].beardStyle = "none"; presets["martha"].eyebrowStyle = "straight"; presets["martha"].mouthStyle = "frown"; presets["martha"].faceShape = "heart"; presets["martha"].foreheadHeight = "medium"; presets["martha"].eyeSpacing = 1.0; presets["martha"].chinShape = "rounded";
+presets["rhoda"].headSize = 0.9; presets["rhoda"].earSize = 0.6; presets["rhoda"].hairStyle = "wavy"; presets["rhoda"].beardStyle = "none"; presets["rhoda"].eyebrowStyle = "arched"; presets["rhoda"].mouthStyle = "small"; presets["rhoda"].faceShape = "oval"; presets["rhoda"].foreheadHeight = "low"; presets["rhoda"].eyeSpacing = 1.0; presets["rhoda"].chinShape = "rounded";
+presets["jemimah"].headSize = 0.85; presets["jemimah"].earSize = 0.5; presets["jemimah"].hairStyle = "flowing"; presets["jemimah"].hatStyle = "headscarf"; presets["jemimah"].beardStyle = "none"; presets["jemimah"].eyebrowStyle = "arched"; presets["jemimah"].mouthStyle = "smile"; presets["jemimah"].faceShape = "heart"; presets["jemimah"].foreheadHeight = "medium"; presets["jemimah"].eyeSpacing = 1.0; presets["jemimah"].chinShape = "rounded";
+presets["devout_follower"].headSize = 0.95; presets["devout_follower"].earSize = 0.6; presets["devout_follower"].hairStyle = "short"; presets["devout_follower"].beardStyle = "short"; presets["devout_follower"].eyebrowStyle = "arched"; presets["devout_follower"].mouthStyle = "neutral"; presets["devout_follower"].faceShape = "oval"; presets["devout_follower"].foreheadHeight = "medium"; presets["devout_follower"].eyeSpacing = 1.0; presets["devout_follower"].chinShape = "rounded";
+presets["claudia_procula"].headSize = 0.9; presets["claudia_procula"].earSize = 0.65; presets["claudia_procula"].hairStyle = "flowing"; presets["claudia_procula"].hatStyle = "none"; presets["claudia_procula"].beardStyle = "none"; presets["claudia_procula"].eyebrowStyle = "arched"; presets["claudia_procula"].eyeShape = "round"; presets["claudia_procula"].faceShape = "heart"; presets["claudia_procula"].foreheadHeight = "medium"; presets["claudia_procula"].eyeSpacing = 1.1; presets["claudia_procula"].chinShape = "rounded";
+presets["city_gossip"].headSize = 0.95; presets["city_gossip"].earSize = 0.9; presets["city_gossip"].hairStyle = "wavy"; presets["city_gossip"].beardStyle = "stubble"; presets["city_gossip"].eyebrowStyle = "arched"; presets["city_gossip"].mouthStyle = "smile"; presets["city_gossip"].faceShape = "round"; presets["city_gossip"].foreheadHeight = "low"; presets["city_gossip"].eyeSpacing = 1.0; presets["city_gossip"].chinShape = "rounded";
+presets["galilean_pilgrim"].headSize = 1.0; presets["galilean_pilgrim"].earSize = 1.0; presets["galilean_pilgrim"].hairStyle = "wavy"; presets["galilean_pilgrim"].beardStyle = "short"; presets["galilean_pilgrim"].hatStyle = "none"; presets["galilean_pilgrim"].eyebrowStyle = "arched"; presets["galilean_pilgrim"].noseShape = "wide"; presets["galilean_pilgrim"].faceShape = "oval"; presets["galilean_pilgrim"].foreheadHeight = "medium"; presets["galilean_pilgrim"].eyeSpacing = 1.0; presets["galilean_pilgrim"].chinShape = "rounded";
+presets["jerusalem_local"].headSize = 1.0; presets["jerusalem_local"].earSize = 1.0; presets["jerusalem_local"].hairStyle = "short"; presets["jerusalem_local"].beardStyle = "stubble"; presets["jerusalem_local"].eyebrowStyle = "straight"; presets["jerusalem_local"].mouthStyle = "neutral"; presets["jerusalem_local"].faceShape = "oval"; presets["jerusalem_local"].foreheadHeight = "medium"; presets["jerusalem_local"].eyeSpacing = 1.0; presets["jerusalem_local"].chinShape = "rounded";
+presets["money_changer"].headSize = 1.0; presets["money_changer"].earSize = 1.0; presets["money_changer"].hairStyle = "short"; presets["money_changer"].beardStyle = "short"; presets["money_changer"].hatStyle = "skullcap"; presets["money_changer"].eyebrowStyle = "straight"; presets["money_changer"].noseShape = "straight"; presets["money_changer"].faceShape = "oval"; presets["money_changer"].foreheadHeight = "medium"; presets["money_changer"].eyeSpacing = 1.0; presets["money_changer"].chinShape = "square";
+presets["corrupt_seller"].headSize = 1.0; presets["corrupt_seller"].earSize = 1.0; presets["corrupt_seller"].hairStyle = "receding"; presets["corrupt_seller"].beardStyle = "short"; presets["corrupt_seller"].eyebrowStyle = "furrowed"; presets["corrupt_seller"].mouthStyle = "frown"; presets["corrupt_seller"].noseShape = "aquiline"; presets["corrupt_seller"].faceShape = "oval"; presets["corrupt_seller"].foreheadHeight = "high"; presets["corrupt_seller"].eyeSpacing = 0.9; presets["corrupt_seller"].chinShape = "pointed";
+presets["malachi_moneychanger"].headSize = 1.0; presets["malachi_moneychanger"].earSize = 0.95; presets["malachi_moneychanger"].hairStyle = "wavy"; presets["malachi_moneychanger"].beardStyle = "medium"; presets["malachi_moneychanger"].hatStyle = "skullcap"; presets["malachi_moneychanger"].eyebrowStyle = "arched"; presets["malachi_moneychanger"].faceShape = "round"; presets["malachi_moneychanger"].foreheadHeight = "medium"; presets["malachi_moneychanger"].eyeSpacing = 1.0; presets["malachi_moneychanger"].chinShape = "rounded";
+presets["malchus"].headSize = 1.0; presets["malchus"].earSize = 1.0; presets["malchus"].hairStyle = "short"; presets["malchus"].beardStyle = "stubble"; presets["malchus"].eyebrowStyle = "straight"; presets["malchus"].noseShape = "wide"; presets["malchus"].faceShape = "square"; presets["malchus"].foreheadHeight = "low"; presets["malchus"].eyeSpacing = 1.0; presets["malchus"].chinShape = "square";
+presets["maluch"].headSize = 1.0; presets["maluch"].earSize = 1.0; presets["maluch"].hairStyle = "curly"; presets["maluch"].beardStyle = "medium"; presets["maluch"].eyebrowStyle = "thick"; presets["maluch"].noseShape = "wide"; presets["maluch"].eyeShape = "hooded"; presets["maluch"].faceShape = "round"; presets["maluch"].foreheadHeight = "low"; presets["maluch"].eyeSpacing = 1.1; presets["maluch"].chinShape = "rounded";
+presets["ananias_witness"].headSize = 1.0; presets["ananias_witness"].earSize = 1.0; presets["ananias_witness"].hairStyle = "short"; presets["ananias_witness"].beardStyle = "short"; presets["ananias_witness"].eyebrowStyle = "arched"; presets["ananias_witness"].mouthStyle = "neutral"; presets["ananias_witness"].faceShape = "oval"; presets["ananias_witness"].foreheadHeight = "medium"; presets["ananias_witness"].eyeSpacing = 1.0; presets["ananias_witness"].chinShape = "rounded";
+presets["trial_rumors"].headSize = 1.0; presets["trial_rumors"].earSize = 1.0; presets["trial_rumors"].hairStyle = "wavy"; presets["trial_rumors"].beardStyle = "stubble"; presets["trial_rumors"].eyebrowStyle = "arched"; presets["trial_rumors"].mouthStyle = "neutral"; presets["trial_rumors"].faceShape = "oval"; presets["trial_rumors"].foreheadHeight = "medium"; presets["trial_rumors"].eyeSpacing = 1.0; presets["trial_rumors"].chinShape = "rounded";
+presets["simon_leper"].headSize = 1.0; presets["simon_leper"].earSize = 1.0; presets["simon_leper"].hairStyle = "receding"; presets["simon_leper"].beardStyle = "long"; presets["simon_leper"].hatStyle = "skullcap"; presets["simon_leper"].eyebrowStyle = "thick"; presets["simon_leper"].noseShape = "aquiline"; presets["simon_leper"].faceShape = "square"; presets["simon_leper"].foreheadHeight = "high"; presets["simon_leper"].eyeSpacing = 0.9; presets["simon_leper"].chinShape = "square";
+presets["tobias_owner"].headSize = 1.0; presets["tobias_owner"].earSize = 1.0; presets["tobias_owner"].hairStyle = "short"; presets["tobias_owner"].beardStyle = "medium"; presets["tobias_owner"].eyebrowStyle = "furrowed"; presets["tobias_owner"].noseShape = "straight"; presets["tobias_owner"].faceShape = "oval"; presets["tobias_owner"].foreheadHeight = "medium"; presets["tobias_owner"].eyeSpacing = 1.0; presets["tobias_owner"].chinShape = "square";
+presets["nathan_gardener"].headSize = 1.0; presets["nathan_gardener"].earSize = 0.9; presets["nathan_gardener"].hairStyle = "wavy"; presets["nathan_gardener"].beardStyle = "short"; presets["nathan_gardener"].hatStyle = "none"; presets["nathan_gardener"].eyebrowStyle = "arched"; presets["nathan_gardener"].mouthStyle = "smile"; presets["nathan_gardener"].faceShape = "oval"; presets["nathan_gardener"].foreheadHeight = "medium"; presets["nathan_gardener"].eyeSpacing = 1.0; presets["nathan_gardener"].chinShape = "rounded";
+presets["simon_cyrene"].headSize = 1.0; presets["simon_cyrene"].earSize = 1.0; presets["simon_cyrene"].hairStyle = "curly"; presets["simon_cyrene"].beardStyle = "full_round"; presets["simon_cyrene"].eyebrowStyle = "thick"; presets["simon_cyrene"].noseShape = "wide"; presets["simon_cyrene"].faceShape = "round"; presets["simon_cyrene"].foreheadHeight = "low"; presets["simon_cyrene"].eyeSpacing = 1.1; presets["simon_cyrene"].chinShape = "rounded";
+presets["rich_young_ruler"].headSize = 1.0; presets["rich_young_ruler"].earSize = 1.0; presets["rich_young_ruler"].hairStyle = "short"; presets["rich_young_ruler"].beardStyle = "none"; presets["rich_young_ruler"].eyebrowStyle = "arched"; presets["rich_young_ruler"].mouthStyle = "smile"; presets["rich_young_ruler"].hatStyle = "none"; presets["rich_young_ruler"].faceShape = "heart"; presets["rich_young_ruler"].foreheadHeight = "medium"; presets["rich_young_ruler"].eyeSpacing = 1.0; presets["rich_young_ruler"].chinShape = "rounded";
+presets["secret_visit"].headSize = 1.0; presets["secret_visit"].earSize = 1.0; presets["secret_visit"].hairStyle = "receding"; presets["secret_visit"].beardStyle = "medium"; presets["secret_visit"].hatStyle = "hood"; presets["secret_visit"].eyebrowStyle = "furrowed"; presets["secret_visit"].eyeShape = "hooded"; presets["secret_visit"].faceShape = "oval"; presets["secret_visit"].foreheadHeight = "high"; presets["secret_visit"].eyeSpacing = 0.9; presets["secret_visit"].chinShape = "pointed";
+presets["upset_buyer"].headSize = 1.0; presets["upset_buyer"].earSize = 0.95; presets["upset_buyer"].hairStyle = "short"; presets["upset_buyer"].beardStyle = "stubble"; presets["upset_buyer"].eyebrowStyle = "furrowed"; presets["upset_buyer"].mouthStyle = "frown"; presets["upset_buyer"].noseShape = "wide"; presets["upset_buyer"].faceShape = "square"; presets["upset_buyer"].foreheadHeight = "medium"; presets["upset_buyer"].eyeSpacing = 1.0; presets["upset_buyer"].chinShape = "square";
+presets["local_traveler"].headSize = 1.0; presets["local_traveler"].earSize = 1.0; presets["local_traveler"].hairStyle = "wavy"; presets["local_traveler"].beardStyle = "short"; presets["local_traveler"].eyebrowStyle = "straight"; presets["local_traveler"].hatStyle = "none"; presets["local_traveler"].noseShape = "straight"; presets["local_traveler"].faceShape = "oval"; presets["local_traveler"].foreheadHeight = "medium"; presets["local_traveler"].eyeSpacing = 1.0; presets["local_traveler"].chinShape = "rounded";
+presets["bethesda_witness"].headSize = 1.0; presets["bethesda_witness"].earSize = 1.0; presets["bethesda_witness"].hairStyle = "short"; presets["bethesda_witness"].beardStyle = "none"; presets["bethesda_witness"].eyebrowStyle = "arched"; presets["bethesda_witness"].mouthStyle = "neutral"; presets["bethesda_witness"].faceShape = "oval"; presets["bethesda_witness"].foreheadHeight = "medium"; presets["bethesda_witness"].eyeSpacing = 1.0; presets["bethesda_witness"].chinShape = "rounded";
+presets["mount_teacher"].headSize = 1.05; presets["mount_teacher"].earSize = 1.1; presets["mount_teacher"].hairStyle = "flowing"; presets["mount_teacher"].beardStyle = "long"; presets["mount_teacher"].eyebrowStyle = "thick"; presets["mount_teacher"].noseShape = "aquiline"; presets["mount_teacher"].faceShape = "oval"; presets["mount_teacher"].foreheadHeight = "high"; presets["mount_teacher"].eyeSpacing = 1.0; presets["mount_teacher"].chinShape = "pointed";
+presets["upper_room_prep"].headSize = 1.0; presets["upper_room_prep"].earSize = 0.95; presets["upper_room_prep"].hairStyle = "short"; presets["upper_room_prep"].beardStyle = "short"; presets["upper_room_prep"].eyebrowStyle = "arched"; presets["upper_room_prep"].mouthStyle = "neutral"; presets["upper_room_prep"].faceShape = "oval"; presets["upper_room_prep"].foreheadHeight = "medium"; presets["upper_room_prep"].eyeSpacing = 1.0; presets["upper_room_prep"].chinShape = "rounded";
+
+let state = { ...presets["senior_scribe"], name: "custom_character" };
+
+/* ==========================================================
+   UI CONTROLLER
+   ========================================================== */
+const ids = ["face-shape:faceShape","forehead-height:foreheadHeight","eye-spacing:eyeSpacing","chin-shape:chinShape","eye-shape:eyeShape","eyebrow-style:eyebrowStyle","nose-shape:noseShape","mouth-style:mouthStyle","hair-style:hairStyle","beard-style:beardStyle","hat-style:hatStyle","clothing-type:clothingType"];
+const colorIds = ["color-inner:colorInner","color-outer:colorOuter","color-cloak:colorCloak","color-accent:colorAccent","color-skin:colorSkin","color-hair:colorHair","color-eye:colorEye","color-lip:colorLip","color-garment2:colorGarment2"];
+
+function formatName(str) { return str.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase()); }
+function slugify(str) { return str.toLowerCase().trim().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "") || "custom_character"; }
+
+function render() {
+    document.getElementById("svg-container").innerHTML = buildSVG(state);
+    document.getElementById("caption-name").textContent = formatName(state.name);
+    document.getElementById("caption-sub").textContent = slugify(state.name) + ".svg";
+}
+
+function readUIIntoState() {
+    ids.forEach(p => { const [id, k] = p.split(":"); state[k] = document.getElementById(id).value; });
+    colorIds.forEach(p => { const [id, k] = p.split(":"); state[k] = document.getElementById(id).value; });
+    state.noseScale = parseFloat(document.getElementById("nose-scale").value);
+    state.eyeSpacing = parseFloat(document.getElementById("eye-spacing").value);
+    state.dualStripe = document.getElementById("dual-stripe").checked;
+    document.getElementById("nose-scale-val").textContent = state.noseScale.toFixed(2) + "×";
+    document.getElementById("eye-spacing-val").textContent = state.eyeSpacing.toFixed(1) + "×";
+    document.getElementById("stripe-row").style.display = state.dualStripe ? "flex" : "none";
+    state.name = "Custom Character";
+    render();
+}
+
+function writeStateIntoUI() {
+    ids.forEach(p => { const [id, k] = p.split(":"); document.getElementById(id).value = state[k]; });
+    colorIds.forEach(p => { const [id, k] = p.split(":"); document.getElementById(id).value = state[k]; });
+    document.getElementById("nose-scale").value = state.noseScale;
+    document.getElementById("nose-scale-val").textContent = state.noseScale.toFixed(2) + "×";
+    document.getElementById("eye-spacing").value = state.eyeSpacing;
+    document.getElementById("eye-spacing-val").textContent = state.eyeSpacing.toFixed(1) + "×";
+    document.getElementById("dual-stripe").checked = !!state.dualStripe;
+    document.getElementById("stripe-row").style.display = state.dualStripe ? "flex" : "none";
+}
+
+const presetSelect = document.getElementById("preset-select");
+presetSelect.appendChild(new Option("-- Custom --", "custom"));
+Object.keys(presets).forEach(key => presetSelect.appendChild(new Option(formatName(key), key)));
+
+document.getElementById("load-preset").addEventListener("click", () => {
+    const key = presetSelect.value;
+    if (presets[key]) { state = { ...presets[key] }; writeStateIntoUI(); render(); }
+});
+
+document.querySelectorAll(".sidebar input, .sidebar select").forEach(el => {
+    if(el.id !== "preset-select") el.addEventListener("input", readUIIntoState);
+});
+
+/* ==========================================================
+   EXPORTS
+   ========================================================== */
+function triggerDownload(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+document.getElementById("export-svg").addEventListener("click", () => {
+    const blob = new Blob(['<?xml version="1.0" encoding="UTF-8"?>\n' + buildSVG(state)], { type:"image/svg+xml;charset=utf-8" });
+    triggerDownload(blob, slugify(state.name) + ".svg");
+});
+
+document.getElementById("export-json").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type:"application/json" });
+    triggerDownload(blob, slugify(state.name) + ".json");
+});
+
+document.getElementById("export-batch").addEventListener("click", async () => {
+    const btn = document.getElementById("export-batch");
+    const orig = btn.textContent;
+    btn.textContent = "Preparing…"; btn.disabled = true;
+    try {
+        if(typeof JSZip === "undefined") throw new Error("JSZip unavailable");
+        const zip = new JSZip();
+        Object.entries(presets).forEach(([key, preset]) => {
+            zip.file(`${key}.svg`, '<?xml version="1.0" encoding="UTF-8"?>\n' + buildSVG(preset));
+            zip.file(`${key}.json`, JSON.stringify(preset, null, 2));
+        });
+        const blob = await zip.generateAsync({ type:"blob" });
+        triggerDownload(blob, "historical_character_profiles.zip");
+    } catch(err) {
+        Object.entries(presets).forEach(([key, preset], i) => {
+            setTimeout(() => {
+                triggerDownload(new Blob([JSON.stringify(preset, null, 2)], { type:"application/json" }), `${key}.json`);
+            }, i * 300);
+        });
+    } finally {
+        setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 500);
+    }
+});
+
+/* Initialize */
+writeStateIntoUI();
+render();
+</script>
+</body>
+</html>

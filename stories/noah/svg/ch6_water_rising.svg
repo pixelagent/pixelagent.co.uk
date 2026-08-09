@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- DEPTH LAYER 1 — sky background fill -->
+  <rect width="400" height="300" fill="#0c1428"/>
+
+  <!-- Storm cloud base — upper 30% layered dark masses -->
+  <rect x="0" y="0" width="400" height="90" fill="#101828"/>
+  <!-- Cloud body ellipses — heavy, dark, layered -->
+  <ellipse cx="30"  cy="22" rx="70"  ry="30" fill="#1c2a3a"/>
+  <ellipse cx="130" cy="10" rx="100" ry="35" fill="#2a3550"/>
+  <ellipse cx="270" cy="18" rx="110" ry="38" fill="#1c2a3a"/>
+  <ellipse cx="385" cy="28" rx="75"  ry="32" fill="#2a3550"/>
+  <!-- Second cloud tier — darker undersides -->
+  <ellipse cx="60"  cy="52" rx="85"  ry="24" fill="#101828"/>
+  <ellipse cx="200" cy="44" rx="120" ry="28" fill="#0c1824"/>
+  <ellipse cx="350" cy="56" rx="90"  ry="22" fill="#101828"/>
+  <!-- Third cloud tier — merging into mid-sky -->
+  <ellipse cx="20"  cy="72" rx="60"  ry="18" fill="#0a1020"/>
+  <ellipse cx="160" cy="68" rx="90"  ry="20" fill="#0e1628"/>
+  <ellipse cx="330" cy="74" rx="100" ry="22" fill="#0a1020"/>
+  <!-- Underlit cloud bases — faintest amber from lightning far away -->
+  <ellipse cx="130" cy="84" rx="110" ry="12" fill="#1c1408" opacity="0.30"/>
+  <ellipse cx="310" cy="80" rx="90"  ry="10" fill="#1c1408" opacity="0.22"/>
+
+  <!-- DEPTH LAYER 2 — mid sky, rain atmosphere -->
+  <!-- Sky mid-zone between clouds and water line -->
+  <rect x="0" y="90" width="400" height="90" fill="#0c1428"/>
+
+  <!-- RAIN — heavy diagonal streaks, upper-left → lower-right, full height -->
+  <g stroke="#4E9CCD" stroke-width="1.5" opacity="0.50">
+    <line x1="-10" y1="0"   x2="30"  y2="300"/>
+    <line x1="18"  y1="0"   x2="58"  y2="300"/>
+    <line x1="46"  y1="0"   x2="86"  y2="300"/>
+    <line x1="74"  y1="0"   x2="114" y2="300"/>
+    <line x1="102" y1="0"   x2="142" y2="300"/>
+    <line x1="130" y1="0"   x2="170" y2="300"/>
+    <line x1="158" y1="0"   x2="198" y2="300"/>
+    <line x1="186" y1="0"   x2="226" y2="300"/>
+    <line x1="214" y1="0"   x2="254" y2="300"/>
+    <line x1="242" y1="0"   x2="282" y2="300"/>
+    <line x1="270" y1="0"   x2="310" y2="300"/>
+    <line x1="298" y1="0"   x2="338" y2="300"/>
+    <line x1="326" y1="0"   x2="366" y2="300"/>
+    <line x1="354" y1="0"   x2="394" y2="300"/>
+    <line x1="382" y1="0"   x2="422" y2="300"/>
+  </g>
+  <!-- Lighter secondary rain layer -->
+  <g stroke="#4E9CCD" stroke-width="1" opacity="0.28">
+    <line x1="5"   y1="0"   x2="45"  y2="300"/>
+    <line x1="33"  y1="0"   x2="73"  y2="300"/>
+    <line x1="61"  y1="0"   x2="101" y2="300"/>
+    <line x1="89"  y1="0"   x2="129" y2="300"/>
+    <line x1="117" y1="0"   x2="157" y2="300"/>
+    <line x1="145" y1="0"   x2="185" y2="300"/>
+    <line x1="173" y1="0"   x2="213" y2="300"/>
+    <line x1="201" y1="0"   x2="241" y2="300"/>
+    <line x1="229" y1="0"   x2="269" y2="300"/>
+    <line x1="257" y1="0"   x2="297" y2="300"/>
+    <line x1="285" y1="0"   x2="325" y2="300"/>
+    <line x1="313" y1="0"   x2="353" y2="300"/>
+    <line x1="341" y1="0"   x2="381" y2="300"/>
+    <line x1="369" y1="0"   x2="409" y2="300"/>
+  </g>
+
+  <!-- THE ARK — focal point, upper-centre, warm brown, HIGH above water -->
+  <!-- Hull base shadow -->
+  <polygon points="118,102 282,102 298,138 102,138" fill="#5a3010" stroke="none"/>
+  <!-- Hull main body -->
+  <polygon points="122,96 278,96 294,134 106,134" fill="#8B5E2F" stroke="#0A0812" stroke-width="3"/>
+  <!-- Hull lower shading -->
+  <polygon points="122,116 278,116 294,134 106,134" fill="#6b4420"/>
+  <!-- Hull horizontal planks -->
+  <line x1="130" y1="104" x2="270" y2="104" stroke="#5a3010" stroke-width="1.5"/>
+  <line x1="127" y1="112" x2="273" y2="112" stroke="#5a3010" stroke-width="1.5"/>
+  <line x1="124" y1="120" x2="276" y2="120" stroke="#5a3010" stroke-width="1.5"/>
+  <line x1="122" y1="128" x2="278" y2="128" stroke="#5a3010" stroke-width="1.5"/>
+  <!-- Hull vertical planks -->
+  <line x1="148" y1="96"  x2="143" y2="134" stroke="#5a3010" stroke-width="1"/>
+  <line x1="170" y1="96"  x2="166" y2="134" stroke="#5a3010" stroke-width="1"/>
+  <line x1="192" y1="96"  x2="190" y2="134" stroke="#5a3010" stroke-width="1"/>
+  <line x1="214" y1="96"  x2="212" y2="134" stroke="#5a3010" stroke-width="1"/>
+  <line x1="236" y1="96"  x2="235" y2="134" stroke="#5a3010" stroke-width="1"/>
+  <line x1="258" y1="96"  x2="258" y2="134" stroke="#5a3010" stroke-width="1"/>
+  <!-- Superstructure / cabin -->
+  <rect x="142" y="62" width="116" height="34" fill="#a06a35" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Cabin vertical planks -->
+  <line x1="162" y1="62" x2="162" y2="96" stroke="#8B5E2F" stroke-width="1"/>
+  <line x1="184" y1="62" x2="184" y2="96" stroke="#8B5E2F" stroke-width="1"/>
+  <line x1="206" y1="62" x2="206" y2="96" stroke="#8B5E2F" stroke-width="1"/>
+  <line x1="228" y1="62" x2="228" y2="96" stroke="#8B5E2F" stroke-width="1"/>
+  <line x1="250" y1="62" x2="250" y2="96" stroke="#8B5E2F" stroke-width="1"/>
+  <!-- Cabin roof -->
+  <polygon points="132,62 200,36 268,62" fill="#C87050" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Roof ridge -->
+  <line x1="132" y1="62" x2="268" y2="62" stroke="#0A0812" stroke-width="2"/>
+  <!-- Roof planks -->
+  <line x1="152" y1="62" x2="167" y2="36" stroke="#8B5E2F" stroke-width="1" opacity="0.6"/>
+  <line x1="175" y1="62" x2="184" y2="36" stroke="#8B5E2F" stroke-width="1" opacity="0.6"/>
+  <line x1="200" y1="62" x2="200" y2="36" stroke="#8B5E2F" stroke-width="1" opacity="0.6"/>
+  <line x1="225" y1="62" x2="216" y2="36" stroke="#8B5E2F" stroke-width="1" opacity="0.6"/>
+  <line x1="248" y1="62" x2="233" y2="36" stroke="#8B5E2F" stroke-width="1" opacity="0.6"/>
+  <!-- Cabin window — warm amber glow -->
+  <rect x="188" y="48" width="24" height="16" fill="#3a1e08" stroke="#0A0812" stroke-width="2"/>
+  <rect x="190" y="50" width="20" height="12" fill="#E8B84B" opacity="0.80"/>
+  <line x1="200" y1="48" x2="200" y2="64" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="188" y1="56" x2="212" y2="56" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- WATER SURFACE — THE strong dividing horizontal line -->
+  <!-- Water body fills lower 40% -->
+  <rect x="0" y="180" width="400" height="120" fill="#061430"/>
+  <!-- THE WATER SURFACE LINE — bold, clear, structural -->
+  <rect x="0" y="178" width="400" height="4" fill="#4E9CCD" opacity="0.70"/>
+  <rect x="0" y="182" width="400" height="3" fill="#0e2a50" opacity="0.90"/>
+  <!-- Water shimmer below surface -->
+  <line x1="0"  y1="190" x2="400" y2="190" stroke="#4E9CCD" stroke-width="1.5" opacity="0.30"/>
+  <line x1="0"  y1="206" x2="400" y2="206" stroke="#4E9CCD" stroke-width="1"   opacity="0.20"/>
+  <line x1="0"  y1="225" x2="400" y2="225" stroke="#4E9CCD" stroke-width="1"   opacity="0.15"/>
+  <line x1="0"  y1="250" x2="400" y2="250" stroke="#0e2a50" stroke-width="1"   opacity="0.25"/>
+  <line x1="0"  y1="275" x2="400" y2="275" stroke="#0e2a50" stroke-width="1"   opacity="0.20"/>
+  <!-- Wave crests on water surface -->
+  <path d="M0,182 Q18,178 36,182 Q54,186 72,182 Q90,178 108,182 Q126,186 144,182 Q162,178 180,182 Q198,186 216,182 Q234,178 252,182 Q270,186 288,182 Q306,178 324,182 Q342,186 360,182 Q378,178 400,182"
+        fill="none" stroke="#4E9CCD" stroke-width="2" opacity="0.55"/>
+
+  <!-- DEPTH LAYER 3 — SUBMERGED STRUCTURES at water surface -->
+  <!-- Rooftop 1 — left, rhythm element -->
+  <polygon points="22,180 58,158 94,180" fill="#2a3040" stroke="#0A0812" stroke-width="2"/>
+  <rect x="22" y="180" width="72" height="8" fill="#1e2838" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Rooftop 2 — left-centre, lower, smaller (more submerged) -->
+  <polygon points="110,182 140,166 170,182" fill="#242e3e" stroke="#0A0812" stroke-width="2"/>
+  <rect x="110" y="182" width="60" height="5" fill="#1a2430" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Rooftop 3 — far right -->
+  <polygon points="312,179 352,154 392,179" fill="#2a3040" stroke="#0A0812" stroke-width="2"/>
+  <rect x="312" y="179" width="80" height="9" fill="#1e2838" stroke="#0A0812" stroke-width="2"/>
+  <!-- Treetop 1 — mid-left, dark foliage crown only -->
+  <ellipse cx="198" cy="180" rx="22" ry="12" fill="#1a2c1a" stroke="#0A0812" stroke-width="2"/>
+  <!-- Treetop 2 — right of centre -->
+  <ellipse cx="264" cy="182" rx="15" ry="9"  fill="#1a2c1a" stroke="#0A0812" stroke-width="1.5"/>
+
+</svg>

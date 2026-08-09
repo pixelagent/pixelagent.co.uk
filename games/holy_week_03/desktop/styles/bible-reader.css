@@ -1,0 +1,314 @@
+/* ==========================================================================
+   BIBLE READER — Scripture Reader Styles
+   NOTE: This file is loaded ONLY on the standalone bible-reader page.
+   The game app imports variables.css which already defines all shared tokens.
+   ========================================================================== */
+
+/* Standalone-page overrides (only apply when NOT inside the game) */
+.bible-reader-standalone body {
+    min-height: 100vh;
+    background: var(--ink);
+    background-image:
+        radial-gradient(ellipse at 30% 20%, #2d1e0a 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 80%, #1a120a 0%, transparent 50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: clamp(20px, 4vw, 60px) clamp(12px, 4vw, 24px);
+    font-family: 'EB Garamond', Georgia, serif;
+    overflow: auto;
+}
+
+/* ── Page header ─────────────────────────────────────────── */
+.page-header {
+    text-align: center;
+    margin-bottom: 28px;
+    animation: fadeDown 0.6s ease both;
+}
+
+.page-header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 600;
+    color: var(--reader-gold-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 8px rgba(180,130,10,0.3);
+}
+
+.page-header .subtitle {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: var(--reader-gold-pale);
+    opacity: 0.7;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+
+.ornament {
+    color: var(--reader-gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.4em;
+    opacity: 0.6;
+    margin: 6px 0;
+}
+
+/* ── Controls bar ────────────────────────────────────────── */
+.controls-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 24px;
+    animation: fadeDown 0.6s 0.1s ease both;
+}
+
+.select-wrap { position: relative; }
+.select-wrap::after {
+    content: '\f078';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 12px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--reader-gold);
+    font-size: 0.65rem;
+    pointer-events: none;
+}
+
+select {
+    appearance: none;
+    background: rgba(245,236,215,0.08);
+    border: 1px solid rgba(184,134,11,0.4);
+    color: var(--reader-gold-pale);
+    padding: 8px 36px 8px 14px;
+    border-radius: 4px;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+select:focus { border-color: var(--reader-gold-light); }
+select option { background: #2a1e0a; color: var(--parchment); }
+
+.ref-input-wrap { display: flex; gap: 0; }
+
+.ref-input {
+    background: rgba(245,236,215,0.08);
+    border: 1px solid rgba(184,134,11,0.4);
+    border-right: none;
+    color: var(--parchment);
+    padding: 8px 14px;
+    border-radius: 4px 0 0 4px;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.95rem;
+    width: clamp(140px, 20vw, 200px);
+    outline: none;
+    transition: border-color 0.2s;
+}
+.ref-input::placeholder { color: rgba(245,236,215,0.35); }
+.ref-input:focus { border-color: var(--reader-gold-light); }
+
+.go-btn {
+    background: var(--reader-gold);
+    border: 1px solid var(--reader-gold);
+    color: var(--ink);
+    padding: 8px 16px;
+    border-radius: 0 4px 4px 0;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+.go-btn:hover { background: var(--reader-gold-light); }
+
+/* ── Reader panel ────────────────────────────────────────── */
+.reader-panel {
+    width: 100%;
+    max-width: clamp(320px, 90vw, 680px);
+    background: var(--parchment);
+    border-radius: 2px;
+    box-shadow:
+        0 0 0 1px rgba(184,134,11,0.25),
+        0 2px 0 1px rgba(184,134,11,0.12),
+        0 8px 40px rgba(0,0,0,0.55),
+        0 32px 80px rgba(0,0,0,0.4);
+    position: relative;
+    animation: fadeUp 0.5s 0.15s ease both;
+    overflow: hidden;
+}
+
+.reader-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.4;
+}
+
+.reader-panel::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--reader-gold), var(--reader-gold-light), var(--reader-gold), transparent);
+}
+
+/* ── Panel header ────────────────────────────────────────── */
+.panel-header {
+    position: relative;
+    z-index: 2;
+    padding: 18px 24px 12px;
+    border-bottom: 1px solid var(--parchment-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.panel-ref {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    color: var(--reader-rust);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+}
+
+.panel-version {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.8rem;
+    color: var(--sepia);
+    background: var(--parchment-dark);
+    padding: 2px 8px;
+    border-radius: 2px;
+    border: 1px solid rgba(92,74,42,0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+}
+
+/* ── Verses area ─────────────────────────────────────────── */
+.verses-area {
+    position: relative;
+    z-index: 2;
+    padding: 0 clamp(14px, 4%, 28px);
+    min-height: 160px;
+}
+
+/* load-prev/load-more strips — shared in variables, extended here */
+.load-prev-strip { padding: 14px 0 10px; }
+.load-more-strip { padding: 14px 0 18px; }
+
+.passage-end-msg {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: var(--sepia);
+    font-size: 0.82rem;
+    opacity: 0.5;
+}
+
+/* ── Verse block (standalone reader variant) ─────────────── */
+.verse-block {
+    color: var(--ink);
+}
+.verse-num { color: var(--reader-gold); }
+.verse-text { color: var(--ink); }
+.verse-block.prev-verse .verse-text { color: var(--sepia); }
+.verse-block.anchor-verse {
+    background: rgba(184,134,11,0.06);
+    border-bottom-color: rgba(184,134,11,0.15);
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.parchment-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--reader-rust);
+    background: transparent;
+    border: 1px solid rgba(139,58,28,0.35);
+    padding: 7px 16px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.parchment-btn:hover:not(:disabled) {
+    background: rgba(139,58,28,0.07);
+    border-color: var(--reader-rust);
+}
+
+.parchment-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.parchment-btn .fa { font-size: 0.75rem; }
+
+/* ── State box ───────────────────────────────────────────── */
+.state-box {
+    padding: clamp(30px, 8vw, 60px) 28px;
+    text-align: center;
+    color: var(--sepia);
+}
+
+.state-box .icon {
+    font-size: 2rem;
+    color: var(--reader-gold);
+    opacity: 0.5;
+    margin-bottom: 14px;
+}
+
+.state-box p       { font-style: italic; font-size: 1rem; line-height: 1.6; }
+.state-box small   { display: block; margin-top: 6px; font-size: 0.82rem; opacity: 0.6; }
+
+/* ── Spinner ─────────────────────────────────────────────── */
+.spin { animation: spin 0.8s linear infinite; display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Animations ──────────────────────────────────────────── */
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes verseIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Suggestion chips ────────────────────────────────────── */
+.suggestions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+    animation: fadeDown 0.6s 0.2s ease both;
+}
+
+.sug-chip {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    color: var(--reader-gold-pale);
+    opacity: 0.65;
+    border: 1px solid rgba(184,134,11,0.25);
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+}
+.sug-chip:hover { opacity: 1; background: rgba(184,134,11,0.1); border-color: var(--reader-gold); }

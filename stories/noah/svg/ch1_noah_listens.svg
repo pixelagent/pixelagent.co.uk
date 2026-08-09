@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- ═══ BACKGROUND: bright open sky, 80% of frame ═══ -->
+  <!-- Sky: bright near horizon, darkens toward top -->
+  <rect width="400" height="300" fill="#3d2808"/>
+  <!-- Sky bands: bottom bright, top dark -->
+  <rect x="0" y="0"   width="400" height="50"  fill="#2e2010"/>
+  <rect x="0" y="50"  width="400" height="50"  fill="#3d2808"/>
+  <rect x="0" y="100" width="400" height="40"  fill="#6b4420"/>
+  <rect x="0" y="140" width="400" height="30"  fill="#c4956a"/>
+  <!-- Bright horizon zone -->
+  <rect x="0" y="168" width="400" height="22"  fill="#E8B84B" opacity="0.70"/>
+  <!-- Right side of frame: open empty sky — breathing room -->
+
+  <!-- Wide open sky — no clutter right half -->
+  <!-- Background: wide sky, faint low treeline silhouette — right side only -->
+  <rect x="280" y="172" width="120" height="18" fill="#2e4018" opacity="0.85"/>
+  <!-- Tree bumps — rhythmic repeat -->
+  <polygon points="285,172 292,162 299,172" fill="#2e4018" stroke="#1a0e04" stroke-width="1"/>
+  <polygon points="298,172 306,160 314,172" fill="#3d5020" stroke="#1a0e04" stroke-width="1"/>
+  <polygon points="312,172 320,163 328,172" fill="#2e4018" stroke="#1a0e04" stroke-width="1"/>
+  <polygon points="326,172 334,158 342,172" fill="#4A6A2A" stroke="#1a0e04" stroke-width="1"/>
+  <polygon points="340,172 348,164 356,172" fill="#2e4018" stroke="#1a0e04" stroke-width="1"/>
+  <polygon points="354,172 362,161 370,172" fill="#3d5020" stroke="#1a0e04" stroke-width="1"/>
+  <polygon points="368,172 377,156 386,172" fill="#2e4018" stroke="#1a0e04" stroke-width="1"/>
+
+  <!-- ═══ GROUND: flat open earth, low horizon ═══ -->
+  <!-- Horizon at y=188 — 20% from bottom -->
+  <rect x="0" y="188" width="400" height="112" fill="#6b4420"/>
+  <rect x="0" y="210" width="400" height="90"  fill="#5a3010"/>
+  <rect x="0" y="250" width="400" height="50"  fill="#3d2808"/>
+
+  <!-- A few midground rocks (rhythm) -->
+  <ellipse cx="100" cy="204" rx="9"  ry="4"  fill="#5a3010" stroke="#1a0e04" stroke-width="1.5"/>
+  <ellipse cx="350" cy="208" rx="11" ry="5"  fill="#5a3010" stroke="#1a0e04" stroke-width="1.5"/>
+  <ellipse cx="310" cy="216" rx="7"  ry="3"  fill="#3d2808" stroke="#1a0e04" stroke-width="1"/>
+
+  <!-- ═══ NOAH'S LONG SHADOW — stretches RIGHT across ground ═══ -->
+  <!-- Shadow is a thin dark diagonal from his feet stretching far right -->
+  <polygon points="230,272 280,272 400,196 380,192" fill="#3d2808" opacity="0.60"/>
+  <!-- Shadow of staff — thinner line -->
+  <line x1="225" y1="268" x2="400" y2="194" stroke="#3d2808" stroke-width="2" opacity="0.50"/>
+
+  <!-- ═══ NOAH — slightly right of centre, facing LEFT, looking up-left ═══ -->
+  <!-- Positioned at x≈230 centre point -->
+
+  <!-- FEET / sandals -->
+  <rect x="216" y="275" width="15" height="6" fill="#5a3010" stroke="#1a0e04" stroke-width="1.5"/>
+  <rect x="234" y="274" width="15" height="6" fill="#5a3010" stroke="#1a0e04" stroke-width="1.5"/>
+
+  <!-- LEGS -->
+  <polygon points="220,240 230,275 242,240" fill="#8B5E2F" stroke="#1a0e04" stroke-width="2"/>
+  <polygon points="230,240 242,275 250,240" fill="#C87050" stroke="#1a0e04" stroke-width="2"/>
+
+  <!-- ROBE — long garment, warm amber -->
+  <polygon points="210,200 260,200 264,276 206,276" fill="#8B5E2F" stroke="#1a0e04" stroke-width="2.5"/>
+  <!-- Robe highlight / fold lines -->
+  <line x1="222" y1="202" x2="218" y2="272" stroke="#C87050" stroke-width="1.5" opacity="0.55"/>
+  <line x1="236" y1="202" x2="236" y2="274" stroke="#C87050" stroke-width="1.5" opacity="0.45"/>
+  <line x1="250" y1="202" x2="254" y2="270" stroke="#C87050" stroke-width="1.5" opacity="0.45"/>
+
+  <!-- Belt / waistband -->
+  <rect x="210" y="218" width="50" height="7" fill="#5a3010" stroke="#1a0e04" stroke-width="1.5"/>
+
+  <!-- Cloak / mantle over shoulders -->
+  <polygon points="202,186 268,186 264,202 206,202" fill="#6b4420" stroke="#1a0e04" stroke-width="2"/>
+
+  <!-- TORSO — slightly leaning back -->
+  <rect x="212" y="168" width="46" height="20" fill="#D4956A" stroke="#1a0e04" stroke-width="2.5"/>
+
+  <!-- RIGHT arm — relaxed at side, slightly forward -->
+  <polygon points="256,188 264,188 268,214 260,216" fill="#D4956A" stroke="#1a0e04" stroke-width="2"/>
+  <!-- Right hand -->
+  <ellipse cx="264" cy="218" rx="5" ry="6" fill="#D4956A" stroke="#1a0e04" stroke-width="2"/>
+
+  <!-- LEFT arm — RAISED, shielding eyes, angled up-left ═══ -->
+  <!-- Upper left arm going up-left -->
+  <polygon points="212,188 204,184 190,162 198,158" fill="#D4956A" stroke="#1a0e04" stroke-width="2"/>
+  <!-- Forearm horizontal across forehead (shielding) -->
+  <polygon points="190,162 198,158 216,165 208,170" fill="#D4956A" stroke="#1a0e04" stroke-width="2"/>
+  <!-- Flat hand — shielding eyes, fingers left -->
+  <polygon points="208,160 228,156 230,165 206,168" fill="#D4956A" stroke="#1a0e04" stroke-width="2"/>
+  <!-- Knuckle ridge hint -->
+  <line x1="212" y1="159" x2="226" y2="157" stroke="#1a0e04" stroke-width="1" opacity="0.7"/>
+
+  <!-- NECK -->
+  <rect x="224" y="152" width="14" height="18" fill="#D4956A" stroke="#1a0e04" stroke-width="2"/>
+
+  <!-- HEAD — tilted slightly up-left (looking toward light source) -->
+  <ellipse cx="232" cy="146" rx="18" ry="18" fill="#D4956A" stroke="#1a0e04" stroke-width="2.5"/>
+
+  <!-- HEAD WRAP / cloth -->
+  <path d="M216,140 Q232,128 248,140 Q250,152 247,154 Q232,143 217,154 Q214,152 216,140Z"
+        fill="#6b4420" stroke="#1a0e04" stroke-width="2"/>
+
+  <!-- BEARD -->
+  <polygon points="218,148 232,162 246,148 243,155 232,166 221,155"
+           fill="#5a3010" stroke="#1a0e04" stroke-width="1.5"/>
+
+  <!-- EYES — looking up-left, visible in slight 3/4 face -->
+  <ellipse cx="226" cy="143" rx="3"   ry="2.5" fill="#1a0e04"/>
+  <ellipse cx="236" cy="142" rx="3"   ry="2.5" fill="#1a0e04"/>
+  <!-- Eye highlights -->
+  <ellipse cx="225" cy="142" rx="1.2" ry="1"   fill="#f0e8d0"/>
+  <ellipse cx="235" cy="141" rx="1.2" ry="1"   fill="#f0e8d0"/>
+  <!-- Eyebrows — raised/furrowed in awe -->
+  <path d="M223,139 Q226,136 229,138" stroke="#1a0e04" stroke-width="1.5" fill="none"/>
+  <path d="M233,138 Q236,135 239,137" stroke="#1a0e04" stroke-width="1.5" fill="none"/>
+
+</svg>

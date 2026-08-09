@@ -1,0 +1,46 @@
+{
+  "start": {
+    "content": "The council chamber was closed to many of us tonight. Whatever decisions were made inside, they were final.",
+    "choices": [
+      {
+        "text": "What happened after the arrest?",
+        "destination": "after_arrest"
+      },
+      {
+        "text": "Do you know who testified?",
+        "destination": "witnesses"
+      }
+    ]
+  },
+  "after_arrest": {
+    "content": "After the Galilean was led away, the council rushed into emergency session. The doors were barred. The few of us still outside could hear raised voices \u2014 not debate, but something closer to panic dressed as procedure.",
+    "choices": [
+      {
+        "text": "Panic?",
+        "destination": "witnesses"
+      }
+    ]
+  },
+  "witnesses": {
+    "content": "The ones who testified were not surprise witnesses. The arrest had been planned for days \u2014 the witnesses were assembled before the kiss in the garden.",
+    "choices": [
+      {
+        "text": "Legal witnesses are required.",
+        "destination": "exposed"
+      }
+    ]
+  },
+  "exposed": {
+    "content": "The Law requires two or three witnesses. They had them ready. The conviction was pre-arranged. The sentence was decided before the accused entered the chamber.",
+    "choices": [
+      {
+        "text": "So the trial was a formality.",
+        "destination": "closing"
+      }
+    ]
+  },
+  "closing": {
+    "content": "The council chamber was closed to many of us tonight. Whatever decisions were made inside, they were final.",
+    "choices": []
+  }
+}

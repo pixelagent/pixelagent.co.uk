@@ -1,0 +1,46 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a1e0a"/>
+      <stop offset="100%" stop-color="#1a0e06"/>
+    </linearGradient>
+  </defs>
+  <!-- Deep throne room bg -->
+  <rect width="300" height="200" fill="#1e0c04"/>
+  <!-- Ceiling arch — emphasis: frames the throne zone -->
+  <path d="M0 30 Q150 0 300 30 L300 0 L0 0 Z" fill="#2b1408" stroke="#0A0812" stroke-width="2"/>
+  <!-- Ceiling lanterns — rhythm, repetition -->
+  <line x1="75"  y1="0" x2="75"  y2="28" stroke="#FFD84D" stroke-width="1.5" opacity=".5"/>
+  <circle cx="75"  cy="32" r="5"  fill="#FFD84D" opacity=".7"/>
+  <line x1="150" y1="0" x2="150" y2="22" stroke="#FFD84D" stroke-width="1.5" opacity=".6"/>
+  <circle cx="150" cy="26" r="6"  fill="#FFD84D" opacity=".9"/>
+  <line x1="225" y1="0" x2="225" y2="28" stroke="#FFD84D" stroke-width="1.5" opacity=".5"/>
+  <circle cx="225" cy="32" r="5"  fill="#FFD84D" opacity=".7"/>
+  <!-- Columns — repetition, rhythm, proportion: tall vs room -->
+  <rect x="10"  y="40" width="20" height="130" fill="#4a2010" stroke="#0A0812" stroke-width="2"/>
+  <rect x="10"  y="36" width="20" height="10"  fill="#6b3a18" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="55"  y="40" width="20" height="130" fill="#4a2010" stroke="#0A0812" stroke-width="2"/>
+  <rect x="55"  y="36" width="20" height="10"  fill="#6b3a18" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="225" y="40" width="20" height="130" fill="#4a2010" stroke="#0A0812" stroke-width="2"/>
+  <rect x="225" y="36" width="20" height="10"  fill="#6b3a18" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="270" y="40" width="20" height="130" fill="#4a2010" stroke="#0A0812" stroke-width="2"/>
+  <rect x="270" y="36" width="20" height="10"  fill="#6b3a18" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Frieze band — unity, pattern -->
+  <rect x="0" y="36" width="300" height="8" fill="#8b5a2b" opacity=".5"/>
+  <!-- Throne platform — hierarchy, proportion: centre-weighted -->
+  <rect x="90"  y="110" width="120" height="60" fill="url(#floorG)" stroke="#0A0812" stroke-width="2.5"/>
+  <rect x="80"  y="106" width="140" height="10" fill="#5c3010" stroke="#0A0812" stroke-width="2"/>
+  <!-- Throne back — emphasis: tallest object in frame -->
+  <rect x="120" y="68"  width="60"  height="50" fill="#3a1808" stroke="#0A0812" stroke-width="2"/>
+  <polygon points="120,68 150,46 180,68" fill="#5a2a10" stroke="#0A0812" stroke-width="2"/>
+  <!-- Throne details — variety -->
+  <rect x="128" y="80"  width="16" height="8" fill="#FFD84D" opacity=".6"/>
+  <rect x="156" y="80"  width="16" height="8" fill="#FFD84D" opacity=".6"/>
+  <rect x="136" y="92"  width="28" height="6" fill="#FF6B5B" opacity=".5"/>
+  <!-- Floor tiles — pattern -->
+  <line x1="0"   y1="170" x2="300" y2="170" stroke="#0A0812" stroke-width="1" opacity=".4"/>
+  <line x1="0"   y1="185" x2="300" y2="185" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="90"  y1="110" x2="90"  y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="150" y1="110" x2="150" y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="210" y1="110" x2="210" y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+</svg>

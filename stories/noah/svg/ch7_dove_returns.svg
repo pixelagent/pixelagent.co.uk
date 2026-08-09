@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- LAYER 1: Background sky — pale grey-blue, lightening toward horizon -->
+  <rect x="0" y="0" width="400" height="300" fill="#b8c8d0"/>
+  <rect x="0" y="0" width="400" height="160" fill="#d8e4e8"/>
+  <rect x="0" y="120" width="400" height="60" fill="#e8eeee" opacity="0.6"/>
+
+  <!-- Horizon band — faint warm glow, dawn just starting -->
+  <rect x="0" y="195" width="400" height="18" fill="#d8c8a8" opacity="0.5"/>
+
+  <!-- Wispy clouds — pale, receding storm -->
+  <ellipse cx="260" cy="48" rx="72" ry="18" fill="#dce8ec" stroke="#b0c0c8" stroke-width="1.5"/>
+  <ellipse cx="310" cy="38" rx="44" ry="13" fill="#e4eef2" stroke="#b0c0c8" stroke-width="1.5"/>
+  <ellipse cx="340" cy="62" rx="38" ry="11" fill="#d8e4e8" stroke="#b0c0c8" stroke-width="1"/>
+  <ellipse cx="180" cy="30" rx="30" ry="9" fill="#e0eaee" opacity="0.7"/>
+
+  <!-- LAYER 2: Water — dark, still, reflective -->
+  <rect x="0" y="210" width="400" height="90" fill="#1a2a38"/>
+  <rect x="0" y="210" width="400" height="8" fill="#243444" opacity="0.9"/>
+  <!-- Water shimmer lines -->
+  <line x1="20" y1="228" x2="180" y2="228" stroke="#2a3c50" stroke-width="1.5" opacity="0.8"/>
+  <line x1="60" y1="242" x2="240" y2="242" stroke="#2a3c50" stroke-width="1" opacity="0.6"/>
+  <line x1="200" y1="255" x2="390" y2="255" stroke="#2a3c50" stroke-width="1" opacity="0.5"/>
+  <line x1="0" y1="268" x2="160" y2="268" stroke="#243040" stroke-width="1" opacity="0.4"/>
+
+  <!-- LAYER 3: Ark — left edge, dark hull, window prominent -->
+  <!-- Ark hull — only right portion visible, cut by frame -->
+  <rect x="0" y="148" width="75" height="68" rx="4" fill="#6b4420" stroke="#0A0812" stroke-width="3"/>
+  <!-- Ark upper deck -->
+  <rect x="0" y="128" width="65" height="24" rx="3" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Ark plank lines -->
+  <line x1="0" y1="162" x2="75" y2="162" stroke="#4a2e10" stroke-width="1.5"/>
+  <line x1="0" y1="178" x2="75" y2="178" stroke="#4a2e10" stroke-width="1.5"/>
+  <line x1="0" y1="194" x2="75" y2="194" stroke="#4a2e10" stroke-width="1.5"/>
+  <!-- Ark reflection in water -->
+  <rect x="0" y="216" width="75" height="40" rx="2" fill="#0c1428" opacity="0.55"/>
+
+  <!-- Ark window — dark rectangle, left edge -->
+  <rect x="14" y="133" width="38" height="32" rx="3" fill="#0a0812" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Window sill -->
+  <rect x="12" y="131" width="42" height="8" rx="2" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Noah's arm reaching out of window to receive dove -->
+  <!-- Arm extending right from window -->
+  <line x1="52" y1="152" x2="90" y2="138" stroke="#D4956A" stroke-width="5" stroke-linecap="round"/>
+  <!-- Hand open, palm up -->
+  <ellipse cx="93" cy="136" rx="9" ry="6" fill="#D4956A" stroke="#0A0812" stroke-width="2" transform="rotate(-15,93,136)"/>
+  <!-- Fingers suggestion -->
+  <line x1="88" y1="132" x2="84" y2="126" stroke="#D4956A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="93" y1="130" x2="91" y2="124" stroke="#D4956A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="98" y1="131" x2="98" y2="125" stroke="#D4956A" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Sleeve at window edge -->
+  <rect x="46" y="146" width="16" height="12" rx="3" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- FOCAL SUBJECT: Dove in flight — upper centre, flying LEFT toward window -->
+  <!-- Diagonal flight path: dove moves from right toward lower-left -->
+  <!-- Body — white, elongated -->
+  <ellipse cx="230" cy="108" rx="48" ry="22" fill="#f4f0ec" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Head — facing left -->
+  <circle cx="186" cy="96" r="17" fill="#f4f0ec" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Eye -->
+  <circle cx="179" cy="93" r="3.5" fill="#0A0812"/>
+  <circle cx="178" cy="92" r="1.2" fill="#f0f0f0"/>
+  <!-- Beak — pointing left, holding branch -->
+  <polygon points="165,96 148,101 165,106" fill="#c87050" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- ★ FOCAL COLOUR: Olive branch — vivid green, only green in scene -->
+  <!-- Branch stem from beak tip, curving slightly -->
+  <path d="M 148,101 C 132,99 115,102 98,105" stroke="#4A6A2A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- Leaves — bright green against the grey/brown world -->
+  <ellipse cx="136" cy="97" rx="9" ry="5" fill="#7EC850" stroke="#0A0812" stroke-width="1.5" transform="rotate(-20,136,97)"/>
+  <ellipse cx="124" cy="100" rx="9" ry="5" fill="#7EC850" stroke="#0A0812" stroke-width="1.5" transform="rotate(-10,124,100)"/>
+  <ellipse cx="112" cy="103" rx="8" ry="4.5" fill="#a8d870" stroke="#0A0812" stroke-width="1.5" transform="rotate(-5,112,103)"/>
+  <ellipse cx="131" cy="103" rx="7" ry="4" fill="#4A6A2A" stroke="#0A0812" stroke-width="1.5" transform="rotate(15,131,103)"/>
+  <ellipse cx="119" cy="107" rx="7" ry="4" fill="#7EC850" stroke="#0A0812" stroke-width="1.5" transform="rotate(10,119,107)"/>
+  <ellipse cx="107" cy="109" rx="6" ry="3.5" fill="#a8d870" stroke="#0A0812" stroke-width="1" transform="rotate(5,107,109)"/>
+
+  <!-- Left wing — extended up-left, banking in descent -->
+  <path d="M 215,100 C 185,68 148,58 118,70 C 148,84 185,98 215,112 Z" fill="#e8e4dc" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Wing feather lines -->
+  <line x1="194" y1="78" x2="212" y2="104" stroke="#0A0812" stroke-width="1.5" opacity="0.7"/>
+  <line x1="176" y1="70" x2="210" y2="105" stroke="#0A0812" stroke-width="1.5" opacity="0.7"/>
+  <line x1="158" y1="66" x2="207" y2="107" stroke="#0A0812" stroke-width="1.5" opacity="0.6"/>
+  <line x1="140" y1="70" x2="204" y2="108" stroke="#0A0812" stroke-width="1" opacity="0.5"/>
+
+  <!-- Right wing — angled down-right, banking -->
+  <path d="M 248,110 C 272,128 300,138 318,132 C 298,118 268,108 248,100 Z" fill="#eceae4" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Right wing feathers -->
+  <line x1="268" y1="130" x2="252" y2="108" stroke="#0A0812" stroke-width="1.5" opacity="0.6"/>
+  <line x1="288" y1="136" x2="256" y2="107" stroke="#0A0812" stroke-width="1" opacity="0.5"/>
+
+  <!-- Tail feathers — fanned, pointing upper-right (direction of origin) -->
+  <path d="M 272,112 C 295,106 315,108 322,118 C 308,122 290,118 272,116 Z" fill="#f0eee8" stroke="#0A0812" stroke-width="2"/>
+  <path d="M 275,116 C 300,115 318,120 322,130 C 306,130 288,124 275,120 Z" fill="#e8e6e0" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Feet tucked in flight -->
+  <line x1="228" y1="128" x2="224" y2="140" stroke="#c87050" stroke-width="2" stroke-linecap="round"/>
+  <line x1="224" y1="140" x2="218" y2="146" stroke="#c87050" stroke-width="2" stroke-linecap="round"/>
+  <line x1="236" y1="130" x2="232" y2="142" stroke="#c87050" stroke-width="2" stroke-linecap="round"/>
+  <line x1="232" y1="142" x2="226" y2="148" stroke="#c87050" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Implied flight-path diagonal — faint dashed line, upper-right to lower-left -->
+  <line x1="350" y1="72" x2="110" y2="138" stroke="#a0a8b0" stroke-width="1" stroke-dasharray="6,8" opacity="0.35"/>
+
+</svg>

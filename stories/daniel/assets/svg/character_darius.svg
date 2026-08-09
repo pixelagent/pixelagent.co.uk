@@ -1,0 +1,33 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Teal robe — variety: Persian style, distinct from Babylonian red -->
+  <path d="M18 76 Q50 64 82 76 L78 100 L22 100 Z" fill="#2a6e5a" stroke="#0A0812" stroke-width="3"/>
+  <!-- Robe trim — unity, variety -->
+  <path d="M18 76 Q50 64 82 76" fill="none" stroke="#4ECDC4" stroke-width="2.5"/>
+  <!-- Robe folds — rhythm -->
+  <line x1="36" y1="78" x2="32" y2="100" stroke="#0A0812" stroke-width="1" opacity=".4"/>
+  <line x1="64" y1="78" x2="68" y2="100" stroke="#0A0812" stroke-width="1" opacity=".4"/>
+  <!-- Shoulder mantle -->
+  <path d="M24 66 Q50 56 76 66 L76 76 Q50 68 24 76 Z" fill="#1e5a48" stroke="#0A0812" stroke-width="2"/>
+  <!-- Head — older, weathered -->
+  <circle cx="50" cy="42" r="28" fill="#D4B896" stroke="#0A0812" stroke-width="3.5"/>
+  <!-- Crown — variety: Persian style, lower, more structured -->
+  <rect x="24" y="26" width="52" height="16" fill="#4ECDC4" stroke="#0A0812" stroke-width="2.5" rx="2"/>
+  <line x1="36" y1="26" x2="36" y2="42" stroke="#0A0812" stroke-width="1.5" opacity=".5"/>
+  <line x1="50" y1="26" x2="50" y2="42" stroke="#0A0812" stroke-width="1.5" opacity=".5"/>
+  <line x1="64" y1="26" x2="64" y2="42" stroke="#0A0812" stroke-width="1.5" opacity=".5"/>
+  <!-- Eyes — thoughtful, older -->
+  <circle cx="40" cy="46" r="4"  fill="#0A0812"/>
+  <circle cx="60" cy="46" r="4"  fill="#0A0812"/>
+  <circle cx="41" cy="45" r="1.5" fill="white" opacity=".5"/>
+  <circle cx="61" cy="45" r="1.5" fill="white" opacity=".5"/>
+  <!-- Age lines — variety, proportion -->
+  <path d="M32 44 Q36 40 40 44" fill="none" stroke="#0A0812" stroke-width="1.5" opacity=".5"/>
+  <path d="M60 44 Q64 40 68 44" fill="none" stroke="#0A0812" stroke-width="1.5" opacity=".5"/>
+  <!-- Beard: grey, longer — variety: age and wisdom -->
+  <path d="M28 58 Q50 72 72 58 Q68 80 50 84 Q32 80 28 58 Z" fill="#a8a8a8" stroke="#0A0812" stroke-width="2"/>
+  <line x1="38" y1="60" x2="36" y2="80" stroke="#888" stroke-width="1.5" opacity=".6"/>
+  <line x1="50" y1="64" x2="50" y2="84" stroke="#888" stroke-width="1.5" opacity=".6"/>
+  <line x1="62" y1="60" x2="64" y2="80" stroke="#888" stroke-width="1.5" opacity=".6"/>
+  <!-- Expression: concerned, mouth slightly open -->
+  <path d="M40 56 Q50 62 60 56" fill="none" stroke="#0A0812" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

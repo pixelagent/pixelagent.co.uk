@@ -1,0 +1,255 @@
+<svg viewBox="0 0 600 400"
+     xmlns="http://www.w3.org/2000/svg"
+     width="100%"
+     height="100%">
+
+  <defs>
+
+    <linearGradient id="morningSky"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1">
+      <stop offset="0%" stop-color="#74afe0"/>
+      <stop offset="55%" stop-color="#cfe7fb"/>
+      <stop offset="100%" stop-color="#f4d8ac"/>
+    </linearGradient>
+
+    <radialGradient id="sunGlow">
+      <stop offset="0%" stop-color="#fff8d9"/>
+      <stop offset="100%" stop-color="#fff8d9" stop-opacity="0"/>
+    </radialGradient>
+
+  </defs>
+
+  <!-- Sky -->
+
+  <rect width="600"
+        height="400"
+        fill="url(#morningSky)"/>
+
+  <!-- Morning Sun -->
+
+  <circle cx="480"
+          cy="80"
+          r="42"
+          fill="#FFD84D"
+          stroke="#0A0812"
+          stroke-width="3"/>
+
+  <circle cx="480"
+          cy="80"
+          r="110"
+          fill="url(#sunGlow)"
+          opacity="0.55"/>
+
+  <!-- Distant Hills -->
+
+  <path d="
+      M0 170
+      Q120 130 240 165
+      T480 160
+      T600 150
+      L600 240
+      L0 240 Z"
+      fill="#d2a46f"/>
+
+  <path d="
+      M0 220
+      Q140 190 280 220
+      T600 210
+      L600 280
+      L0 280 Z"
+      fill="#bb8650"/>
+
+  <!-- Foreground Ground -->
+
+  <path d="
+      M0 285
+      Q150 245 300 275
+      T600 255
+      L600 400
+      L0 400 Z"
+      fill="#8d6037"
+      stroke="#0A0812"
+      stroke-width="3"/>
+
+  <!-- ROAD FILL -->
+
+  <path d="
+      M235 400
+      Q215 340 245 290
+      Q275 240 225 175
+
+      L255 175
+
+      Q305 240 345 290
+      Q385 340 405 400
+
+      Z"
+      fill="#e6c38f"/>
+
+  <!-- LEFT ROAD EDGE -->
+
+  <path d="
+      M235 400
+      Q215 340 245 290
+      Q275 240 225 175"
+      fill="none"
+      stroke="#0A0812"
+      stroke-width="3"/>
+
+  <!-- RIGHT ROAD EDGE -->
+
+  <path d="
+      M405 400
+      Q385 340 345 290
+      Q305 240 255 175"
+      fill="none"
+      stroke="#0A0812"
+      stroke-width="3"/>
+
+  <!-- Road centre highlight -->
+
+  <path d="
+      M320 400
+      Q300 330 295 270
+      Q290 220 240 175"
+      fill="none"
+      stroke="#f6e0bc"
+      stroke-width="4"
+      opacity="0.55"
+      stroke-linecap="round"/>
+
+  <!-- Small rocks -->
+
+  <g fill="#6b4524">
+
+    <ellipse cx="120" cy="315" rx="7" ry="4"/>
+    <ellipse cx="170" cy="340" rx="9" ry="5"/>
+    <ellipse cx="455" cy="325" rx="8" ry="4"/>
+    <ellipse cx="505" cy="300" rx="7" ry="4"/>
+
+  </g>
+
+  <!-- Jonah -->
+
+  <g transform="translate(300 285)">
+
+    <!-- Shadow -->
+
+    <ellipse cx="0"
+             cy="85"
+             rx="22"
+             ry="7"
+             fill="#000"
+             opacity="0.18"/>
+
+    <!-- Head -->
+
+    <circle cx="0"
+            cy="0"
+            r="15"
+            fill="#f2d1aa"
+            stroke="#0A0812"
+            stroke-width="3"/>
+
+    <!-- Face -->
+
+    <circle cx="-4" cy="-2" r="2"/>
+    <circle cx="4" cy="-2" r="2"/>
+
+    <line x1="-4"
+          y1="8"
+          x2="4"
+          y2="8"
+          stroke="#0A0812"
+          stroke-width="2"/>
+
+    <!-- Robe -->
+
+    <path d="
+        M-22 18
+        L22 18
+        L28 85
+        L-28 85 Z"
+        fill="#56748d"
+        stroke="#0A0812"
+        stroke-width="3"/>
+
+    <!-- Arms -->
+
+    <line x1="-20"
+          y1="40"
+          x2="-40"
+          y2="55"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+    <line x1="20"
+          y1="40"
+          x2="42"
+          y2="20"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+    <!-- Legs -->
+
+    <line x1="-8"
+          y1="85"
+          x2="-22"
+          y2="112"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+    <line x1="10"
+          y1="85"
+          x2="28"
+          y2="112"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+    <!-- Staff -->
+
+    <line x1="40"
+          y1="-5"
+          x2="48"
+          y2="102"
+          stroke="#6b4425"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+  </g>
+
+  <!-- Dust -->
+
+  <g fill="#f3d6ab" opacity="0.45">
+
+    <ellipse cx="275" cy="350" rx="14" ry="5"/>
+    <ellipse cx="255" cy="365" rx="10" ry="4"/>
+    <ellipse cx="295" cy="375" rx="9" ry="4"/>
+
+  </g>
+
+  <!-- Birds -->
+
+  <g stroke="#ffffff"
+     stroke-width="2"
+     fill="none">
+
+    <path d="M100 75 q8 -8 16 0"/>
+    <path d="M116 75 q8 -8 16 0"/>
+
+    <path d="M170 60 q8 -8 16 0"/>
+    <path d="M186 60 q8 -8 16 0"/>
+
+    <path d="M250 90 q8 -8 16 0"/>
+    <path d="M266 90 q8 -8 16 0"/>
+
+  </g>
+
+</svg>

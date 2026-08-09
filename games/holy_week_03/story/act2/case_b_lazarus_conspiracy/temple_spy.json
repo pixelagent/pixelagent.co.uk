@@ -1,0 +1,37 @@
+{
+  "start": {
+    "content": "Keep moving, scribe. Do not look at me directly. I am cataloguing the faces near the treasury gates.",
+    "choices": [
+      {
+        "text": "What are you cataloguing?",
+        "destination": "catalogue"
+      },
+      {
+        "text": "For whom do you work?",
+        "destination": "employer"
+      }
+    ]
+  },
+  "catalogue": {
+    "content": "The faces of the men who came to hear the Galilean today. The chief priests, the scribes, the Pharisees \u2014 they all came with questions. He answered every one.",
+    "choices": [
+      {
+        "text": "And the answers?",
+        "destination": "employer"
+      }
+    ]
+  },
+  "employer": {
+    "content": "The High Priest's household employs many watchers. I watch the Temple because the Temple is where power assembles. And power, when challenged, remembers.",
+    "choices": [
+      {
+        "text": "You heard the teachings?",
+        "destination": "closing"
+      }
+    ]
+  },
+  "closing": {
+    "content": "Say nothing. The treasury walls have ears. The Galilean's words are being weighed, and the scales do not favour Him.",
+    "choices": []
+  }
+}

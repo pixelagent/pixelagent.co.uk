@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="100%" height="100%">
+        <!-- Neck -->
+        <path d="M82,145 L82,185 C90,195 110,195 118,185 L118,145 Z" fill="#e5be98"/>
+        <path d="M82,145 L82,165 C90,175 110,175 118,165 L118,145 Z" fill="#c7a07a" opacity="0.5"/>
+        <!-- Shoulders / Base Torso -->
+        <path d="M30,240 C35,190 60,170 82,170 L118,170 C140,170 165,190 170,240 Z" fill="#e5be98"/>
+    <path d="M20,240 L30,165 C60,150 140,150 170,165 L180,240 Z" fill="#2c2028" opacity="0.9"/>
+                <path d="M50,240 L60,165 L100,210 L140,165 L150,240 Z" fill="#4a3d47" />
+                <path d="M30,240 L40,180 L80,210 L30,240 Z" fill="#3a2f38" />
+                <path d="M170,240 L160,180 L120,210 L170,240 Z" fill="#3a2f38" />
+                <path d="M70,240 L80,180 L120,180 L130,240 Z" fill="#8a5a6a" opacity="0.6"/>
+            <g transform="translate(100,100) scale(0.9) translate(-100,-100)"><g transform="translate(48,95) scale(0.65) translate(-48,-95)"><path d="M48,95 C42,95 34,95 34,105 C34,115 42,122 48,118 C54,122 62,115 62,105 C62,95 54,95 48,95 Z" fill="#e5be98"/></g><g transform="translate(152,95) scale(0.65) translate(-152,-95)"><path d="M152,95 C158,95 166,95 166,105 C166,115 158,122 152,118 C146,122 138,115 138,105 C138,95 146,95 152,95 Z" fill="#e5be98"/></g></g><g transform="translate(100,100) scale(0.9) translate(-100,-100)"><g transform="translate(100,30) scale(1.25) translate(-100,-30)"><path d="M100,25 C60,22 35,50 35,90 L35,130 L60,130 L60,90 Z" fill="#241c14"/><g transform="translate(200,0) scale(-1,1)"><path d="M100,25 C60,22 35,50 35,90 L35,130 L60,130 L60,90 Z" fill="#241c14"/></g>
+            <circle cx="35" cy="120" r="12" fill="#241c14"/>
+            <circle cx="38" cy="140" r="10" fill="#241c14"/>
+            <circle cx="35" cy="160" r="10" fill="#241c14"/>
+            <circle cx="38" cy="180" r="8" fill="#241c14"/>
+            <circle cx="35" cy="195" r="7" fill="#241c14"/>
+        <g transform="translate(200,0) scale(-1,1)">
+            <circle cx="35" cy="120" r="12" fill="#241c14"/>
+            <circle cx="38" cy="140" r="10" fill="#241c14"/>
+            <circle cx="35" cy="160" r="10" fill="#241c14"/>
+            <circle cx="38" cy="180" r="8" fill="#241c14"/>
+            <circle cx="35" cy="195" r="7" fill="#241c14"/>
+        </g></g></g><g transform="translate(100,100) scale(0.9) translate(-100,-100)"><path d="M100,25 C148,25 166,48 162,88 C159,116 150,140 136,156 L118,178 C112,183 106,187 100,188 C94,187 88,183 82,178 L64,156 C50,140 41,116 38,88 C34,48 52,25 100,25 Z" fill="#e5be98"/></g><g transform="translate(100,100) scale(0.9) translate(-100,-100)">
+                <path d="M86,163 L114,163 C114,174 108,183 100,185 C92,183 86,174 86,163 Z" fill="#e5be98"/>
+                <path d="M90,178 C94,181 106,181 110,178 C106,180.5 94,180.5 90,178 Z" fill="#c9a27c" opacity="0.2"/>
+            </g><g transform="translate(100,100) scale(0.9) translate(-100,-100)"></g><path d="M78,150 C85,140 115,140 122,150 C115,144 85,144 78,150 Z" fill="#b06a5a"/><g transform="translate(100,110) scale(1.05) translate(-100,-110)"><path d="M99,93 C104,100 108,108 105,116 C109,118 111,122 109,125 L91,125 C89,122 91,118 95,116 C92,108 96,100 99,93 Z" fill="#c9a27c" opacity="0.32"/>
+        <ellipse cx="94.5" cy="122" rx="2" ry="1.4" fill="#c9a27c" opacity="0.85"/>
+        <ellipse cx="105.5" cy="122" rx="2" ry="1.4" fill="#c9a27c" opacity="0.85"/>
+    </g><path d="M64,78 C70,68 84,67 90,76 C84,71 70,72 64,78 Z" fill="#241c14"/><g transform="translate(200,0) scale(-1,1)"><path d="M64,78 C70,68 84,67 90,76 C84,71 70,72 64,78 Z" fill="#241c14"/></g><circle cx="77.6" cy="93" r="9" fill="#fdfaf1"/><circle cx="77.6" cy="93" r="5.5" fill="#2e2016"/><circle cx="77.6" cy="93" r="2.2" fill="#1a1410"/><circle cx="79" cy="91.6" r="1.21" fill="#ffffff"/><g transform="translate(200,0) scale(-1,1)"><circle cx="77.6" cy="93" r="9" fill="#fdfaf1"/><circle cx="77.6" cy="93" r="5.5" fill="#2e2016"/><circle cx="77.6" cy="93" r="2.2" fill="#1a1410"/><circle cx="79" cy="91.6" r="1.21" fill="#ffffff"/></g><g transform="translate(100,100) scale(0.9) translate(-100,-100)"><g transform="translate(100,30) scale(1.25) translate(-100,-30)"><path d="M100,22 C138,22 156,48 154,85 C154,70 148,58 140,52 C142,60 140,66 136,68 C132,50 112,38 100,38 C88,38 68,50 64,68 C60,66 58,60 60,52 C52,58 46,70 46,85 C44,48 62,22 100,22 Z" fill="#241c14"/></g></g><g transform="translate(100,100) scale(0.9) translate(-100,-100)"></g></svg>

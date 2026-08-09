@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- ===== BACKGROUND LAYER: Dark evening sky — open upper third ===== -->
+  <rect width="400" height="300" fill="#0a0812"/>
+  <!-- Sky gradient — reddish glow at left horizon (distant ark torchlight) -->
+  <rect x="0" y="0" width="400" height="220" fill="#0a0812"/>
+  <!-- Low amber glow on left horizon -->
+  <ellipse cx="40" cy="210" rx="90" ry="55" fill="#E8B84B" opacity="0.10"/>
+  <ellipse cx="30" cy="215" rx="50" ry="30" fill="#C87050" opacity="0.12"/>
+
+  <!-- Building silhouettes — very dark, background -->
+  <!-- Building 1: left -->
+  <rect x="0" y="148" width="55" height="72" fill="#14100a"/>
+  <rect x="8" y="135" width="40" height="18" fill="#14100a"/>
+  <!-- Building 2: centre -->
+  <rect x="130" y="130" width="70" height="90" fill="#120c04"/>
+  <rect x="145" y="118" width="42" height="18" fill="#120c04"/>
+  <!-- Building 3: right -->
+  <rect x="320" y="142" width="80" height="78" fill="#14100a"/>
+  <rect x="332" y="128" width="52" height="20" fill="#14100a"/>
+
+  <!-- Ground -->
+  <rect x="0" y="242" width="400" height="58" fill="#14100a"/>
+  <rect x="0" y="236" width="400" height="10" fill="#281808"/>
+
+  <!-- ===== FIVE VILLAGERS — foreground, leaning and pointing leftward ===== -->
+  <!-- Collective lean and pointing creates diagonal movement to the LEFT -->
+
+  <!-- FIGURE 1: far left, shorter, leaning left, pointing -->
+  <polygon points="28,240 38,196 52,196 60,240" fill="#5a3010" stroke="#0A0812" stroke-width="2"/>
+  <circle cx="45" cy="186" r="14" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+  <!-- squinted laugh eyes -->
+  <path d="M 38,183 Q 43,180 47,183" fill="none" stroke="#0A0812" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 47,183 Q 51,180 55,183" fill="none" stroke="#0A0812" stroke-width="2" stroke-linecap="round"/>
+  <!-- open mouth -->
+  <path d="M 39,189 Q 45,196 51,189" fill="#0A0812"/>
+  <!-- pointing arm left -->
+  <line x1="36" y1="210" x2="12" y2="204" stroke="#C87050" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="9" cy="203" r="5.5" fill="#C87050" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- FIGURE 2: second from left, slightly taller, darker robe -->
+  <polygon points="70,241 82,192 100,192 110,241" fill="#6b4420" stroke="#0A0812" stroke-width="2"/>
+  <circle cx="91" cy="181" r="16" fill="#a06a35" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- head wrap -->
+  <polygon points="75,174 91,166 107,174 105,181 91,173 77,181" fill="#3d2808" stroke="#0A0812" stroke-width="2"/>
+  <!-- laugh mouth -->
+  <path d="M 83,186 Q 91,196 99,186" fill="#0A0812"/>
+  <line x1="85" y1="192" x2="97" y2="192" stroke="#e8e0c8" stroke-width="3"/>
+  <!-- squinted eyes -->
+  <path d="M 83,178 Q 88,174 93,178" fill="none" stroke="#0A0812" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 93,178 Q 98,174 103,178" fill="none" stroke="#0A0812" stroke-width="2" stroke-linecap="round"/>
+  <!-- pointing arm left/down -->
+  <line x1="78" y1="208" x2="52" y2="214" stroke="#C87050" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="49" cy="215" r="6" fill="#C87050" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- other arm raised -->
+  <line x1="102" y1="206" x2="116" y2="192" stroke="#C87050" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="118" cy="190" r="5" fill="#C87050" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- FIGURE 3: CENTRE — tallest, most detailed, FOCAL — mouth wide open, arms raised -->
+  <!-- Body — slightly taller, lighter colour for emphasis -->
+  <polygon points="148,242 158,183 184,183 192,242" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Belly bulge -->
+  <ellipse cx="170" cy="218" rx="17" ry="13" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+  <!-- Head — biggest, brightest -->
+  <circle cx="170" cy="170" r="20" fill="#E8B84B" stroke="#0A0812" stroke-width="3"/>
+  <!-- head wrap -->
+  <polygon points="150,163 170,153 190,163 188,172 170,162 152,172" fill="#5a3010" stroke="#0A0812" stroke-width="2"/>
+  <!-- WIDE OPEN MOUTH — max expression -->
+  <path d="M 158,176 Q 170,193 182,176" fill="#0A0812"/>
+  <line x1="161" y1="185" x2="179" y2="185" stroke="#e8e0c8" stroke-width="3.5"/>
+  <!-- Eyes wide/squinted with laugh -->
+  <path d="M 158,167 Q 164,162 170,167" fill="none" stroke="#0A0812" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 170,167 Q 176,162 182,167" fill="none" stroke="#0A0812" stroke-width="3" stroke-linecap="round"/>
+  <!-- BOTH ARMS RAISED — gesture of mockery -->
+  <line x1="156" y1="200" x2="130" y2="175" stroke="#E8B84B" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="127" cy="173" r="7" fill="#E8B84B" stroke="#0A0812" stroke-width="2"/>
+  <line x1="184" y1="200" x2="210" y2="175" stroke="#E8B84B" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="212" cy="173" r="7" fill="#E8B84B" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- FIGURE 4: centre-right, slightly smaller, darker -->
+  <polygon points="228,241 238,196 256,196 264,241" fill="#6b4420" stroke="#0A0812" stroke-width="2"/>
+  <circle cx="247" cy="185" r="16" fill="#C87050" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- head covering -->
+  <polygon points="231,179 247,170 263,179 261,186 247,178 233,186" fill="#3d2808" stroke="#0A0812" stroke-width="2"/>
+  <!-- laughing mouth -->
+  <path d="M 239,190 Q 247,199 255,190" fill="#0A0812"/>
+  <!-- eyes squinted -->
+  <path d="M 240,183 Q 245,179 249,183" fill="none" stroke="#0A0812" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 249,183 Q 253,179 257,183" fill="none" stroke="#0A0812" stroke-width="2" stroke-linecap="round"/>
+  <!-- pointing arm left toward central figure -->
+  <line x1="236" y1="210" x2="212" y2="206" stroke="#C87050" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="209" cy="205" r="5.5" fill="#C87050" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- elbow nudging right -->
+  <line x1="256" y1="210" x2="276" y2="215" stroke="#C87050" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- FIGURE 5: far right, shorter/darker (receding), snickering -->
+  <!-- Body — darker, smaller = receding depth -->
+  <polygon points="290,241 299,202 314,202 322,241" fill="#5a3010" stroke="#0A0812" stroke-width="2"/>
+  <circle cx="306" cy="193" r="13" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+  <!-- smirk -->
+  <path d="M 299,197 Q 306,204 313,198" fill="#0A0812"/>
+  <!-- eyes -->
+  <ellipse cx="301" cy="191" rx="2" ry="1.8" fill="#0A0812"/>
+  <ellipse cx="311" cy="191" rx="2" ry="1.8" fill="#0A0812"/>
+  <!-- pointing arm left -->
+  <line x1="297" y1="212" x2="276" y2="209" stroke="#C87050" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="273" cy="208" r="5" fill="#C87050" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- Ground shadow under crowd -->
+  <ellipse cx="188" cy="244" rx="198" ry="8" fill="#0a0812" opacity="0.7"/>
+
+  <!-- Stars — faint, upper sky -->
+  <circle cx="48" cy="22" r="1.2" fill="#c4956a" opacity="0.5"/>
+  <circle cx="118" cy="12" r="1" fill="#c4956a" opacity="0.4"/>
+  <circle cx="200" cy="28" r="1.2" fill="#c4956a" opacity="0.45"/>
+  <circle cx="285" cy="10" r="1" fill="#c4956a" opacity="0.4"/>
+  <circle cx="352" cy="30" r="1.2" fill="#c4956a" opacity="0.5"/>
+  <circle cx="165" cy="45" r="1" fill="#c4956a" opacity="0.35"/>
+  <circle cx="82" cy="55" r="0.9" fill="#c4956a" opacity="0.3"/>
+
+</svg>

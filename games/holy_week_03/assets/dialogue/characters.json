@@ -1,0 +1,104 @@
+{
+    "characters": [
+        {
+            "id": "peter",
+            "name": "Simon Peter (Donkey)",
+            "file": "act1/case_a_missing_donkey/peter_donkey.json"
+        },
+        {
+            "id": "john",
+            "name": "John (Donkey)",
+            "file": "act1/case_a_missing_donkey/john_donkey.json"
+        },
+        {
+            "id": "owner",
+            "name": "Tobias (Donkey Owner)",
+            "file": "act1/case_a_missing_donkey/galilean_pilgrim.json"
+        },
+        {
+            "id": "local_skeptic",
+            "name": "Jemimah (Local)",
+            "file": "act1/case_a_missing_donkey/jerusalem_local.json"
+        },
+        {
+            "id": "eleazar",
+            "name": "Eleazar (Sadducee)",
+            "file": "act1/case_a_missing_donkey/eleazar_sadducee.json"
+        },
+        {
+            "id": "money_changer",
+            "name": "Malachi (Merchant)",
+            "file": "act1/case_b_overturned_tables/money_changer.json"
+        },
+        {
+            "id": "garrison_guard",
+            "name": "Marcus (Guard)",
+            "file": "act1/case_b_overturned_tables/guard_report.json"
+        },
+        {
+            "id": "informant_bribe",
+            "name": "Market Informant",
+            "file": "act1/case_b_overturned_tables/informant_bribe.json"
+        },
+        {
+            "id": "market_rumors",
+            "name": "Market Vendor",
+            "file": "act1/case_b_overturned_tables/market_rumors.json"
+        },
+        {
+            "id": "scribe",
+            "name": "Master Scribe",
+            "file": "act2/case_a_silenced_teacher/scribe_intro.json"
+        },
+        {
+            "id": "andrew_olivet",
+            "name": "Andrew (Olivet)",
+            "file": "extras/andrew_olivet.json"
+        },
+        {
+            "id": "nicodemus",
+            "name": "Nicodemus",
+            "file": "nicodemus_conflicted.json"
+        },
+        {
+            "id": "martha",
+            "name": "Martha",
+            "file": "martha_bethany.json"
+        },
+        {
+            "id": "caiaphas",
+            "name": "Caiaphas (High Priest)",
+            "file": "act3/case_c_midnight_tribunal/caiaphas_priest.json"
+        },
+        {
+            "id": "pilate",
+            "name": "Pontius Pilate",
+            "file": "act1/case_b_overturned_tables/pontius_pilate.json"
+        },
+        {
+            "id": "judas",
+            "name": "Judas Iscariot",
+            "file": "act3/case_a_broken_cup/judas_iscariot.json"
+        },
+        {
+            "id": "john_mark",
+            "name": "John Mark",
+            "file": "act3/case_a_broken_cup/john_disciple.json"
+        },
+        {
+            "id": "mary_magdalene",
+            "name": "Mary Magdalene",
+            "file": "act4/case_a_empty_tomb/mary_magdalene.json"
+        },
+        {
+            "id": "execution_soldier",
+            "name": "Legionary Marcus",
+            "file": "act4/case_a_empty_tomb/execution_soldier.json"
+        },
+        {
+            "id": "centurion_longinus",
+            "name": "Centurion Longinus",
+            "file": "act3/case_e_final_sacrifice/roman_assessment.json"
+        }
+    ]
+}

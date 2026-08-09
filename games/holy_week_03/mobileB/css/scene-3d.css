@@ -1,0 +1,368 @@
+/* 3D Scene Container - Embedded in Scene tab */
+#inv-scene {
+    position: relative;
+    background: #010105;
+    overflow: visible;
+    border: 2px solid var(--surface2);
+    box-shadow: 0 0 20px rgba(245, 200, 66, 0.6);
+}
+
+/* Vignette overlay effect on canvas */
+#inv-scene::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 1) inset;
+}
+
+#inv-scene canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Ensure scene view takes up available space */
+#inv-scene {
+    min-height: 300px;
+    flex: 1;
+}
+
+/* Scene Intro Overlay - above mobile controls */
+#scene-intro {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 20px;
+    text-align: center;
+}
+
+#scene-intro.hidden {
+    display: none;
+}
+
+.scene-intro-content {
+    max-width: 320px;
+}
+
+.scene-intro h2 {
+    color: var(--gold);
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+}
+
+.scene-intro p {
+    color: var(--text);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.scene-intro-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--surface3);
+    color: var(--text);
+    border: 1px solid var(--border);
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.2s;
+}
+
+.scene-intro-close:hover {
+    background: var(--surface2);
+    color: var(--gold);
+}
+
+/* Scene intro button - acts as close trigger */
+.lets-investigate-btn {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 12px 24px;
+    font-weight: 600;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.lets-investigate-btn:hover {
+    background: #e0b030;
+    transform: translateY(-2px);
+}
+
+/* Location overlay */
+.scene-loc-overlay {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    pointer-events: none;
+    display: none;
+    z-index: 150;
+}
+
+.scene-loc-overlay.visible {
+    display: block;
+}
+
+.scene-loc-content h2 {
+    font-size: 2.8em;
+    color: var(--gold);
+    margin: 0;
+    text-shadow: 0 0 20px #000;
+}
+
+/* NPC overlay — positions the name tooltip and talk button above the NPC */
+.scene-npc-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* NPC Name Tooltip */
+.scene-npc-name-tooltip {
+    position: absolute;
+    display: none;
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--gold);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    z-index: 100;
+    transform: translate(-50%, -100%);
+    border: 1px solid var(--gold);
+    pointer-events: none;
+}
+
+/* NPC Talk Button */
+.scene-npc-talk-btn {
+    position: absolute;
+    display: none;
+    background: rgba(0, 10, 20, 0.9);
+    color: var(--accent-primary);
+    border: 1px solid var(--accent-primary);
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    z-index: 100;
+    transform: translate(-50%, -150%);
+}
+
+.scene-npc-talk-btn:hover {
+    background: rgba(0, 242, 255, 0.2);
+}
+
+/* World Prompt - shows NPC name when near */
+.interact-prompt {
+    position: absolute;
+    background: #ffaa00;
+    color: black;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    font-size: 0.8em;
+    transform: translate(-50%, -50%);
+    display: none;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0 0 20px #ffaa00;
+    border: 1px solid white;
+    z-index: 200;
+}
+
+/* Mobile controller for 3D scene - bottom left overlay */
+#scene-mobile-ctrl {
+    position: absolute;
+    bottom: 60px;
+    left: 20px;
+    display: none;
+    grid-template-columns: 30px 30px 30px;
+    grid-template-rows: 30px 30px 30px;
+    gap: 4px;
+    z-index: 100;
+    pointer-events: none;
+}
+
+#scene-mobile-ctrl.visible {
+    display: grid !important;
+}
+
+@media (max-width: 768px) {
+    #scene-mobile-ctrl {
+        display: grid !important;
+    }
+}
+
+/* Button styling for mobile controls - half size (30px) */
+#scene-mobile-ctrl .ui-toggle {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    background: rgba(0, 10, 20, 0.8);
+    border: 1px solid var(--accent-primary);
+    color: var(--accent-primary);
+    cursor: pointer;
+    font-size: 0.8em;
+    border-radius: 4px;
+    transition: transform 0.12s ease, background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+#scene-mobile-ctrl .ui-toggle:hover {
+    background: rgba(0, 242, 255, 0.2);
+}
+
+#scene-mobile-ctrl .ui-toggle:active {
+    transform: scale(0.9);
+}
+
+/* Up button - top center */
+#scene-ctrl-up {
+    grid-column: 2;
+    grid-row: 1;
+    pointer-events: auto;
+}
+
+/* Left button - middle left */
+#scene-ctrl-left {
+    grid-column: 1;
+    grid-row: 2;
+    pointer-events: auto;
+}
+
+/* Right button - middle right */
+#scene-ctrl-right {
+    grid-column: 3;
+    grid-row: 2;
+    pointer-events: auto;
+}
+
+/* Down button - bottom center */
+#scene-ctrl-down {
+    grid-column: 2;
+    grid-row: 3;
+    pointer-events: auto;
+}
+
+/* Jump button - center (overlapping left/right) */
+#scene-ctrl-jump {
+    grid-column: 2;
+    grid-row: 2;
+    pointer-events: auto;
+    background: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+    z-index: 2;
+}
+
+/* Loading screen for 3D scene */
+#scene-loading {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+#scene-loading .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #333;
+    border-top: 3px solid var(--gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+#scene-loading p {
+    color: var(--text);
+    margin-top: 16px;
+    font-size: 0.9rem;
+}
+
+/* Action buttons overlay on 3D canvas - bottom right, above fixed navbar */
+#scene-mobile-actions {
+    position: absolute;
+    bottom: 70px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 999;
+    pointer-events: none;
+}
+
+#scene-mobile-actions .ui-toggle {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: rgba(0, 10, 20, 0.8);
+    border: 2px solid var(--border, #44372c);
+    color: var(--text-muted, #554438);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    pointer-events: auto;
+    cursor: pointer;
+    touch-action: manipulation;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+#scene-mobile-actions .ui-toggle:active {
+    background: var(--surface3, #3a2e24);
+    border-color: var(--gold);
+}
+
+#scene-mobile-actions .ui-toggle:hover {
+    background: rgba(0, 242, 255, 0.2);
+}
+
+/* Action popup for 3D scene */
+#scene-actions-panel {
+    position: absolute;
+    background: rgba(0, 10, 20, 0.94);
+    border: 1px solid var(--accent-primary);
+    border-radius: 10px;
+    padding: 8px;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    pointer-events: auto;
+}
+
+#scene-actions-panel.open {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}

@@ -1,0 +1,44 @@
+{
+  "start": {
+    "content": "I am Rhoda. I have been serving this household since I was a child. Preparing for Passover is always a rush, but this group... they were different. So quiet, yet the air felt heavy.",
+    "choices": [
+      {
+        "text": "What did you hear while preparing the room?",
+        "destination": "clinking_coins"
+      },
+      {
+        "text": "Tell me about the man who left early.",
+        "destination": "judas_exit"
+      }
+    ]
+  },
+  "clinking_coins": {
+    "content": "I was bringing up the extra lamps. As I passed the preparation table, I heard the sharp, heavy clink of silver coins hitting the wood. One of the men was standing there, his hands inside a heavy bag. It didn't sound like the copper mites we usually see — it had the ring of high-purity Temple silver.",
+    "choices": [
+      {
+        "text": "Which man was it?",
+        "destination": "judas_exit"
+      },
+      {
+        "text": "And the water jug?",
+        "destination": "water_jug"
+      }
+    ]
+  },
+  "judas_exit": {
+    "content": "He was the one carrying the purse. He looked pale, even in the torchlight. Later, right in the middle of the meal, he practically ran down the stairs. I heard a clay cup shatter against the stone floor near the landing as he fled.",
+    "choices": [
+      { "text": "Continue.", "destination": "closing" }
+    ]
+  },
+  "water_jug": {
+    "content": "The stone jug is heavy, but someone moved it from the landing to the top of the stairs and back again. There was a wet trail on the floor. I assumed they were washing, but the basin was still in the corner when I checked.",
+    "choices": [
+      { "text": "Continue.", "destination": "closing" }
+    ]
+  },
+  "closing": {
+    "content": "I just hope the Teacher is safe. They went to the garden, but the atmosphere in the city tonight... it feels like a storm is coming.",
+    "choices": []
+  }
+}

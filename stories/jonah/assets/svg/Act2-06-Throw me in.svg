@@ -1,0 +1,228 @@
+<svg viewBox="0 0 600 400"
+     xmlns="http://www.w3.org/2000/svg"
+     width="100%"
+     height="100%">
+
+  <defs>
+
+    <linearGradient id="stormSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#050912"/>
+      <stop offset="50%" stop-color="#152539"/>
+      <stop offset="100%" stop-color="#28425f"/>
+    </linearGradient>
+
+    <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2d6f98"/>
+      <stop offset="100%" stop-color="#06111c"/>
+    </linearGradient>
+
+    <radialGradient id="lightningGlow">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+
+  </defs>
+
+  <!-- Sky -->
+  <rect width="600" height="400" fill="url(#stormSky)"/>
+
+  <!-- Lightning glow -->
+  <circle cx="110" cy="80" r="140"
+          fill="url(#lightningGlow)"
+          opacity="0.35"/>
+
+  <!-- Thunderclouds -->
+  <g fill="#0b1420">
+
+    <ellipse cx="110" cy="80" rx="90" ry="35"/>
+    <ellipse cx="190" cy="70" rx="100" ry="40"/>
+    <ellipse cx="290" cy="90" rx="140" ry="45"/>
+    <ellipse cx="470" cy="80" rx="140" ry="50"/>
+
+  </g>
+
+  <!-- Lightning -->
+  <path d="M130 10
+           L95 80
+           L135 80
+           L90 160
+           L170 70
+           L125 70 Z"
+        fill="#fffef4"
+        stroke="#dff7ff"
+        stroke-width="2"/>
+
+  <!-- Giant wave left -->
+  <path d="
+      M0 260
+      C80 140 180 120 250 240
+      C290 310 230 380 140 400
+      L0 400 Z"
+      fill="url(#waveGrad)"
+      stroke="#0A0812"
+      stroke-width="5"/>
+
+  <!-- Giant wave right -->
+  <path d="
+      M600 250
+      C530 120 420 120 350 230
+      C310 310 360 390 470 400
+      L600 400 Z"
+      fill="url(#waveGrad)"
+      stroke="#0A0812"
+      stroke-width="5"/>
+
+  <!-- Whitecaps -->
+  <g fill="none"
+     stroke="#7fd9ff"
+     stroke-width="4"
+     stroke-linecap="round">
+
+    <path d="M40 220 Q80 200 120 220"/>
+    <path d="M400 210 Q450 190 500 215"/>
+    <path d="M460 260 Q500 240 540 260"/>
+
+  </g>
+
+  <!-- Tilted deck -->
+  <g transform="rotate(-12 300 220)">
+
+    <path d="M-30 250
+             L640 250
+             L640 420
+             L-30 420 Z"
+          fill="#7b5b40"
+          stroke="#0A0812"
+          stroke-width="7"/>
+
+    <line x1="-30"
+          y1="290"
+          x2="640"
+          y2="290"
+          stroke="#3f2a1c"
+          stroke-width="3"/>
+
+    <line x1="-30"
+          y1="330"
+          x2="640"
+          y2="330"
+          stroke="#3f2a1c"
+          stroke-width="3"/>
+
+    <!-- Rail -->
+    <line x1="-30"
+          y1="240"
+          x2="640"
+          y2="240"
+          stroke="#0A0812"
+          stroke-width="8"/>
+
+    <!-- Rail posts -->
+    <g stroke="#0A0812" stroke-width="6">
+      <line x1="70" y1="170" x2="70" y2="240"/>
+      <line x1="180" y1="170" x2="180" y2="240"/>
+      <line x1="290" y1="170" x2="290" y2="240"/>
+      <line x1="400" y1="170" x2="400" y2="240"/>
+      <line x1="510" y1="170" x2="510" y2="240"/>
+    </g>
+
+    <!-- Sailors reaching toward Jonah -->
+    <g fill="#122033"
+       stroke="#0A0812"
+       stroke-width="4">
+
+      <circle cx="215" cy="220" r="12"/>
+      <path d="M200 232 L225 232 L230 280 L195 280 Z"/>
+
+      <line x1="225" y1="240"
+            x2="260" y2="220"
+            stroke="#0A0812"
+            stroke-width="5"/>
+
+      <circle cx="140" cy="235" r="12"/>
+      <path d="M125 247 L150 247 L155 290 L120 290 Z"/>
+
+    </g>
+
+    <!-- Jonah -->
+    <g>
+
+      <circle cx="310" cy="185"
+              r="14"
+              fill="#f8d8b6"
+              stroke="#0A0812"
+              stroke-width="3"/>
+
+      <path d="
+            M292 200
+            L328 200
+            L334 265
+            L286 265 Z"
+            fill="#23364d"
+            stroke="#0A0812"
+            stroke-width="4"/>
+
+      <!-- arms open -->
+      <line x1="292"
+            y1="220"
+            x2="250"
+            y2="215"
+            stroke="#0A0812"
+            stroke-width="6"
+            stroke-linecap="round"/>
+
+      <line x1="328"
+            y1="220"
+            x2="370"
+            y2="215"
+            stroke="#0A0812"
+            stroke-width="6"
+            stroke-linecap="round"/>
+
+      <!-- legs -->
+      <line x1="300"
+            y1="265"
+            x2="292"
+            y2="295"
+            stroke="#0A0812"
+            stroke-width="6"
+            stroke-linecap="round"/>
+
+      <line x1="320"
+            y1="265"
+            x2="328"
+            y2="295"
+            stroke="#0A0812"
+            stroke-width="6"
+            stroke-linecap="round"/>
+
+      <!-- standing on rail -->
+      <line x1="280"
+            y1="300"
+            x2="340"
+            y2="300"
+            stroke="#0A0812"
+            stroke-width="8"/>
+
+    </g>
+
+  </g>
+
+  <!-- Heavy rain -->
+  <g stroke="#8ee9ff"
+     stroke-width="2"
+     opacity="0.45">
+
+    <line x1="40" y1="0" x2="-20" y2="120"/>
+    <line x1="100" y1="0" x2="40" y2="120"/>
+    <line x1="160" y1="0" x2="100" y2="120"/>
+    <line x1="220" y1="0" x2="160" y2="120"/>
+    <line x1="280" y1="0" x2="220" y2="120"/>
+    <line x1="340" y1="0" x2="280" y2="120"/>
+    <line x1="400" y1="0" x2="340" y2="120"/>
+    <line x1="460" y1="0" x2="400" y2="120"/>
+    <line x1="520" y1="0" x2="460" y2="120"/>
+    <line x1="580" y1="0" x2="520" y2="120"/>
+  </g>
+
+</svg>

@@ -1,0 +1,268 @@
+<svg viewBox="0 0 600 400"
+     xmlns="http://www.w3.org/2000/svg"
+     width="100%"
+     height="100%">
+
+  <defs>
+
+    <linearGradient id="cabinWall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#23160f"/>
+      <stop offset="100%" stop-color="#0b0e15"/>
+    </linearGradient>
+
+    <radialGradient id="lanternGlow">
+      <stop offset="0%" stop-color="#fff2ba" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#fff2ba" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="stormSea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2b6a93"/>
+      <stop offset="100%" stop-color="#06101b"/>
+    </linearGradient>
+
+  </defs>
+
+  <!-- Cabin -->
+
+  <rect width="600"
+        height="400"
+        fill="url(#cabinWall)"/>
+
+  <!-- Tilted room -->
+
+  <g transform="rotate(-8 300 200)">
+
+    <!-- Wooden beams -->
+
+    <line x1="80" y1="-50"
+          x2="50" y2="500"
+          stroke="#3d2416"
+          stroke-width="12"/>
+
+    <line x1="300" y1="-50"
+          x2="270" y2="500"
+          stroke="#3d2416"
+          stroke-width="12"/>
+
+    <line x1="520" y1="-50"
+          x2="490" y2="500"
+          stroke="#3d2416"
+          stroke-width="12"/>
+
+    <!-- Floor -->
+
+    <path d="M-50 300
+             L650 300
+             L650 500
+             L-50 500 Z"
+          fill="#2d1d13"
+          stroke="#0A0812"
+          stroke-width="6"/>
+
+    <!-- Floor planks -->
+
+    <g stroke="#4a311f" stroke-width="2">
+      <line x1="-50" y1="340" x2="650" y2="340"/>
+      <line x1="-50" y1="380" x2="650" y2="380"/>
+      <line x1="-50" y1="420" x2="650" y2="420"/>
+    </g>
+
+  </g>
+
+  <!-- Porthole -->
+
+  <g>
+
+    <circle cx="120"
+            cy="115"
+            r="55"
+            fill="#18344e"
+            stroke="#8d8f95"
+            stroke-width="10"/>
+
+    <line x1="65" y1="115"
+          x2="175" y2="115"
+          stroke="#8d8f95"
+          stroke-width="6"/>
+
+    <line x1="120" y1="60"
+          x2="120" y2="170"
+          stroke="#8d8f95"
+          stroke-width="6"/>
+
+    <!-- Waves -->
+
+    <path d="M70 130
+             Q90 110 110 130
+             T150 130
+             T190 130"
+          fill="none"
+          stroke="#7fdaff"
+          stroke-width="4"/>
+
+    <!-- Lightning -->
+
+    <path d="M130 65
+             L105 103
+             L132 103
+             L100 150
+             L145 100
+             L120 100 Z"
+          fill="#ffe678"/>
+
+  </g>
+
+  <!-- Lantern -->
+
+  <circle cx="310"
+          cy="110"
+          r="120"
+          fill="url(#lanternGlow)"
+          opacity="0.85"/>
+
+  <rect x="295"
+        y="75"
+        width="30"
+        height="40"
+        rx="5"
+        fill="#ffd867"
+        stroke="#0A0812"
+        stroke-width="3"/>
+
+  <!-- Huge angry sailor -->
+
+  <g>
+
+    <!-- Head -->
+
+    <circle cx="430"
+            cy="145"
+            r="42"
+            fill="#f0cba7"
+            stroke="#0A0812"
+            stroke-width="4"/>
+
+    <!-- Beard -->
+
+    <path d="M395 160
+             Q430 220 465 160"
+          fill="#23364a"/>
+
+    <!-- Eyes -->
+
+    <circle cx="415" cy="140" r="4"/>
+    <circle cx="445" cy="140" r="4"/>
+
+    <!-- Angry brows -->
+
+    <line x1="405" y1="130"
+          x2="420" y2="135"
+          stroke="#0A0812"
+          stroke-width="4"/>
+
+    <line x1="440" y1="135"
+          x2="455" y2="130"
+          stroke="#0A0812"
+          stroke-width="4"/>
+
+    <!-- Coat -->
+
+    <path d="M370 180
+             L490 180
+             L530 360
+             L330 360 Z"
+          fill="#223348"
+          stroke="#0A0812"
+          stroke-width="5"/>
+
+    <!-- Pointing arm -->
+
+    <path d="M390 220
+             L260 250"
+          fill="none"
+          stroke="#223348"
+          stroke-width="24"
+          stroke-linecap="round"/>
+
+    <circle cx="250"
+            cy="252"
+            r="10"
+            fill="#f0cba7"
+            stroke="#0A0812"
+            stroke-width="2"/>
+
+  </g>
+
+  <!-- Jonah -->
+
+  <g>
+
+    <!-- Bundle/bedroll -->
+
+    <ellipse cx="170"
+             cy="310"
+             rx="85"
+             ry="45"
+             fill="#5d6b78"
+             stroke="#0A0812"
+             stroke-width="4"/>
+
+    <!-- Body -->
+
+    <path d="M120 320
+             Q170 250 220 320
+             Q200 360 150 355 Z"
+          fill="#2d435a"
+          stroke="#0A0812"
+          stroke-width="4"/>
+
+    <!-- Head -->
+
+    <circle cx="170"
+            cy="270"
+            r="20"
+            fill="#f0cba7"
+            stroke="#0A0812"
+            stroke-width="3"/>
+
+    <!-- Shocked eyes -->
+
+    <circle cx="164" cy="267" r="4" fill="#ffffff"/>
+    <circle cx="176" cy="267" r="4" fill="#ffffff"/>
+
+    <circle cx="164" cy="267" r="2"/>
+    <circle cx="176" cy="267" r="2"/>
+
+    <!-- Mouth -->
+
+    <circle cx="170"
+            cy="278"
+            r="4"
+            fill="#0A0812"/>
+
+  </g>
+
+  <!-- Ropes directing attention -->
+
+  <g stroke="#6b4a2d"
+     stroke-width="5"
+     opacity="0.7">
+
+    <line x1="0" y1="40" x2="170" y2="250"/>
+    <line x1="600" y1="60" x2="190" y2="250"/>
+
+  </g>
+
+  <!-- Rain through hatch -->
+
+  <g stroke="#8ee8ff"
+     stroke-width="2"
+     opacity="0.4">
+
+    <line x1="40" y1="0" x2="80" y2="90"/>
+    <line x1="80" y1="0" x2="120" y2="90"/>
+    <line x1="120" y1="0" x2="160" y2="90"/>
+
+  </g>
+
+</svg>

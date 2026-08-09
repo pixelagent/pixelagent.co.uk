@@ -1,0 +1,135 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="stormSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#060c18"/>
+      <stop offset="60%" stop-color="#0e2a50"/>
+      <stop offset="100%" stop-color="#0c1428"/>
+    </linearGradient>
+    <linearGradient id="groundRain" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#062040"/>
+      <stop offset="100%" stop-color="#1a2c1a"/>
+    </linearGradient>
+    <!-- Puddle reflection — bright sky within dark ground -->
+    <radialGradient id="puddleGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#4E9CCD" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#0e2a50" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#062040" stop-opacity="0.6"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Storm sky background -->
+  <rect width="400" height="300" fill="url(#stormSky)"/>
+
+  <!-- STORM CLOUD MASSES — filling upper half -->
+  <!-- Lowest cloud belly — dark, rolling -->
+  <ellipse cx="30" cy="108" rx="110" ry="60" fill="#0a0812"/>
+  <ellipse cx="130" cy="100" rx="105" ry="55" fill="#060c18"/>
+  <ellipse cx="240" cy="108" rx="100" ry="52" fill="#0c1428"/>
+  <ellipse cx="360" cy="118" rx="90" ry="50" fill="#0a0812"/>
+  <!-- Underbelly protrusions -->
+  <ellipse cx="50" cy="142" rx="60" ry="28" fill="#060c18"/>
+  <ellipse cx="155" cy="148" rx="65" ry="30" fill="#0a0812"/>
+  <ellipse cx="265" cy="145" rx="60" ry="28" fill="#060c18"/>
+  <ellipse cx="370" cy="140" rx="55" ry="26" fill="#0a0812"/>
+  <!-- Cloud upper layer — slightly lighter -->
+  <ellipse cx="80" cy="55" rx="100" ry="42" fill="#101828"/>
+  <ellipse cx="220" cy="48" rx="110" ry="38" fill="#0c1428"/>
+  <ellipse cx="370" cy="58" rx="80" ry="35" fill="#101828"/>
+
+  <!-- GROUND LEVEL — dark muddy earth -->
+  <rect x="0" y="228" width="400" height="72" fill="url(#groundRain)"/>
+  <line x1="0" y1="230" x2="400" y2="228" stroke="#0A0812" stroke-width="2"/>
+  <!-- Mud texture -->
+  <line x1="0" y1="245" x2="400" y2="242" stroke="#062040" stroke-width="1" opacity="0.5"/>
+  <line x1="0" y1="262" x2="400" y2="260" stroke="#062040" stroke-width="1" opacity="0.4"/>
+
+  <!-- FOCAL: PUDDLE AT LOWER-CENTRE — bright reflection rings -->
+  <!-- Puddle base reflection -->
+  <ellipse cx="200" cy="248" rx="52" ry="16" fill="url(#puddleGlow)"/>
+  <!-- Rain impact rings expanding outward -->
+  <ellipse cx="200" cy="248" rx="8" ry="2.5" fill="none" stroke="#4E9CCD" stroke-width="2" opacity="0.95"/>
+  <ellipse cx="200" cy="248" rx="16" ry="5" fill="none" stroke="#4E9CCD" stroke-width="1.5" opacity="0.8"/>
+  <ellipse cx="200" cy="248" rx="26" ry="8" fill="none" stroke="#4E9CCD" stroke-width="1.5" opacity="0.6"/>
+  <ellipse cx="200" cy="248" rx="38" ry="12" fill="none" stroke="#4E9CCD" stroke-width="1" opacity="0.4"/>
+  <ellipse cx="200" cy="248" rx="50" ry="15" fill="none" stroke="#4E9CCD" stroke-width="1" opacity="0.25"/>
+  <!-- Secondary puddle (rhythm) — left -->
+  <ellipse cx="128" cy="258" rx="22" ry="7" fill="#0e2a50" opacity="0.8"/>
+  <ellipse cx="128" cy="258" rx="7" ry="2" fill="none" stroke="#4E9CCD" stroke-width="1.5" opacity="0.7"/>
+  <ellipse cx="128" cy="258" rx="14" ry="4.5" fill="none" stroke="#4E9CCD" stroke-width="1" opacity="0.5"/>
+  <!-- Secondary puddle — right -->
+  <ellipse cx="292" cy="255" rx="20" ry="6" fill="#0e2a50" opacity="0.8"/>
+  <ellipse cx="292" cy="255" rx="6" ry="2" fill="none" stroke="#4E9CCD" stroke-width="1.5" opacity="0.7"/>
+  <ellipse cx="292" cy="255" rx="14" ry="4" fill="none" stroke="#4E9CCD" stroke-width="1" opacity="0.4"/>
+  <!-- Mud splash drops -->
+  <circle cx="170" cy="238" r="2" fill="#4E9CCD" opacity="0.7"/>
+  <circle cx="185" cy="234" r="1.5" fill="#4E9CCD" opacity="0.6"/>
+  <circle cx="218" cy="236" r="2" fill="#4E9CCD" opacity="0.65"/>
+  <circle cx="235" cy="242" r="1.5" fill="#4E9CCD" opacity="0.5"/>
+  <circle cx="152" cy="250" r="2" fill="#4E9CCD" opacity="0.55"/>
+  <circle cx="265" cy="248" r="1.5" fill="#4E9CCD" opacity="0.5"/>
+
+  <!-- HEAVY DIAGONAL RAIN LINES — crossing entire frame (movement) -->
+  <!-- Rain strokes: steep diagonal from upper-right to lower-left -->
+  <line x1="28" y1="0" x2="0" y2="38" stroke="#4E9CCD" stroke-width="1.5" opacity="0.7"/>
+  <line x1="58" y1="0" x2="30" y2="40" stroke="#4E9CCD" stroke-width="1.5" opacity="0.65"/>
+  <line x1="88" y1="0" x2="60" y2="40" stroke="#4E9CCD" stroke-width="1.5" opacity="0.7"/>
+  <line x1="118" y1="0" x2="90" y2="40" stroke="#4E9CCD" stroke-width="1.5" opacity="0.65"/>
+  <line x1="148" y1="0" x2="120" y2="40" stroke="#4E9CCD" stroke-width="1.5" opacity="0.7"/>
+  <line x1="178" y1="0" x2="150" y2="40" stroke="#4E9CCD" stroke-width="1.5" opacity="0.65"/>
+  <line x1="208" y1="0" x2="180" y2="40" stroke="#4E9CCD" stroke-width="1.5" opacity="0.7"/>
+  <line x1="238" y1="0" x2="210" y2="40" stroke="#4E9CCD" stroke-width="1.5" opacity="0.65"/>
+  <line x1="268" y1="0" x2="240" y2="40" stroke="#4E9CCD" stroke-width="1.5" opacity="0.7"/>
+  <line x1="298" y1="0" x2="270" y2="40" stroke="#4E9CCD" stroke-width="1.5" opacity="0.65"/>
+  <line x1="328" y1="0" x2="300" y2="40" stroke="#4E9CCD" stroke-width="1.5" opacity="0.7"/>
+  <line x1="358" y1="0" x2="330" y2="40" stroke="#4E9CCD" stroke-width="1.5" opacity="0.65"/>
+  <line x1="388" y1="0" x2="360" y2="40" stroke="#4E9CCD" stroke-width="1.5" opacity="0.7"/>
+  <line x1="418" y1="0" x2="390" y2="40" stroke="#4E9CCD" stroke-width="1.5" opacity="0.6"/>
+  <!-- Second rain layer — lighter, shorter strokes -->
+  <line x1="14" y1="40" x2="0" y2="68" stroke="#4E9CCD" stroke-width="1" opacity="0.45"/>
+  <line x1="44" y1="40" x2="16" y2="82" stroke="#4E9CCD" stroke-width="1" opacity="0.5"/>
+  <line x1="74" y1="40" x2="46" y2="82" stroke="#4E9CCD" stroke-width="1" opacity="0.45"/>
+  <line x1="104" y1="40" x2="76" y2="82" stroke="#4E9CCD" stroke-width="1" opacity="0.5"/>
+  <line x1="134" y1="40" x2="106" y2="82" stroke="#4E9CCD" stroke-width="1" opacity="0.45"/>
+  <line x1="164" y1="40" x2="136" y2="82" stroke="#4E9CCD" stroke-width="1" opacity="0.5"/>
+  <line x1="194" y1="40" x2="166" y2="82" stroke="#4E9CCD" stroke-width="1" opacity="0.45"/>
+  <line x1="224" y1="40" x2="196" y2="82" stroke="#4E9CCD" stroke-width="1" opacity="0.5"/>
+  <line x1="254" y1="40" x2="226" y2="82" stroke="#4E9CCD" stroke-width="1" opacity="0.45"/>
+  <line x1="284" y1="40" x2="256" y2="82" stroke="#4E9CCD" stroke-width="1" opacity="0.5"/>
+  <line x1="314" y1="40" x2="286" y2="82" stroke="#4E9CCD" stroke-width="1" opacity="0.45"/>
+  <line x1="344" y1="40" x2="316" y2="82" stroke="#4E9CCD" stroke-width="1" opacity="0.5"/>
+  <line x1="374" y1="40" x2="346" y2="82" stroke="#4E9CCD" stroke-width="1" opacity="0.45"/>
+  <line x1="400" y1="50" x2="376" y2="82" stroke="#4E9CCD" stroke-width="1" opacity="0.4"/>
+  <!-- Third rain layer — through lower half -->
+  <line x1="0" y1="115" x2="0" y2="160" stroke="#4E9CCD" stroke-width="1.5" opacity="0.55"/>
+  <line x1="22" y1="108" x2="8" y2="162" stroke="#4E9CCD" stroke-width="1.5" opacity="0.6"/>
+  <line x1="60" y1="105" x2="38" y2="165" stroke="#4E9CCD" stroke-width="1.5" opacity="0.55"/>
+  <line x1="100" y1="108" x2="74" y2="168" stroke="#4E9CCD" stroke-width="1.5" opacity="0.6"/>
+  <line x1="140" y1="105" x2="114" y2="168" stroke="#4E9CCD" stroke-width="1.5" opacity="0.55"/>
+  <line x1="180" y1="108" x2="154" y2="172" stroke="#4E9CCD" stroke-width="1.5" opacity="0.6"/>
+  <line x1="220" y1="105" x2="194" y2="170" stroke="#4E9CCD" stroke-width="1.5" opacity="0.55"/>
+  <line x1="260" y1="108" x2="234" y2="172" stroke="#4E9CCD" stroke-width="1.5" opacity="0.6"/>
+  <line x1="300" y1="105" x2="274" y2="170" stroke="#4E9CCD" stroke-width="1.5" opacity="0.55"/>
+  <line x1="340" y1="108" x2="314" y2="172" stroke="#4E9CCD" stroke-width="1.5" opacity="0.6"/>
+  <line x1="380" y1="105" x2="354" y2="168" stroke="#4E9CCD" stroke-width="1.5" opacity="0.55"/>
+
+  <!-- ARK — upper-right background, dark silhouette -->
+  <rect x="308" y="145" width="92" height="48" rx="3" fill="#0c1428" stroke="#0A0812" stroke-width="2"/>
+  <rect x="318" y="128" width="70" height="20" rx="2" fill="#0e1a28" stroke="#0A0812" stroke-width="2"/>
+  <polygon points="314,128 392,128 380,116 328,116" fill="#101828" stroke="#0A0812" stroke-width="2"/>
+  <!-- Ark through rain — very dark, silhouette only -->
+
+  <!-- PANICKING FIGURE — midground, running LEFT, arms raised, silhouette -->
+  <!-- Running pose: body tilted forward, arms up -->
+  <!-- Left leg extended back -->
+  <line x1="100" y1="230" x2="88" y2="214" stroke="#0A0812" stroke-width="4"/>
+  <!-- Right leg forward -->
+  <line x1="100" y1="230" x2="112" y2="215" stroke="#0A0812" stroke-width="4"/>
+  <!-- Body tilted forward-left -->
+  <ellipse cx="98" cy="215" rx="9" ry="15" fill="#1c0e04" stroke="#0A0812" stroke-width="2"/>
+  <!-- Head -->
+  <circle cx="94" cy="200" r="8" fill="#1c0e04" stroke="#0A0812" stroke-width="2"/>
+  <!-- Left arm raised up-left -->
+  <line x1="94" y1="212" x2="80" y2="198" stroke="#0A0812" stroke-width="4"/>
+  <!-- Right arm raised up-right -->
+  <line x1="104" y1="210" x2="116" y2="196" stroke="#0A0812" stroke-width="4"/>
+</svg>

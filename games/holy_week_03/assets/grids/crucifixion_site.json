@@ -1,0 +1,141 @@
+{
+    "caseId": "crucifixion_site",
+    "locationId": "golgotha",
+    "locationTitle": "Garden Tomb, Golgotha",
+    "timeOfDay": "day",
+    "environment": {
+        "floorColor": "#3d3229",
+        "skyColor": "#1a1a1a",
+        "ambientLight": 0.2
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "Hillside",
+            "pos": [
+                0,
+                -1,
+                -5
+            ],
+            "scale": [
+                40,
+                2,
+                20
+            ],
+            "color": "#2d241e"
+        },
+        {
+            "type": "box",
+            "name": "Cross Center",
+            "pos": [
+                0,
+                4,
+                -10
+            ],
+            "scale": [
+                0.5,
+                8,
+                0.5
+            ],
+            "color": "#2a1810"
+        },
+        {
+            "type": "box",
+            "name": "Cross Beam",
+            "pos": [
+                0,
+                6,
+                -10
+            ],
+            "scale": [
+                5,
+                0.4,
+                0.4
+            ],
+            "color": "#2a1810"
+        }
+    ],
+    "sprites": [
+        {
+            "id": "storm_clouds",
+            "type": "effect",
+            "pos": [
+                0,
+                15,
+                -20
+            ],
+            "scale": [
+                50,
+                20
+            ],
+            "texture": "dark_clouds"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "centurion_witness",
+            "name": "Centurion",
+            "pos": [
+                4,
+                0,
+                -6
+            ],
+            "color": "#ef4444",
+            "description": "Roman officer observing the signs",
+            "unlocksEvidence": [
+                "soldiers_gamble_dice"
+            ],
+            "hasDialogue": true
+        },
+        {
+            "id": "mary_mother",
+            "name": "Mary",
+            "pos": [
+                -3,
+                0,
+                -7
+            ],
+            "color": "#4fa3e8",
+            "description": "Mary standing near the cross",
+            "unlocksEvidence": [
+                "vinegar_cup"
+            ],
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "roman_dice",
+            "pos": [
+                2,
+                0.1,
+                -4
+            ],
+            "model": "bone_dice",
+            "glowColor": "#ffffff",
+            "hint": "Used to cast lots for the seamless garment"
+        },
+        {
+            "id": "vinegar_vessel",
+            "pos": [
+                -2,
+                0.1,
+                -5
+            ],
+            "model": "ceramic_jar",
+            "glowColor": "#7c8fa8",
+            "hint": "The vessel containing sour wine"
+        },
+        {
+            "id": "inri_inscription",
+            "pos": [
+                0,
+                0.5,
+                -9.8
+            ],
+            "model": "wooden_plaque",
+            "glowColor": "#fbbf24",
+            "hint": "The tablet stating the charge in three languages"
+        }
+    ]
+}

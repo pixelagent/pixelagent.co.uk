@@ -1,0 +1,24 @@
+{
+  "start": {
+    "content": "I don't understand it, Scribe. That tree was lush yesterday morning. Now? It looks like it hasn't seen water in a decade.",
+    "choices": [
+      { "text": "Did you see anyone approach it?", "destination": "witness_detail" },
+      { "text": "Is this a common blight?", "destination": "blight_denial" }
+    ]
+  },
+  "witness_detail": {
+    "content": "The Nazarene and his followers passed by. He looked for fruit, found none, and spoke to it. I thought he was just frustrated... until I saw the leaves turn gray before my very eyes.",
+    "unlocksEvidence": ["withered_leaves"],
+    "choices": [
+      { "text": "Thank you, Nathan.", "destination": "end" }
+    ]
+  },
+  "blight_denial": {
+    "content": "No blight works this fast. This wasn't nature taking its course. This was... a command. It withered from the roots up.",
+    "unlocksEvidence": ["symbolic_judgment"],
+    "choices": [
+      { "text": "I see.", "destination": "end" }
+    ]
+  },
+  "end": { "content": "Be careful with that one. His words have weight." }
+}

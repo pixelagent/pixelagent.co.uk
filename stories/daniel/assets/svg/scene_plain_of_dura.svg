@@ -1,0 +1,40 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="duraHorizon" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#0a0200"/>
+      <stop offset="60%"  stop-color="#3d1000"/>
+      <stop offset="100%" stop-color="#5a1e00"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="200" fill="url(#duraHorizon)"/>
+  <!-- Ground — proportion: lower third -->
+  <rect x="0" y="148" width="300" height="52" fill="#2a0e00"/>
+  <rect x="0" y="146" width="300" height="4" fill="#8b2500" opacity=".5"/>
+  <!-- Distant crowd/army — rhythm, repetition: implied scale -->
+  <ellipse cx="22"  cy="148" rx="9"  ry="5"  fill="#3a1000" opacity=".8"/>
+  <ellipse cx="44"  cy="150" rx="9"  ry="5"  fill="#3a1000" opacity=".7"/>
+  <ellipse cx="66"  cy="148" rx="8"  ry="4"  fill="#3a1000" opacity=".8"/>
+  <ellipse cx="86"  cy="150" rx="8"  ry="4"  fill="#3a1000" opacity=".6"/>
+  <ellipse cx="212" cy="148" rx="9"  ry="5"  fill="#3a1000" opacity=".7"/>
+  <ellipse cx="234" cy="150" rx="9"  ry="5"  fill="#3a1000" opacity=".8"/>
+  <ellipse cx="256" cy="148" rx="8"  ry="4"  fill="#3a1000" opacity=".7"/>
+  <ellipse cx="276" cy="150" rx="8"  ry="4"  fill="#3a1000" opacity=".6"/>
+  <!-- Pedestal — hierarchy, proportion: elevated base for statue -->
+  <rect x="108" y="130" width="84"  height="18" fill="#5c3010" stroke="#0A0812" stroke-width="2"/>
+  <rect x="116" y="122" width="68"  height="12" fill="#6b3a14" stroke="#0A0812" stroke-width="2"/>
+  <!-- Statue shaft — emphasis: dominant vertical -->
+  <rect x="136" y="28"  width="28"  height="96" fill="#FFD84D" stroke="#0A0812" stroke-width="3"/>
+  <!-- Arms — variety: horizontal vs vertical -->
+  <rect x="116" y="40"  width="20"  height="14" fill="#FFD84D" stroke="#0A0812" stroke-width="2"/>
+  <rect x="164" y="40"  width="20"  height="14" fill="#FFD84D" stroke="#0A0812" stroke-width="2"/>
+  <!-- Head/crown — hierarchy: topmost -->
+  <polygon points="130,28 136,8 144,18 150,6 156,18 164,8 170,28" fill="#FFD84D" stroke="#0A0812" stroke-width="2"/>
+  <!-- Gold gleam reflections — contrast: bright vs dark -->
+  <line x1="136" y1="28" x2="120" y2="60"  stroke="#FFD84D" stroke-width="1" opacity=".25"/>
+  <line x1="164" y1="28" x2="180" y2="60"  stroke="#FFD84D" stroke-width="1" opacity=".25"/>
+  <line x1="150" y1="6"  x2="150" y2="0"   stroke="#FFD84D" stroke-width="2" opacity=".5"/>
+  <!-- Red sky streaks — atmosphere, movement -->
+  <line x1="0"   y1="40"  x2="100" y2="60"  stroke="#FF4500" stroke-width="1.5" opacity=".25"/>
+  <line x1="0"   y1="70"  x2="80"  y2="80"  stroke="#FF4500" stroke-width="1"   opacity=".2"/>
+  <line x1="300" y1="50"  x2="200" y2="65"  stroke="#FF4500" stroke-width="1.5" opacity=".25"/>
+</svg>

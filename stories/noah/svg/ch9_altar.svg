@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- LAYER 1 BACKGROUND: Deep night sky — very dark, dramatic -->
+  <rect x="0" y="0" width="400" height="300" fill="#0a0812"/>
+  <rect x="0" y="0" width="400" height="220" fill="#061430"/>
+
+  <!-- Stars — scattered, night sky, upper regions -->
+  <circle cx="38" cy="18" r="1.5" fill="#e8e0d0" opacity="0.8"/>
+  <circle cx="72" cy="8" r="1" fill="#e8e0d0" opacity="0.7"/>
+  <circle cx="118" cy="22" r="1.5" fill="#e8e0d0" opacity="0.8"/>
+  <circle cx="155" cy="11" r="1" fill="#e8e0d0" opacity="0.6"/>
+  <circle cx="198" cy="25" r="1.2" fill="#e8e0d0" opacity="0.7"/>
+  <circle cx="244" cy="14" r="1" fill="#e8e0d0" opacity="0.6"/>
+  <circle cx="288" cy="20" r="1.5" fill="#e8e0d0" opacity="0.8"/>
+  <circle cx="322" cy="8" r="1" fill="#e8e0d0" opacity="0.7"/>
+  <circle cx="365" cy="18" r="1.5" fill="#e8e0d0" opacity="0.8"/>
+  <circle cx="22" cy="48" r="1" fill="#e8e0d0" opacity="0.5"/>
+  <circle cx="88" cy="40" r="1.2" fill="#e8e0d0" opacity="0.6"/>
+  <circle cx="178" cy="52" r="1" fill="#e8e0d0" opacity="0.5"/>
+  <circle cx="348" cy="44" r="1.2" fill="#e8e0d0" opacity="0.6"/>
+  <circle cx="392" cy="32" r="1" fill="#e8e0d0" opacity="0.5"/>
+  <!-- Dimmer stars — depth -->
+  <circle cx="52" cy="68" r="0.8" fill="#e8e0d0" opacity="0.4"/>
+  <circle cx="138" cy="58" r="0.8" fill="#e8e0d0" opacity="0.35"/>
+  <circle cx="228" cy="62" r="0.8" fill="#e8e0d0" opacity="0.4"/>
+  <circle cx="310" cy="72" r="0.8" fill="#e8e0d0" opacity="0.35"/>
+
+  <!-- ★ FIRE LIGHT WARM CIRCLE on ground — fire casts warm glow radially -->
+  <!-- Wide warm ground glow — fire light reaching outward -->
+  <ellipse cx="168" cy="258" rx="185" ry="55" fill="#E8B84B" opacity="0.12"/>
+  <ellipse cx="168" cy="252" rx="130" ry="38" fill="#C87050" opacity="0.15"/>
+  <ellipse cx="168" cy="248" rx="88" ry="26" fill="#E8B84B" opacity="0.18"/>
+  <ellipse cx="168" cy="244" rx="55" ry="16" fill="#ff6030" opacity="0.12"/>
+
+  <!-- Fire light on sky above — warm glow pushing upward -->
+  <ellipse cx="168" cy="180" rx="80" ry="60" fill="#E8B84B" opacity="0.07"/>
+  <ellipse cx="168" cy="200" rx="60" ry="44" fill="#C87050" opacity="0.09"/>
+
+  <!-- LAYER 2 MIDGROUND: Ground — dark earth, night -->
+  <rect x="0" y="238" width="400" height="62" fill="#1a0e08"/>
+  <rect x="0" y="238" width="400" height="14" fill="#2a1608" opacity="0.8"/>
+
+  <!-- LAYER 3: Altar — stone structure, centre-left, strong vertical -->
+  <!-- Base stones — stacked rough blocks -->
+  <!-- Bottom course — wide -->
+  <rect x="118" y="210" width="100" height="18" rx="3" fill="#7a6858" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Stone block dividers bottom course -->
+  <line x1="145" y1="210" x2="145" y2="228" stroke="#5a4838" stroke-width="2"/>
+  <line x1="168" y1="210" x2="168" y2="228" stroke="#5a4838" stroke-width="2"/>
+  <line x1="192" y1="210" x2="192" y2="228" stroke="#5a4838" stroke-width="2"/>
+  <!-- Middle course -->
+  <rect x="124" y="193" width="88" height="18" rx="2" fill="#8a7868" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="150" y1="193" x2="150" y2="211" stroke="#6a5848" stroke-width="2"/>
+  <line x1="174" y1="193" x2="174" y2="211" stroke="#6a5848" stroke-width="2"/>
+  <line x1="198" y1="193" x2="198" y2="211" stroke="#6a5848" stroke-width="2"/>
+  <!-- Upper course — narrow -->
+  <rect x="130" y="178" width="76" height="16" rx="2" fill="#9a8878" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="155" y1="178" x2="155" y2="194" stroke="#7a6858" stroke-width="1.5"/>
+  <line x1="178" y1="178" x2="178" y2="194" stroke="#7a6858" stroke-width="1.5"/>
+  <!-- Altar top surface — flat stone cap -->
+  <ellipse cx="168" cy="178" rx="40" ry="9" fill="#b09888" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Horizontal mortar line across mid stone -->
+  <line x1="118" y1="219" x2="218" y2="219" stroke="#5a4838" stroke-width="1.5"/>
+
+  <!-- Burning logs on altar top -->
+  <ellipse cx="168" cy="175" rx="30" ry="7" fill="#4a2808" stroke="#0A0812" stroke-width="2"/>
+  <!-- Log details -->
+  <line x1="140" y1="174" x2="196" y2="177" stroke="#2a1404" stroke-width="3"/>
+  <line x1="142" y1="177" x2="194" y2="173" stroke="#2a1404" stroke-width="3"/>
+
+  <!-- ★ FOCAL POINT: Fire — blazing, three-layered, bright orange-yellow -->
+  <!-- Outer flame layer — widest, darkest orange -->
+  <polygon points="160,175 146,130 158,152 168,120 178,152 190,130 176,175" fill="#C87050" stroke="#1e0e04" stroke-width="1.5"/>
+  <!-- Mid flame layer — bright orange -->
+  <polygon points="162,172 150,138 162,158 168,128 174,158 186,138 174,172" fill="#E8B84B" stroke="#C87050" stroke-width="1.5"/>
+  <!-- Inner flame — yellow-white, hottest -->
+  <polygon points="164,170 155,146 164,162 168,136 172,162 181,146 172,170" fill="#fff8e0" stroke="#E8B84B" stroke-width="1"/>
+  <!-- Flame flicker left -->
+  <polygon points="154,172 142,144 153,162 158,138 162,168" fill="#ff6030" stroke="#C87050" stroke-width="1.5" opacity="0.9"/>
+  <!-- Flame flicker right -->
+  <polygon points="182,172 194,144 183,162 178,138 174,168" fill="#ff6030" stroke="#C87050" stroke-width="1.5" opacity="0.9"/>
+  <!-- Bright core spark -->
+  <ellipse cx="168" cy="148" rx="8" ry="12" fill="#fff8e0" opacity="0.6"/>
+
+  <!-- Smoke — curling upward and RIGHT (diagonal movement) -->
+  <path d="M 168,120 C 172,102 182,88 178,70 C 174,52 185,38 182,18" stroke="#3a3a4a" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 172,118 C 180,100 192,86 190,66 C 188,46 200,32 198,12" stroke="#484858" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.45"/>
+  <path d="M 164,122 C 170,106 176,92 174,72 C 172,52 180,40 178,22" stroke="#2a2a38" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.35"/>
+
+  <!-- Warm firelight on altar sides — side-lit glow -->
+  <rect x="118" y="178" width="12" height="50" rx="2" fill="#E8B84B" opacity="0.1"/>
+  <rect x="206" y="178" width="12" height="50" rx="2" fill="#C87050" opacity="0.06"/>
+
+  <!-- ★ NOAH kneeling before altar — dramatic side lighting from fire (LEFT side lit, RIGHT in shadow) -->
+  <!-- Position: centre-left of frame, to the left of altar -->
+  <!-- Kneeling legs -->
+  <rect x="62" y="224" width="18" height="22" rx="3" fill="#6b4420" stroke="#0A0812" stroke-width="2"/>
+  <!-- Back leg / foot behind -->
+  <rect x="80" y="228" width="15" height="14" rx="2" fill="#6b4420" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Robe -->
+  <polygon points="58,204 54,248 98,248 95,204" fill="#4a2808" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Lit side of robe — facing fire -->
+  <polygon points="95,204 98,248 88,248 88,204" fill="#8B5E2F" opacity="0.7"/>
+  <!-- Upper body -->
+  <rect x="60" y="184" width="32" height="24" rx="3" fill="#4a2808" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Fire-lit side of torso -->
+  <rect x="80" y="184" width="13" height="24" rx="2" fill="#8B5E2F" opacity="0.6"/>
+  <!-- Head -->
+  <circle cx="76" cy="176" r="14" fill="#D4956A" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Shadow side of face — left half dark -->
+  <path d="M 76,162 C 62,162 62,190 76,190 Z" fill="#0a0812" opacity="0.45"/>
+  <!-- White beard — lit side -->
+  <ellipse cx="76" cy="170" rx="13" ry="5" fill="#EEE8DC" stroke="#0A0812" stroke-width="2"/>
+  <path d="M 63,177 C 61,185 62,194 68,198 C 65,189 64,182 67,177 Z" fill="#EEE8DC" stroke="#0A0812" stroke-width="1.5"/>
+  <path d="M 89,177 C 91,185 90,194 84,198 C 87,189 88,182 85,177 Z" fill="#c8b09a" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Firelit eye -->
+  <ellipse cx="82" cy="175" rx="3" ry="2.5" fill="#0A0812"/>
+  <circle cx="83" cy="174" r="1" fill="#e8b870"/>
+
+  <!-- Arms raised toward fire — diagonal, devotion -->
+  <line x1="72" y1="192" x2="50" y2="162" stroke="#D4956A" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="47" cy="160" rx="8" ry="5" fill="#D4956A" stroke="#0A0812" stroke-width="2" transform="rotate(20,47,160)"/>
+  <line x1="80" y1="192" x2="104" y2="165" stroke="#D4956A" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="107" cy="163" rx="8" ry="5" fill="#D4956A" stroke="#0A0812" stroke-width="2" transform="rotate(-20,107,163)"/>
+
+  <!-- Ground shadow cast by altar — dark pool -->
+  <ellipse cx="168" cy="252" rx="62" ry="9" fill="#0a0812" opacity="0.5"/>
+  <!-- Noah's ground shadow -->
+  <ellipse cx="72" cy="252" rx="32" ry="6" fill="#0a0812" opacity="0.4"/>
+
+</svg>

@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- ── BACKGROUND: vast open sky — sunrise right horizon ──── -->
+  <!-- Deep sky upper -->
+  <rect width="400" height="300" fill="#150e06"/>
+  <!-- Sky lightening toward horizon -->
+  <rect x="0" y="0" width="400" height="200" fill="#2a1e0c"/>
+  <!-- Warm sunrise glow — right horizon -->
+  <ellipse cx="360" cy="198" rx="120" ry="52" fill="#E8B84B" opacity="0.28"/>
+  <ellipse cx="370" cy="198" rx="80" ry="34" fill="#E8B84B" opacity="0.30"/>
+  <ellipse cx="378" cy="198" rx="44" ry="20" fill="#c4956a" opacity="0.5"/>
+  <!-- Sun disc just at horizon -->
+  <ellipse cx="382" cy="198" rx="20" ry="10" fill="#E8B84B" opacity="0.75"/>
+  <!-- Sky wash — warm amber mid-sky -->
+  <rect x="0" y="100" width="400" height="100" fill="#c4956a" opacity="0.10"/>
+
+  <!-- ── GROUND PLANE ──────────────────────────────────────────── -->
+  <rect x="0" y="195" width="400" height="105" fill="#14100a"/>
+  <!-- Earth surface band -->
+  <rect x="0" y="191" width="400" height="8" fill="#3a2a10"/>
+  <!-- Horizon line -->
+  <line x1="0" y1="197" x2="400" y2="197" stroke="#5a3a10" stroke-width="1.5"/>
+
+  <!-- Earth texture scratches -->
+  <line x1="180" y1="220" x2="320" y2="220" stroke="#2a1a08" stroke-width="0.8"/>
+  <line x1="200" y1="235" x2="380" y2="238" stroke="#2a1a08" stroke-width="0.7"/>
+  <line x1="150" y1="252" x2="360" y2="258" stroke="#2a1a08" stroke-width="0.7"/>
+  <line x1="180" y1="268" x2="400" y2="272" stroke="#2a1a08" stroke-width="0.6"/>
+
+  <!-- Low distant scrub on left horizon -->
+  <polygon points="0,192 35,184 70,191 100,188 120,192 0,197" fill="#2a1e0c"/>
+
+  <!-- ── BEAM SHADOW on ground (deep, long) ─────────────────── -->
+  <!-- Shadow cast by keel toward lower-left, slight diagonal offset -->
+  <polygon points="38,290 64,278 372,202 358,196" fill="#0a0812" opacity="0.7"/>
+
+  <!-- ── THE KEEL BEAM — FOCAL POINT — lower-left to upper-right ── -->
+  <!-- Near end (lower-left) larger; far end (upper-right) recedes — perspective taper -->
+
+  <!-- Bottom face (underside, resting on earth) -->
+  <polygon points="30,288 68,282 374,202 342,198"
+           fill="#5a3010" stroke="#1a0e04" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Main top face of beam -->
+  <polygon points="30,280 68,270 374,194 342,190"
+           fill="#8B5E2F" stroke="#1a0e04" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Top face highlight (freshly hewn — lighter) -->
+  <polygon points="34,274 64,266 370,194 346,191"
+           fill="#C87050" opacity="0.45"/>
+
+  <!-- Side face of beam (visible near edge) -->
+  <polygon points="30,280 68,270 68,282 30,288"
+           fill="#6b4420" stroke="#1a0e04" stroke-width="2"/>
+
+  <!-- Wood grain lines — longitudinal, follow the diagonal -->
+  <line x1="40"  y1="278" x2="370" y2="196" stroke="#6b4420" stroke-width="1.5"/>
+  <line x1="50"  y1="276" x2="368" y2="196" stroke="#9a6030" stroke-width="1"/>
+  <line x1="60"  y1="273" x2="366" y2="195" stroke="#6b4420" stroke-width="0.9"/>
+  <line x1="70"  y1="270" x2="364" y2="195" stroke="#5a3010" stroke-width="0.8"/>
+  <line x1="44"  y1="271" x2="368" y2="193" stroke="#a06a35" stroke-width="0.7"/>
+
+  <!-- ── MORTISE NOTCHES — two visible on top face ──────────── -->
+  <!-- Notch 1 (closer, lower-left — large) -->
+  <rect x="80" y="263" width="22" height="12" rx="1"
+        fill="#3a1e08" stroke="#1a0e04" stroke-width="2"
+        transform="rotate(-15, 91, 269)"/>
+  <!-- Notch 1 shadow -->
+  <rect x="82" y="271" width="22" height="4" rx="1"
+        fill="#1a0e04" opacity="0.6"
+        transform="rotate(-15, 93, 273)"/>
+
+  <!-- Notch 2 (further along beam — smaller from perspective) -->
+  <rect x="200" y="228" width="14" height="8" rx="1"
+        fill="#3a1e08" stroke="#1a0e04" stroke-width="1.5"
+        transform="rotate(-15, 207, 232)"/>
+  <!-- Notch 2 shadow -->
+  <rect x="202" y="233" width="14" height="3" rx="1"
+        fill="#1a0e04" opacity="0.5"
+        transform="rotate(-15, 209, 235)"/>
+
+  <!-- Near (left) END FACE of keel beam — large, facing viewer -->
+  <ellipse cx="49" cy="284" rx="22" ry="9" fill="#4a2808" stroke="#1a0e04" stroke-width="2.5" transform="rotate(-7,49,284)"/>
+  <!-- End-grain rings -->
+  <ellipse cx="49" cy="284" rx="15" ry="6" fill="none" stroke="#6b4420" stroke-width="1.2" transform="rotate(-7,49,284)"/>
+  <ellipse cx="49" cy="284" rx="8"  ry="3.2" fill="none" stroke="#6b4420" stroke-width="1" transform="rotate(-7,49,284)"/>
+  <circle  cx="49" cy="284" r="2"  fill="#3a1e08"/>
+
+  <!-- ── SAWDUST AND BARK CHIPS — left foreground ───────────── -->
+  <!-- Bark strip -->
+  <path d="M 30,293 Q 38,288 46,292 Q 54,296 60,290" fill="none" stroke="#5a3010" stroke-width="3" stroke-linecap="round"/>
+  <!-- Chip fragments scattered -->
+  <rect x="24"  y="290" width="10" height="3" rx="1" transform="rotate(-22,29,291)" fill="#8B5E2F"/>
+  <rect x="36"  y="295" width="8"  height="2" rx="1" transform="rotate(14,40,296)"  fill="#C87050"/>
+  <rect x="54"  y="292" width="9"  height="2" rx="1" transform="rotate(-8,58,293)"  fill="#6b4420"/>
+  <rect x="18"  y="295" width="7"  height="2" rx="1" transform="rotate(20,21,296)"  fill="#a06a35"/>
+  <!-- Curled shavings -->
+  <path d="M 26,297 Q 32,292 38,296" fill="none" stroke="#C87050" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 44,296 Q 52,291 58,295" fill="none" stroke="#8B5E2F" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M 62,293 Q 68,289 74,293" fill="none" stroke="#a06a35" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Sawdust specks -->
+  <circle cx="20"  cy="294" r="1.5" fill="#C87050" opacity="0.8"/>
+  <circle cx="46"  cy="298" r="1.2" fill="#8B5E2F" opacity="0.7"/>
+  <circle cx="68"  cy="295" r="1.5" fill="#C87050" opacity="0.6"/>
+  <circle cx="80"  cy="292" r="1"   fill="#6b4420" opacity="0.6"/>
+
+  <!-- ── NOAH — tiny at near (left) end, hand resting on beam ── -->
+  <!-- Ground shadow under Noah -->
+  <ellipse cx="96" cy="273" rx="18" ry="5" fill="#0a0812" opacity="0.6"/>
+
+  <!-- Feet / sandals -->
+  <ellipse cx="88"  cy="274" rx="8" ry="3" fill="#5a3010" stroke="#1a0e04" stroke-width="1.2"/>
+  <ellipse cx="104" cy="274" rx="7" ry="3" fill="#5a3010" stroke="#1a0e04" stroke-width="1.2"/>
+
+  <!-- Robe lower — short, small figure -->
+  <polygon points="80,243 112,243 116,274 76,274" fill="#8B5E2F" stroke="#1a0e04" stroke-width="2"/>
+  <!-- Robe hem -->
+  <line x1="76" y1="271" x2="116" y2="271" stroke="#6b4420" stroke-width="1.2"/>
+
+  <!-- Torso — small, standing upright, one hand forward -->
+  <polygon points="82,218 110,218 112,244 80,244" fill="#C87050" stroke="#1a0e04" stroke-width="2"/>
+
+  <!-- Head — small, gazing along beam toward upper-right -->
+  <circle cx="96" cy="208" r="12" fill="#D4956A" stroke="#1a0e04" stroke-width="2"/>
+
+  <!-- Head cloth (small) -->
+  <polygon points="84,205 96,197 108,205 106,211 96,207 86,211"
+           fill="#8B5E2F" stroke="#1a0e04" stroke-width="1.5"/>
+
+  <!-- Beard (small) -->
+  <polygon points="90,212 91,220 101,220 102,212" fill="#6b4420" stroke="#1a0e04" stroke-width="1.2"/>
+
+  <!-- Eyes — looking right-upward along beam -->
+  <ellipse cx="92"  cy="207" rx="1.8" ry="1.6" fill="#1a0e04"/>
+  <ellipse cx="100" cy="206" rx="1.5" ry="1.5" fill="#1a0e04"/>
+
+  <!-- RIGHT arm — resting on top of beam, hand pressed to surface -->
+  <line x1="108" y1="228" x2="124" y2="254" stroke="#D4956A" stroke-width="6" stroke-linecap="round"/>
+  <!-- Hand on beam surface -->
+  <circle cx="126" cy="256" r="5" fill="#D4956A" stroke="#1a0e04" stroke-width="1.5"/>
+
+  <!-- LEFT arm — hanging at side -->
+  <line x1="82" y1="228" x2="74" y2="248" stroke="#D4956A" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="72" cy="250" r="4" fill="#D4956A" stroke="#1a0e04" stroke-width="1.5"/>
+
+</svg>

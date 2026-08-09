@@ -1,0 +1,27 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Two figures side by side — balance, proportion -->
+  <!-- Figure L robe -->
+  <path d="M4 78 Q25 68 46 78 L42 100 L8 100 Z" fill="#4ECDC4" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Figure R robe -->
+  <path d="M54 78 Q75 68 96 78 L92 100 L58 100 Z" fill="#38a3a5" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Figure L shoulder collar -->
+  <path d="M10 68 Q25 60 40 68 L40 78 Q25 72 10 78 Z" fill="#3ab8b0" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Figure R shoulder collar -->
+  <path d="M60 68 Q75 60 90 68 L90 78 Q75 72 60 78 Z" fill="#2a9898" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Figure L head -->
+  <circle cx="25" cy="40" r="22" fill="#C8956C" stroke="#0A0812" stroke-width="3"/>
+  <path d="M3 33 Q25 16 47 33"   fill="none" stroke="#1a0e04" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="18" cy="38" r="3.5" fill="#0A0812"/>
+  <circle cx="32" cy="38" r="3.5" fill="#0A0812"/>
+  <circle cx="19" cy="37" r="1.2" fill="white" opacity=".6"/>
+  <circle cx="33" cy="37" r="1.2" fill="white" opacity=".6"/>
+  <path d="M18 50 Q25 57 32 50" fill="none" stroke="#0A0812" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Figure R head -->
+  <circle cx="75" cy="40" r="22" fill="#D4A574" stroke="#0A0812" stroke-width="3"/>
+  <path d="M53 33 Q75 16 97 33"   fill="none" stroke="#1a0e04" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="68" cy="38" r="3.5" fill="#0A0812"/>
+  <circle cx="82" cy="38" r="3.5" fill="#0A0812"/>
+  <circle cx="69" cy="37" r="1.2" fill="white" opacity=".6"/>
+  <circle cx="83" cy="37" r="1.2" fill="white" opacity=".6"/>
+  <path d="M68 50 Q75 57 82 50" fill="none" stroke="#0A0812" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

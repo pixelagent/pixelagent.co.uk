@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Miracle Maker 3D - Fixed Production Sandbox with Evidence Archive Systems, Interactive Map, and Smooth Day/Night Cycle.">
+    <title>Miracle Maker 3D - Production Sandbox Continuum</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+
+    <style>
+        /* ===== GLOBAL THEME VARIABLE TOKENS ===== */
+        :root {
+            --bg-main: #010105;
+            --panel-bg: rgba(11, 20, 26, 0.94);
+            --accent-primary: #00a884;
+            /* Authentic WhatsApp/VN Theme Teal */
+            --accent-secondary: #ffaa00;
+            --accent-success: #00ffaa;
+            --accent-error: #ff4444;
+            --text-main: #e9edef;
+            --text-muted: #8696a0;
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --bubble-out: #005c4b;
+            --bubble-in: #202c33;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg-main);
+            font-family: var(--font-stack);
+            color: var(--text-main);
+            user-select: none;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* ===== HUD LAYER GAUGE FRAMEWORK ===== */
+        .hud-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+            display: grid;
+            grid-template-columns: 320px 1fr 340px;
+            grid-template-rows: 65px 1fr 140px;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .hud-layer * {
+            pointer-events: auto;
+        }
+
+        .hud-panel {
+            background: var(--panel-bg);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #top-bar {
+            grid-column: 1 / -1;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 3px solid var(--accent-primary);
+        }
+
+        .loc-tag {
+            font-size: 1.1rem;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .act-tag {
+            font-size: 0.8rem;
+            color: var(--accent-secondary);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-left: 10px;
+        }
+
+        #left-sidebar {
+            grid-column: 1;
+            grid-row: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        #right-sidebar {
+            grid-column: 3;
+            grid-row: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .panel-header {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-primary);
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .quest-item {
+            background: #202c33;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-secondary);
+            margin-bottom: 10px;
+        }
+
+        .quest-title {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .quest-task {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-wrap {
+            background: #111b21;
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: var(--accent-secondary);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        #evidence-popup-card {
+            background: #111b21;
+            border: 1px solid rgba(0, 255, 170, 0.2);
+            border-radius: 6px;
+            padding: 12px;
+            display: none;
+            margin-bottom: 10px;
+            animation: slideInDown 0.3s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .popup-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .popup-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-success);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .popup-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .popup-close:hover {
+            color: #fff;
+        }
+
+        .popup-body {
+            font-size: 0.78rem;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+
+        .evidence-folder-container {
+            background: #111b21;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            overflow-y: auto;
+            padding-top: 4px;
+        }
+
+        .evidence-slot-btn {
+            background: #202c33;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .evidence-slot-btn:hover {
+            background: #2a3942;
+            color: var(--accent-success);
+            border-color: var(--accent-success);
+        }
+
+        .evidence-slot-btn.filled {
+            color: var(--accent-secondary);
+            background: #223c34;
+            border-color: var(--accent-primary);
+        }
+
+        .evidence-slot-btn.filled:hover {
+            color: var(--accent-success);
+            box-shadow: 0 0 8px rgba(0, 255, 170, 0.3);
+        }
+
+        .action-btn {
+            width: 100%;
+            background: #202c33;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: #fff;
+            padding: 10px 14px;
+            text-align: left;
+            margin-bottom: 8px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #2a3942;
+            border-color: var(--accent-primary);
+        }
+
+        .action-btn.talk-prompt-highlight {
+            border: 1px solid var(--accent-success);
+            background: rgba(0, 255, 170, 0.1);
+            animation: pulse-border 1.5s infinite ease-in-out;
+            font-weight: 700;
+        }
+
+        @keyframes pulse-border {
+
+            0%,
+            100% {
+                border-color: rgba(0, 255, 170, 0.4);
+            }
+
+            50% {
+                border-color: rgba(0, 255, 170, 1.0);
+                box-shadow: 0 0 10px rgba(0, 255, 170, 0.2);
+            }
+        }
+
+        .prophecy-item {
+            font-size: 0.8rem;
+            padding: 8px;
+            background: #111b21;
+            border-radius: 4px;
+            margin-bottom: 6px;
+            color: var(--accent-success);
+            border-left: 3px solid var(--accent-primary);
+        }
+
+        #bottom-bar {
+            grid-column: 1 / -1;
+            grid-row: 3;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .control-group-right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .hud-row-btn {
+            background: #202c33;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .hud-row-btn:hover {
+            background: #2a3942;
+            color: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+
+        .hud-row-btn.active {
+            color: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+        }
+
+        .btn-map-trigger {
+            background: var(--accent-primary);
+            color: #111b21;
+            border: none;
+            font-weight: 700;
+            padding: 14px 36px;
+            border-radius: 28px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 20px rgba(0, 168, 132, 0.35);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .btn-map-trigger:hover {
+            transform: translateY(-2px);
+            background: #00c49a;
+            box-shadow: 0 8px 24px rgba(0, 168, 132, 0.5);
+        }
+
+        /* ===== RADAR MINIMAP HUD COMPONENT ===== */
+        .minimap-panel {
+            width: 110px;
+            height: 110px;
+            background: rgba(11, 20, 26, 0.9);
+            border: 2px solid var(--accent-primary);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+        }
+
+        .minimap-radar-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: conic-gradient(from 0deg, rgba(0, 168, 132, 0.15) 0deg, transparent 90deg);
+            border-radius: 50%;
+            transform-origin: center;
+            animation: radar-sweep 2.5s linear infinite;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        @keyframes radar-sweep {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .minimap-grid-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px dashed rgba(0, 168, 132, 0.25);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .minimap-blip {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            margin-left: -3px;
+            margin-top: -3px;
+            border-radius: 50%;
+            z-index: 5;
+            background: #fff;
+            box-shadow: 0 0 6px currentColor;
+        }
+
+        .minimap-blip.player {
+            background: var(--accent-success);
+            width: 8px;
+            height: 8px;
+            margin-left: -4px;
+            margin-top: -4px;
+            z-index: 6;
+        }
+
+        .minimap-blip.npc {
+            background: var(--accent-secondary);
+        }
+
+        .minimap-blip.collectable {
+            background: #ffdd00;
+        }
+
+        /* ===== CONVERSATION WRAPPERS ===== */
+        #vn-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            pointer-events: none;
+            display: none;
+            background: rgba(11, 20, 26, 0.4);
+            opacity: 0;
+            transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #vn-overlay.active {
+            display: block;
+        }
+
+        #vn-overlay.fade-in-complete {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #vn-container {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 750px;
+            background: #0b141a;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        #vn-header {
+            background: #202c33;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        #vn-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        #vn-speaker-name {
+            font-weight: 600;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+
+        #bub-scroll {
+            padding: 20px;
+            max-height: 240px;
+            overflow-y: auto;
+            background-color: #0b141a;
+            background-image: radial-gradient(rgba(0, 168, 132, 0.04) 2px, transparent 0);
+            background-size: 24px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-bubble {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .chat-bubble.incoming {
+            background: var(--bubble-in);
+            color: var(--text-main);
+            align-self: flex-start;
+            border-top-left-radius: 0;
+        }
+
+        .chat-bubble.outgoing {
+            background: var(--bubble-out);
+            color: #fff;
+            align-self: flex-end;
+            border-top-right-radius: 0;
+        }
+
+        #bar-choices {
+            background: #111b21;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .choice-btn {
+            background: #222e35;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: #00a884;
+            padding: 10px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .choice-btn:hover {
+            background: #2a3942;
+            color: #00f2ff;
+            padding-left: 22px;
+        }
+
+        /* ===== INTERACTIVE MAP OVERLAYS ===== */
+        #modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 500;
+            background: #020306;
+            display: none;
+            flex-direction: column;
+        }
+
+        #modal-overlay.active {
+            display: flex;
+        }
+
+        #modal-header {
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #111b21;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 510;
+        }
+
+        #modal-canvas-wrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 501;
+        }
+
+        .close-modal-btn {
+            background: transparent;
+            border: 1px solid var(--accent-error);
+            color: var(--accent-error);
+            padding: 8px 20px;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            z-index: 510;
+        }
+
+        .close-modal-btn:hover {
+            background: var(--accent-error);
+            color: #000;
+        }
+
+        .map-node-dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            margin-left: -8px;
+            margin-top: -8px;
+            border-radius: 50%;
+            z-index: 550;
+            cursor: pointer;
+            pointer-events: auto;
+            box-shadow: 0 0 16px currentColor;
+            border: 2px solid #fff;
+            transition: transform 0.2s;
+        }
+
+        .map-node-dot:hover {
+            transform: scale(1.4);
+        }
+
+        .map-node-dot.locked {
+            cursor: not-allowed;
+            border: 1px solid #444 !important;
+            background: #1c1c1c !important;
+            color: #444 !important;
+            box-shadow: none;
+        }
+
+        .map-node-dot.completed::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent-success);
+            font-size: 11px;
+        }
+
+        .map-node-label {
+            position: absolute;
+            z-index: 551;
+            pointer-events: none;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            color: #fff;
+            background: rgba(17, 27, 33, 0.95);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -32px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .loading-screen,
+        .end-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            background: #0b141a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.4s ease;
+        }
+
+        .loading-inner,
+        .end-inner {
+            text-align: center;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        .spinner {
+            width: 45px;
+            height: 45px;
+            border: 4px solid rgba(0, 168, 132, 0.1);
+            border-left-color: var(--accent-primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .end-btn-row {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .terminal-btn {
+            background: var(--accent-primary);
+            color: #111b21;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+        }
+
+        .terminal-btn:hover {
+            background: #00c49a;
+            transform: translateY(-2px);
+        }
+
+        #screen-alert {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: #202c33;
+            border-left: 4px solid var(--accent-secondary);
+            padding: 12px 24px;
+            border-radius: 4px;
+            display: none;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            font-weight: 600;
+            color: #fff;
+        }
+    </style>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.js"
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-inner">
+            <h1 style="color: #fff; font-size: 1.5rem; margin-bottom: 5px; letter-spacing: 1px;">INITIALIZING SANDBOX
+                MATRICES</h1>
+            <p id="loading-text" style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase;">
+                Compiling rigid physics bodies and terrain fields...</p>
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <div id="end-screen" class="end-screen" style="display: none; opacity: 0;">
+        <div class="end-inner">
+            <i class="fa-solid fa-circle-check"
+                style="color: var(--accent-success); font-size: 3.5rem; margin-bottom: 20px;"></i>
+            <h1 style="color: #fff; font-size: 1.8rem; margin-bottom: 10px;">INVESTIGATION CONCLUDED</h1>
+            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px;">
+                All 4 historical validation parameters satisfied throughout the city of Jerusalem. 100% prophecy
+                tracking complete.
+            </p>
+            <div class="end-btn-row">
+                <button class="terminal-btn" onclick="window.location.reload();">Restart Loop Continuum</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="canvas-container"></div>
+    <div id="screen-alert"></div>
+
+    <div class="hud-layer">
+        <div id="top-bar" class="hud-panel">
+            <div>
+                <span id="loc-name" class="loc-tag">---</span>
+                <span id="act-name" class="act-tag">---</span>
+            </div>
+            <div id="level-title" style="font-weight: 600; color: var(--accent-primary);">---</div>
+        </div>
+
+        <div id="left-sidebar">
+            <div class="hud-panel" style="flex: 0 0 auto;">
+                <div class="panel-header"><i class="fa-solid fa-star"></i> Active Quest Task</div>
+                <div id="quest-card" class="quest-item">
+                    <div id="quest-title" class="quest-title">---</div>
+                    <div id="quest-task" class="quest-task">---</div>
+                    <div class="progress-bar-wrap">
+                        <div id="quest-progress" class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="evidence-popup-card">
+                <div class="popup-header">
+                    <span id="popup-evidence-title" class="popup-title"><i class="fa-solid fa-file-shield"></i> Evidence
+                        Logged</span>
+                    <button class="popup-close"
+                        onclick="document.getElementById('evidence-popup-card').style.display='none';">✕</button>
+                </div>
+                <div id="popup-evidence-body" class="popup-body">---</div>
+            </div>
+
+            <div class="hud-panel" style="flex: 1 1 auto;">
+                <div class="panel-header"><i class="fa-solid fa-folder-open"></i> Evidence Folder Archive</div>
+                <div class="evidence-folder-container">
+                    <div id="evidence-slots-grid" class="evidence-grid">
+                        <div class="evidence-slot-btn" id="slot-0"
+                            onclick="window.AppEngine.readStoredEvidenceItem(0);"><i class="fa-solid fa-folder"></i>
+                        </div>
+                        <div class="evidence-slot-btn" id="slot-1"
+                            onclick="window.AppEngine.readStoredEvidenceItem(1);"><i class="fa-solid fa-folder"></i>
+                        </div>
+                        <div class="evidence-slot-btn" id="slot-2"
+                            onclick="window.AppEngine.readStoredEvidenceItem(2);"><i class="fa-solid fa-folder"></i>
+                        </div>
+                        <div class="evidence-slot-btn" id="slot-3"
+                            onclick="window.AppEngine.readStoredEvidenceItem(3);"><i class="fa-solid fa-folder"></i>
+                        </div>
+                        <div class="evidence-slot-btn" id="slot-4"
+                            onclick="window.AppEngine.readStoredEvidenceItem(4);"><i class="fa-solid fa-folder"></i>
+                        </div>
+                        <div class="evidence-slot-btn" id="slot-5"
+                            onclick="window.AppEngine.readStoredEvidenceItem(5);"><i class="fa-solid fa-folder"></i>
+                        </div>
+                        <div class="evidence-slot-btn" id="slot-6"
+                            onclick="window.AppEngine.readStoredEvidenceItem(6);"><i class="fa-solid fa-folder"></i>
+                        </div>
+                        <div class="evidence-slot-btn" id="slot-7"
+                            onclick="window.AppEngine.readStoredEvidenceItem(7);"><i class="fa-solid fa-folder"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="right-sidebar">
+            <div class="hud-panel" style="flex:1;">
+                <div class="panel-header">Context Actions</div>
+                <div id="actions-container" style="flex:1; overflow-y:auto;"></div>
+            </div>
+            <div class="hud-panel" style="flex:1;">
+                <div class="panel-header">Fulfilled Prophecies</div>
+                <div id="prophecies-container" style="flex:1; overflow-y:auto;"></div>
+            </div>
+        </div>
+
+        <div id="bottom-bar">
+            <div id="minimap" class="minimap-panel">
+                <div class="minimap-radar-line"></div>
+                <div class="minimap-grid-circle" style="width:30px; height:30px;"></div>
+                <div class="minimap-grid-circle" style="width:65px; height:65px;"></div>
+                <div id="minimap-blips-container"></div>
+            </div>
+
+            <div class="control-group-right">
+                <button id="btn-audio-toggle" class="hud-row-btn active" title="Toggle Sound Matrix">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+
+                <button id="btn-open-map" class="btn-map-trigger">
+                    <i class="fa-solid fa-map-location-dot" style="margin-right:10px; font-size:1.1rem;"></i> Open Map
+                    Archive
+                </button>
+
+                <button id="btn-cycle-toggle" class="hud-row-btn" title="Toggle Celestial Mode">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="vn-overlay">
+        <div id="vn-container">
+            <div id="vn-header">
+                <div id="vn-avatar">?</div>
+                <div id="vn-speaker-name">NPC Speaker</div>
+            </div>
+            <div id="bub-scroll"></div>
+            <div id="bar-choices"></div>
+        </div>
+    </div>
+
+    <div id="modal-overlay">
+        <div id="modal-header">
+            <div>
+                <h2 style="margin:0; font-size:1.1rem; color:var(--accent-primary); font-weight:700;">Jerusalem 3D
+                    Continuum</h2>
+                <p style="margin:2px 0 0 0; font-size:0.8rem; color:var(--text-muted);">Left-click + drag background to
+                    orbit city framework. Select destination nodes.</p>
+            </div>
+            <button id="btn-close-map" class="close-modal-btn">Close Matrix</button>
+        </div>
+        <div id="modal-canvas-wrap"></div>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // =========================================================================
+        // DATA LEVEL SEQUENCES AND CONFIGS
+        // =========================================================================
+        const WORLD_LEVEL_TREE_SCHEMATIC = [
+            {
+                phase: 1,
+                actLabel: 'ACT 1 – THE ARRIVAL',
+                title: 'The Donkey King',
+                location: 'JERUSALEM GATE STREETS',
+                color: 0x00a884,
+                theta: Math.PI * 0.18, phi: Math.PI * 0.42,
+                unlockAfter: [],
+                isComplete: false,
+                quest: { id: 'DONKEY_KING', name: 'THE ARRIVAL', task: 'Investigate gathering crowd parameters near gates', cur: 0, tar: 2 },
+                prophecies: ['Zechariah 9:9 — "Behold, your King comes to you, humble, riding upon a donkey."'],
+                npcs: [
+                    { id: 'child_01', name: 'Excited Child', color: 0xffcc44, pos: [25, 1, -15], story: 'child_start' },
+                    { id: 'guard_01', name: 'Roman Sentry', color: 0xff4444, pos: [-35, 1, -25], story: 'guard_start' }
+                ],
+                actions: [
+                    { name: 'Observe Entrance Assemblies', type: 'quest_advance', payload: 1, label: 'Look' },
+                    { name: 'Listen to Public Feedback', type: 'quest_advance', payload: 1, label: 'Listen' }
+                ],
+                collectables: [
+                    { id: 'c1_1', pos: [45, 0.5, -35], color: 0xffaa00, collected: false, label: 'Palm Branch Fragment', description: 'Waved by public assemblies as royal recognition matrices.' },
+                    { id: 'c1_2', pos: [-55, 0.5, 20], color: 0xffaa00, collected: false, label: 'Zechariah Scroll Scrap', description: 'Ancient linguistic scrap explicitly verifying donkey rider arrivals.' }
+                ]
+            },
+            {
+                phase: 2,
+                actLabel: 'ACT 1 – THE ARRIVAL',
+                title: 'Marketplace Rumours',
+                location: 'CENTRAL MARKETPLACE',
+                color: 0xffaa00,
+                theta: Math.PI * 0.48, phi: Math.PI * 0.32,
+                unlockAfter: [1],
+                isComplete: false,
+                quest: { id: 'MARKET_RUMOURS', name: 'GATHERING RUMOURS', task: 'Cross-reference street testimonies', cur: 0, tar: 3 },
+                prophecies: ['Isaiah 61:1 — "To bind up the brokenhearted, to proclaim liberty to captives."'],
+                npcs: [
+                    { id: 'trader_01', name: 'Caravan Merchant', color: 0xddaa55, pos: [30, 1, 35], story: 'trader_start' },
+                    { id: 'beggar_01', name: 'Aged Citizen', color: 0x996633, pos: [-20, 0.5, 45], story: 'beggar_start' }
+                ],
+                actions: [
+                    { name: 'Audit Currency Discrepancies', type: 'quest_advance', payload: 1, label: 'Inspect' }
+                ],
+                collectables: [
+                    { id: 'c2_1', pos: [0, 0.5, -60], color: 0xffaa00, collected: false, label: '5 Loaves Receipt', description: 'Commercial caravan log referencing feeding anomalies near Bethsaida.' },
+                    { id: 'c2_2', pos: [50, 0.5, 50], color: 0xffaa00, collected: false, label: 'Exile Decree Copy', description: 'Pharisaic administrative warning regarding rule-breaking activity.' }
+                ]
+            },
+            {
+                phase: 3,
+                actLabel: 'ACT 2 – THE TEACHER',
+                title: 'The Man Born Blind',
+                location: 'TEMPLE COURTS OUTPOST',
+                color: 0x00f2ff,
+                theta: Math.PI * 0.85, phi: Math.PI * 0.48,
+                unlockAfter: [2],
+                isComplete: false,
+                quest: { id: 'BLIND_MAN', name: 'THE HEALED WITNESS', task: 'Verify testimony structure against critics', cur: 0, tar: 2 },
+                prophecies: ['Isaiah 35:5 — "Then the eyes of the blind shall be completely opened."'],
+                npcs: [
+                    { id: 'blind_man', name: 'Healed Man', color: 0xaaddff, pos: [15, 1, -40], story: 'blind_start' },
+                    { id: 'scribe_01', name: 'Temple Critic', color: 0x88cc88, pos: [-40, 1, 25], story: 'scribe_start' }
+                ],
+                actions: [
+                    { name: 'Analyze Siloam Sample Consistency', type: 'quest_advance', payload: 1, label: 'Audit' }
+                ],
+                collectables: [
+                    { id: 'c3_1', pos: [-60, 0.5, -45], color: 0xffaa00, collected: false, label: 'Siloam Clay Sample', description: 'Mineral mud mixture used to trigger biological optical restoration.' }
+                ]
+            },
+            {
+                phase: 4,
+                actLabel: 'ACT 2 – THE TEACHER',
+                title: 'The Cleansed Temple',
+                location: 'THE MAIN SANCTUARY CHANCEL',
+                color: 0xff4444,
+                theta: Math.PI * 1.25, phi: Math.PI * 0.58,
+                unlockAfter: [3],
+                isComplete: false,
+                quest: { id: 'TEMPLE_CLEANSED', name: 'TEMPLE PURGE', task: 'Assess evidence of transactional corruption patterns', cur: 0, tar: 2 },
+                prophecies: ['Malachi 3:1 — "The Lord whom you seek will suddenly come to His temple."', 'Psalm 69:9 — "Zeal for Your house has completely consumed me."'],
+                npcs: [
+                    { id: 'merchant_01', name: 'Exiled Vendor', color: 0xffaa44, pos: [25, 1, -15], story: 'merchant_start' }
+                ],
+                actions: [
+                    { name: 'Overturn Commercial Exploitation Tables', type: 'quest_advance', payload: 2, label: 'Purge' }
+                ],
+                collectables: [
+                    { id: 'c4_1', pos: [10, 0.5, -15], color: 0xffdd00, collected: false, label: 'Overturned Coin Stack', description: 'Scattered silver currency demonstrating dynamic protest against exploitation.' }
+                ]
+            }
+        ];
+
+        const INTEGRATED_DIALOGUE_NODES = {
+            'child_start': {
+                speaker: 'Excited Child', text: 'Look at the road! Everyone is throwing down palm branches and coats! The prophesied Deliverer King has arrived exactly as Zechariah wrote!',
+                choices: [
+                    { text: 'Why is a donkey significant?', next: 'child_donkey' },
+                    { text: 'Is this an army movement?', next: 'child_peace' }
+                ]
+            },
+            'child_donkey': {
+                speaker: 'Excited Child', text: 'Conquering generals use mighty war-horses. A donkey signifies that our true King comes bringing humility and structural peace!',
+                choices: [{ text: '[Conclude Dialogue]', next: null, finishQuest: true }]
+            },
+            'child_peace': {
+                speaker: 'Excited Child', text: 'No, he isn’t leading an uprising against Rome. This is a kingdom of healing!',
+                choices: [{ text: '[Conclude Dialogue]', next: null, finishQuest: true }]
+            },
+            'guard_start': {
+                speaker: 'Roman Sentry', text: 'Move along, traveler. The crowds are extremely volatile today. If this rider attempts to claim a crown that isn’t Caesar’s, we will suppress it quickly.',
+                choices: [{ text: '[Note Roman tension parameters and depart]', next: null, finishQuest: true }]
+            },
+            'trader_start': {
+                speaker: 'Caravan Merchant', text: 'I stood in the crowd up near Bethsaida when he took five loaves and two small fish, and fed five thousand men. The fragments left over filled twelve baskets!',
+                choices: [{ text: 'That is consistent with historical miracle claims.', next: null, finishQuest: true }]
+            },
+            'beggar_start': {
+                speaker: 'Aged Citizen', text: 'The powerful leadership doesn’t even acknowledge our presence, yet he sat down right here in the marketplace dirt to offer us safe refuge.',
+                choices: [{ text: '[Log account and exit]', next: null, finishQuest: true }]
+            },
+            'blind_start': {
+                speaker: 'Healed Man', text: 'I lived in absolute physical darkness from birth. He anointed my eyes with clay, commanded me to wash in Siloam, and now light floods my vision!',
+                choices: [{ text: 'How do the officials interpret this?', next: null, finishQuest: true }]
+            },
+            'scribe_start': {
+                speaker: 'Temple Critic', text: 'This performance is illegal under Sabbath statutes! Kneading clay is classified as labor, meaning the perpetrator cannot be operating under divine ordinance.',
+                choices: [{ text: '[File objection record into ledger]', next: null, finishQuest: true }]
+            },
+            'merchant_start': {
+                speaker: 'Exiled Vendor', text: 'He charged through here like a flash of fire! Tables upended, coin cages cracked, and doves flying everywhere! He ruined our entire seasonal commerce configuration!',
+                choices: [{ text: 'The Temple is a house of prayer, not profit.', next: null, finishQuest: true }]
+            }
+        };
+
+        // =========================================================================
+        // UNIFIED COMPREHENSIVE RENDER ENGINE CHASSIS
+        // =========================================================================
+        class ComprehensiveSandboxEngine {
+            constructor() {
+                this.activeLevel = null;
+                this.scene = null;
+                this.camera = null;
+                this.renderer = null;
+
+                this.pPos = new THREE.Vector3(0, 1, 15);
+                this.pVelocity = new THREE.Vector3();
+                this.camHeading = new THREE.Vector3(0, 0, -1);
+                this.up = new THREE.Vector3(0, 1, 0);
+                this.playerMesh = null;
+                this.keys = {};
+                this.isGrounded = true;
+
+                this.gravityForce = -42.0;
+                this.jumpVelocityForce = 16.5;
+
+                this.nearestNPCInProximity = null;
+                this.isCurrentlyInDialogueMode = false;
+                this.collectedEvidenceArchive = [];
+
+                this.trailSegmentMeshes = [];
+                this.audioActive = true;
+                this.backgroundSynthTrack = null;
+
+                this.timeOfDayProgression = 0.25;
+                this.autoCycleTimeProgress = true;
+                this.sunLightSource = null;
+                this.moonLightSource = null;
+                this.playerTorchLightSource = null;
+
+                this.spawnedNPCMeshes = [];
+                this.spawnedCollectableMeshes = [];
+                this.flockBirds = [];
+
+                this.vfx = null;
+                this.mapModal = null;
+
+                this.initEngineMatrix();
+                this.initAudioMatrix();
+                this.initControlsMatrix();
+                this.loadLevelMatrix(1);
+
+                this.mapModal = new OrbitalSelectMatrixModal(this);
+                this.animateMatrixLoop();
+            }
+
+            initEngineMatrix() {
+                const container = document.getElementById('canvas-container');
+                this.scene = new THREE.Scene();
+                this.scene.background = new THREE.Color(0x020205);
+                this.scene.fog = new THREE.FogExp2(0x020205, 0.015);
+
+                this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1500);
+
+                this.renderer = new THREE.WebGLRenderer({ antialias: true });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.shadowMap.enabled = true;
+                this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                container.appendChild(this.renderer.domElement);
+
+                this.ambientLightComponent = new THREE.AmbientLight(0xffffff, 0.2);
+                this.scene.add(this.ambientLightComponent);
+
+                this.sunLightSource = new THREE.DirectionalLight(0xffffff, 1.0);
+                this.sunLightSource.castShadow = true;
+                this.sunLightSource.shadow.mapSize.width = 1024;
+                this.sunLightSource.shadow.mapSize.height = 1024;
+                this.scene.add(this.sunLightSource);
+
+                this.moonLightSource = new THREE.DirectionalLight(0x5588ff, 0.4);
+                this.moonLightSource.castShadow = true;
+                this.scene.add(this.moonLightSource);
+
+                const playerGeo = new THREE.ConeGeometry(0.6, 2.2, 8);
+                playerGeo.rotateX(Math.PI / 2);
+
+                // FIXED REFERENCE SCOPE: Bound directly to the class context instance variable (this.)
+                this.playerMesh = new THREE.Mesh(playerGeo, new THREE.MeshStandardMaterial({ color: 0x00a884, roughness: 0.3, emissive: 0x002211 }));
+                this.playerMesh.position.copy(this.pPos);
+                this.playerMesh.castShadow = true;
+                this.scene.add(this.playerMesh);
+
+                this.playerTorchLightSource = new THREE.PointLight(0x00f2ff, 0, 25, 1.5);
+                this.playerMesh.add(this.playerTorchLightSource);
+
+                const groundGeo = new THREE.PlaneGeometry(500, 500);
+                const groundMat = new THREE.MeshStandardMaterial({ color: 0x14181e, roughness: 0.9 });
+                const ground = new THREE.Mesh(groundGeo, groundMat);
+                ground.rotation.x = -Math.PI / 2;
+                ground.receiveShadow = true;
+                this.scene.add(ground);
+
+                const groundGrid = new THREE.GridHelper(500, 60, 0x00a884, 0x141d25);
+                groundGrid.position.y = 0.01;
+                this.scene.add(groundGrid);
+
+                this.vfx = new ExactDustVFXSystem(this.scene);
+                this.initBirdFlockArray();
+
+                for (let i = 0; i < 20; i++) {
+                    const h = Math.random() * 16 + 6;
+                    const block = new THREE.Mesh(new THREE.BoxGeometry(8, h, 8), new THREE.MeshStandardMaterial({ color: 0x1c252e, roughness: 0.7 }));
+                    block.position.set((Math.random() - 0.5) * 160, h / 2, (Math.random() - 0.5) * 160);
+                    if (block.position.distanceTo(new THREE.Vector3(0, 0, 0)) > 18) {
+                        this.scene.add(block);
+                    }
+                }
+
+                setTimeout(() => {
+                    const loader = document.getElementById('loading-screen');
+                    if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 400); }
+                }, 1400);
+
+                window.addEventListener('resize', () => this.handleResizeMatrix());
+            }
+
+            initAudioMatrix() {
+                this.backgroundSynthTrack = new Howl({
+                    src: ['https://actions.google.com/sounds/v1/ambiences/morning_birds.ogg'],
+                    html5: true, loop: true, volume: 0.35
+                });
+                this.backgroundSynthTrack.play();
+            }
+
+            initBirdFlockArray() {
+                const birdGeo = new THREE.ConeGeometry(0.15, 0.5, 4);
+                birdGeo.rotateX(Math.PI / 2);
+                const birdMat = new THREE.MeshBasicMaterial({ color: 0x8696a0 });
+
+                for (let i = 0; i < 20; i++) {
+                    const bird = new THREE.Mesh(birdGeo, birdMat);
+                    bird.position.set((Math.random() - 0.5) * 100, Math.random() * 12 + 12, (Math.random() - 0.5) * 100);
+                    bird.userData = {
+                        velocity: new THREE.Vector3((Math.random() - 0.5) * 4.5, 0, (Math.random() - 0.5) * 4.5),
+                        noiseOffset: Math.random() * 100
+                    };
+                    this.scene.add(bird);
+                    this.flockBirds.push(bird);
+                }
+            }
+
+            initControlsMatrix() {
+                window.addEventListener('keydown', (e) => {
+                    this.keys[e.code] = true;
+                    if (e.code === 'Space' && this.isGrounded && !this.isCurrentlyInDialogueMode) {
+                        this.pVelocity.y = this.jumpVelocityForce;
+                        this.isGrounded = false;
+                    }
+                    if (e.code === 'KeyE' && this.nearestNPCInProximity && !this.isCurrentlyInDialogueMode) {
+                        this.initiateFadeDialogueSequence(this.nearestNPCInProximity.userData.config);
+                    }
+                });
+                window.addEventListener('keyup', (e) => this.keys[e.code] = false);
+
+                document.getElementById('btn-open-map').onclick = () => this.mapModal.open();
+
+                const btnAudio = document.getElementById('btn-audio-toggle');
+                btnAudio.onclick = () => {
+                    this.audioActive = !this.audioActive;
+                    btnAudio.classList.toggle('active', this.audioActive);
+                    Howler.volume(this.audioActive ? 1.0 : 0.0);
+                };
+
+                const btnCycle = document.getElementById('btn-cycle-toggle');
+                btnCycle.onclick = () => {
+                    this.autoCycleTimeProgress = !this.autoCycleTimeProgress;
+                    btnCycle.classList.toggle('active', !this.autoCycleTimeProgress);
+                    this.displayAlert(this.autoCycleTimeProgress ? "Auto day/night cycle enabled" : "Celestial timeline frozen");
+                };
+            }
+
+            loadLevelMatrix(phaseId) {
+                const targetConfig = WORLD_LEVEL_TREE_SCHEMATIC.find(l => l.phase === phaseId);
+                if (!targetConfig) return;
+
+                const textEl = document.getElementById('loading-text');
+                if (textEl) textEl.innerText = `Recompiling Level ${phaseId}: ${targetConfig.title}...`;
+
+                this.activeLevel = targetConfig;
+                this.nearestNPCInProximity = null;
+
+                this.spawnedNPCMeshes.forEach(m => this.scene.remove(m));
+                this.spawnedNPCMeshes = [];
+
+                this.spawnedCollectableMeshes.forEach(m => this.scene.remove(m));
+                this.spawnedCollectableMeshes = [];
+
+                this.pPos.set(0, 1, 15);
+                this.pVelocity.set(0, 0, 0);
+                this.isGrounded = true;
+
+                this.activeLevel.npcs.forEach(def => {
+                    const boxNPC = new THREE.Mesh(new THREE.BoxGeometry(1.2, 2, 1.2), new THREE.MeshStandardMaterial({ color: def.color, roughness: 0.4 }));
+                    boxNPC.position.set(def.pos[0], def.pos[1], def.pos[2]);
+                    boxNPC.userData = { config: def };
+                    this.scene.add(boxNPC);
+                    this.spawnedNPCMeshes.push(boxNPC);
+                });
+
+                if (this.activeLevel.collectables) {
+                    this.activeLevel.collectables.forEach(item => {
+                        if (!item.collected) {
+                            const itemGeo = new THREE.SphereGeometry(0.5, 16, 16);
+                            const itemMat = new THREE.MeshStandardMaterial({ color: item.color, roughness: 0.2, emissive: item.color, emissiveIntensity: 0.5 });
+                            const itemMesh = new THREE.Mesh(itemGeo, itemMat);
+                            itemMesh.position.set(item.pos[0], item.pos[1], item.pos[2]);
+                            itemMesh.userData = { dataRef: item };
+                            this.scene.add(itemMesh);
+                            this.spawnedCollectableMeshes.push(itemMesh);
+                        }
+                    });
+                }
+
+                document.getElementById('evidence-popup-card').style.display = 'none';
+
+                this.updateHUDMatrix();
+                this.displayAlert(`Level Instantiated: ${this.activeLevel.title}`);
+            }
+
+            updateHUDMatrix() {
+                document.getElementById('loc-name').innerText = this.activeLevel.location;
+                document.getElementById('act-name').innerText = this.activeLevel.actLabel;
+                document.getElementById('level-title').innerText = this.activeLevel.title;
+
+                const q = this.activeLevel.quest;
+                document.getElementById('quest-title').innerText = q.name;
+                document.getElementById('quest-task').innerText = `${q.task} (${q.cur}/${q.tar})`;
+                document.getElementById('quest-progress').style.width = `${(q.cur / q.tar) * 100}%`;
+
+                this.rebuildContextActionsMenu();
+                this.refreshEvidenceFolderGridDOM();
+
+                const propWrap = document.getElementById('prophecies-container');
+                propWrap.innerHTML = '';
+                this.activeLevel.prophecies.forEach(prop => {
+                    const div = document.createElement('div');
+                    div.className = 'prophecy-item';
+                    div.innerText = prop;
+                    propWrap.appendChild(div);
+                });
+            }
+
+            refreshEvidenceFolderGridDOM() {
+                for (let i = 0; i < 8; i++) {
+                    const slotDOM = document.getElementById(`slot-${i}`);
+                    if (!slotDOM) continue;
+
+                    if (this.collectedEvidenceArchive[i]) {
+                        slotDOM.className = 'evidence-slot-btn filled';
+                        slotDOM.innerHTML = '<i class="fa-solid fa-file-invoice"></i>';
+                    } else {
+                        slotDOM.className = 'evidence-slot-btn';
+                        slotDOM.innerHTML = '<i class="fa-solid fa-folder"></i>';
+                    }
+                }
+            }
+
+            readStoredEvidenceItem(index) {
+                const item = this.collectedEvidenceArchive[index];
+                if (!item) {
+                    this.displayAlert("Slot Empty: Search the environment for missing historical tokens.");
+                    return;
+                }
+                this.triggerEvidenceDescriptionPopup(item.label, item.description);
+            }
+
+            triggerEvidenceDescriptionPopup(title, description) {
+                const card = document.getElementById('evidence-popup-card');
+                const titleDOM = document.getElementById('popup-evidence-title');
+                const bodyDOM = document.getElementById('popup-evidence-body');
+
+                titleDOM.innerHTML = `<i class="fa-solid fa-file-shield" style="color:var(--accent-success);"></i> ${title}`;
+                bodyDOM.innerText = description;
+                card.style.display = 'block';
+            }
+
+            rebuildContextActionsMenu() {
+                const actWrap = document.getElementById('actions-container');
+                actWrap.innerHTML = '';
+
+                if (this.nearestNPCInProximity && !this.isCurrentlyInDialogueMode) {
+                    const n = this.nearestNPCInProximity.userData.config;
+                    const promptBtn = document.createElement('button');
+                    promptBtn.className = 'action-btn talk-prompt-highlight';
+                    promptBtn.innerHTML = `<span><i class="fa-solid fa-comments" style="margin-right:6px;"></i> Speak to ${n.name}</span><small>[E]</small>`;
+                    promptBtn.onclick = () => this.initiateFadeDialogueSequence(n);
+                    actWrap.appendChild(promptBtn);
+                }
+
+                this.activeLevel.actions.forEach(act => {
+                    const btn = document.createElement('button');
+                    btn.className = 'action-btn';
+                    btn.innerHTML = `<span>${act.name}</span><small style="color:var(--accent-primary)">[${act.label}]</small>`;
+                    btn.onclick = () => {
+                        if (act.type === 'quest_advance') this.advanceQuestMatrix(act.payload);
+                    };
+                    actWrap.appendChild(btn);
+                });
+            }
+
+            advanceQuestMatrix(amount) {
+                const q = this.activeLevel.quest;
+                if (q.cur >= q.tar) return;
+
+                q.cur = Math.min(q.tar, q.cur + amount);
+                this.updateHUDMatrix();
+
+                this.vfx.fireworkBurst(this.pPos);
+
+                if (q.cur >= q.tar) {
+                    this.activeLevel.isComplete = true;
+                    this.displayAlert("Objective Completed! Matrix Archive updated.");
+
+                    const allDone = WORLD_LEVEL_TREE_SCHEMATIC.every(l => l.isComplete);
+                    if (allDone) {
+                        setTimeout(() => {
+                            const endScreen = document.getElementById('end-screen');
+                            endScreen.style.display = 'flex';
+                            setTimeout(() => endScreen.style.opacity = '1', 50);
+                        }, 1200);
+                    }
+                }
+            }
+
+            initiateFadeDialogueSequence(npcConfig) {
+                const node = INTEGRATED_DIALOGUE_NODES[npcConfig.story];
+                if (!node) return;
+
+                this.isCurrentlyInDialogueMode = true;
+                this.pVelocity.set(0, 0, 0);
+
+                const overlay = document.getElementById('vn-overlay');
+                const scrollBox = document.getElementById('bub-scroll');
+                const choicesBox = document.getElementById('bar-choices');
+
+                document.getElementById('vn-speaker-name').innerText = npcConfig.name;
+                document.getElementById('vn-avatar').innerText = npcConfig.name[0];
+
+                scrollBox.innerHTML = '';
+                choicesBox.innerHTML = '';
+
+                overlay.classList.add('active');
+
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        overlay.classList.add('fade-in-complete');
+                    });
+                });
+
+                setTimeout(() => {
+                    this.renderDialogueBubblesTree(node, npcConfig);
+                }, 350);
+            }
+
+            renderDialogueBubblesTree(node, npcConfig) {
+                const overlay = document.getElementById('vn-overlay');
+                const scrollBox = document.getElementById('bub-scroll');
+                const choicesBox = document.getElementById('bar-choices');
+
+                scrollBox.innerHTML = '';
+                choicesBox.innerHTML = '';
+
+                const incomingBubble = document.createElement('div');
+                incomingBubble.className = 'chat-bubble incoming';
+                incomingBubble.innerText = node.text;
+                scrollBox.appendChild(incomingBubble);
+
+                node.choices.forEach(ch => {
+                    const btn = document.createElement('button');
+                    btn.className = 'choice-btn';
+                    btn.innerText = `→ ${ch.text}`;
+                    btn.onclick = () => {
+                        if (ch.finishQuest) this.advanceQuestMatrix(1);
+                        if (ch.next) {
+                            npcConfig.story = ch.next;
+                            const nextNode = INTEGRATED_DIALOGUE_NODES[ch.next];
+                            if (nextNode) this.renderDialogueBubblesTree(nextNode, npcConfig);
+                        } else {
+                            overlay.classList.remove('fade-in-complete');
+                            setTimeout(() => {
+                                overlay.classList.remove('active');
+                                this.isCurrentlyInDialogueMode = false;
+                                this.rebuildContextActionsMenu();
+                            }, 350);
+                        }
+                    };
+                    choicesBox.appendChild(btn);
+                });
+
+                scrollBox.scrollTop = scrollBox.scrollHeight;
+            }
+
+            displayAlert(msg) {
+                const alertEl = document.getElementById('screen-alert');
+                alertEl.innerText = msg; alertEl.style.display = 'block';
+                setTimeout(() => alertEl.style.display = 'none', 3500);
+            }
+
+            handleResizeMatrix() {
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            animateMatrixLoop() {
+                requestAnimationFrame(() => this.animateMatrixLoop());
+
+                const modalOpen = document.getElementById('modal-overlay').classList.contains('active');
+
+                if (!modalOpen && !this.isCurrentlyInDialogueMode) {
+                    this.processPhysicsMovementMatrix();
+                    this.processPlayerVisualTrail();
+                }
+
+                this.processCelestialTimeline();
+                this.processBirdsAIPhysics();
+                this.updateRadarMinimap();
+
+                const currentSpeedSq = this.pVelocity.lengthSq();
+                this.vfx.update(1 / 60, this.pPos, this.isGrounded, currentSpeedSq);
+
+                this.renderer.render(this.scene, this.camera);
+            }
+
+            updateRadarMinimap() {
+                const blipContainer = document.getElementById('minimap-blips-container');
+                blipContainer.innerHTML = '';
+
+                const mapRadiusScaleFactor = 0.55;
+                const centerOffset = 55;
+
+                const pBlip = document.createElement('div');
+                pBlip.className = 'minimap-blip player';
+                pBlip.style.left = `${centerOffset}px`;
+                pBlip.style.top = `${centerOffset}px`;
+                blipContainer.appendChild(pBlip);
+
+                this.spawnedNPCMeshes.forEach(npc => {
+                    const deltaX = npc.position.x - this.pPos.x;
+                    const deltaZ = npc.position.z - this.pPos.z;
+
+                    const pixelX = centerOffset + (deltaX * mapRadiusScaleFactor);
+                    const pixelY = centerOffset + (deltaZ * mapRadiusScaleFactor);
+
+                    if (pixelX >= 0 && pixelX <= 110 && pixelY >= 0 && pixelY <= 110) {
+                        const npcBlip = document.createElement('div');
+                        npcBlip.className = 'minimap-blip npc';
+                        npcBlip.style.left = `${pixelX}px`;
+                        npcBlip.style.top = `${pixelY}px`;
+                        blipContainer.appendChild(npcBlip);
+                    }
+                });
+
+                this.spawnedCollectableMeshes.forEach(item => {
+                    const deltaX = item.position.x - this.pPos.x;
+                    const deltaZ = item.position.z - this.pPos.z;
+
+                    const pixelX = centerOffset + (deltaX * mapRadiusScaleFactor);
+                    const pixelY = centerOffset + (deltaZ * mapRadiusScaleFactor);
+
+                    if (pixelX >= 0 && pixelX <= 110 && pixelY >= 0 && pixelY <= 110) {
+                        const itemBlip = document.createElement('div');
+                        itemBlip.className = 'minimap-blip collectable';
+                        itemBlip.style.left = `${pixelX}px`;
+                        itemBlip.style.top = `${pixelY}px`;
+                        blipContainer.appendChild(itemBlip);
+                    }
+                });
+            }
+
+            processCelestialTimeline() {
+                if (this.autoCycleTimeProgress) {
+                    this.timeOfDayProgression += 0.00027;
+                    if (this.timeOfDayProgression > 1.0) this.timeOfDayProgression = 0.0;
+                }
+
+                const rad = this.timeOfDayProgression * Math.PI * 2;
+
+                this.sunLightSource.position.set(Math.cos(rad) * 400, Math.sin(rad) * 400, 0);
+                this.moonLightSource.position.set(Math.cos(rad + Math.PI) * 400, Math.sin(rad + Math.PI) * 400, 0);
+
+                const sunAltitude = Math.sin(rad);
+
+                let dayMixFactor = (sunAltitude - (-0.2)) / (0.2 - (-0.2));
+                dayMixFactor = Math.max(0.0, Math.min(1.0, dayMixFactor));
+
+                const nightColor = new THREE.Color(0x020205);
+                const dayColor = new THREE.Color(0x87ceeb);
+                const currentSkyColor = nightColor.clone().lerp(dayColor, dayMixFactor);
+
+                this.scene.background.copy(currentSkyColor);
+                this.scene.fog.color.copy(currentSkyColor);
+
+                this.ambientLightComponent.intensity = THREE.MathUtils.lerp(0.15, 0.6, dayMixFactor);
+                this.sunLightSource.intensity = dayMixFactor;
+                this.moonLightSource.intensity = (1.0 - dayMixFactor) * 0.4;
+
+                this.playerTorchLightSource.intensity = (1.0 - dayMixFactor) * 4.0;
+                this.playerMesh.material.emissiveIntensity = THREE.MathUtils.lerp(0.6, 0.1, dayMixFactor);
+            }
+
+            processPhysicsMovementMatrix() {
+                const moveDir = new THREE.Vector3();
+                const camFwd = new THREE.Vector3(0, 0, -1).applyQuaternion(this.camera.quaternion).projectOnPlane(this.up).normalize();
+                const camRgt = new THREE.Vector3(1, 0, 0).applyQuaternion(this.camera.quaternion).projectOnPlane(this.up).normalize();
+
+                if (this.keys['KeyW'] || this.keys['ArrowUp']) moveDir.add(camFwd);
+                if (this.keys['KeyS'] || this.keys['ArrowDown']) moveDir.sub(camFwd);
+                if (this.keys['KeyA'] || this.keys['ArrowLeft']) moveDir.sub(camRgt);
+                if (this.keys['KeyD'] || this.keys['ArrowRight']) moveDir.add(camRgt);
+
+                if (moveDir.length() > 0) {
+                    moveDir.normalize();
+                    this.camHeading.lerp(moveDir, 0.1).normalize();
+
+                    const scalarHorizontalMoveSpeed = 18.0;
+                    this.pVelocity.x = moveDir.x * scalarHorizontalMoveSpeed;
+                    this.pVelocity.z = moveDir.z * scalarHorizontalMoveSpeed;
+                } else {
+                    this.pVelocity.x = 0;
+                    this.pVelocity.z = 0;
+                }
+
+                if (!this.isGrounded) {
+                    this.pVelocity.y += this.gravityForce * (1 / 60);
+                }
+
+                this.pPos.addScaledVector(this.pVelocity, 1 / 60);
+
+                if (this.pPos.y <= 1.0) {
+                    this.pPos.y = 1.0;
+                    this.pVelocity.y = 0;
+                    this.isGrounded = true;
+                }
+
+                this.playerMesh.position.copy(this.pPos);
+                this.playerMesh.up.copy(this.up);
+                this.playerMesh.lookAt(this.pPos.clone().add(this.camHeading.projectOnPlane(this.up).normalize()));
+
+                const targetCamPos = this.pPos.clone()
+                    .add(this.camHeading.clone().multiplyScalar(-30))
+                    .add(this.up.clone().multiplyScalar(16))
+                    .add(new THREE.Vector3().crossVectors(this.up, this.camHeading).multiplyScalar(8));
+
+                this.camera.position.lerp(targetCamPos, 0.05);
+                this.camera.lookAt(this.pPos.clone().add(this.camHeading.clone().multiplyScalar(5)));
+
+                for (let i = this.spawnedCollectableMeshes.length - 1; i >= 0; i--) {
+                    const itemMesh = this.spawnedCollectableMeshes[i];
+                    if (this.pPos.distanceTo(itemMesh.position) < 1.8) {
+                        const data = itemMesh.userData.dataRef;
+                        data.collected = true;
+
+                        this.collectedEvidenceArchive.push({
+                            label: data.label || 'Logged Evidence Ledger',
+                            description: data.description || 'Verified cross-reference parameter details.'
+                        });
+
+                        this.scene.remove(itemMesh);
+                        this.spawnedCollectableMeshes.splice(i, 1);
+
+                        this.triggerEvidenceDescriptionPopup(data.label, data.description);
+                        this.advanceQuestMatrix(1);
+                    }
+                }
+
+                let closestFoundNPC = null;
+                let minDistanceRecord = 6.5;
+
+                this.spawnedNPCMeshes.forEach(npc => {
+                    const d = this.pPos.distanceTo(npc.position);
+                    if (d < minDistanceRecord) {
+                        minDistanceRecord = d;
+                        closestFoundNPC = npc;
+                    }
+                });
+
+                if (closestFoundNPC !== this.nearestNPCInProximity) {
+                    this.nearestNPCInProximity = closestFoundNPC;
+                    this.updateHUDMatrix();
+                }
+
+                if (this.nearestNPCInProximity && minDistanceRecord < 2.0) {
+                    this.pPos.addScaledVector(this.pVelocity, -2 / 60);
+                }
+            }
+
+            processPlayerVisualTrail() {
+                const velocityHorizontalSq = (this.pVelocity.x * this.pVelocity.x) + (this.pVelocity.z * this.pVelocity.z);
+
+                if (this.isGrounded && velocityHorizontalSq > 5.0 && Math.random() < 0.3) {
+                    const trailGeo = new THREE.BoxGeometry(0.5, 0.1, 0.5);
+                    const trailMat = new THREE.MeshBasicMaterial({
+                        color: 0x00a884, transparent: true, opacity: 0.6
+                    });
+                    const segmentMesh = new THREE.Mesh(trailGeo, trailMat);
+                    segmentMesh.position.copy(this.pPos).sub(new THREE.Vector3(0, 1.0, 0));
+                    segmentMesh.userData = { life: 1.0 };
+
+                    this.scene.add(segmentMesh);
+                    this.trailSegmentMeshes.push(segmentMesh);
+                }
+
+                for (let i = this.trailSegmentMeshes.length - 1; i >= 0; i--) {
+                    const p = this.trailSegmentMeshes[i];
+                    p.userData.life -= 0.02;
+                    p.scale.setScalar(p.userData.life);
+                    p.material.opacity = p.userData.life;
+
+                    if (p.userData.life <= 0) {
+                        this.scene.remove(p);
+                        this.trailSegmentMeshes.splice(i, 1);
+                    }
+                }
+            }
+
+            processBirdsAIPhysics() {
+                const elapsedSeconds = performance.now() * 0.001;
+                this.flockBirds.forEach(bird => {
+                    const u = bird.userData;
+                    u.noiseOffset += 0.01;
+
+                    bird.position.addScaledVector(u.velocity, 1 / 60);
+                    bird.position.y += Math.sin(elapsedSeconds + u.noiseOffset) * 0.02;
+
+                    if (bird.position.x > 150) bird.position.x = -150;
+                    if (bird.position.x < -150) bird.position.x = 150;
+                    if (bird.position.z > 150) bird.position.z = -150;
+                    if (bird.position.z < -150) bird.position.z = 150;
+
+                    bird.lookAt(bird.position.clone().add(u.velocity));
+                });
+            }
+        }
+
+        // =========================================================================
+        // DUST VFX EMITTER ENGINE SYSTEMS
+        // =========================================================================
+        class ExactDustVFXSystem {
+            constructor(targetScene) {
+                this.scene = targetScene;
+                this.maxParticles = 600;
+                this.geometry = new THREE.BufferGeometry();
+                this.positions = new Float32Array(this.maxParticles * 3);
+                this.lifetimes = new Float32Array(this.maxParticles);
+                this.velocities = [];
+
+                for (let i = 0; i < this.maxParticles; i++) {
+                    this.positions[i * 3] = 0;
+                    this.positions[i * 3 + 1] = -1000;
+                    this.positions[i * 3 + 2] = 0;
+                    this.lifetimes[i] = 0;
+                    this.velocities.push(new THREE.Vector3());
+                }
+
+                this.geometry.setAttribute('position', new THREE.BufferAttribute(this.positions, 3));
+
+                const pointsMaterial = new THREE.PointsMaterial({
+                    color: 0x00a884,
+                    size: 0.35,
+                    transparent: true,
+                    opacity: 0.55,
+                    blending: THREE.AdditiveBlending
+                });
+
+                this.pointsMesh = new THREE.Points(this.geometry, pointsMaterial);
+                this.scene.add(this.pointsMesh);
+            }
+
+            spawnParticle(origin, velocity, duration) {
+                for (let i = 0; i < this.maxParticles; i++) {
+                    if (this.lifetimes[i] <= 0) {
+                        this.lifetimes[i] = duration;
+                        this.positions[i * 3] = origin.x + (Math.random() - 0.5) * 0.5;
+                        this.positions[i * 3 + 1] = origin.y - 1.0;
+                        this.positions[i * 3 + 2] = origin.z + (Math.random() - 0.5) * 0.5;
+                        this.velocities[i].copy(velocity);
+                        return;
+                    }
+                }
+            }
+
+            update(dt, playerPos, grounded, speedSq) {
+                const array = this.pointsMesh.geometry.attributes.position.array;
+
+                if (grounded && speedSq > 10.0) {
+                    if (Math.random() < 0.5) {
+                        const trailVel1 = new THREE.Vector3((Math.random() - 0.5) * 2, Math.random() * 2 + 1, (Math.random() - 0.5) * 2);
+                        const trailVel2 = new THREE.Vector3((Math.random() - 0.5) * 2, Math.random() * 2 + 1, (Math.random() - 0.5) * 2);
+                        this.spawnParticle(playerPos, trailVel1, 0.5);
+                        this.spawnParticle(playerPos, trailVel2, 0.5);
+                    }
+                }
+
+                if (Math.random() < 0.10) {
+                    const radiusOffset = Math.random() * 10 + 15;
+                    const angleOffset = Math.random() * Math.PI * 2;
+                    const ambientOrigin = playerPos.clone().add(new THREE.Vector3(
+                        Math.cos(angleOffset) * radiusOffset,
+                        Math.random() * 12,
+                        Math.sin(angleOffset) * radiusOffset
+                    ));
+                    this.spawnParticle(ambientOrigin, new THREE.Vector3((Math.random() - 0.5) * 0.4, -0.1, (Math.random() - 0.5) * 0.4), 4.5);
+                }
+
+                for (let i = 0; i < this.maxParticles; i++) {
+                    if (this.lifetimes[i] > 0) {
+                        this.lifetimes[i] -= dt;
+                        array[i * 3] += this.velocities[i].x * dt;
+                        array[i * 3 + 1] += this.velocities[i].y * dt;
+                        array[i * 3 + 2] += this.velocities[i].z * dt;
+
+                        if (this.lifetimes[i] <= 0) array[i * 3 + 1] = -1000;
+                    }
+                }
+                this.pointsMesh.geometry.attributes.position.needsUpdate = true;
+            }
+
+            fireworkBurst(origin) {
+                for (let i = 0; i < 200; i++) {
+                    const phi = Math.random() * Math.PI * 2;
+                    const theta = Math.acos((Math.random() * 2) - 1);
+                    const speed = Math.random() * 9 + 3;
+
+                    const vel = new THREE.Vector3(
+                        Math.sin(theta) * Math.cos(phi) * speed,
+                        Math.abs(Math.cos(theta)) * speed + 2,
+                        Math.sin(theta) * Math.sin(phi) * speed
+                    );
+                    this.spawnParticle(origin, vel, 1.1);
+                }
+            }
+        }
+
+        // =========================================================================
+        // HOLOGRAPHIC SELECT MATRIX MODAL COMPONENT WINDOW
+        // =========================================================================
+        class OrbitalSelectMatrixModal {
+            constructor(engineCoreInstance) {
+                this.core = engineCoreInstance;
+                this.scene = null;
+                this.camera = null;
+                this.renderer = null;
+                this.cityCoreSphereMesh = null;
+
+                this.overlayDOM = document.getElementById('modal-overlay');
+                this.wrapperDOM = document.getElementById('modal-canvas-wrap');
+
+                this.theta = 0; this.phi = Math.PI / 3;
+                this.isDragging = false;
+                this.pointerPrev = { x: 0, y: 0 };
+                this.htmlReferences = [];
+                this.raf = null;
+
+                this.initMapRenderer();
+                this.bindInteractionInputs();
+            }
+
+            initMapRenderer() {
+                this.scene = new THREE.Scene();
+                this.scene.background = new THREE.Color(0x05070b);
+
+                this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 500);
+                this.renderer = new THREE.WebGLRenderer({ antialias: true });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.wrapperDOM.appendChild(this.renderer.domElement);
+
+                const topSpitLight = new THREE.PointLight(0x00ffaa, 1.5, 80);
+                topSpitLight.position.set(0, 20, 10);
+                this.scene.add(topSpitLight);
+
+                const generalAmbient = new THREE.AmbientLight(0xffffff, 0.35);
+                this.scene.add(generalAmbient);
+
+                this.cityCoreSphereMesh = new THREE.Mesh(
+                    new THREE.SphereGeometry(6.5, 30, 30),
+                    new THREE.MeshStandardMaterial({
+                        color: 0x00a884,
+                        wireframe: true,
+                        transparent: true,
+                        opacity: 0.4,
+                        emissive: 0x003322,
+                        emissiveIntensity: 0.6,
+                        roughness: 0.2
+                    })
+                );
+                this.scene.add(this.cityCoreSphereMesh);
+
+                const blockGeo = new THREE.BoxGeometry(0.7, 1.3, 0.7);
+                const blockMat = new THREE.MeshStandardMaterial({
+                    color: 0x1d2936,
+                    roughness: 0.3,
+                    metalness: 0.2,
+                    emissive: 0x070d14
+                });
+                const instancedBuildings = new THREE.InstancedMesh(blockGeo, blockMat, 45);
+
+                const dummy = new THREE.Object3D();
+                for (let i = 0; i < 45; i++) {
+                    const lat = Math.acos((Math.random() * 2) - 1);
+                    const lon = Math.random() * Math.PI * 2;
+                    const rad = 6.2;
+
+                    dummy.position.set(
+                        Math.sin(lat) * Math.cos(lon) * rad,
+                        Math.sin(lat) * Math.sin(lon) * rad,
+                        Math.cos(lat) * rad
+                    );
+                    dummy.scale.set(Math.random() * 1.2 + 0.5, Math.random() * 2.4 + 1, Math.random() * 1.2 + 0.5);
+                    dummy.lookAt(0, 0, 0);
+                    dummy.updateMatrix();
+                    instancedBuildings.setMatrixAt(i, dummy.matrix);
+                }
+                this.cityCoreSphereMesh.add(instancedBuildings);
+
+                WORLD_LEVEL_TREE_SCHEMATIC.forEach(level => {
+                    const nodePos = new THREE.Vector3().setFromSphericalCoords(6.9, level.phi, level.theta);
+
+                    const markerNodeMesh = new THREE.Mesh(
+                        new THREE.SphereGeometry(0.45, 16, 16),
+                        new THREE.MeshStandardMaterial({
+                            color: level.color,
+                            emissive: level.color,
+                            emissiveIntensity: 1.8,
+                            roughness: 0.1
+                        })
+                    );
+                    markerNodeMesh.position.copy(nodePos);
+                    this.cityCoreSphereMesh.add(markerNodeMesh);
+
+                    const dot = document.createElement('div');
+                    dot.className = 'map-node-dot';
+                    dot.style.color = `#${level.color.toString(16)}`;
+                    dot.style.backgroundColor = `#${level.color.toString(16)}`;
+
+                    const label = document.createElement('div');
+                    label.className = 'map-node-label';
+                    label.innerText = `Phase 0${level.phase}: ${level.title}`;
+
+                    this.wrapperDOM.appendChild(dot);
+                    this.wrapperDOM.appendChild(label);
+
+                    this.htmlReferences.push({ data: level, mesh: markerNodeMesh, dot, label });
+
+                    dot.onclick = () => {
+                        if (this.evaluatePrerequisites(level)) {
+                            this.close();
+                            this.core.loadLevelMatrix(level.phase);
+                        } else {
+                            this.core.displayAlert("Prerequisites Not Met: Settle earlier historical loops first.");
+                        }
+                    };
+                });
+            }
+
+            evaluatePrerequisites(lvl) {
+                for (let req of lvl.unlockAfter) {
+                    const match = WORLD_LEVEL_TREE_SCHEMATIC.find(l => l.phase === req);
+                    if (!match || !match.isComplete) return false;
+                }
+                return true;
+            }
+
+            bindInteractionInputs() {
+                document.getElementById('btn-close-map').onclick = () => this.close();
+
+                this.wrapperDOM.addEventListener('mousedown', (e) => {
+                    this.isDragging = true;
+                    this.pointerPrev = { x: e.clientX, y: e.clientY };
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (!this.isDragging) return;
+                    const dx = e.clientX - this.pointerPrev.x;
+                    const dy = e.clientY - this.pointerPrev.y;
+
+                    this.theta -= dx * 0.006;
+                    this.phi = Math.max(0.1, Math.min(Math.PI - 0.1, this.phi - dy * 0.006));
+                    this.pointerPrev = { x: e.clientX, y: e.clientY };
+                });
+
+                window.addEventListener('mouseup', () => this.isDragging = false);
+            }
+
+            open() {
+                this.overlayDOM.className = 'active';
+                this.htmlReferences.forEach(n => {
+                    const ok = this.evaluatePrerequisites(n.data);
+                    n.dot.classList.toggle('locked', !ok);
+                    n.dot.classList.toggle('completed', n.data.isComplete);
+                });
+                this.loop();
+            }
+
+            close() {
+                this.overlayDOM.className = '';
+                cancelAnimationFrame(this.raf);
+            }
+
+            loop() {
+                this.raf = requestAnimationFrame(() => this.loop());
+
+                this.camera.position.setFromSphericalCoords(24, this.phi, this.theta);
+                this.camera.lookAt(0, 0, 0);
+
+                if (!this.isDragging && this.cityCoreSphereMesh) {
+                    this.cityCoreSphereMesh.rotation.y += 0.003;
+                }
+
+                this.renderer.render(this.scene, this.camera);
+
+                const rect = this.wrapperDOM.getBoundingClientRect();
+                this.htmlReferences.forEach(n => {
+                    const wp = new THREE.Vector3();
+                    n.mesh.getWorldPosition(wp);
+                    wp.project(this.camera);
+
+                    if (wp.z > 1) {
+                        n.dot.style.display = 'none'; n.label.style.display = 'none';
+                    } else {
+                        n.dot.style.display = 'block'; n.label.style.display = 'block';
+                        n.dot.style.left = `${(wp.x * 0.5 + 0.5) * rect.width}px`;
+                        n.dot.style.top = `${(wp.y * -0.5 + 0.5) * rect.height}px`;
+                        n.label.style.left = `${(wp.x * 0.5 + 0.5) * rect.width}px`;
+                        n.label.style.top = `${(wp.y * -0.5 + 0.5) * rect.height}px`;
+                    }
+                });
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => { window.AppEngine = new ComprehensiveSandboxEngine(); });
+    </script>
+</body>
+
+</html>

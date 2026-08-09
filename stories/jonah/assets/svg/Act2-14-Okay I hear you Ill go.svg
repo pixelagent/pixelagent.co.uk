@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1445.1 1020.19">
+  <!-- Generator: Adobe Illustrator 30.6.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 109)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #0f1b29;
+      }
+
+      .st1 {
+        fill: #ffd84d;
+      }
+
+      .st1, .st2 {
+        opacity: .1;
+      }
+
+      .st1, .st2, .st3 {
+        isolation: isolate;
+      }
+
+      .st4 {
+        fill: #454a50;
+        stroke-width: 9.92px;
+      }
+
+      .st4, .st5, .st6, .st7 {
+        stroke: #0a0812;
+      }
+
+      .st4, .st7 {
+        stroke-miterlimit: 7.94;
+      }
+
+      .st8 {
+        stroke: #121824;
+        stroke-width: 39.69px;
+      }
+
+      .st8, .st9, .st5, .st6 {
+        fill: none;
+        stroke-miterlimit: 7.94;
+      }
+
+      .st2 {
+        fill: #4ecdc4;
+      }
+
+      .st3 {
+        fill: #fff7e8;
+        opacity: .15;
+      }
+
+      .st9 {
+        stroke: #1b2333;
+        stroke-width: 29.76px;
+      }
+
+      .st5 {
+        stroke-width: 79.37px;
+      }
+
+      .st6 {
+        stroke-width: 59.53px;
+      }
+
+      .st7 {
+        fill: #6c757d;
+        stroke-width: 11.91px;
+      }
+    </style>
+  </defs>
+  <rect class="st0" x="127.27" y="127.27" width="1190.55" height="793.7"/>
+  <path class="st5" d="M28.06,28.06c396.85,396.85,992.13,396.85,1388.98,0"/>
+  <path class="st8" d="M28.06,28.06c396.85,396.85,992.13,396.85,1388.98,0"/>
+  <path class="st6" d="M325.7,28.06c297.64,257.95,496.06,257.95,793.7,0"/>
+  <path class="st9" d="M325.7,28.06c297.64,257.95,496.06,257.95,793.7,0"/>
+  <path class="st1" d="M722.55,28.06l-396.85,992.13h793.7L722.55,28.06Z"/>
+  <path class="st3" d="M722.55,28.06l-198.43,992.13h396.85L722.55,28.06Z"/>
+  <g>
+    <path class="st7" d="M640.56,924.52c0-198.43,198.43-198.43,198.43,0h-198.43Z"/>
+    <circle class="st2" cx="739.77" cy="785.62" r="119.06"/>
+    <circle class="st4" cx="739.77" cy="785.62" r="49.61"/>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="200" fill="#0e1e0e"/>
+  <!-- Ground — proportion -->
+  <rect x="0" y="155" width="300" height="45" fill="#0a160a"/>
+  <rect x="0" y="153" width="300" height="4" fill="#1e3a1a" opacity=".7"/>
+  <!-- Stone table — hierarchy, balance -->
+  <rect x="36" y="118" width="228" height="14" fill="#3a2e14" stroke="#0A0812" stroke-width="2.5" rx="2"/>
+  <rect x="44"  y="130" width="14" height="38" fill="#2e2410" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="242" y="130" width="14" height="38" fill="#2e2410" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Day label — hierarchy: top-centre, informational -->
+  <rect x="108" y="8" width="84" height="24" fill="#0a2210" stroke="#4ECDC4" stroke-width="1.5" rx="3"/>
+  <text x="150" y="24" font-size="9" fill="#4ECDC4" text-anchor="middle" font-family="monospace" font-weight="bold">DAY 10</text>
+  <!-- Vegetables — variety: 3 different types, rhythm: spaced evenly -->
+  <!-- Leafy greens -->
+  <ellipse cx="74"  cy="110" rx="22" ry="12" fill="#3a7a2a" stroke="#0A0812" stroke-width="2"/>
+  <ellipse cx="62"  cy="102" rx="12" ry="8"  fill="#4a9a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <path d="M74 98 Q78 84 84 98"   fill="#2a6a1a" stroke="#0A0812" stroke-width="1.5"/>
+  <path d="M64 96 Q66 84 70 96"   fill="#2a6a1a" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Root veg -->
+  <ellipse cx="148" cy="108" rx="18" ry="11" fill="#c8603a" stroke="#0A0812" stroke-width="2"/>
+  <path d="M148 97 Q152 86 156 97" fill="#2a6a1a" stroke="#0A0812" stroke-width="1.5"/>
+  <path d="M148 119 Q146 128 148 134" fill="#a04a2a" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Legumes/pods -->
+  <ellipse cx="222" cy="110" rx="20" ry="9"  fill="#5aaa3a" stroke="#0A0812" stroke-width="2"/>
+  <circle  cx="210" cy="110" r="5"  fill="#4a9a2a" stroke="#0A0812" stroke-width="1"/>
+  <circle  cx="222" cy="110" r="5"  fill="#5aaa3a" stroke="#0A0812" stroke-width="1"/>
+  <circle  cx="234" cy="110" r="5"  fill="#4a9a2a" stroke="#0A0812" stroke-width="1"/>
+  <!-- Water jug — emphasis: contrasting teal, vertical -->
+  <rect x="258" y="78" width="18" height="36" fill="#1b4965" stroke="#4ECDC4" stroke-width="2" rx="3"/>
+  <ellipse cx="267" cy="78"  rx="9" ry="4"  fill="#1b4965" stroke="#4ECDC4" stroke-width="2"/>
+  <ellipse cx="267" cy="114" rx="9" ry="4"  fill="#4ECDC4" opacity=".5"/>
+  <path d="M276 92 Q286 92 282 100 Q278 108 276 104" fill="none" stroke="#4ECDC4" stroke-width="2"/>
+  <!-- Glow under veg — unity: shared warm light from below -->
+  <ellipse cx="150" cy="120" rx="120" ry="8" fill="#4a8a3a" opacity=".08"/>
+</svg>

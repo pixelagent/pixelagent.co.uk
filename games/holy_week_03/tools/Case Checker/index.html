@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miracle Maker 3D — Case Unlock Cheat Sheet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --cork-1:#7a5535;
+    --cork-2:#5c3f26;
+    --paper:#f2e8d5;
+    --paper-edge:#e0d0ab;
+    --ink:#2b2117;
+    --ink-soft:#5a4d3d;
+    --gold:#c8973f;
+    --gold-deep:#9c721f;
+    --red:#a83f3a;
+    --blue:#3c6b93;
+    --green:#4c7a4c;
+    --violet:#7a5a9c;
+    --sidebar-bg:#20140c;
+    --sidebar-card:#2d1d12;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--sidebar-bg);
+    display:flex;
+    min-height:100vh;
+  }
+  h1,h2,h3{font-family:'Special Elite','Courier New',monospace; letter-spacing:0.02em; margin:0;}
+
+  /* ---------- Sidebar ---------- */
+  #sidebar{
+    width:300px;
+    flex:0 0 300px;
+    background:var(--sidebar-bg);
+    color:#eadfce;
+    padding:20px 14px 60px;
+    overflow-y:auto;
+    border-right:6px solid var(--cork-2);
+  }
+  #sidebar .brand{
+    font-family:'Special Elite','Courier New',monospace;
+    font-size:1.05rem;
+    color:var(--gold);
+    padding-bottom:14px;
+    border-bottom:1px dashed #5a4230;
+    margin-bottom:14px;
+    line-height:1.4;
+  }
+  .act-section h2{
+    font-size:0.72rem;
+    text-transform:uppercase;
+    color:#c9b48c;
+    margin:22px 0 8px;
+    letter-spacing:0.08em;
+  }
+  .case-list{display:flex;flex-direction:column;gap:6px;}
+  .case-btn{
+    text-align:left;
+    background:var(--sidebar-card);
+    border:1px solid #46301d;
+    color:#f2e8d5;
+    border-radius:3px;
+    padding:8px 10px;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    font-family:'Inter',sans-serif;
+    transition:background .15s, transform .1s;
+  }
+  .case-btn:hover{background:#3a2717; transform:translateX(2px);}
+  .case-btn.active{background:var(--gold-deep); border-color:var(--gold); color:#1c1206;}
+  .case-btn-title{font-weight:600; font-size:0.86rem;}
+  .case-btn-meta{font-size:0.7rem;}
+  .case-btn-req{font-size:0.68rem; opacity:0.75; font-style:italic;}
+  .case-btn-req.first{color:var(--gold); opacity:1;}
+  .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#5a4230;margin-right:2px;}
+  .dot.on{background:var(--gold);}
+  .case-btn.active .dot{background:#1c1206;}
+  .case-btn.active .dot.on{background:#1c1206; box-shadow:0 0 0 1px #1c1206;}
+
+  /* ---------- Main ---------- */
+  #case-view{
+    flex:1;
+    min-width:0;
+    background:
+      radial-gradient(ellipse at top left, #efe4cc 0%, #e7dabd 55%, #ded0ac 100%);
+    padding:26px 34px 60px;
+    overflow-y:auto;
+    height:100vh;
+  }
+  .empty-state{max-width:640px; margin:60px auto; text-align:center; color:var(--ink-soft);}
+  .empty-state h1{font-size:1.6rem; color:var(--ink); margin-bottom:14px;}
+  .legend{
+    text-align:left; margin-top:26px; background:var(--paper); border:1px solid var(--paper-edge);
+    padding:16px 20px; border-radius:4px; display:grid; gap:8px; font-size:0.85rem;
+  }
+  .legend .str{display:inline-block; width:26px; height:3px; margin-right:8px; vertical-align:middle; border-radius:2px;}
+  .str.npc-evidence{background:var(--green);}
+  .str.npc-suspect{background:var(--blue);}
+  .str.chain{background:var(--violet);}
+  .str.evidence-prophecy{background:var(--gold-deep);}
+  .str.evidence-suspect{background:var(--red);}
+  .str.deduction{background:#8a7a5a;}
+  .str.deduction-prophecy.key{background:var(--gold); height:4px;}
+  .str.lab{background:var(--red); opacity:.6;}
+  .str.verdict{background:var(--ink); opacity:.5;}
+
+  .case-header{display:flex; justify-content:space-between; align-items:flex-start; gap:24px; flex-wrap:wrap;}
+  .case-act-label{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold-deep); font-weight:700;}
+  .case-header h1{font-size:1.55rem; margin:4px 0 6px;}
+  .subtitle{margin:0; color:var(--ink-soft); max-width:60ch;}
+  .case-meta{text-align:right; font-size:0.85rem; color:var(--ink-soft); display:flex; flex-direction:column; gap:6px;}
+  .loc{white-space:nowrap;}
+  .link-btn{background:none;border:none;color:var(--blue);text-decoration:underline;cursor:pointer;font:inherit;padding:0;}
+  .difficulty{display:inline-flex; gap:2px;}
+  .difficulty .dot{width:8px;height:8px;background:#cdbb96;}
+  .difficulty .dot.on{background:var(--gold-deep);}
+
+  .board-toolbar{display:flex; align-items:center; gap:14px; margin:18px 0 10px;}
+  .btn{
+    background:var(--paper); border:1px solid var(--ink-soft); color:var(--ink);
+    padding:6px 14px; border-radius:3px; cursor:pointer; font:inherit; font-size:0.82rem;
+  }
+  .btn:hover{background:#fff;}
+  .hint{font-size:0.78rem; color:var(--ink-soft); font-style:italic;}
+
+  /* ---------- Corkboard ---------- */
+  .cork-stage{
+    position:relative;
+    background:
+      radial-gradient(circle at 8% 12%, rgba(255,255,255,0.05), transparent 40%),
+      repeating-radial-gradient(circle at 20% 30%, rgba(0,0,0,0.05) 0, rgba(0,0,0,0.05) 1px, transparent 2px, transparent 6px),
+      linear-gradient(var(--cork-1), var(--cork-2));
+    border-radius:6px;
+    box-shadow:inset 0 0 40px rgba(0,0,0,0.45), 0 4px 18px rgba(0,0,0,0.35);
+    padding:18px;
+  }
+  #edge-svg{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:2;}
+  .board{position:relative; z-index:3; display:grid; grid-template-columns:repeat(4,minmax(200px,1fr)); gap:16px;}
+  .board-col h3{
+    color:#f4e8cc; font-size:0.82rem; text-transform:uppercase; letter-spacing:0.06em;
+    margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1px dashed rgba(255,255,255,0.25); padding-bottom:6px;
+  }
+  .board-col h3 .count{background:rgba(0,0,0,0.35); color:#f4e8cc; border-radius:10px; padding:1px 8px; font-size:0.7rem;}
+  .col-scroll{display:flex; flex-direction:column; gap:14px; max-height:64vh; overflow-y:auto; padding:4px 6px 4px 2px;}
+  .muted{color:#f4e8cc; opacity:0.6; font-size:0.8rem;}
+
+  .card{
+    position:relative;
+    background:var(--paper);
+    border:1px solid var(--paper-edge);
+    border-radius:2px;
+    padding:12px 12px 10px;
+    box-shadow:2px 3px 6px rgba(0,0,0,0.35);
+    cursor:pointer;
+    transition:transform .12s, box-shadow .12s, opacity .15s;
+  }
+  .card:hover{transform:translateY(-2px) rotate(-0.2deg); box-shadow:3px 6px 10px rgba(0,0,0,0.4);}
+  .card.dimmed{opacity:0.35;}
+  .card.lit{box-shadow:0 0 0 2px var(--gold), 3px 6px 10px rgba(0,0,0,0.4);}
+  .card.selected{box-shadow:0 0 0 3px var(--red), 3px 6px 10px rgba(0,0,0,0.4);}
+  .pin{position:absolute; top:-7px; left:16px; width:11px; height:11px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #e6564f, #8f231e); box-shadow:0 2px 3px rgba(0,0,0,0.5);}
+  .pin.gold{background:radial-gradient(circle at 35% 30%, #f2d287, var(--gold-deep));}
+  .pin.red{background:radial-gradient(circle at 35% 30%, #e6564f, #7c1c17);}
+  .card header{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; margin-bottom:4px;}
+  .card-name{font-weight:700; font-size:0.92rem;}
+  .card-role{font-size:0.7rem; color:var(--ink-soft); font-style:italic;}
+  .bibleref{font-size:0.7rem; color:var(--ink-soft); margin-bottom:6px;}
+  blockquote{margin:4px 0 8px; font-size:0.78rem; font-style:italic; color:#443923; border-left:2px solid var(--gold-deep); padding-left:8px;}
+  .row{font-size:0.76rem; margin-top:6px; display:flex; flex-wrap:wrap; align-items:center; gap:5px;}
+  .row.muted{color:var(--ink-soft); font-style:italic;}
+  .row-label{font-weight:600; color:var(--ink-soft); margin-right:2px; text-transform:uppercase; font-size:0.62rem; letter-spacing:0.04em; width:100%;}
+  .chip{
+    display:inline-block; padding:2px 8px; border-radius:10px; font-size:0.7rem;
+    background:#e4d6b3; border:1px solid #cbb887; cursor:pointer; color:var(--ink);
+  }
+  .chip.npc{background:#dfe9df; border-color:#a9c4a9;}
+  .chip.evidence{background:#e6dccb; border-color:#c7ae82;}
+  .chip.prophecy{background:#ece0f2; border-color:#c4a6d6;}
+  .chip.suspect{background:#f2dede; border-color:#d6a6a6;}
+  .chip.fulfilled{background:var(--gold); border-color:var(--gold-deep); font-weight:700;}
+  .chip.deduction{background:#efe8d6; border-color:#b9a679;}
+  .chip.deduction.key{background:var(--gold); font-weight:700;}
+  details.chains{margin-top:8px; font-size:0.74rem;}
+  details.chains summary{cursor:pointer; color:var(--blue); font-weight:600;}
+  details.chains ul{margin:6px 0 0; padding-left:18px;}
+  .ribbon{
+    position:absolute; top:8px; right:-6px; background:var(--gold-deep); color:#fff; font-size:0.62rem;
+    font-weight:700; padding:2px 10px 2px 8px; text-transform:uppercase; letter-spacing:.03em;
+    box-shadow:1px 2px 3px rgba(0,0,0,0.4);
+  }
+  .ribbon.verdict-ribbon{background:var(--red);}
+  .card.true-culprit{border:2px solid var(--red);}
+  .card.no-crime{opacity:0.85; border-style:dashed;}
+  .card.fulfilled{border-color:var(--gold-deep);}
+
+  /* SVG strings */
+  .str{fill:none; stroke-width:2; opacity:0.95;}
+  .str.npc-evidence{stroke:var(--green);}
+  .str.npc-suspect{stroke:var(--blue);}
+  .str.npc-prophecy{stroke:var(--violet); stroke-dasharray:5 3;}
+  .str.chain{stroke:var(--violet);}
+  .str.evidence-prophecy{stroke:var(--gold-deep);}
+  .str.evidence-suspect{stroke:var(--red);}
+  .str.deduction{stroke:#cdbb96; stroke-dasharray:3 3;}
+  .str.deduction-prophecy{stroke:#cdbb96;}
+  .str.deduction-prophecy.key{stroke:var(--gold); stroke-width:3.5;}
+  .str.lab{stroke:var(--red); stroke-dasharray:2 4;}
+  .str.verdict{stroke:var(--ink); stroke-width:3; stroke-dasharray:1 5;}
+
+  /* ---------- Lower panels ---------- */
+  .lower-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:26px;}
+  .panel{background:var(--paper); border:1px solid var(--paper-edge); border-radius:4px; padding:14px 16px;}
+  .panel h3{font-size:0.9rem; margin-bottom:8px;}
+  .muted-sm{font-size:0.72rem; color:var(--ink-soft); font-weight:400; font-family:'Inter',sans-serif;}
+  .data-table{width:100%; border-collapse:collapse; font-size:0.78rem;}
+  .data-table th{text-align:left; border-bottom:1px solid var(--paper-edge); padding:4px 6px; font-size:0.68rem; text-transform:uppercase; color:var(--ink-soft);}
+  .data-table td{padding:6px; border-bottom:1px solid #e9ddc0; cursor:pointer;}
+  .data-table tr:hover td{background:#fbf4e2;}
+  .tbadge{display:inline-block; background:#e6dccb; border:1px solid #cbb887; border-radius:8px; padding:1px 7px; font-size:0.68rem; margin:1px;}
+  .tbadge.key{background:var(--gold); font-weight:700;}
+
+  .verdict-panel{background:#231810; color:#f2e8d5; border-radius:6px; padding:20px 24px; margin-top:24px;}
+  .verdict-panel h3{color:var(--gold); font-size:1rem;}
+  .verdict-body{display:flex; gap:26px; flex-wrap:wrap; margin:12px 0; align-items:flex-start;}
+  .verdict-prophecies, .verdict-accused{display:flex; flex-direction:column; gap:6px;}
+  .verdict-panel .row-label{color:#c9b48c;}
+  .verdict-panel p{font-size:0.85rem; line-height:1.5; max-width:80ch;}
+  .reading{font-size:0.8rem; opacity:0.85;}
+
+  @media (max-width: 980px){
+    body{flex-direction:column;}
+    #sidebar{width:100%; flex:none; max-height:40vh;}
+    .board{grid-template-columns:1fr;}
+    .lower-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+  <nav id="sidebar">
+    <div class="brand">📌 MIRACLE MAKER 3D<br>Case File Room</div>
+  </nav>
+  <main id="case-view"></main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "start": {
+    "content": "When we sat on the Mount of Olives, He told us the Temple would fall stone from stone. I asked when these things would happen and what sign would mark His coming.",
+    "choices": [
+      { "text": "What signs did He emphasize?", "destination": "signs" },
+      { "text": "How did that affect you?", "destination": "impact" }
+    ]
+  },
+  "signs": {
+    "content": "He warned us about wars, famines, earthquakes, and false messiahs. He called them birth pains, not the end itself. The command was to endure and stay watchful.",
+    "choices": [
+      { "text": "And the Temple?", "destination": "temple" }
+    ]
+  },
+  "impact": {
+    "content": "I expected quick victory, not a long road of tribulation. His words shifted us from timelines to faithfulness: keep awake, keep serving, keep trusting the Father.",
+    "choices": [
+      { "text": "So readiness matters more than dates.", "destination": "temple" }
+    ]
+  },
+  "temple": {
+    "content": "Yes. The stones looked eternal from that hill, but He said they would collapse. The true warning was spiritual: do not be deceived, and do not lose heart.",
+    "choices": []
+  }
+}

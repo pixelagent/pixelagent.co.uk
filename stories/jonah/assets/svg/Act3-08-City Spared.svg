@@ -1,0 +1,221 @@
+<svg viewBox="0 0 600 400"
+     xmlns="http://www.w3.org/2000/svg"
+     width="100%"
+     height="100%">
+
+  <defs>
+
+    <!-- Hopeful Sky -->
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff3c4"/>
+      <stop offset="35%" stop-color="#ffd87a"/>
+      <stop offset="100%" stop-color="#d89b5d"/>
+    </linearGradient>
+
+    <!-- Divine Light -->
+    <radialGradient id="sunGlow">
+      <stop offset="0%" stop-color="#fff9de" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#fff9de" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- City -->
+    <linearGradient id="cityStone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d5a06a"/>
+      <stop offset="100%" stop-color="#a86e3c"/>
+    </linearGradient>
+
+  </defs>
+
+  <!-- Sky -->
+  <rect width="600"
+        height="400"
+        fill="url(#sky)"/>
+
+  <!-- Sun -->
+  <circle cx="470"
+          cy="80"
+          r="55"
+          fill="#FFD84D"
+          stroke="#0A0812"
+          stroke-width="3"/>
+
+  <circle cx="470"
+          cy="80"
+          r="110"
+          fill="url(#sunGlow)"
+          opacity="0.55"/>
+
+  <!-- Divine rays -->
+  <g opacity="0.25">
+
+    <path d="M460 80 L390 400 L450 400 Z"
+          fill="#fffce6"/>
+
+    <path d="M490 80 L520 400 L570 400 Z"
+          fill="#fffce6"/>
+
+    <path d="M475 80 L455 400 L495 400 Z"
+          fill="#fffce6"/>
+
+  </g>
+
+  <!-- Flying birds -->
+  <g fill="none"
+     stroke="#fffdf0"
+     stroke-width="2.5">
+
+    <path d="M110 90 q10 -10 20 0"/>
+    <path d="M130 90 q10 -10 20 0"/>
+
+    <path d="M180 65 q10 -10 20 0"/>
+    <path d="M200 65 q10 -10 20 0"/>
+
+    <path d="M250 100 q10 -10 20 0"/>
+    <path d="M270 100 q10 -10 20 0"/>
+
+  </g>
+
+  <!-- City Walls -->
+  <path d="
+      M40 250
+      L40 180
+      L560 180
+      L560 250
+      Z"
+      fill="url(#cityStone)"
+      stroke="#0A0812"
+      stroke-width="5"/>
+
+  <!-- Main Gate -->
+  <path d="
+      M260 250
+      L260 180
+      Q300 125 340 180
+      L340 250
+      Z"
+      fill="#6e4824"
+      stroke="#0A0812"
+      stroke-width="4"/>
+
+  <!-- Towers -->
+  <g stroke="#0A0812"
+     stroke-width="4"
+     stroke-linejoin="round">
+
+    <rect x="70"
+          y="100"
+          width="80"
+          height="150"
+          fill="#b57843"/>
+
+    <polygon points="70,100 110,55 150,100"
+             fill="#8d5628"/>
+
+    <rect x="240"
+          y="70"
+          width="120"
+          height="180"
+          fill="#c4894f"/>
+
+    <rect x="450"
+          y="100"
+          width="80"
+          height="150"
+          fill="#bc8250"/>
+
+  </g>
+
+  <!-- Celebration Banners -->
+  <g>
+
+    <path d="M90 140
+             Q115 160 140 140
+             L140 190
+             L90 190 Z"
+          fill="#4a6fa5"/>
+
+    <path d="M275 120
+             Q300 145 325 120
+             L325 190
+             L275 190 Z"
+          fill="#4ecdc4"/>
+
+    <path d="M460 140
+             Q485 160 510 140
+             L510 190
+             L460 190 Z"
+          fill="#f4b942"/>
+
+  </g>
+
+  <!-- Happy citizens -->
+  <g stroke="#0A0812"
+     stroke-width="3"
+     stroke-linecap="round">
+
+    <!-- Left group -->
+    <circle cx="120" cy="300" r="10" fill="#f3d3b0"/>
+    <line x1="120" y1="310" x2="120" y2="335"/>
+    <line x1="110" y1="320" x2="130" y2="315"/>
+
+    <circle cx="155" cy="305" r="10" fill="#f3d3b0"/>
+    <line x1="155" y1="315" x2="155" y2="340"/>
+    <line x1="145" y1="320" x2="165" y2="315"/>
+
+    <!-- Centre group -->
+    <circle cx="290" cy="295" r="10" fill="#f3d3b0"/>
+    <line x1="290" y1="305" x2="290" y2="335"/>
+
+    <circle cx="320" cy="295" r="10" fill="#f3d3b0"/>
+    <line x1="320" y1="305" x2="320" y2="335"/>
+
+    <line x1="290" y1="320"
+          x2="320" y2="320"/>
+
+    <!-- Right group -->
+    <circle cx="450" cy="300" r="10" fill="#f3d3b0"/>
+    <line x1="450" y1="310" x2="450" y2="335"/>
+
+    <circle cx="490" cy="300" r="10" fill="#f3d3b0"/>
+    <line x1="490" y1="310" x2="490" y2="335"/>
+
+  </g>
+
+  <!-- Trees and growth -->
+  <g>
+
+    <path d="M85 310 L85 270"
+          stroke="#654321"
+          stroke-width="6"/>
+
+    <circle cx="85"
+            cy="255"
+            r="25"
+            fill="#6db96d"
+            stroke="#0A0812"
+            stroke-width="2"/>
+
+    <path d="M520 315 L520 275"
+          stroke="#654321"
+          stroke-width="6"/>
+
+    <circle cx="520"
+            cy="260"
+            r="28"
+            fill="#6db96d"
+            stroke="#0A0812"
+            stroke-width="2"/>
+
+  </g>
+
+  <!-- Road leading into city -->
+  <path d="
+      M250 400
+      L350 400
+      L320 250
+      L280 250
+      Z"
+      fill="#e2c18b"
+      opacity="0.8"/>
+
+</svg>

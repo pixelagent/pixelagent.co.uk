@@ -1,0 +1,86 @@
+{
+    "caseId": "fig_tree_incident",
+    "locationId": "bethany_road",
+    "locationTitle": "Bethany Road, Mount of Olives",
+    "timeOfDay": "morning",
+    "environment": {
+        "floorColor": "#5d5d3d",
+        "skyColor": "#87ceeb",
+        "ambientLight": 0.7
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "Retaining Wall",
+            "pos": [
+                0,
+                1,
+                -8
+            ],
+            "scale": [
+                15,
+                2,
+                1
+            ],
+            "color": "#8b7355"
+        }
+    ],
+    "sprites": [
+        {
+            "id": "withered_tree",
+            "type": "foliage",
+            "pos": [
+                0,
+                0,
+                -6
+            ],
+            "scale": [
+                3,
+                5
+            ],
+            "texture": "dead_tree"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "nathan_gardener",
+            "name": "Nathan",
+            "pos": [
+                -4,
+                0,
+                -3
+            ],
+            "color": "#3dd68c",
+            "description": "Owner of the adjacent grove",
+            "unlocksEvidence": [
+                "withered_leaves",
+                "stone_path_dust"
+            ],
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "withered_leaves",
+            "pos": [
+                0.5,
+                0.05,
+                -5
+            ],
+            "model": "leaf_pile",
+            "glowColor": "#7c8fa8",
+            "hint": "Leaves that turned to dust in a single morning"
+        },
+        {
+            "id": "stone_path_dust",
+            "pos": [
+                -1,
+                0.05,
+                -4
+            ],
+            "model": "dust_trace",
+            "glowColor": "#dcdcdc",
+            "hint": "Footprints leading away toward Jerusalem"
+        }
+    ]
+}

@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- LAYER 1 BACKGROUND: Vast empty sky — the emotional content -->
+  <!-- Sky fills 80% of frame — pale, open, searching -->
+  <rect x="0" y="0" width="400" height="300" fill="#c8d8e0"/>
+  <rect x="0" y="0" width="400" height="140" fill="#dce8f0"/>
+  <!-- Subtle horizon brightening -->
+  <rect x="0" y="165" width="400" height="30" fill="#d8cdb8" opacity="0.45"/>
+
+  <!-- Wisps of cloud — sparse, widely spaced (emptiness between them matters) -->
+  <ellipse cx="260" cy="52" rx="58" ry="14" fill="#eaf2f6" stroke="#b8ccd4" stroke-width="1.5"/>
+  <ellipse cx="295" cy="42" rx="36" ry="10" fill="#eef4f8" stroke="#b8ccd4" stroke-width="1"/>
+  <ellipse cx="350" cy="78" rx="40" ry="11" fill="#e8f0f4" stroke="#b8ccd4" stroke-width="1"/>
+  <!-- Single wisp far right — isolation -->
+  <ellipse cx="378" cy="115" rx="22" ry="7" fill="#e0eaee" opacity="0.7"/>
+
+  <!-- RIGHT SIDE: Completely empty sky — white space as emotion -->
+  <!-- (No elements placed in x=210–400, y=0–180 zone — deliberate void) -->
+
+  <!-- LAYER 2 MIDGROUND: Water — lower 20% of frame -->
+  <rect x="0" y="242" width="400" height="58" fill="#182838"/>
+  <rect x="0" y="242" width="400" height="7" fill="#1e3040" opacity="0.9"/>
+  <!-- Still water lines -->
+  <line x1="0" y1="256" x2="90" y2="256" stroke="#243848" stroke-width="1.5" opacity="0.7"/>
+  <line x1="120" y1="264" x2="260" y2="264" stroke="#243848" stroke-width="1" opacity="0.5"/>
+  <line x1="300" y1="272" x2="400" y2="272" stroke="#243848" stroke-width="1" opacity="0.4"/>
+
+  <!-- LAYER 3 FOREGROUND: Ark window — strong vertical on LEFT of frame -->
+  <!-- Ark hull — cut off left, only window section visible -->
+  <rect x="0" y="110" width="88" height="138" rx="0" fill="#6b4420" stroke="#0A0812" stroke-width="3"/>
+  <!-- Upper deck strip -->
+  <rect x="0" y="88" width="80" height="26" rx="2" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Plank texture on hull -->
+  <line x1="0" y1="128" x2="88" y2="128" stroke="#4a2e10" stroke-width="1.5"/>
+  <line x1="0" y1="148" x2="88" y2="148" stroke="#4a2e10" stroke-width="1.5"/>
+  <line x1="0" y1="168" x2="88" y2="168" stroke="#4a2e10" stroke-width="1.5"/>
+  <line x1="0" y1="188" x2="88" y2="188" stroke="#4a2e10" stroke-width="1.5"/>
+  <line x1="0" y1="208" x2="88" y2="208" stroke="#4a2e10" stroke-width="1.5"/>
+  <line x1="0" y1="228" x2="88" y2="228" stroke="#4a2e10" stroke-width="1.5"/>
+
+  <!-- Ark window frame — strong vertical element -->
+  <!-- Window surround -->
+  <rect x="18" y="96" width="54" height="52" rx="3" fill="#0a0812" stroke="#0A0812" stroke-width="3"/>
+  <!-- Window sill — horizontal bar -->
+  <rect x="15" y="144" width="60" height="9" rx="2" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Window top lintel -->
+  <rect x="15" y="93" width="60" height="7" rx="2" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+  <!-- Window side posts -->
+  <rect x="15" y="93" width="6" height="60" fill="#8B5E2F" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="69" y="93" width="6" height="60" fill="#8B5E2F" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- ★ FOCAL POINT: Noah — face and hand, leaning out, searching -->
+  <!-- Body in window — dark interior glimpse -->
+  <rect x="25" y="112" width="32" height="32" rx="3" fill="#4a2e10"/>
+  <!-- Robe/garment visible in window -->
+  <rect x="28" y="118" width="26" height="26" rx="2" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Noah's torso leaning forward over sill -->
+  <rect x="22" y="130" width="36" height="20" rx="3" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Head — lit face, the focal point -->
+  <circle cx="45" cy="118" r="15" fill="#D4956A" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Hair/beard — white-grey, aged Noah -->
+  <ellipse cx="45" cy="111" rx="14" ry="6" fill="#EEE8DC" stroke="#0A0812" stroke-width="2"/>
+  <!-- Beard sides -->
+  <path d="M 31,120 C 29,128 30,137 36,141 C 33,132 32,124 35,120 Z" fill="#EEE8DC" stroke="#0A0812" stroke-width="1.5"/>
+  <path d="M 59,120 C 61,128 60,137 54,141 C 57,132 58,124 55,120 Z" fill="#EEE8DC" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Eyes — both open, searching right -->
+  <ellipse cx="40" cy="118" rx="3.5" ry="2.5" fill="#0A0812"/>
+  <ellipse cx="51" cy="117" rx="3.5" ry="2.5" fill="#0A0812"/>
+  <!-- Eye highlights -->
+  <circle cx="41" cy="117" r="1" fill="#d4b88a"/>
+  <circle cx="52" cy="116" r="1" fill="#d4b88a"/>
+  <!-- Brow furrowed — concern -->
+  <line x1="37" y1="113" x2="44" y2="115" stroke="#0A0812" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="48" y1="114" x2="55" y2="112" stroke="#0A0812" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- ★ FOCAL HAND: raised to shade eyes, extending right into the empty sky -->
+  <!-- Arm reaching right — diagonal into the void -->
+  <line x1="58" y1="128" x2="104" y2="112" stroke="#D4956A" stroke-width="5" stroke-linecap="round"/>
+  <!-- Hand — flat, shading eyes, palm down -->
+  <ellipse cx="108" cy="110" rx="12" ry="6" fill="#D4956A" stroke="#0A0812" stroke-width="2" transform="rotate(-10,108,110)"/>
+  <!-- Fingers splayed slightly -->
+  <line x1="100" y1="105" x2="97" y2="98" stroke="#D4956A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="107" y1="104" x2="106" y2="97" stroke="#D4956A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="114" y1="105" x2="115" y2="98" stroke="#D4956A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="119" y1="108" x2="122" y2="102" stroke="#D4956A" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Other arm resting on sill -->
+  <line x1="28" y1="138" x2="16" y2="144" stroke="#D4956A" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Noah's leaning posture — diagonal line of body over sill -->
+  <!-- Shoulder line creating forward lean -->
+  <line x1="30" y1="133" x2="60" y2="126" stroke="#8B5E2F" stroke-width="3" opacity="0.6"/>
+
+  <!-- The gaze direction — very faint dashed line into empty sky (subtle) -->
+  <line x1="115" y1="108" x2="380" y2="88" stroke="#a8b8c4" stroke-width="1" stroke-dasharray="5,10" opacity="0.25"/>
+
+  <!-- Ark reflection fragment in water -->
+  <rect x="0" y="248" width="88" height="30" rx="0" fill="#0c1428" opacity="0.45"/>
+
+</svg>

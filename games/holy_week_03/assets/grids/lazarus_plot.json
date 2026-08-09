@@ -1,0 +1,120 @@
+{
+    "caseId": "lazarus_plot",
+    "locationId": "bethany",
+    "locationTitle": "Bethany Village, Tomb of Lazarus",
+    "timeOfDay": "day",
+    "environment": {
+        "floorColor": "#4b3621",
+        "skyColor": "#0b141a",
+        "ambientLight": 0.3
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "Tomb Wall",
+            "pos": [
+                0,
+                3,
+                -8
+            ],
+            "scale": [
+                12,
+                6,
+                2
+            ],
+            "color": "#333333"
+        },
+        {
+            "type": "cylinder",
+            "name": "Rolling Stone",
+            "pos": [
+                4,
+                1.5,
+                -7
+            ],
+            "scale": [
+                3,
+                0.5,
+                3
+            ],
+            "color": "#555555",
+            "rotation": [
+                0,
+                0,
+                1.57
+            ]
+        }
+    ],
+    "sprites": [
+        {
+            "id": "olive_tree",
+            "type": "foliage",
+            "pos": [
+                -6,
+                0,
+                -2
+            ],
+            "scale": [
+                2,
+                4
+            ],
+            "texture": "olive_tree"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "martha",
+            "name": "Martha",
+            "pos": [
+                -2,
+                0,
+                -4
+            ],
+            "color": "#3dd68c",
+            "description": "Martha outside her home",
+            "unlocksEvidence": [
+                "grave_dirt"
+            ],
+            "hasDialogue": true
+        },
+        {
+            "id": "temple_spy",
+            "name": "Spy",
+            "pos": [
+                8,
+                0,
+                -10
+            ],
+            "color": "#f46060",
+            "description": "Observer hidden in the shadows",
+            "unlocksEvidence": [
+                "secret_decree"
+            ],
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "grave_dirt",
+            "pos": [
+                1,
+                0.05,
+                -6
+            ],
+            "model": "dirt_pile",
+            "glowColor": "#7c8fa8",
+            "hint": "Fresh earth near the tomb entrance"
+        },
+        {
+            "id": "secret_decree",
+            "pos": [
+                7,
+                0.1,
+                -9
+            ],
+            "model": "scroll_case",
+            "glowColor": "#f46060",
+            "hint": "Dropped by the fleeing observer"
+        }
+    ]
+}

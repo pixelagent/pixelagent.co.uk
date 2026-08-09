@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- ═══ BACKGROUND: dark atmospheric base ═══ -->
+  <rect width="400" height="300" fill="#0c1428"/>
+  <!-- Atmospheric haze bands -->
+  <rect x="0"   y="0" width="400" height="200" fill="#0c1428"/>
+  <rect x="0"   y="0" width="400" height="120" fill="#0a0812"/>
+  <!-- Side edge hazes (framing the central vortex) -->
+  <rect x="0"   y="0" width="55"  height="240" fill="#0a0812" opacity="0.7"/>
+  <rect x="345" y="0" width="55"  height="240" fill="#0a0812" opacity="0.7"/>
+
+  <!-- ═══ DARK CLOUD MASSES — surrounding the vortex ═══ -->
+  <ellipse cx="50"  cy="50"  rx="90"  ry="55" fill="#141828"/>
+  <ellipse cx="350" cy="45"  rx="90"  ry="55" fill="#141828"/>
+  <ellipse cx="200" cy="20"  rx="120" ry="45" fill="#0e1220"/>
+  <ellipse cx="0"   cy="90"  rx="80"  ry="50" fill="#0a0812"/>
+  <ellipse cx="400" cy="90"  rx="80"  ry="50" fill="#0a0812"/>
+  <ellipse cx="70"  cy="110" rx="85"  ry="45" fill="#141828"/>
+  <ellipse cx="330" cy="110" rx="85"  ry="45" fill="#141828"/>
+  <ellipse cx="25"  cy="150" rx="65"  ry="38" fill="#0e1220"/>
+  <ellipse cx="375" cy="150" rx="65"  ry="38" fill="#0e1220"/>
+
+  <!-- ═══ VORTEX / DIVINE CLOUD — outer ring (C87050) ═══ -->
+  <!-- Layered cloud masses parting in spiral — outer -->
+  <ellipse cx="200" cy="105" rx="118" ry="72" fill="#6b4420"/>
+  <!-- Spiral lobe upper-left -->
+  <ellipse cx="130" cy="72"  rx="58"  ry="36" fill="#8B5E2F"/>
+  <!-- Spiral lobe upper-right -->
+  <ellipse cx="270" cy="72"  rx="58"  ry="36" fill="#8B5E2F"/>
+  <!-- Spiral lobe lower-left -->
+  <ellipse cx="125" cy="122" rx="52"  ry="30" fill="#8B5E2F"/>
+  <!-- Spiral lobe lower-right -->
+  <ellipse cx="275" cy="122" rx="52"  ry="30" fill="#8B5E2F"/>
+
+  <!-- ═══ VORTEX MIDDLE RING ═══ -->
+  <ellipse cx="200" cy="100" rx="95"  ry="58" fill="#C87050"/>
+  <ellipse cx="155" cy="78"  rx="48"  ry="28" fill="#C87050"/>
+  <ellipse cx="245" cy="78"  rx="48"  ry="28" fill="#C87050"/>
+  <!-- Upper arcing wisps -->
+  <path d="M155,75 Q140,52 165,46 Q180,42 175,60" stroke="#E8B84B" stroke-width="2.5" fill="none" opacity="0.75"/>
+  <path d="M245,75 Q260,52 235,46 Q220,42 225,60" stroke="#E8B84B" stroke-width="2.5" fill="none" opacity="0.75"/>
+  <path d="M200,58 Q186,42 196,34 Q206,28 210,44"  stroke="#f5d070"  stroke-width="2"   fill="none" opacity="0.80"/>
+
+  <!-- ═══ VORTEX INNER RING ═══ -->
+  <ellipse cx="200" cy="95"  rx="72"  ry="44" fill="#E8B84B"/>
+  <ellipse cx="200" cy="90"  rx="54"  ry="34" fill="#f0c040"/>
+  <ellipse cx="200" cy="86"  rx="38"  ry="24" fill="#f5d070"/>
+  <!-- Core -->
+  <ellipse cx="200" cy="84"  rx="22"  ry="15" fill="#fff8e0"/>
+  <ellipse cx="200" cy="83"  rx="11"  ry="8"  fill="#FFF7E8"/>
+
+  <!-- ═══ 8 LIGHT RAYS from centre — alternating bright/dim ═══ -->
+  <!-- Ray 1 — upper-left bright -->
+  <polygon points="196,82 204,82 152,18  138,24"  fill="#E8B84B" opacity="0.35"/>
+  <!-- Ray 2 — upper-left dim -->
+  <polygon points="197,84 203,84 108,35  100,48"  fill="#C87050" opacity="0.20"/>
+  <!-- Ray 3 — left bright -->
+  <polygon points="196,86 196,94  40,78   42,96"  fill="#E8B84B" opacity="0.30"/>
+  <!-- Ray 4 — lower-left dim -->
+  <polygon points="196,94 200,98  70,178  55,168"  fill="#C87050" opacity="0.18"/>
+  <!-- Ray 5 — right bright -->
+  <polygon points="204,86 204,94 360,78  358,96"  fill="#E8B84B" opacity="0.30"/>
+  <!-- Ray 6 — upper-right bright -->
+  <polygon points="197,82 203,82 248,18  262,24"  fill="#E8B84B" opacity="0.35"/>
+  <!-- Ray 7 — upper-right dim -->
+  <polygon points="198,83 202,83 292,35  300,48"  fill="#C87050" opacity="0.20"/>
+  <!-- Ray 8 — lower-right dim -->
+  <polygon points="200,95 204,92 330,178 345,168"  fill="#C87050" opacity="0.18"/>
+  <!-- Central downward beam to ground -->
+  <polygon points="186,118 214,118 224,238 176,238" fill="#E8B84B" opacity="0.32"/>
+  <polygon points="192,118 208,118 215,238 185,238" fill="#f5d070" opacity="0.28"/>
+
+  <!-- Dark cloud overlaps reclaim edges and create depth over rays -->
+  <ellipse cx="78"  cy="115" rx="80" ry="40" fill="#141828"/>
+  <ellipse cx="322" cy="115" rx="80" ry="40" fill="#141828"/>
+  <ellipse cx="20"  cy="135" rx="60" ry="32" fill="#0e1220"/>
+  <ellipse cx="380" cy="135" rx="60" ry="32" fill="#0e1220"/>
+
+  <!-- ═══ GROUND — dark, 25% of frame (y=225 to y=300) ═══ -->
+  <rect x="0" y="238" width="400" height="62" fill="#14100a"/>
+  <rect x="0" y="233" width="400" height="9"  fill="#1e1808"/>
+  <!-- Ray shadows cast on ground from divine light — diagonal lines -->
+  <line x1="176" y1="238" x2="100" y2="300" stroke="#0a0812" stroke-width="3" opacity="0.55"/>
+  <line x1="200" y1="238" x2="200" y2="300" stroke="#0a0812" stroke-width="2" opacity="0.40"/>
+  <line x1="224" y1="238" x2="300" y2="300" stroke="#0a0812" stroke-width="3" opacity="0.55"/>
+  <line x1="186" y1="238" x2="140" y2="300" stroke="#0a0812" stroke-width="2" opacity="0.35"/>
+  <line x1="214" y1="238" x2="260" y2="300" stroke="#0a0812" stroke-width="2" opacity="0.35"/>
+  <!-- Ground glow under beam -->
+  <ellipse cx="200" cy="245" rx="40" ry="9"  fill="#8B5E2F" opacity="0.40"/>
+  <ellipse cx="200" cy="247" rx="22" ry="6"  fill="#C87050" opacity="0.30"/>
+
+  <!-- ═══ KNEELING FIGURE — small, off-centre LEFT, strongly silhouetted ═══ -->
+  <!-- Placed at x≈130 — clearly left of centre -->
+  <!-- Prostrate body -->
+  <polygon points="108,252 148,252 146,240 110,240" fill="#2e1808" stroke="#1a0e04" stroke-width="2"/>
+  <!-- Arms forward/outstretched on ground -->
+  <polygon points="110,242 108,234 100,234 102,244" fill="#2e1808" stroke="#1a0e04" stroke-width="2"/>
+  <polygon points="146,242 148,234 156,234 154,244" fill="#2e1808" stroke="#1a0e04" stroke-width="2"/>
+  <!-- Head bowed to ground -->
+  <ellipse cx="128" cy="236" rx="12" ry="10" fill="#3a2410" stroke="#1a0e04" stroke-width="2"/>
+  <!-- Robe pooled on ground -->
+  <ellipse cx="128" cy="253" rx="24" ry="5"  fill="#2a1808" stroke="#1a0e04" stroke-width="1"/>
+  <!-- Legs bent under body -->
+  <polygon points="112,252 144,252 146,264 110,264" fill="#1a1004" stroke="#1a0e04" stroke-width="1.5"/>
+
+</svg>

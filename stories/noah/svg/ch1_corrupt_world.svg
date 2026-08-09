@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- ═══ BACKGROUND: dark bruise-red sky — empty upper zone (white space) ═══ -->
+  <rect width="400" height="300" fill="#1c1828"/>
+  <!-- Sky: dark bruise red, mostly empty above -->
+  <rect x="0" y="0" width="400" height="200" fill="#14100a"/>
+  <rect x="0" y="0" width="400" height="120" fill="#0c0604"/>
+  <!-- Faint warm smear near horizon -->
+  <ellipse cx="200" cy="155" rx="220" ry="30" fill="#2e2010" opacity="0.7"/>
+
+  <!-- ═══ BACKGROUND LAYER: 4 tiny silhouette rooflines, very dark ═══ -->
+  <!-- BG roof 1 -->
+  <rect x="260" y="120" width="14" height="38" fill="#0c0604" stroke="#0A0812" stroke-width="2"/>
+  <!-- BG roof 2 -->
+  <rect x="278" y="112" width="18" height="46" fill="#0c0604" stroke="#0A0812" stroke-width="2"/>
+  <polygon points="278,112 287,102 296,112" fill="#0A0812" stroke="#0A0812" stroke-width="2"/>
+  <!-- BG roof 3 -->
+  <rect x="300" y="118" width="14" height="40" fill="#0c0604" stroke="#0A0812" stroke-width="2"/>
+  <!-- BG roof 4 -->
+  <rect x="318" y="108" width="20" height="50" fill="#0c0604" stroke="#0A0812" stroke-width="2"/>
+  <polygon points="318,108 328,97 338,108" fill="#0A0812" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- ═══ MIDGROUND LAYER: 2–3 medium buildings with faint lit windows ═══ -->
+  <!-- Mid building A -->
+  <rect x="230" y="95" width="30" height="65" fill="#14100a" stroke="#0A0812" stroke-width="2"/>
+  <polygon points="230,95 245,80 260,95" fill="#0c0604" stroke="#0A0812" stroke-width="2"/>
+  <!-- Faint amber window -->
+  <rect x="236" y="108" width="6" height="6" fill="#3d2808" opacity="0.9"/>
+  <rect x="248" y="118" width="6" height="6" fill="#2e2010" opacity="0.8"/>
+
+  <!-- Mid building B — tall central tower (focal point, upper third) -->
+  <rect x="178" y="42" width="44" height="120" fill="#1c1828" stroke="#0A0812" stroke-width="3"/>
+  <!-- Tower battlements / top detail -->
+  <rect x="175" y="36" width="10" height="16" fill="#14100a" stroke="#0A0812" stroke-width="2"/>
+  <rect x="190" y="32" width="10" height="20" fill="#14100a" stroke="#0A0812" stroke-width="2"/>
+  <rect x="205" y="36" width="10" height="16" fill="#14100a" stroke="#0A0812" stroke-width="2"/>
+  <rect x="220" y="40" width="7" height="12" fill="#14100a" stroke="#0A0812" stroke-width="2"/>
+  <!-- Tower windows — faint amber mid-tone -->
+  <rect x="185" y="60" width="8" height="10" fill="#3d2808" opacity="0.85"/>
+  <rect x="203" y="60" width="8" height="10" fill="#2e2010" opacity="0.7"/>
+  <rect x="185" y="82" width="8" height="10" fill="#3d2808" opacity="0.7"/>
+  <rect x="203" y="82" width="8" height="10" fill="#3d2808" opacity="0.6"/>
+  <rect x="185" y="104" width="8" height="10" fill="#2e2010" opacity="0.5"/>
+  <rect x="203" y="104" width="8" height="10" fill="#3d2808" opacity="0.5"/>
+  <!-- Tower base: lit from below by fire glow — warm amber wash -->
+  <polygon points="168,162 232,162 238,178 162,178" fill="#3d2808" opacity="0.85" stroke="#0A0812" stroke-width="2"/>
+  <polygon points="172,160 228,160 234,170 166,170" fill="#c4956a" opacity="0.22"/>
+
+  <!-- Mid building C — right side -->
+  <rect x="340" y="100" width="60" height="60" fill="#14100a" stroke="#0A0812" stroke-width="2"/>
+  <polygon points="340,100 370,84 400,100" fill="#0c0604" stroke="#0A0812" stroke-width="2"/>
+  <rect x="350" y="114" width="6" height="6" fill="#3d2808" opacity="0.8"/>
+  <rect x="364" y="122" width="6" height="6" fill="#2e2010" opacity="0.7"/>
+
+  <!-- ═══ DIAGONAL LIGHT from fire source (bottom-left) to tower base ═══ -->
+  <!-- Fire glow wash: wide warm diagonal, bottom-left to tower base -->
+  <polygon points="0,300 80,300 230,165 170,165" fill="#C87050" opacity="0.09"/>
+  <polygon points="0,300 60,300 200,168 140,168" fill="#E8B84B" opacity="0.07"/>
+  <!-- Amber street-level glow band -->
+  <rect x="0" y="178" width="400" height="12" fill="#2e2010" opacity="0.9"/>
+
+  <!-- ═══ STREET LEVEL: fire source, bottom-left ═══ -->
+  <!-- Ground -->
+  <rect x="0" y="188" width="400" height="112" fill="#0c0604"/>
+  <rect x="0" y="188" width="400" height="30" fill="#14100a" opacity="0.8"/>
+  <!-- Fire brazier at far left — the light source -->
+  <polygon points="8,248 28,248 24,272 12,272" fill="#5a3010" stroke="#1a0e04" stroke-width="2"/>
+  <polygon points="8,248 18,248 14,272 4,272" fill="#3d2808" stroke="#1a0e04" stroke-width="2"/>
+  <!-- Flame shapes -->
+  <polygon points="12,248 18,228 22,245 25,230 28,248" fill="#E8B84B" stroke="#c4956a" stroke-width="1.5"/>
+  <polygon points="14,248 19,234 22,248" fill="#fff8e0" opacity="0.7"/>
+  <!-- Fire ground-glow ellipse -->
+  <ellipse cx="24" cy="250" rx="30" ry="10" fill="#c4956a" opacity="0.28"/>
+  <ellipse cx="24" cy="252" rx="16" ry="6" fill="#E8B84B" opacity="0.22"/>
+
+  <!-- ═══ FOREGROUND: 6 shadowy crowd figures, lit from below-left ═══ -->
+  <!-- All figures are DARK silhouettes — slightly warm-amber rim on left edge (from fire) -->
+  <!-- Figure 1 — nearest fire, slight amber rim -->
+  <ellipse cx="60" cy="232" rx="13" ry="17" fill="#0A0812" stroke="#1a0e04" stroke-width="2.5"/>
+  <circle cx="58" cy="212" r="9" fill="#0A0812" stroke="#2e2010" stroke-width="2"/>
+  <!-- Amber left-edge rim -->
+  <path d="M49,220 Q42,232 49,248" stroke="#8B5E2F" stroke-width="2" fill="none" opacity="0.7"/>
+  <line x1="48" y1="228" x2="36" y2="242" stroke="#0A0812" stroke-width="3"/>
+  <line x1="72" y1="228" x2="80" y2="240" stroke="#0A0812" stroke-width="3"/>
+
+  <!-- Figure 2 — hunched -->
+  <ellipse cx="100" cy="235" rx="15" ry="14" fill="#0A0812" stroke="#1a0e04" stroke-width="2.5"/>
+  <circle cx="98" cy="217" r="9" fill="#0A0812" stroke="#1a0e04" stroke-width="2"/>
+  <path d="M86,224 Q80,234 86,248" stroke="#6b4420" stroke-width="1.5" fill="none" opacity="0.5"/>
+  <line x1="86" y1="228" x2="74" y2="243" stroke="#0A0812" stroke-width="3"/>
+  <line x1="114" y1="228" x2="122" y2="240" stroke="#0A0812" stroke-width="3"/>
+
+  <!-- Figure 3 — hunched, leaning left -->
+  <ellipse cx="142" cy="234" rx="12" ry="16" fill="#0A0812" stroke="#1a0e04" stroke-width="2"/>
+  <circle cx="140" cy="215" r="8" fill="#0A0812" stroke="#1a0e04" stroke-width="2"/>
+  <line x1="131" y1="226" x2="120" y2="240" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="153" y1="226" x2="161" y2="238" stroke="#0A0812" stroke-width="2.5"/>
+
+  <!-- Figure 4 — upright, facing right -->
+  <rect x="190" y="202" width="14" height="46" fill="#0A0812" stroke="#1a0e04" stroke-width="2"/>
+  <circle cx="197" cy="196" r="10" fill="#0A0812" stroke="#1a0e04" stroke-width="2"/>
+  <line x1="190" y1="218" x2="178" y2="234" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="204" y1="218" x2="216" y2="232" stroke="#0A0812" stroke-width="2.5"/>
+
+  <!-- Figure 5 — hunched deeply -->
+  <ellipse cx="248" cy="238" rx="16" ry="12" fill="#0A0812" stroke="#1a0e04" stroke-width="2"/>
+  <circle cx="245" cy="222" r="9" fill="#0A0812" stroke="#1a0e04" stroke-width="2"/>
+  <line x1="234" y1="232" x2="222" y2="246" stroke="#0A0812" stroke-width="3"/>
+  <line x1="260" y1="230" x2="270" y2="240" stroke="#0A0812" stroke-width="3"/>
+
+  <!-- Figure 6 — small, crouched at right -->
+  <ellipse cx="306" cy="240" rx="11" ry="13" fill="#0A0812" stroke="#1a0e04" stroke-width="2"/>
+  <circle cx="306" cy="223" r="8" fill="#0A0812" stroke="#1a0e04" stroke-width="2"/>
+  <line x1="296" y1="234" x2="286" y2="246" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="316" y1="234" x2="324" y2="244" stroke="#0A0812" stroke-width="2.5"/>
+
+  <!-- Ground shadow beneath figures -->
+  <ellipse cx="180" cy="260" rx="160" ry="14" fill="#0c0604" opacity="0.8"/>
+
+</svg>

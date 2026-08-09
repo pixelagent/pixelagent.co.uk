@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Holy Week - Collect evidence by moving around the scene. Use actions and chat to NPCs when found.">
+  <title>Holy Week - Evidence Collection Adventure</title>
+
+  <!-- ==========================================================================
+     1. THIRD-PARTY DEPENDENCIES & CORE ASSETS
+     ========================================================================== -->
+  <!-- FontAwesome 6: Vector icon library used globally for interface badges and markers -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Howler.js: Spatialized web audio engine wrapper for ambient tracks and sound effects -->
+  <script src="../js/plugins/howler.min.js"></script>
+
+  <!-- Inkjs: Runtime for narrative scripting -->
+  <script src="https://unpkg.com/inkjs@2.2.1/dist/ink.js"></script>
+
+  <!-- Google Fonts System:
+       - Cinzel: Display serif typeface applied to major historical/thematic headers
+       - Source Code Pro: Clean monospace typeface applied to standard interface panels -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Source+Code+Pro:wght@300;400;600&display=swap">
+
+  <!-- ==========================================================================
+      2. MODULAR ARCHITECTURE STYLESHEETS
+      ========================================================================== -->
+  <link rel="stylesheet" href="styles/variables.css"> <!-- Theme colors, variables, typography, and base resets -->
+  <link rel="stylesheet" href="styles/ui-layout.css">
+  <!-- Core screen structure, grid-mesh overlay, and sidebar wireframes -->
+  <link rel="stylesheet" href="styles/gameplay.css">
+  <!-- Active HUD sub-panels, items inventory, tracking meters, and radar -->
+  <link rel="stylesheet" href="styles/components.css">
+  <!-- Modals, screens, transitions, floating tags, and dialogue layouts -->
+
+
+
+  <!-- Three.js Import Map Configuration: Resolves 'three' bare specifiers inside ES6 modules -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+        "cannon": "https://unpkg.com/cannon-es@0.20.0/dist/cannon-es.js"
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="styles/lab-workspace.css">
+</head>
+
+<body>
+
+  <!-- ==========================================================================
+     3. PRIMARY APPLICATION STATE SCREENS
+     ========================================================================== -->
+
+  <!-- Initial Loading & Gate Screen: Halts user until all background resources are initialized -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-inner">
+      <h1 class="loading-title">HOLY WEEK</h1>
+      <p id="loading-text" class="loading-text loading-subtitle">
+        Loading investigation environment and evidence archives...
+      </p>
+
+      <p class="sub hidden">Jerusalem Investigation</p>
+      <button id="btn-start" class="btn-primary">Begin Investigation</button>
+      <p class="hint">WASD / Arrow Keys to move · Click to approach · Space to jump</p>
+
+      <!-- Animated CSS Spinner -->
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <!-- Screen Wipe Animation Overlay: Implements full-screen slide transitions between case selections -->
+  <div id="wipe-overlay"></div>
+
+  <!-- End Game / Case Resolution Screen: Displayed upon a definitive investigation completion -->
+  <div id="end-screen" class="end-screen">
+    <div class="end-inner">
+      <div id="result-verdict" class="end-icon"><img src='../assets/gfx/trophy-duotone.svg' class='icon-svg'
+          loading='lazy'></div>
+      <h1 id="result-verdict-text" class="end-title">CASE CLOSED</h1>
+
+      <div class="result-breakdown">
+        <div class="result-truth-box">
+          <div class="result-label">The Truth</div>
+          <p id="result-truth" class="end-text">All evidence collected and mysteries solved. Ready for the next
+            investigation.</p>
+        </div>
+
+        <div class="final-score-display">
+          <div class="final-score-label">Final Investigation Score</div>
+          <div class="final-score-value" id="final-score-value">0</div>
+          <div id="final-score-rank" class="final-score-rank">Rookie Detective</div>
+        </div>
+      </div>
+
+      <div class="end-btn-row">
+        <button class="terminal-btn" onclick="window.location.reload();">New Investigation</button>
+        <button class="terminal-btn" onclick="document.getElementById('end-screen').classList.remove('active')">Continue
+          Exploring</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="game-over-screen" class="end-screen" style="display:none;">
+    <div class="end-inner">
+      <div id="game-over-icon" class="end-icon"><img src='../assets/gfx/x-circle-duotone.svg' class='icon-svg' loading='lazy'></div>
+      <h1 id="game-over-title" class="end-title">GAME OVER</h1>
+      <div class="result-breakdown">
+        <div class="result-truth-box">
+          <div class="result-label">The Investigation Has Failed</div>
+          <p id="game-over-reason" class="end-text">Your doubt has overwhelmed the investigation.</p>
+        </div>
+      </div>
+      <div class="end-btn-row">
+        <button class="terminal-btn" onclick="window.location.reload();">Try Again</button>
+        <button class="terminal-btn" onclick="document.getElementById('game-over-screen').style.display='none'">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+     4. PROJECTED IN-WORLD DYNAMIC INTERFACE TAGS
+     ========================================================================== -->
+
+  <!-- Contextual NPC Proximity Interaction Prompt: Pinpointed above targeted NPCs in 3D space -->
+  <div id="inworld-npc-prompt" class="inworld-tag">
+    <button class="inworld-btn" id="inworld-npc-btn">
+      <i class="fa-lg fa-solid fa-comments"></i> Talk <small>[E]</small>
+    </button>
+    <div class="inworld-arrow"></div>
+  </div>
+
+  <!-- Contextual Collectable Proximity Tracker: Dynamic pop-up notification near uncollected world assets -->
+  <div id="inworld-collectable-prompt" class="inworld-tag">
+    <div class="inworld-msg" id="inworld-collectable-msg">NEARBY COLLECTABLE</div>
+    <div class="inworld-arrow collectable-arrow"></div>
+  </div>
+
+
+  <!-- ==========================================================================
+     5. LOW-LEVEL GRAPHICS AND ENGINE FOUNDATIONS
+     ========================================================================== -->
+
+  <!-- Three.js WebGL Output Container: The root mount element where the 3D renderer appends its DOM canvas -->
+  <div id="canvas-container"></div>
+
+  <!-- Universal Notification Banner: System alert banner injected with transient notifications -->
+  <div id="screen-alert"></div>
+
+
+  <!-- ==========================================================================
+     6. PERSISTENT UTILITY TOGGLE MECHANISMS
+     ========================================================================== -->
+
+  <button id="toggle-left-btn" class="panel-toggle-btn" title="Toggle Left Panel">
+    <i class="fa-lg fa-solid fa-chevron-left"></i>
+  </button>
+
+  <button id="toggle-right-btn" class="panel-toggle-btn" title="Toggle Right Panel">
+    <i class="fa-lg fa-solid fa-chevron-right"></i>
+  </button>
+
+
+
+
+  <!-- ==========================================================================
+     7. MAIN HEADS-UP DISPLAY (HUD) INTERFACE LAYER
+     ========================================================================== -->
+
+  <div class="hud-layer">
+
+    <!-- Top Dashboard: Displays tracking metadata, active scene location, and system-wide controls -->
+    <header id="top-bar" class="hud-panel">
+      <div class="header-status">
+        <span id="loc-name" class="loc-tag">---</span>
+        <span id="act-name" class="act-tag">---</span>
+      </div>
+
+      <div id="level-title">Detective HQ</div>
+
+      <div class="header-menu-container">
+        <button id="btn-header-hamburger" class="hamburger-btn" type="button" title="Menu">
+          <div class="hamburger-icon">
+            <span></span><span></span><span></span>
+          </div>
+        </button>
+        <div id="header-dropdown" class="header-dropdown-menu">
+          <button id="btn-open-map" class="dropdown-item">
+            <i class="fa-lg fa-solid fa-map-location-dot"></i>
+            <div class="dropdown-text-group">
+              <span class="dropdown-label">Act Map</span>
+              <span class="dropdown-desc">Explore locations & chapters</span>
+            </div>
+          </button>
+          <button id="btn-open-settings" class="dropdown-item">
+            <i class="fa-lg fa-solid fa-gear"></i>
+            <div class="dropdown-text-group">
+              <span class="dropdown-label">System</span>
+              <span class="dropdown-desc">Audio & interface settings</span>
+            </div>
+          </button>
+          <button onclick="window.showInstructionsModal()" class="dropdown-item">
+            <i class="fa-lg fa-solid fa-circle-info"></i>
+            <div class="dropdown-text-group">
+              <span class="dropdown-label">Help Guide</span>
+              <span class="dropdown-desc">How to play the investigation</span>
+            </div>
+          </button>
+          <button onclick="window.showResetModal()" class="dropdown-item dropdown-item-error">
+            <i class="fa-lg fa-solid fa-trash-can"></i>
+            <div class="dropdown-text-group">
+              <span class="dropdown-label">Reset Progress</span>
+              <span class="dropdown-desc">Clear all save data</span>
+            </div>
+          </button>
+          <button id="btn-toggle-audio" class="dropdown-item">
+            <i class="fa-lg fa-solid fa-volume-high"></i>
+            <div class="dropdown-text-group">
+              <span class="dropdown-label">Audio Control</span>
+              <span class="dropdown-desc">Toggle environmental sounds</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Global metrics bar for investigation status -->
+    <div class="metrics-bar">
+      <div class="metric-item"><i class="fa-lg fa-solid fa-building-columns metric-icon"></i> <span
+          class="hidden">Honor:</span> <span class="val-reputation">100</span></div>
+      <div class="metric-item"><i class="fa-lg fa-solid fa-cross metric-icon"></i> <span class="hidden">Doubt:</span>
+        <span class="val-doubt">0</span>
+      </div>
+      <div class="metric-item"><i class="fa-lgfa-solid fa-shield metric-icon"></i> <span class="hidden">Score:</span>
+        <span class="val-score">0</span> pts
+      </div>
+      <div class="metric-item"><i class="fa-lg fa-solid fa-star metric-icon"></i> <span class="hidden">Scholar:</span> <span class="val-scholar">Novice</span></div>
+      <div class="metric-item"><i class="fa-lg fa-solid fa-book-open metric-icon"></i> <span class="hidden">Prophecies:</span> <span class="val-prophecies">0/0</span></div>
+    </div>
+
+    <!-- Left Column: Manages active quest state progression and logged item portfolios -->
+    <aside id="left-sidebar">
+      <button class="modal-close-btn" title="Close Panel">✕</button>
+      <!-- Active Case Tracking Card -->
+      <section class="hud-panel quest-panel">
+        <div class="panel-header"><i class="fa-lg fa-solid fa-star"></i> Current Case</div>
+        <div id="quest-card" class="quest-item">
+          <div id="quest-title" class="quest-title">Select a Case</div>
+          <div id="quest-task" class="quest-task">Choose a case from the map to begin investigation</div>
+          <div class="progress-bar-wrap">
+            <div id="quest-progress" class="progress-fill"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Evidence Grid Inventory Ledger -->
+      <section class="hud-panel evidence-panel">
+        <div class="panel-header"><i class="fa-lg fa-solid fa-folder-open"></i> Evidence Archive</div>
+        <div class="evidence-folder-container">
+          <div id="evidence-slots-grid" class="evidence-grid"></div>
+        </div>
+      </section>
+
+      <!-- Contextual Item Inspector Popup Card -->
+      <article id="evidence-popup-card">
+        <div class="popup-header">
+          <span id="popup-evidence-title" class="popup-title">
+            <i class="fa-lg fa-solid fa-file-shield"></i> Evidence Logged
+          </span>
+          <button class="popup-close"
+            onclick="document.getElementById('evidence-popup-card').style.display='none';">✕</button>
+        </div>
+        <div id="popup-evidence-body" class="popup-body">---</div>
+      </article>
+    </aside>
+
+    <!-- Right Column: Contextual action executions and scriptural/historical clue logs -->
+    <aside id="right-sidebar">
+      <button class="modal-close-btn" title="Close Panel">✕</button>
+      <!-- Context Actions Panel -->
+      <section class="hud-panel sidebar-panel-fill actions-panel">
+        <div class="panel-header">Actions</div>
+        <div id="actions-container" class="actions-container"></div>
+      </section>
+
+      <!-- Historical Discoveries & Scriptural Prophecies Log Window -->
+      <section class="hud-panel sidebar-panel-fill prophecies-panel">
+        <div class="panel-header">Key Discoveries</div>
+        <div id="prophecies-container" class="prophecies-container"></div>
+      </section>
+    </aside>
+
+    <!-- Footer Row: Holds the 2D vector coordinate radar/minimap tracker -->
+    <footer id="bottom-bar">
+      <!-- Modern Navigation Bar styled like a mobile menu -->
+      <nav id="mobile-nav-menu" class="footer-nav-menu">
+        <button id="btn-mobile-scene" class="mobile-nav-btn active"><i
+            class="fa-lg fa-solid fa-mountain-sun"></i><span>Scene</span></button>
+        <button id="btn-mobile-quest" class="mobile-nav-btn"><i
+            class="fa-lg fa-solid fa-star"></i><span>Case</span></button>
+        <button id="btn-mobile-evidence" class="mobile-nav-btn"><i
+            class="fa-lg fa-solid fa-folder-open"></i><span>Clues</span></button>
+        <button id="btn-mobile-actions" class="mobile-nav-btn"><i
+            class="fa-lg fa-solid fa-bolt"></i><span>Actions</span></button>
+        <button id="btn-mobile-codex" class="mobile-nav-btn"><i
+            class="fa-lg fa-solid fa-book-open"></i><span>Codex</span></button>
+        <button id="btn-mobile-keys" class="mobile-nav-btn"><i
+            class="fa-lg fa-solid fa-key"></i><span>Keys</span></button>
+        <button id="btn-mobile-analysis" class="mobile-nav-btn"><i
+            class="fa-lg fa-solid fa-flask"></i><span>Lab</span></button>
+      </nav>
+
+      <div id="minimap" class="minimap-panel">
+        <div class="minimap-radar-line"></div>
+        <div class="minimap-grid-circle grid-small"></div>
+        <div class="minimap-grid-circle grid-large"></div>
+        <div id="minimap-blips-container"></div>
+      </div>
+    </footer>
+
+  </div>
+
+
+  <!-- ==========================================================================
+     8. OVERLAY MODAL INTERFACES & BACKEND MODULES
+     ========================================================================== -->
+
+  <!-- ── WhatsApp-style NPC Dialogue Modal ── -->
+  <div id="vn-overlay">
+    <div id="vn-container">
+
+      <!-- Header: avatar + name + close -->
+      <div class="vn-chat-hdr">
+        <div class="vn-hdr-left">
+          <div id="vn-avatar" class="vn-avatar-bubble">?</div>
+          <div>
+            <div id="vn-speaker-name" class="vn-chr">NPC</div>
+            <div class="vn-st" id="vn-status">● ONLINE</div>
+          </div>
+        </div>
+        <button id="vn-close-btn" class="vn-close-btn" title="End conversation">✕</button>
+      </div>
+
+      <!-- Scrollable message feed -->
+      <div id="bub-scroll"></div>
+
+      <!-- Choice pill buttons -->
+      <div id="bar-choices" class="vn-bar-choices hide"></div>
+
+    </div>
+  </div>
+
+  <!-- Interactive Bible Verse/Passage Text Reader Sub-system Modal -->
+  <div id="passage-overlay" class="overlay-mask" onclick="window.BibleReader.closeOverlay(event)">
+    <div class="modal-panel" onclick="event.stopPropagation()">
+      <header class="modal-header">
+        <div>
+          <span id="passage-ref-title">Loading scripture…</span>
+          <span id="passage-version-lbl" class="badge">WEB</span>
+        </div>
+        <div class="passage-header-actions">
+          <button id="btn-passage-day-night" class="close-icon-btn" title="Toggle Day/Night Mode">
+            <i class="fa-lg fa-solid fa-moon"></i>
+          </button>
+          <button class="close-icon-btn" onclick="window.BibleReader.closeOverlay(null)">
+            <i class="fa-lg fa-solid fa-xmark"></i>
+          </button>
+      </header>
+      <main id="passage-text-content" class="modal-body"></main>
+    </div>
+  </div>
+
+  <!-- ══════════════ Accuse Modal (from Example 01) ══════════════ -->
+  <div id="accuse-modal" class="overlay-mask">
+    <div class="modal-panel accuse-modal-panel">
+      <header class="modal-header">
+        <div>
+          <h2 class="modal-title-settings">Final Accusation</h2>
+          <h4 class="modal-subtitle-custom">Select the suspect responsible for the mystery</h4>
+        </div>
+        <button class="close-icon-btn" onclick="document.getElementById('accuse-modal').classList.remove('active')">
+          <i class="fa-lg fa-solid fa-xmark"></i>
+        </button>
+      </header>
+      <main class="modal-body accuse-suspect-list" id="accuse-suspect-list">
+      </main>
+    </div>
+  </div>
+
+  <!-- ══════════════ People & Case Summary Modal ══════════════ -->
+  <div id="people-modal" class="overlay-mask">
+    <div class="modal-panel people-modal-panel">
+      <header class="modal-header">
+        <div>
+          <h2 class="modal-title-settings">Case Participants</h2>
+          <h4 class="modal-subtitle-custom">Review conversations and person-specific clues</h4>
+        </div>
+        <button class="close-icon-btn" onclick="document.getElementById('people-modal').classList.remove('active')">
+          <i class="fa-lg fa-solid fa-xmark"></i>
+        </button>
+      </header>
+      <main class="modal-body people-modal-layout" id="people-modal-body">
+        <!-- Populated via JS -->
+      </main>
+    </div>
+  </div>
+
+  <!-- ══════════════ Evidence Detail Modal (from Example 01) ══════════════ -->
+  <div id="evidence-detail-modal" class="overlay-mask">
+    <div class="modal-panel evidence-detail-panel">
+      <header class="modal-header">
+        <div class="evidence-detail-header">
+          <span class="evidence-detail-icon"><img src='../assets/gfx/shield-duotone.svg' class='icon-svg'
+              loading='lazy'></span>
+          <div>
+            <div class="evidence-detail-name">Evidence Name</div>
+            <div class="evidence-detail-type">Type</div>
+          </div>
+        </div>
+        <button class="close-icon-btn"
+          onclick="document.getElementById('evidence-detail-modal').classList.remove('active')">
+          <i class="fa-lg fa-solid fa-xmark"></i>
+        </button>
+      </header>
+      <main class="modal-body evidence-detail-inner">
+        <div class="evidence-detail-section">
+          <div class="evidence-detail-label">Description</div>
+          <div class="evidence-detail-desc"></div>
+        </div>
+        <div class="evidence-detail-section">
+          <div class="evidence-detail-label">Location Found</div>
+          <div class="evidence-detail-location"></div>
+        </div>
+
+
+
+        <div class="evidence-detail-section prophecy-section" id="detail-prophecy-area" hidden>
+          <!-- Section: Scriptural Reference -->
+          <div class="evidence-detail-label"><img src='../assets/gfx/scroll-duotone.svg' class='icon-svg'
+              loading='lazy'> Bible Reference</div>
+          <div class="evidence-detail-bible-ref"></div>
+          <div class="bible-read-more-container"></div>
+          <div class="verse-content" data-target="bible-verse-content" hidden></div>
+          <!-- API target for fetched verse -->
+        </div>
+        <div class="evidence-detail-section prophecy-section" id="detail-fulfillment-area" hidden>
+          <!-- Section: Fulfillment Insight -->
+          <div class="evidence-detail-label"><img src='../assets/gfx/sparkles-duotone.svg' class='icon-svg'
+              loading='lazy'> Prophecy & Fulfilment</div>
+          <div class="evidence-detail-prophetic-link"></div>
+          <div class="prophecy-read-more-container"></div>
+          <div class="verse-content" data-target="prophecy-verse-content" hidden></div>
+          <!-- API target for fetched prophecy text -->
+        </div>
+
+
+        <div class="evidence-detail-section">
+          <div class="evidence-detail-label">🔎 Investigator Notes</div>
+          <div class="evidence-detail-investigator-note"></div>
+        </div>
+        <button id="btn-open-codex-from-detail" class="terminal-btn btn-full-width">
+          <i class="fa-lg fa-solid fa-link"></i> Prophecy Matcher
+        </button>
+      </main>
+    </div>
+  </div>
+
+  <!-- ══════════════ Chain Complete Modal ══════════════ -->
+  <div id="chain-complete-modal" class="overlay-mask" aria-label="Chain Complete">
+    <div class="modal-panel">
+      <header class="modal-header">
+        <div>
+          <h2 class="modal-title-settings chain-complete-title">Hidden Chain Complete</h2>
+        </div>
+        <button class="close-icon-btn" onclick="document.getElementById('chain-complete-modal').classList.remove('active')">
+          <i class="fa-lg fa-solid fa-xmark"></i>
+        </button>
+      </header>
+      <main class="modal-body">
+        <div class="chain-complete-body" style="margin-bottom:10px;"></div>
+        <div class="chain-complete-reward" style="color:var(--accent); margin-bottom:12px;"></div>
+        <button class="evidence-detail-confirm" onclick="document.getElementById('chain-complete-modal').classList.remove('active')">Continue</button>
+      </main>
+    </div>
+  </div>
+
+  <!-- ══════════════ Codex Matching Modal (from Example 01) ══════════════ -->
+  <div id="codex-modal" class="overlay-mask">
+    <div class="modal-panel codex-modal-panel">
+      <header class="modal-header">
+        <div>
+          <h2 class="modal-title-settings">Prophecy Codex</h2>
+          <h4 class="modal-subtitle-custom">Link evidence to ancient prophecies</h4>
+        </div>
+        <button class="close-icon-btn" onclick="document.getElementById('codex-modal').classList.remove('active')">
+          <i class="fa-lg fa-solid fa-xmark"></i>
+        </button>
+      </header>
+      <main class="modal-body codex-modal-body">
+        <div class="prophecy-lab-intro">
+          Select evidence from your collection, then choose a locked prophecy below to attempt a link.
+        </div>
+
+        <div class="codex-selection-area">
+          <div class="selection-slot" id="codex-evidence-slot">
+            <span>Select Evidence...</span>
+          </div>
+          <div class="selection-arrow"><img src='../assets/gfx/plus-duotone.svg' class='icon-svg' loading='lazy'></div>
+          <div class="selection-slot" id="codex-prophecy-slot">
+            <span>Select Prophecy...</span>
+          </div>
+          <button id="btn-match-prophecy" class="evidence-detail-confirm" disabled>Match</button>
+        </div>
+
+        <!-- Dedicated Evidence Info Area in Codex -->
+        <div id="codex-evidence-preview" class="codex-preview-panel" hidden>
+          <div class="preview-header"><span id="codex-preview-name"></span></div>
+          <div id="codex-preview-desc" class="preview-body"></div>
+        </div>
+
+        <h3 class="picker-title">Your Evidence</h3>
+        <div id="codex-evidence-grid" class="picker-grid codex-evidence-grid">
+          <!-- Evidence cards will be rendered here by UIManager.js -->
+        </div>
+        <h3 class="picker-title">Bible Prophecies</h3>
+        <div id="codex-prophecy-grid" class="codex-grid"></div>
+
+        <h3 class="picker-title picker-title-margin-top">Discovered Truths</h3>
+        <div id="codex-discovered-grid" class="codex-grid"></div>
+        <div id="codex-feedback" class="codex-feedback"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Main Investigation Progress / Chapter Level Selection Matrix Modal -->
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="modal-panel map-modal-panel">
+      <header class="modal-header modal-header-map-custom">
+        <div>
+          <h2 class="modal-title modal-title-map">HOLY WEEK</h2>
+          <h4 class="modal-subtitle modal-subtitle-custom">Jerusalem Investigation</h4>
+        </div>
+        <button id="btn-close-map" class="close-icon-btn" aria-label="Close">
+          <i class="fa-lg fa-solid fa-xmark"></i>
+        </button>
+      </header>
+
+      <main class="modal-body modal-body-flush">
+        <!-- Primary Globe Viewport (The 'Glode') -->
+        <div id="modal-canvas-wrap">
+          <!-- Satellite Overlay UI -->
+          <div class="satellite-overlay satellite-overlay-top">
+            <div class="satellite-grid-ver">GRID_OS_VER_4.2</div>
+            <div class="satellite-scan-text">SCANNING_FOR_UNLOCKED_NODES...</div>
+          </div>
+          <div class="satellite-overlay satellite-overlay-bottom">
+            <div class="satellite-coord">COORD_X: 31.7683° N</div>
+            <div class="satellite-coord">COORD_Y: 35.2137° E</div>
+          </div>
+        </div>
+
+        <!-- Investigation Dossier Sidebar -->
+        <div id="map-node-info-panel">
+
+          <div class="map-node-intel-header">
+            <div class="map-node-header-row">
+              <div id="map-node-emoji"><img src='../assets/gfx/map-pin-duotone.svg' class='icon-svg' loading='lazy'>
+              </div>
+              <h3 id="map-node-title">Select Act</h3>
+            </div>
+            <div id="map-node-location">Satellite Sync Required</div>
+          </div>
+
+          <div class="map-node-dossier">
+            <div class="dossier-section">
+              <div class="dossier-section-label">Intelligence Brief</div>
+              <p id="map-node-description">Interact with pins on the orbital map to view localized case summaries and
+                historical context. Unlocked cases are highlighted in primary green.</p>
+            </div>
+
+            <div id="map-act-description">Mission objectives will populate here upon node synchronization.</div>
+
+            <!-- Completed Archives -->
+            <div id="completed-cases-section">
+              <div id="completed-cases-section-label">
+                <i class="fa-lg fa-solid fa-database"></i> Resolved Archives
+              </div>
+              <div id="completed-cases-list">
+                <span class="completed-cases-placeholder">Sifting data for completed investigations...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Load Scene Action -->
+          <div id="map-node-action-container">
+            <button id="btn-load-node-scene" class="terminal-btn">
+              <i class="fa-lg fa-solid fa-play"></i> INITIALIZE INVESTIGATION
+            </button>
+          </div>
+
+          <!-- Status Legend -->
+          <div class="map-legend">
+            <span class="map-legend-item"><i class="fa-lg fa-solid fa-circle-dot map-legend-icon-sm"></i>
+              Unlocked</span>
+            <span class="map-legend-item completed"><i class="fa-lg fa-solid fa-circle-check map-legend-icon-md"></i>
+              Completed</span>
+            <span class="map-legend-item locked"><i class="fa-lg fa-solid fa-lock map-legend-icon-md"></i> Locked</span>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Settings Configuration Engine Management Panel -->
+  <div id="settings-overlay" class="overlay-mask">
+    <div class="modal-panel settings-modal-panel">
+      <button class="settings-close-btn" id="btn-close-settings-x">✕</button>
+      <header class="modal-header">
+        <h2 class="modal-title-settings">
+          <i class="fa-lg fa-solid fa-sliders header-icon-spacer"></i>System Configuration
+        </h2>
+      </header>
+      <main class="modal-body">
+        <section class="settings-section">
+          <h3 class="picker-title">Interface & Gameplay</h3>
+          <div class="a11y-setting-row">
+            <span><span class="a11y-label-main">Minimap</span><span class="a11y-label-desc">Toggle the vector
+                radar</span></span>
+            <button type="button" class="toggle-btn active" id="toggle-ui-minimap" aria-checked="true"></button>
+          </div>
+          <div class="a11y-setting-row">
+            <span><span class="a11y-label-main">Mobile Controls</span><span class="a11y-label-desc">Toggle the on-screen
+                D-pad</span></span>
+            <button type="button" class="toggle-btn active" id="toggle-ui-controls" aria-checked="true"></button>
+          </div>
+        </section>
+
+        <section class="settings-section settings-section-scripture">
+          <h3 class="picker-title">Scripture Options</h3>
+          <div class="settings-row">
+            <label class="settings-label-custom">Translation</label>
+            <select id="setting-bible-version" class="settings-select-custom">
+              <option value="web">World English (WEB)</option>
+              <option value="kjv">King James (KJV)</option>
+              <option value="bbe">Basic English (BBE)</option>
+              <option value="oeb-us">Open English (OEB)</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="settings-section settings-section-a11y">
+          <h3 class="picker-title">Accessibility & Sound</h3>
+          <div id="a11y-settings-list" class="settings-a11y-list"></div>
+          <div class="a11y-setting-row a11y-setting-row-audio">
+            <span><span class="a11y-label-main">Audio</span><span class="a11y-label-desc">Toggle background
+                ambience</span></span>
+            <button id="settings-audio-toggle" class="toggle-btn" aria-checked="true" type="button"></button>
+          </div>
+        </section>
+      </main>
+      <footer class="modal-footer">
+        <div class="persistence-btn-row">
+          <button id="btn-save-game" class="terminal-btn btn-flex">Save</button>
+          <button id="btn-load-game" class="terminal-btn btn-flex">Load</button>
+        </div>
+        <div class="modal-action-row">
+          <button id="btn-close-settings" class="terminal-btn btn-flex">Close</button>
+          <button id="btn-save-settings" class="terminal-btn btn-flex btn-save-settings-accent">Apply</button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ══════════════ Investigation Board Overlay - Evidence Comparison Interface ══════════════ -->
+  <div id="inv-board-overlay" class="overlay-mask">
+    <div class="modal-panel inv-board-panel" id="inv-board-panel">
+      <header class="modal-header">
+        <div>
+          <h2 class="modal-title-settings">Investigation Lab</h2>
+          <h4 class="modal-subtitle-custom">Analyze evidence to uncover deeper truths</h4>
+        </div>
+        <button id="btn-close-inv-board" class="close-icon-btn">
+          <i class="fa-lg fa-solid fa-xmark"></i>
+        </button>
+      </header>
+      <main class="modal-body modal-body-flush">
+        <div id="inv-board-content"></div>
+      </main>
+    </div>
+  </div>
+
+
+  <!-- ══════════════  Instructions Overlay ══════════════ -->
+  <div id="instructions-modal" class="overlay-mask">
+    <div class="modal-panel instructions-modal-panel">
+      <button class="close-icon-btn" onclick="window.closeInstructionsModal()" aria-label="Close">✕</button>
+      <div class="instructions-logo">
+        <div class="modal-title-settings instructions-title"><img src='../assets/gfx/magnifying-glass-duotone.svg'
+            class='icon-svg' loading='lazy'> Holy Week</div>
+      </div>
+      <div class="modal-body">
+        <h4 class="modal-subtitle-custom instructions-subtitle">How to Play</h4>
+        <div class="modal-subtitle-custom instructions-body">
+          <p>Welcome, Scribe. Your task is to investigate the events of Holy Week and uncover the truth <img
+              src='../assets/gfx/sparkles-duotone.svg' class='icon-svg' loading='lazy'> behind
+            the mysteries.</p>
+          <br>
+          <p><strong>1. <img src='../assets/gfx/map-pin-duotone.svg' class='icon-svg' loading='lazy'> Explore :</strong>
+            Select a location from the map to view available cases.</p>
+          <p><strong>2. <img src='../assets/gfx/search.svg' class='icon-svg' loading='lazy'> Investigate :</strong>
+            Visit the <strong>Scene</strong> to collect clues. Some evidence
+            is only revealed through conversation!</p>
+          <p><strong>3. <img src='../assets/gfx/chat-duotone.svg' class='icon-svg' loading='lazy'>️ Interview :</strong>
+            Talk to witnesses in the <strong>People</strong> tab. Show them
+            evidence to gather reactions, or <strong>Challenge</strong> them if you find a contradiction.</p>
+          <p><strong>4. <img src='../assets/gfx/microscope-duotone.svg' class='icon-svg' loading='lazy'> Analyze
+              :</strong> In the <strong>Lab</strong>, select two pieces of evidence and an
+            operation to find new insights.</p>
+          <p><strong>5. Prophecies :</strong> when you have revealed the prophecies in the <strong>Codex</strong>.
+            Can you unlock them?</p>
+          <p><strong>6. <img src='../assets/gfx/balance-scale-duotone.svg' class='icon-svg' loading='lazy'>Accuse
+              :</strong> Once you have enough proof, make your final verdict. Be careful—wrong
+            guesses increase your <strong>Doubt</strong>.</p>
+          <br>
+          <h4 class="modal-subtitle-custom instructions-subtitle">Scoring System</h4>
+          <div class="modal-subtitle-custom instructions-body">
+            <p><strong>Investigation Score:</strong></p>
+            <p>🔍 <strong>Evidence Collected:</strong> +5 points each</p>
+            <p>🧪 <strong>Lab Deductions:</strong> +15 (Key) / +8 (Standard)</p>
+            <p>⚡ <strong>Successful Challenge:</strong> +10 points each</p>
+            <p>🎯 <strong>Correct Accusation:</strong> +50 points</p>
+            <p>⭐ <strong>Perfect Case Bonus:</strong> +25 points (no failed challenges)</p>
+            <br>
+            <p><strong>Research Score (Codex):</strong></p>
+            <p>📜 <strong>Scripture Fragment Found:</strong> unlocks prophecy in Codex</p>
+            <p>🔗 <strong>Research Complete (Scripture + Fulfillment):</strong> +20 RP</p>
+            <p>⛓️ <strong>Hidden Chain Completed:</strong> +25 RP bonus</p>
+            <br>
+            <p><strong>Lose Points / Gain Doubt:</strong></p>
+            <p>❌ <strong>Incorrect Accusation:</strong> -25 points</p>
+            <p>⚠️ <strong>Doubt Penalty:</strong> Total Doubt × 2 (subtracted from final score)</p>
+            <p>💥 <strong>Failed Challenge:</strong> +10 Doubt</p>
+            <p>🔬 <strong>Incorrect Lab Pairing:</strong> +5 Doubt, -5 points</p>
+            <p>📜 <strong>Incorrect Prophecy Link:</strong> +5 Doubt</p>
+            <br>
+            <p><strong>Scholar Levels:</strong> Novice (0) → Student (100) → Scribe (250) → Rabbi (500) → Scholar (750) → Expert (1000) → Master (1500)</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-action-row instructions-actions">
+        <button class="terminal-btn btn-flex btn-save-settings-accent" onclick="window.closeInstructionsModal()">Start
+          Investigation</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- ══════════════  Reset Progress Overlay ══════════════ -->
+  <div id="reset-modal" class="overlay-mask">
+    <div class="modal-panel reset-modal-panel">
+      <button class="close-icon-btn" onclick="window.closeResetModal()" aria-label="Close">✕</button>
+      <div class="modal-body reset-modal-body">
+        <div class="reset-icon">⚠️</div>
+        <h2 class="modal-title-settings">Reset Progress?</h2>
+        <div class="modal-subtitle-custom reset-subtitle">
+          This will permanently clear all your solved cases and career points.
+        </div>
+        <div class="modal-action-row">
+          <button class="terminal-btn btn-flex" onclick="window.closeResetModal()">Cancel</button>
+          <button class="terminal-btn btn-flex btn-save-settings-accent" onclick="window.resetProgress()">Reset
+            All</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ MOBILE CONTROLLER ══════════════ -->
+  <div id="mobile-ctrl">
+    <div class="mobile-movement">
+      <button id="ctrl-up" class="ui-toggle"><i class="fas fa-lg fa-chevron-up"></i></button>
+      <button id="ctrl-left" class="ui-toggle"><i class="fas fa-lg fa-chevron-left"></i></button>
+      <button id="ctrl-down" class="ui-toggle"><i class="fas fa-lg fa-chevron-down"></i></button>
+      <button id="ctrl-right" class="ui-toggle"><i class="fas fa-lg fa-chevron-right"></i></button>
+    </div>
+    <div class="mobile-actions">
+      <button id="ctrl-interact" class="ui-toggle action-btn-alt" title="Interact"><i
+          class="fas fa-lg fa-comments"></i></button>
+      <button id="ctrl-jump" class="ui-toggle action-btn-main" title="Jump"><i class="fas fa-circle"></i></button>
+    </div>
+  </div>
+
+
+  <!-- ==========================================================================
+      9. CORE APPLICATION SCRIPTS & INITIALIZATION LIFECYCLE
+      ========================================================================== -->
+
+  <!-- Bible Reader API Module: Handles asynchronous fetching and parsing of scriptural data -->
+  <script type="module" src="./BibleReader2.js"></script>
+  <!-- Main Application Entry Point -->
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>

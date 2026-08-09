@@ -1,0 +1,794 @@
+/* ═══════════════════════════════════════════════
+   LAB WORKSPACE — Scoped for #lab-workspace
+   Replace or augment existing lab.css in each build.
+   Layout is isolated under #lab-workspace so it
+   cannot leak into the rest of the game shell.
+   ════════════════════════════════════════════════ */
+
+#lab-workspace *,
+#lab-workspace *::before,
+#lab-workspace *::after {
+  box-sizing: border-box;
+}
+
+#lab-workspace {
+  --lw-bg: var(--bg, #080c14);
+  --lw-surface: var(--surface, #0f1520);
+  --lw-surface2: var(--surface2, #161e2e);
+  --lw-surface3: var(--surface3, #1d2740);
+  --lw-border: var(--border, rgba(255, 255, 255, 0.08));
+  --lw-border2: var(--border2, rgba(255, 255, 255, 0.14));
+  --lw-text: var(--text, #eef2f8);
+  --lw-text-muted: var(--text-muted, #7c8fa8);
+  --lw-text-dim: var(--text-dim, #4a5568);
+  --lw-gold: var(--gold, #f5c842);
+  --lw-blue: var(--blue, #4fa3e8);
+  --lw-green: var(--green, #3dd68c);
+  --lw-red: var(--red, #f46060);
+  --lw-purple: var(--purple, #a78bfa);
+  --lw-radius: var(--radius, 14px);
+  --lw-radius-sm: var(--radius-sm, 8px);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: transparent;
+  color: var(--lw-text);
+  padding: 8px;
+  padding-bottom: 16px;
+  width: 100%;
+}
+   
+/* ── List/Grid Toggle ── */
+#lab-workspace .lab-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+#lab-workspace .section-title {
+  font-size: 1rem;
+  color: var(--gold);
+  margin: 0 0 2px;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.04em;
+}
+
+/* ── Evidence card base ── */
+#lab-workspace .ev-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface2);
+  border: 1.5px solid var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s, opacity 0.15s;
+  position: relative;
+  user-select: none;
+}
+
+#lab-workspace .ev-card:hover {
+  border-color: var(--blue);
+  background: var(--surface3);
+}
+
+#lab-workspace .ev-card:active {
+  transform: scale(0.97);
+}
+
+#lab-workspace .ev-card.selected {
+  border-color: var(--blue);
+  background: rgba(79, 163, 232, 0.15);
+}
+
+#lab-workspace .ev-card.correct-flash {
+  border-color: var(--green);
+  background: rgba(61, 214, 140, 0.2);
+  animation: lw-flash-green 0.6s ease;
+}
+
+#lab-workspace .ev-card.wrong-flash {
+  border-color: var(--red);
+  background: rgba(244, 96, 96, 0.2);
+  animation: lw-flash-red 0.6s ease;
+}
+
+#lab-workspace .folder-content.correct {
+  border: 1px solid var(--green);
+  background: rgba(61, 214, 140, 0.08);
+}
+
+#lab-workspace .folder-content.wrong {
+  border: 1px solid var(--red);
+  background: rgba(244, 96, 96, 0.08);
+}
+
+#lab-workspace .ev-card.dragging {
+  opacity: 0.4;
+  transform: scale(0.95);
+}
+
+@keyframes lw-flash-green {
+  0%, 100% { border-color: var(--green); background: rgba(61, 214, 140, 0.2); }
+  50% { border-color: var(--green); background: rgba(61, 214, 140, 0.4); }
+}
+
+@keyframes lw-flash-red {
+  0%, 100% { border-color: var(--red); background: rgba(244, 96, 96, 0.2); }
+  50% { border-color: var(--red); background: rgba(244, 96, 96, 0.4); }
+}
+
+/* ── Info button on cards ── */
+#lab-workspace .ev-info-btn {
+  appearance: none;
+  background: var(--surface3);
+  color: var(--text-muted);
+  border: 1px solid var(--border2);
+  border-radius: 999px;
+  width: 22px;
+  height: 22px;
+  display: inline-grid;
+  place-items: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  cursor: pointer;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+#lab-workspace .ev-info-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ── Comparator slots ── */
+#lab-workspace .comparator-slot {
+  border: 2px dashed var(--border2);
+  border-radius: var(--radius);
+  padding: 12px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+#lab-workspace .comparator-slot.filled {
+  border-style: solid;
+  border-color: var(--gold);
+  background: rgba(245, 200, 66, 0.08);
+}
+
+#lab-workspace .comparator-slot.drop-hover {
+  border-color: var(--gold) !important;
+  border-style: dotted !important;
+  background: rgba(245, 200, 66, 0.12) !important;
+}
+
+#lab-workspace .comparator-slot.correct {
+  border-color: var(--green);
+  background: rgba(61, 214, 140, 0.1);
+}
+
+#lab-workspace .comparator-slot.wrong {
+  border-color: var(--red);
+  background: rgba(244, 96, 96, 0.1);
+}
+
+/* ── Folder trays ── */
+#lab-workspace .folder-tray {
+  border: 1.5px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 10px;
+  margin-bottom: 8px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+#lab-workspace .folder-tray.drop-hover {
+  border-color: var(--gold) !important;
+  border-style: dotted !important;
+  background: rgba(245, 200, 66, 0.12) !important;
+}
+
+#lab-workspace .folder-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+#lab-workspace .folder-header-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ── Timeline steps ── */
+#lab-workspace .timeline-step {
+  border: 1.5px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 10px;
+  margin-bottom: 8px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+#lab-workspace .timeline-step.filled {
+  border-color: var(--gold);
+  border-style: solid;
+  background: rgba(245, 200, 66, 0.06);
+}
+
+#lab-workspace .timeline-step.drop-hover {
+  border-color: var(--gold) !important;
+  border-style: dotted !important;
+  background: rgba(245, 200, 66, 0.12) !important;
+}
+
+#lab-workspace .timeline-step.correct {
+  border-color: var(--green);
+  background: rgba(61, 214, 140, 0.1);
+}
+
+#lab-workspace .timeline-step.wrong {
+  border-color: var(--red);
+  background: rgba(244, 96, 96, 0.1);
+}
+
+#lab-workspace .step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+#lab-workspace .step-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+#lab-workspace .step-hint {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+#lab-workspace .step-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 36px;
+}
+
+/* ── Desk stations ── */
+#lab-workspace .desk-station {
+  border: 1.5px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin-bottom: 8px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+#lab-workspace .desk-station.drop-hover {
+  border-color: var(--gold) !important;
+  border-style: dotted !important;
+  background: rgba(245, 200, 66, 0.12) !important;
+}
+
+/* ── Drop zone hover (yellow dotted border) ── */
+#lab-workspace .comparator-slot.drop-hover,
+#lab-workspace .folder-tray.drop-hover,
+#lab-workspace .timeline-step.drop-hover,
+#lab-workspace .desk-station.drop-hover {
+  border-style: dotted !important;
+  border-width: 2px !important;
+  border-color: var(--gold) !important;
+  background: rgba(245, 200, 66, 0.12) !important;
+}
+
+/* ── Feedback ── */
+#lab-workspace .lw-feedback {
+  font-size: 0.78rem;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+#lab-workspace .lw-feedback.success {
+  border-color: var(--green);
+  color: var(--green);
+  background: rgba(61, 214, 140, 0.08);
+}
+
+#lab-workspace .lw-feedback.error {
+  border-color: var(--red);
+  color: var(--red);
+  background: rgba(244, 96, 96, 0.08);
+}
+
+/* ── Modal ── */
+#lab-workspace .modal-mask {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  place-items: center;
+}
+
+#lab-workspace .modal-mask.open {
+  display: grid;
+}
+
+#lab-workspace .modal-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 20px;
+  max-width: 360px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+#lab-workspace .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+#lab-workspace .modal-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+#lab-workspace .modal-close {
+  appearance: none;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+#lab-workspace .modal-body {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+#lab-workspace .detail-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78rem;
+  padding: 8px;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+}
+
+#lab-workspace .detail-row strong {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ── Card pool grid ── */
+#lab-workspace .card-pool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+/* ── Actions bar ── */
+#lab-workspace .actions-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+#lab-workspace .btn-secondary {
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#lab-workspace .btn-secondary:hover {
+  background: var(--surface2);
+}
+
+#lab-workspace .btn-submit {
+  background: var(--gold);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  color: var(--bg);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+#lab-workspace .btn-submit:hover {
+  opacity: 0.85;
+}
+
+/* ── Trash archive ── */
+#lab-workspace .trash-archive-box {
+  max-height: 120px;
+  overflow-y: auto;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+#lab-workspace #lw-shredded-bank.drop-hover {
+  border-style: solid;
+  border-color: var(--lw-red);
+  background: rgba(244, 96, 96, 0.18);
+}
+
+#lab-workspace #lw-desk-bank {
+    justify-content: center;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+}
+
+#lab-workspace #lw-shredded-bank,
+#lab-workspace #lw-folder-bank, 
+#lab-workspace #lw-timeline-bank  {
+  background: var(--lw-surface2);
+  border: 2px dashed var(--lw-border2);
+  border-radius: var(--lw-radius-sm);
+  padding: 8px;
+  min-height: 60px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+#lab-workspace #lw-desk-bank.drop-hover {
+  border-style: solid;
+  border-color: var(--lw-gold);
+  background: rgba(245, 200, 66, 0.12);
+}
+
+#lab-workspace .timeline-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--lw-gold);
+  color: #1a1206;
+  margin-left: 8px;
+  line-height: 1.2;
+}
+/* ── Tab panels ── */
+#lab-workspace .tab-panel {
+  display: none;
+}
+
+#lab-workspace .tab-panel.active {
+  display: block;
+}
+
+/* ── Lab action buttons ── */
+#lab-workspace .lab-btn {
+  background: var(--surface3);
+  color: var(--text);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: background 0.15s, transform 0.15s, border-color 0.15s;
+}
+
+#lab-workspace .lab-btn:hover:not([aria-disabled="true"]) {
+  background: var(--lw-surface3);
+  color: var(--lw-gold);
+}
+
+#lab-workspace .lab-btn:active:not([aria-disabled="true"]) {
+  transform: scale(0.95);
+}
+
+#lab-workspace .lab-btn.active {
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+}
+
+#lab-workspace .lab-btn.active .lab-btn-label,
+#lab-workspace .lab-btn.active .lab-btn-icon {
+  color: var(--lw-text);
+}
+
+#lab-workspace .lab-btn.active:hover .lab-btn-label, 
+#lab-workspace .lab-btn.active:hover .lab-btn-icon  {
+  color: var(--gold-text);
+}
+
+
+
+#lab-workspace .lab-btn[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#lab-workspace .lab-btn-icon {
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#lab-workspace .lab-btn-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+/* ── Comparator stage ── */
+#lab-workspace .comparator-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#lab-workspace .comparator-slots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* ── Desk stage (contradict panel) ── */
+#lab-workspace .desk-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+
+/* ── Slot label ── */
+#lab-workspace .slot-label {
+      font-size: 0.68rem;
+    font-weight: 700;
+    text-align: center;
+  color: #4a5568;
+  
+}
+
+
+#lab-workspace .slot-label .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Evidence A/B badge in bank ── */
+#lab-workspace .ev-card .sel-badge {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--bg);
+  border-radius: 3px;
+  padding: 0 3px;
+  line-height: 1.4;
+  z-index: 1;
+}
+
+#lab-workspace .ev-card .sel-badge-a {
+  background: var(--blue);
+}
+
+#lab-workspace .ev-card .sel-badge-b {
+  background: var(--gold);
+}
+
+#lab-workspace .actions-bar > :only-child {
+  grid-column: 1 / -1;
+}
+
+#lab-workspace .card-name {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--lw-text);
+  text-align: center;
+}
+
+#lab-workspace .compare-progress {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--lw-text);
+  margin-top: 8px;
+}
+
+#lab-workspace .compare-progress-count {
+  font-weight: 700;
+  color: var(--lw-gold);
+}
+
+#lab-workspace .matched-pairs-panel {
+  margin-top: 10px;
+  padding: 8px;
+  background: rgba(245, 200, 66, 0.06);
+  border: 1px dashed rgba(245, 200, 66, 0.25);
+  border-radius: var(--lw-radius-sm);
+}
+
+#lab-workspace .matched-pairs-header {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--lw-gold);
+  margin-bottom: 6px;
+}
+
+#lab-workspace .matched-pairs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#lab-workspace .matched-pair-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#lab-workspace .matched-pair-row .ev-card {
+  opacity: 0.85;
+}
+
+#lab-workspace .pair-arrow {
+  color: var(--lw-gold);
+  font-weight: 700;
+}
+
+#lab-workspace .ev-card.matched {
+  opacity: 0.7;
+}
+
+#lab-workspace .ev-card[data-folder-status="correct"]::after {
+  content: " ✓";
+  color: #22c55e;
+  font-weight: 700;
+}
+
+#lab-workspace .ev-card[data-folder-status="wrong"]::after {
+  content: " ✗";
+  color: #ef4444;
+  font-weight: 700;
+}
+
+#lab-workspace .result-celebration {
+  border: 2px solid var(--lw-gold);
+  background: linear-gradient(135deg, var(--lw-surface2) 0%, rgba(245, 200, 66, 0.08) 100%);
+  box-shadow: 0 0 40px rgba(245, 200, 66, 0.25), 0 20px 50px rgba(0, 0, 0, 0.45);
+  animation: celebrationPulse 2s ease-in-out infinite;
+}
+
+#lab-workspace .celebration-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+#lab-workspace .celebration-stars .star {
+  position: absolute;
+  color: var(--lw-gold);
+  font-size: 0.9rem;
+  animation: starTwinkle 1.5s ease-in-out infinite;
+}
+
+#lab-workspace .celebration-stars .star-1 { top: 8%; left: 10%; animation-delay: 0s; }
+#lab-workspace .celebration-stars .star-2 { top: 12%; right: 12%; animation-delay: 0.2s; }
+#lab-workspace .celebration-stars .star-3 { bottom: 15%; left: 8%; animation-delay: 0.4s; }
+#lab-workspace .celebration-stars .star-4 { bottom: 10%; right: 10%; animation-delay: 0.6s; }
+#lab-workspace .celebration-stars .star-5 { top: 50%; left: 5%; animation-delay: 0.8s; }
+#lab-workspace .celebration-stars .star-6 { top: 45%; right: 6%; animation-delay: 1s; }
+#lab-workspace .celebration-stars .star-7 { top: 20%; left: 50%; animation-delay: 0.3s; }
+#lab-workspace .celebration-stars .star-8 { bottom: 25%; right: 40%; animation-delay: 0.7s; }
+
+#lab-workspace .celebration-title {
+  background: linear-gradient(135deg, #f5c842 0%, #fbbf24 50%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.3rem;
+  font-weight: 800;
+  text-align: center;
+  animation: celebrationShimmer 2s ease-in-out infinite;
+}
+
+#lab-workspace .celebration-body {
+  font-size: 0.95rem;
+  text-align: center;
+  color: var(--lw-text);
+  line-height: 1.5;
+}
+
+#lab-workspace .celebration-detail {
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--lw-gold);
+  font-weight: 600;
+  padding: 8px;
+  background: rgba(245, 200, 66, 0.1);
+  border-radius: var(--lw-radius-sm);
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes celebrationPulse {
+  0%, 100% { box-shadow: 0 0 40px rgba(245, 200, 66, 0.25), 0 20px 50px rgba(0, 0, 0, 0.45); }
+  50% { box-shadow: 0 0 60px rgba(245, 200, 66, 0.4), 0 20px 50px rgba(0, 0, 0, 0.45); }
+}
+
+@keyframes celebrationShimmer {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.2); }
+}
+
+#lab-workspace .game-over-title {
+  color: #ef4444;
+  font-size: 1.3rem;
+  font-weight: 800;
+  text-align: center;
+  animation: gameOverPulse 2s ease-in-out infinite;
+}
+
+#lab-workspace .game-over-body {
+  font-size: 0.95rem;
+  text-align: center;
+  color: var(--lw-text);
+  line-height: 1.5;
+}
+
+#lab-workspace .game-over-reason {
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 8px;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: var(--lw-radius-sm);
+}
+
+@keyframes gameOverPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}

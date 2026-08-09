@@ -1,0 +1,21 @@
+{
+  "baseColor": "#ef9401",
+  "colorA": "#d8c70e",
+  "colorB": "#fd810d",
+  "splitY": -0.04,
+  "materialMode": 0,
+  "tMode": 1,
+  "tInkMode": 1,
+  "tInkColor": "#ffea00",
+  "tSpace": 6,
+  "tThick": 1,
+  "tBright": 1,
+  "tAlpha": 1,
+  "bMode": 1,
+  "bInkMode": 1,
+  "bInkColor": "#ddc631",
+  "bSpace": 6,
+  "bThick": 1,
+  "bBright": -1,
+  "bAlpha": 0.26
+}

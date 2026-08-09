@@ -1,0 +1,48 @@
+﻿{
+  "title": "UNIT_02_HORIZON",
+  "nodes": [
+    {
+      "title": "Start",
+      "content": "Unit-02 Horizon online.\n\nI maintain the southern communication array.\n\n# What brings you to the southern sector?",
+      "choices": [
+        {
+          "text": "I need to contact the southern array",
+          "destination": "array_contact"
+        },
+        {
+          "text": "Report on signal status",
+          "destination": "signal_status"
+        },
+        {
+          "text": "Continue your watch, Horizon",
+          "destination": "continue_watch"
+        }
+      ]
+    },
+    {
+      "title": "array_contact",
+      "content": "The southern array is ready for signal transmission.\n\nThree signal fragments are required to stabilize the matrix.\n\n# Will you collect the fragments?",
+      "choices": [
+        {
+          "text": "Yes, I will gather the fragments",
+          "destination": "accept_fragment_mission"
+        }
+      ]
+    },
+    {
+      "title": "signal_status",
+      "content": "Signal strength is at 32%.\n\nNorthern spires show anomalous readings.\n\nSouthern array awaiting fragment input.\n\n-> END",
+      "choices": []
+    },
+    {
+      "title": "accept_fragment_mission",
+      "content": "Fragment collection authorized.\n\nThe purple shards resonate with array frequency.\n\nBring them to me for matrix integration.\n\n-> END",
+      "choices": []
+    },
+    {
+      "title": "continue_watch",
+      "content": "Horizon maintaining vigil.\n\nSignal me when you have the fragments.\n\n-> END",
+      "choices": []
+    }
+  ]
+}

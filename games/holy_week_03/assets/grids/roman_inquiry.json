@@ -1,0 +1,140 @@
+{
+    "caseId": "roman_inquiry",
+    "locationId": "praetorium",
+    "locationTitle": "Praetorium, Jerusalem",
+    "timeOfDay": "day",
+    "environment": {
+        "floorColor": "#2d2d2d",
+        "skyColor": "#4a5568",
+        "ambientLight": 0.5
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "Roman Portico",
+            "pos": [
+                0,
+                4,
+                -10
+            ],
+            "scale": [
+                20,
+                8,
+                4
+            ],
+            "color": "#a1a1a1"
+        },
+        {
+            "type": "box",
+            "name": "Judgment Seat Base",
+            "pos": [
+                0,
+                1,
+                -8
+            ],
+            "scale": [
+                4,
+                2,
+                4
+            ],
+            "color": "#8b0000"
+        }
+    ],
+    "sprites": [
+        {
+            "id": "roman_standard",
+            "type": "prop",
+            "pos": [
+                -7,
+                0,
+                -5
+            ],
+            "scale": [
+                1,
+                5
+            ],
+            "texture": "spqr_eagle"
+        },
+        {
+            "id": "roman_standard_2",
+            "type": "prop",
+            "pos": [
+                7,
+                0,
+                -5
+            ],
+            "scale": [
+                1,
+                5
+            ],
+            "texture": "spqr_eagle"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "pontius_pilate",
+            "name": "Pilate",
+            "pos": [
+                0,
+                2,
+                -7.5
+            ],
+            "color": "#ef4444",
+            "description": "The Prefect reviewing reports of the empty tomb",
+            "unlocksEvidence": [
+                "empty_wrapping_cloth"
+            ],
+            "hasDialogue": true
+        },
+        {
+            "id": "guard_marcus",
+            "name": "Marcus",
+            "pos": [
+                5,
+                0,
+                -4
+            ],
+            "color": "#94a3b8",
+            "description": "The centurion responsible for the seal",
+            "unlocksEvidence": [
+                "broken_seal_fragment"
+            ],
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "broken_imperial_seal",
+            "pos": [
+                0,
+                1,
+                -6
+            ],
+            "model": "wax_fragments",
+            "glowColor": "#f46060",
+            "hint": "The shattered authority of the Governor"
+        },
+        {
+            "id": "shattered_pilum",
+            "pos": [
+                4,
+                0.1,
+                -3
+            ],
+            "model": "broken_spear",
+            "glowColor": "#7c8fa8",
+            "hint": "A Roman spear snapped by an unknown force"
+        },
+        {
+            "id": "bribe_shekels",
+            "pos": [
+                5.5,
+                0.1,
+                -3.5
+            ],
+            "model": "coin_pouch",
+            "glowColor": "#f5c842",
+            "hint": "Sanctuary silver found in a legionary's possession"
+        }
+    ]
+}

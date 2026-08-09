@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daniel — Interactive Comic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@700;900&family=Bangers&family=Space+Mono:wght@400;700&family=Press+Start+2P&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="daniel-comic.css">
+</head>
+
+<body>
+  <div id="startScreen">
+    <div class="comic-cover">
+      <div class="issue">SPECIAL EDITION #1</div>
+      <h1>DANIEL!</h1>
+      <div class="subtitle">& the Lion's Den</div>
+      <div class="bigicon">🦁</div>
+      <p>An interactive comic book experience! Navigate using arrows, swipes, or scroll.</p>
+      <button id="startBtn">LAUNCH COMIC</button>
+    </div>
+  </div>
+
+  <div id="app">
+    <div id="bgGradient"></div>
+    <canvas id="particles"></canvas>
+    <div id="halftoneOverlay"></div>
+
+    <div id="hud">
+      <select id="chapterSelect"></select>
+      <div id="dots"></div>
+    </div>
+
+    <div id="stageWrap">
+      <div id="stage"></div>
+    </div>
+
+    <div id="choices"></div>
+    <div id="delayNote"></div>
+
+    <div id="navHints">
+      <span>◀ Use Left/Right Arrow keys or swipe ▶</span>
+      <span>· ↓ Scroll down at line end to drop into next chapter ·</span>
+    </div>
+    <button id="nextBtn">Next Chapter ↴</button>
+    <button id="nextLineBtn">Next →</button>
+  </div>
+
+  <div id="portal"></div>
+
+  <script src="daniel-comic.js" defer></script>
+</body>
+
+</html>

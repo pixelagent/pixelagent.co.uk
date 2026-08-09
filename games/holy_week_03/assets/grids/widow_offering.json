@@ -1,0 +1,96 @@
+{
+    "caseId": "widow_offering",
+    "locationId": "temple_treasury",
+    "locationTitle": "Temple Treasury",
+    "timeOfDay": "day",
+    "environment": {
+        "floorColor": "#d4d4d4",
+        "skyColor": "#87ceeb",
+        "ambientLight": 0.8
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "Treasury Colonnade",
+            "pos": [
+                0,
+                4,
+                -12
+            ],
+            "scale": [
+                25,
+                8,
+                2
+            ],
+            "color": "#ffffff"
+        },
+        {
+            "type": "box",
+            "name": "Offering Trumpet",
+            "pos": [
+                0,
+                0.6,
+                -5
+            ],
+            "scale": [
+                1.5,
+                1.2,
+                1.5
+            ],
+            "color": "#b8860b"
+        }
+    ],
+    "sprites": [
+        {
+            "id": "temple_guard_statue",
+            "type": "prop",
+            "pos": [
+                -8,
+                0,
+                -10
+            ],
+            "scale": [
+                2,
+                5
+            ],
+            "texture": "temple_statue"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "widow_clement",
+            "name": "Clement",
+            "pos": [
+                -2,
+                0,
+                -4
+            ],
+            "color": "#94a3b8",
+            "description": "The humble widow approaching the treasury"
+        },
+        {
+            "id": "wealthy_donor",
+            "name": "Theophilus",
+            "pos": [
+                4,
+                0,
+                -6
+            ],
+            "color": "#fbbf24",
+            "description": "A wealthy man making a conspicuous donation"
+        }
+    ],
+    "evidence": [
+        {
+            "id": "two_leptons",
+            "pos": [
+                0,
+                1.3,
+                -5
+            ],
+            "model": "copper_coins",
+            "glowColor": "#3dd68c",
+            "hint": "Two small copper coins that represent her whole livelihood"
+        }
+    ]
+}

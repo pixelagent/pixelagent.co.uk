@@ -1,0 +1,2746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+TO DO - 
+[] square brackets inky system
+naming nodes.
+including emojis
+other inky syntax features
+
+
+
+-->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>◈ Dialogue Editor</title>
+  <style>
+    /* ─── Reset ──────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    :root {
+      --bg: #0b141a;
+      --panel: #111b21;
+      --text: #e9edef;
+      --dim: #8696a0;
+      --g: #00a884;
+      --gn: #64ffda;
+      --amb: #ffb74d;
+      --bl: #34b7f1;
+      --red: #ff6b6b;
+      --bdr: rgba(255, 255, 255, 0.05);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      user-select: none
+    }
+
+    /* ─── Layout ─────────────────────────────────────────── */
+    #app {
+      display: flex;
+      height: 100vh
+    }
+
+    /* ─── Left Panel ─────────────────────────────────────── */
+    #left-panel {
+      width: 272px;
+      min-width: 272px;
+      background: var(--panel);
+      border-right: 1px solid var(--bdr);
+      display: flex;
+      flex-direction: column;
+      z-index: 20;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3)
+    }
+
+    #panel-header {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .panel-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gn);
+      letter-spacing: .14em;
+      font-family: 'Courier New', monospace
+    }
+
+    #help-btn {
+      background: rgba(100, 255, 218, .07);
+      border: 1px solid rgba(100, 255, 218, .2);
+      color: var(--gn);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    #panel-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--bdr)
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 8px 0;
+      background: none;
+      border: none;
+      color: var(--dim);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+      border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s
+    }
+
+    .tab-btn.active {
+      color: var(--gn);
+      border-bottom-color: var(--gn)
+    }
+
+    #panel-content {
+      flex: 1;
+      overflow: auto;
+      padding: 12px
+    }
+
+    #panel-content::-webkit-scrollbar {
+      width: 4px
+    }
+
+    #panel-content::-webkit-scrollbar-thumb {
+      background: var(--dim);
+      border-radius: 4px
+    }
+
+    #panel-footer {
+      padding: 7px 10px;
+      border-top: 1px solid var(--bdr);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      background: rgba(0, 0, 0, .18);
+      align-items: center
+    }
+
+    /* ─── Buttons ────────────────────────────────────────── */
+    .btn {
+      padding: 4px 9px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 10px;
+      font-family: 'Courier New', monospace;
+      letter-spacing: .05em;
+      border: 1px solid transparent
+    }
+
+    .btn-g {
+      background: rgba(0, 168, 132, .12);
+      border-color: rgba(0, 168, 132, .4);
+      color: var(--g)
+    }
+
+    .btn-gn {
+      background: rgba(100, 255, 218, .08);
+      border-color: rgba(100, 255, 218, .3);
+      color: var(--gn)
+    }
+
+    .btn-amb {
+      background: rgba(255, 183, 77, .1);
+      border-color: rgba(255, 183, 77, .35);
+      color: var(--amb)
+    }
+
+    .btn-bl {
+      background: rgba(52, 183, 241, .1);
+      border-color: rgba(52, 183, 241, .35);
+      color: var(--bl)
+    }
+
+    .btn-red {
+      background: rgba(255, 107, 107, .1);
+      border-color: rgba(255, 107, 107, .35);
+      color: var(--red)
+    }
+
+    .btn-dim {
+      background: rgba(134, 150, 160, .08);
+      border-color: rgba(134, 150, 160, .25);
+      color: var(--dim)
+    }
+
+    /* ─── Dialogue List ──────────────────────────────────── */
+    .new-dlg-btn {
+      width: 100%;
+      background: rgba(100, 255, 218, .04);
+      border: 1px dashed rgba(100, 255, 218, .25);
+      color: var(--gn);
+      padding: 9px 0;
+      border-radius: 6px;
+      font-size: 10px;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+      letter-spacing: .08em;
+      margin-bottom: 10px
+    }
+
+    .dlg-item {
+      background: rgba(255, 255, 255, .02);
+      border: 1px solid var(--bdr);
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: background .12s, border-color .12s
+    }
+
+    .dlg-item:hover {
+      background: rgba(255, 255, 255, .04)
+    }
+
+    .dlg-item.active {
+      background: rgba(0, 168, 132, .1);
+      border-color: rgba(0, 168, 132, .35)
+    }
+
+    .dlg-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .dlg-name {
+      font-size: 12px;
+      color: var(--dim);
+      font-weight: 400;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 155px
+    }
+
+    .dlg-item.active .dlg-name {
+      color: var(--text);
+      font-weight: 600
+    }
+
+    .dlg-meta {
+      font-size: 9px;
+      color: #3a4a52;
+      margin-top: 3px;
+      font-family: 'Courier New', monospace
+    }
+
+    .dlg-btns {
+      display: flex;
+      gap: 2px;
+      flex-shrink: 0
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      padding: 2px 5px;
+      line-height: 1;
+      color: var(--dim)
+    }
+
+    .icon-btn.del {
+      color: var(--red);
+      font-size: 17px
+    }
+
+    .empty-hint {
+      color: #3a4a52;
+      font-size: 11px;
+      text-align: center;
+      padding: 22px 0;
+      font-family: 'Courier New', monospace;
+      line-height: 2
+    }
+
+    /* ─── Node Editor ────────────────────────────────────── */
+    .editor-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px
+    }
+
+    .editor-label {
+      font-size: 9px;
+      color: var(--dim);
+      font-family: 'Courier New', monospace;
+      letter-spacing: .1em;
+      display: block;
+      margin-bottom: 5px
+    }
+
+    .editor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px
+    }
+
+    .node-type-lbl {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      font-family: 'Courier New', monospace
+    }
+
+    .section-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px
+    }
+
+    .editor-ta {
+      width: 100%;
+      background: rgba(0, 0, 0, .35);
+      border: 1px solid rgba(100, 255, 218, .15);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 110px;
+      outline: none;
+      line-height: 1.6
+    }
+
+    .choice-edit-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 7px
+    }
+
+    .choice-num {
+      color: var(--dim);
+      font-size: 9px;
+      min-width: 16px;
+      font-family: 'Courier New', monospace;
+      text-align: right
+    }
+
+    .choice-input {
+      flex: 1;
+      background: rgba(0, 0, 0, .35);
+      border: 1px solid rgba(255, 183, 77, .18);
+      color: var(--text);
+      border-radius: 4px;
+      padding: 5px 8px;
+      font-size: 12px;
+      outline: none;
+      min-width: 0
+    }
+
+    .choice-del {
+      background: none;
+      border: none;
+      color: var(--red);
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      padding: 2px 4px;
+      flex-shrink: 0
+    }
+
+    .note-box {
+      margin-top: 6px;
+      padding: 5px 8px;
+      background: rgba(255, 255, 255, .015);
+      border-radius: 4px;
+      font-size: 9px;
+      color: #4a5568;
+      font-family: 'Courier New', monospace;
+      line-height: 1.7
+    }
+
+    /* ─── Canvas ─────────────────────────────────────────── */
+    #canvas-wrap {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background-image: radial-gradient(rgba(100, 255, 218, .055) 1px, transparent 0);
+      background-size: 26px 26px
+    }
+
+    #canvas-empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none
+    }
+
+    .empty-icon {
+      font-size: 40px;
+      color: #2a3942
+    }
+
+    .empty-text {
+      color: #3a4a52;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      line-height: 2.2
+    }
+
+    .empty-sub {
+      font-size: 10px;
+      color: #2a3942
+    }
+
+    #canvas-world {
+      position: absolute;
+      transform-origin: 0 0;
+      width: 8000px;
+      height: 8000px;
+      pointer-events: none
+    }
+
+    #conn-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: all
+    }
+
+    /* ─── Nodes ──────────────────────────────────────────── */
+    .node {
+      position: absolute;
+      width: 234px;
+      border-radius: 8px;
+      border: 1.5px solid #2a3942;
+      background: #182229;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .35);
+      pointer-events: all;
+      cursor: grab;
+      transition: border-color .12s, box-shadow .12s
+    }
+
+    .node.choice-node {
+      background: #1b1b2e;
+      border-color: #2d2d42
+    }
+
+    .node.selected {
+      border-color: var(--g);
+      box-shadow: 0 0 0 2.5px rgba(0, 168, 132, .28), 0 6px 22px rgba(0, 0, 0, .45);
+      background: rgba(0, 168, 132, .1)
+    }
+
+    .node.selected.choice-node {
+      border-color: var(--amb);
+      box-shadow: 0 0 0 2.5px rgba(255, 183, 77, .22), 0 6px 22px rgba(0, 0, 0, .45);
+      background: rgba(255, 183, 77, .07)
+    }
+
+    .node-header {
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, .04);
+      background: rgba(0, 168, 132, .06);
+      border-radius: 6px 6px 0 0
+    }
+
+    .choice-node .node-header {
+      background: rgba(255, 183, 77, .06)
+    }
+
+    .node-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--g);
+      font-family: 'Courier New', monospace
+    }
+
+    .choice-node .node-badge {
+      color: var(--amb)
+    }
+
+    .node-id {
+      font-size: 8px;
+      color: #2a3942;
+      font-family: 'Courier New', monospace
+    }
+
+    .node-body {
+      padding: 4px 10px
+    }
+
+    .node-line {
+      font-size: 11px;
+      color: #c0cdd3;
+      line-height: 21px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      border-bottom: 1px solid rgba(255, 255, 255, .025)
+    }
+
+    .node-line:last-child {
+      border-bottom: none
+    }
+
+    .node-line.empty {
+      color: #2a3942;
+      font-style: italic
+    }
+
+    .choice-row {
+      display: flex;
+      align-items: center;
+      height: 34px;
+      padding: 0 20px 0 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, .025);
+      position: relative
+    }
+
+    .choice-row:last-child {
+      border-bottom: none
+    }
+
+    .choice-txt {
+      font-size: 11px;
+      color: #c0cdd3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1
+    }
+
+    /* ─── Connectors ─────────────────────────────────────── */
+    .conn {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--bg);
+      cursor: crosshair;
+      z-index: 20;
+      pointer-events: all;
+      transition: border-color .15s, box-shadow .15s
+    }
+
+    .conn-in {
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 2px solid var(--bl);
+      box-shadow: 0 0 8px rgba(52, 183, 241, .4)
+    }
+
+    .conn-in.wire-hi {
+      border-color: var(--gn) !important;
+      box-shadow: 0 0 10px rgba(100, 255, 218, .6) !important
+    }
+
+    .conn-out {
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 2px solid #3a4a52
+    }
+
+    .conn-out.live {
+      border-color: var(--g);
+      box-shadow: 0 0 8px rgba(0, 168, 132, .5)
+    }
+
+    .conn-choice {
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 2px solid #3a4a52
+    }
+
+    .conn-choice.live {
+      border-color: var(--amb);
+      box-shadow: 0 0 8px rgba(255, 183, 77, .5)
+    }
+
+    /* ─── Zoom Controls ──────────────────────────────────── */
+    #zoom-ctrl {
+      position: absolute;
+      bottom: 18px;
+      right: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 10
+    }
+
+    .zoom-btn {
+      width: 32px;
+      height: 32px;
+      background: rgba(11, 20, 26, .92);
+      border: 1px solid rgba(100, 255, 218, .2);
+      color: var(--gn);
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Courier New', monospace;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .4)
+    }
+
+    .zoom-btn.sm {
+      font-size: 14px
+    }
+
+    #zoom-pct {
+      background: rgba(11, 20, 26, .92);
+      border: 1px solid var(--bdr);
+      border-radius: 5px;
+      padding: 3px 0;
+      text-align: center;
+      font-size: 9px;
+      color: var(--dim);
+      font-family: 'Courier New', monospace
+    }
+
+    /* ─── Status Bar ─────────────────────────────────────── */
+    #status-bar {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      pointer-events: none
+    }
+
+    .chip {
+      background: rgba(11, 20, 26, .9);
+      border: 1px solid var(--bdr);
+      border-radius: 5px;
+      padding: 4px 10px;
+      font-size: 9px;
+      color: var(--dim);
+      font-family: 'Courier New', monospace;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .3)
+    }
+
+    .chip.flash {
+      background: rgba(100, 255, 218, .1);
+      border-color: rgba(100, 255, 218, .3);
+      color: var(--gn);
+      animation: fadein .2s ease
+    }
+
+    #space-hint {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(11, 20, 26, .88);
+      border: 1px solid rgba(100, 255, 218, .25);
+      border-radius: 5px;
+      padding: 4px 12px;
+      font-size: 9px;
+      color: var(--gn);
+      font-family: 'Courier New', monospace;
+      z-index: 10;
+      pointer-events: none;
+      display: none
+    }
+
+    /* ─── Modals ─────────────────────────────────────────── */
+    .modal-bd {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .78);
+      z-index: 400;
+      display: none;
+      align-items: center;
+      justify-content: center
+    }
+
+    .modal-bd.open {
+      display: flex
+    }
+
+    .modal-box {
+      background: var(--panel);
+      border-radius: 10px;
+      padding: 22px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, .6)
+    }
+
+    .modal-hdr {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gn);
+      font-family: 'Courier New', monospace;
+      letter-spacing: .14em;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--dim);
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1
+    }
+
+    #modal-help-box {
+      border: 1px solid rgba(100, 255, 218, .25);
+      max-width: 420px;
+      width: 90vw
+    }
+
+    .sc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .035)
+    }
+
+    .sc-key {
+      background: rgba(100, 255, 218, .08);
+      color: var(--gn);
+      padding: 2px 9px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-family: 'Courier New', monospace;
+      white-space: nowrap
+    }
+
+    .sc-desc {
+      font-size: 11px;
+      color: var(--dim);
+      margin-left: 12px
+    }
+
+    .help-tips {
+      margin-top: 14px;
+      padding: 8px 10px;
+      background: rgba(255, 255, 255, .018);
+      border-radius: 5px;
+      font-size: 10px;
+      color: #4a5568;
+      font-family: 'Courier New', monospace;
+      line-height: 1.9
+    }
+
+    #modal-form-box {
+      border: 1px solid rgba(100, 255, 218, .25);
+      width: 320px
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(0, 0, 0, .4);
+      border: 1px solid rgba(100, 255, 218, .2);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 9px 12px;
+      font-size: 13px;
+      outline: none;
+      margin-bottom: 14px
+    }
+
+    .form-btns {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end
+    }
+
+    .form-cancel {
+      background: none;
+      border: 1px solid var(--bdr);
+      color: var(--dim);
+      padding: 6px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px
+    }
+
+    .form-ok {
+      background: rgba(0, 168, 132, .18);
+      border: 1px solid rgba(0, 168, 132, .45);
+      color: var(--g);
+      padding: 6px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+        transform: translateY(4px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    /* ─── Project Tab ────────────────────────────────────── */
+    .proj-section {
+      margin-bottom: 18px
+    }
+
+    .proj-section-hdr {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--dim);
+      letter-spacing: .14em;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 8px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--bdr)
+    }
+
+    .proj-save-btn {
+      width: 100%;
+      padding: 10px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 10px;
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+      letter-spacing: .1em;
+      border: 1px solid rgba(100, 255, 218, .35);
+      background: rgba(100, 255, 218, .07);
+      color: var(--gn);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: background .15s, box-shadow .15s;
+      margin-bottom: 6px
+    }
+
+    .proj-save-btn:hover {
+      background: rgba(100, 255, 218, .12);
+      box-shadow: 0 0 0 1px rgba(100, 255, 218, .2)
+    }
+
+    .proj-save-btn.saved {
+      background: rgba(100, 255, 218, .18);
+      box-shadow: 0 0 0 1.5px rgba(100, 255, 218, .35);
+      animation: fadein .2s ease
+    }
+
+    .proj-storage-info {
+      font-size: 9px;
+      color: #3a4a52;
+      font-family: 'Courier New', monospace;
+      line-height: 1.9;
+      padding: 5px 8px;
+      background: rgba(255, 255, 255, .012);
+      border-radius: 4px;
+      margin-bottom: 14px
+    }
+
+    .proj-storage-info span {
+      color: var(--dim)
+    }
+
+    .proj-action-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px
+    }
+
+    .proj-btn {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 10px;
+      font-family: 'Courier New', monospace;
+      letter-spacing: .07em;
+      border: 1px solid transparent;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background .12s
+    }
+
+    .proj-btn .pbicon {
+      font-size: 13px;
+      flex-shrink: 0
+    }
+
+    .proj-btn .pbdesc {
+      color: #3a4a52;
+      font-size: 8.5px;
+      display: block;
+      margin-top: 1px;
+      letter-spacing: .04em;
+      font-weight: 400
+    }
+
+    .proj-btn-bl {
+      background: rgba(52, 183, 241, .07);
+      border-color: rgba(52, 183, 241, .25);
+      color: var(--bl)
+    }
+
+    .proj-btn-bl:hover {
+      background: rgba(52, 183, 241, .12)
+    }
+
+    .proj-btn-gn {
+      background: rgba(100, 255, 218, .05);
+      border-color: rgba(100, 255, 218, .2);
+      color: var(--gn)
+    }
+
+    .proj-btn-gn:hover {
+      background: rgba(100, 255, 218, .1)
+    }
+
+    .proj-btn-dim {
+      background: rgba(134, 150, 160, .05);
+      border-color: rgba(134, 150, 160, .2);
+      color: var(--dim)
+    }
+
+    .proj-btn-dim:hover {
+      background: rgba(134, 150, 160, .1)
+    }
+
+    .proj-disabled {
+      opacity: .35;
+      pointer-events: none
+    }
+
+    /* ─── Ink Toggle (canvas overlay) ───────────────────── */
+    #ink-toggle-wrap {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      z-index: 10
+    }
+
+    #btn-ink-toggle {
+      background: rgba(11, 20, 26, .92);
+      border: 1px solid rgba(52, 183, 241, .28);
+      color: var(--bl);
+      padding: 6px 12px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      font-family: 'Courier New', monospace;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .4);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all .15s
+    }
+
+    #btn-ink-toggle:hover {
+      border-color: var(--bl);
+      background: rgba(52, 183, 241, .08)
+    }
+
+    #btn-ink-toggle.active {
+      background: rgba(52, 183, 241, .14);
+      border-color: var(--bl);
+      box-shadow: 0 0 0 1.5px rgba(52, 183, 241, .25), 0 2px 8px rgba(0, 0, 0, .4);
+      color: #7fcfee
+    }
+
+    /* ─── Ink Panel ──────────────────────────────────────── */
+    #ink-panel {
+      width: 360px;
+      min-width: 200px;
+      max-width: 720px;
+      background: var(--panel);
+      border-left: 1px solid var(--bdr);
+      display: none;
+      flex-direction: column;
+      z-index: 20;
+      box-shadow: -2px 0 10px rgba(0, 0, 0, .35);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    #ink-panel.open {
+      display: flex
+    }
+
+    #ink-resize {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      cursor: col-resize;
+      z-index: 30;
+      background: transparent;
+      transition: background .15s
+    }
+
+    #ink-resize:hover,
+    #ink-resize.dragging {
+      background: rgba(52, 183, 241, .25)
+    }
+
+    #ink-hdr {
+      padding: 9px 12px 9px 16px;
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .ink-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--bl);
+      letter-spacing: .14em;
+      font-family: 'Courier New', monospace;
+      flex: 1
+    }
+
+    #ink-sync {
+      font-size: 8px;
+      font-family: 'Courier New', monospace;
+      letter-spacing: .08em;
+      padding: 2px 8px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      transition: all .2s;
+      background: rgba(0, 168, 132, .08);
+      border-color: rgba(0, 168, 132, .25);
+      color: var(--g)
+    }
+
+    #ink-sync.editing {
+      background: rgba(255, 183, 77, .08);
+      border-color: rgba(255, 183, 77, .25);
+      color: var(--amb)
+    }
+
+    #ink-sync.err {
+      background: rgba(255, 107, 107, .08);
+      border-color: rgba(255, 107, 107, .25);
+      color: var(--red)
+    }
+
+    #ink-close-btn {
+      background: none;
+      border: none;
+      color: var(--dim);
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      padding: 0 2px;
+      transition: color .12s;
+      font-family: monospace
+    }
+
+    #ink-close-btn:hover {
+      color: var(--text)
+    }
+
+    /* ─── Ink Editor (syntax highlight overlay) ──────────── */
+    #ink-editor {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background: rgba(0, 0, 0, .22)
+    }
+
+    #ink-hl,
+    #ink-ta {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 11px 14px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 11.5px;
+      line-height: 1.68;
+      tab-size: 2;
+      -moz-tab-size: 2;
+      white-space: pre;
+      overflow: auto;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      word-break: normal;
+    }
+
+    #ink-hl {
+      pointer-events: none;
+      user-select: none;
+      background: transparent;
+      color: transparent;
+      z-index: 0;
+    }
+
+    #ink-hl::-webkit-scrollbar {
+      display: none
+    }
+
+    #ink-ta {
+      background: transparent;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      caret-color: var(--gn);
+      outline: none;
+      resize: none;
+      z-index: 1;
+    }
+
+    #ink-ta::selection {
+      background: rgba(100, 255, 218, .18);
+      -webkit-text-fill-color: transparent;
+      color: transparent
+    }
+
+    #ink-ta::-moz-selection {
+      background: rgba(100, 255, 218, .18)
+    }
+
+    #ink-ta::-webkit-scrollbar {
+      width: 4px;
+      height: 4px
+    }
+
+    #ink-ta::-webkit-scrollbar-thumb {
+      background: var(--dim);
+      border-radius: 4px
+    }
+
+    /* ─── Ink Syntax Colours ─────────────────────────────── */
+    .ik-comment {
+      color: #2e4a58
+    }
+
+    .ik-knot {
+      color: var(--gn);
+      font-weight: 700
+    }
+
+    .ik-choice {
+      color: var(--amb)
+    }
+
+    .ik-divert {
+      color: var(--g)
+    }
+
+    .ik-text {
+      color: #b8c8d0
+    }
+
+    .ik-empty {
+      color: #2a3942;
+      font-style: italic
+    }
+
+    /* ─── Ink Footer ─────────────────────────────────────── */
+    #ink-ftr {
+      padding: 6px 14px;
+      border-top: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, .18);
+      flex-shrink: 0
+    }
+
+    .ink-hint {
+      font-size: 8.5px;
+      color: #2e4a58;
+      font-family: 'Courier New', monospace;
+      letter-spacing: .05em
+    }
+
+
+
+    /* ════════════════════════════════════════════════════
+   MOBILE — responsive layout (≤768px)
+   ════════════════════════════════════════════════════ */
+    #mobile-nav {
+      display: none
+    }
+
+    #node-sheet {
+      display: none
+    }
+
+    @media(max-width:768px) {
+
+      /* Safe-area / fill-height */
+      html,
+      body {
+        height: 100%;
+        height: -webkit-fill-available
+      }
+
+      /* App column stacks; canvas fills remaining height */
+      #app {
+        flex-direction: column;
+        padding-bottom: 54px;
+        height: 100svh;
+        height: -webkit-fill-available;
+        overflow: hidden
+      }
+
+      /* Left panel: slide-in overlay */
+      #left-panel {
+        position: fixed;
+        inset: 0;
+        bottom: 54px;
+        width: 100% !important;
+        min-width: 0 !important;
+        transform: translateX(-100%);
+        transition: transform .26s cubic-bezier(.4, 0, .2, 1);
+        z-index: 50;
+      }
+
+      #left-panel.mob-open {
+        transform: none
+      }
+
+      /* Ink panel: full-screen overlay */
+      #ink-panel {
+        position: fixed;
+        inset: 0;
+        bottom: 54px;
+        width: 100% !important;
+        min-width: 0 !important;
+        border-left: none;
+        z-index: 50;
+      }
+
+      #ink-resize {
+        display: none
+      }
+
+      #ink-ta,
+      #ink-hl {
+        font-size: 13px;
+        line-height: 1.75;
+        padding: 12px 14px
+      }
+
+      #ink-ftr .ink-hint:last-child {
+        display: none
+      }
+
+      /* Hide desktop-only chrome */
+      #ink-toggle-wrap {
+        display: none !important
+      }
+
+      #space-hint {
+        display: none !important
+      }
+
+      /* Push zoom/status above nav bar */
+      #zoom-ctrl {
+        bottom: 66px;
+        right: 10px
+      }
+
+      #status-bar {
+        bottom: 66px;
+        left: 10px
+      }
+
+      .zoom-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 22px
+      }
+
+      /* Canvas takes remaining space */
+      #canvas-wrap {
+        flex: 1;
+        min-height: 0
+      }
+
+      /* Bigger connector dots for fat fingers */
+      .conn {
+        width: 26px;
+        height: 26px
+      }
+
+      .conn-in {
+        top: -13px;
+        border-width: 2.5px
+      }
+
+      .conn-out {
+        bottom: -13px;
+        border-width: 2.5px
+      }
+
+      .conn-choice {
+        right: -13px;
+        border-width: 2.5px
+      }
+
+      /* Buttons & inputs – touch-friendly sizes */
+      .btn {
+        padding: 8px 13px;
+        font-size: 11.5px
+      }
+
+      .new-dlg-btn {
+        padding: 13px 0;
+        font-size: 11.5px
+      }
+
+      .dlg-item {
+        padding: 11px 12px;
+        margin-bottom: 8px
+      }
+
+      .dlg-name {
+        font-size: 13px;
+        max-width: none
+      }
+
+      .dlg-meta {
+        font-size: 10px
+      }
+
+      .icon-btn {
+        padding: 5px 8px;
+        font-size: 17px
+      }
+
+      .icon-btn.del {
+        font-size: 20px
+      }
+
+      .choice-input {
+        padding: 9px 11px;
+        font-size: 13px
+      }
+
+      .editor-ta {
+        min-height: 100px;
+        font-size: 13px
+      }
+
+      .editor-label {
+        font-size: 10px
+      }
+
+      .note-box {
+        font-size: 10px;
+        line-height: 1.9
+      }
+
+      /* Modal full-width */
+      #modal-help-box {
+        width: 94vw;
+        max-height: 82vh;
+        overflow-y: auto
+      }
+
+      #modal-form-box {
+        width: 88vw
+      }
+
+      /* ── Bottom nav ──────────────────────────────────── */
+      #mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: var(--panel);
+        border-top: 1px solid var(--bdr);
+        height: 54px;
+        align-items: stretch;
+        padding-bottom: env(safe-area-inset-bottom);
+        box-shadow: 0 -2px 14px rgba(0, 0, 0, .45);
+      }
+
+      .mob-tab {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--dim);
+        font-family: 'Courier New', monospace;
+        gap: 3px;
+        font-size: 8px;
+        letter-spacing: .1em;
+        font-weight: 700;
+        border-top: 2px solid transparent;
+        transition: color .14s, border-color .14s;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .mob-tab .micon {
+        font-size: 19px;
+        line-height: 1
+      }
+
+      .mob-tab.active {
+        color: var(--gn);
+        border-top-color: var(--gn)
+      }
+
+      .mob-tab.t-ink.active {
+        color: var(--bl);
+        border-top-color: var(--bl)
+      }
+
+      .mob-tab.t-edit.active {
+        color: var(--amb);
+        border-top-color: var(--amb)
+      }
+
+      .mob-tab.t-edit {
+        display: none
+      }
+
+      .mob-tab.t-edit.visible {
+        display: flex
+      }
+
+      /* ── Node bottom sheet ───────────────────────────── */
+      #node-sheet {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        bottom: 54px;
+        left: 0;
+        right: 0;
+        z-index: 60;
+        background: var(--panel);
+        border-top: 2px solid rgba(0, 168, 132, .35);
+        border-radius: 18px 18px 0 0;
+        max-height: 62vh;
+        transform: translateY(100%);
+        transition: transform .28s cubic-bezier(.4, 0, .2, 1);
+        box-shadow: 0 -6px 30px rgba(0, 0, 0, .55);
+      }
+
+      #node-sheet.sheet-open {
+        transform: none
+      }
+
+      #sheet-handle {
+        padding: 8px 0 2px;
+        cursor: pointer;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        border-bottom: 1px solid var(--bdr);
+      }
+
+      .sheet-pill {
+        width: 38px;
+        height: 4px;
+        background: rgba(255, 255, 255, .1);
+        border-radius: 2px
+      }
+
+      #sheet-titlebar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 2px 14px 7px;
+      }
+
+      #sheet-title {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .12em;
+        font-family: 'Courier New', monospace;
+        color: var(--gn)
+      }
+
+      #sheet-close {
+        background: none;
+        border: none;
+        color: var(--dim);
+        cursor: pointer;
+        font-size: 22px;
+        line-height: 1;
+        padding: 0 2px
+      }
+
+      #sheet-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 12px 14px;
+        -webkit-overflow-scrolling: touch
+      }
+
+      #sheet-body::-webkit-scrollbar {
+        width: 3px
+      }
+
+      #sheet-body::-webkit-scrollbar-thumb {
+        background: var(--dim);
+        border-radius: 3px
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- ═══ LEFT PANEL ═══════════════════════════════════ -->
+    <div id="left-panel">
+      <div id="panel-header">
+        <span class="panel-title">◈ DIALOGUE EDITOR</span>
+        <button id="help-btn" title="Keyboard shortcuts">ℹ</button>
+      </div>
+      <div id="panel-tabs"></div>
+      <div id="panel-content"></div>
+      <div id="panel-footer"></div>
+    </div>
+
+    <!-- ═══ CANVAS ══════════════════════════════════════ -->
+    <div id="canvas-wrap">
+      <div id="canvas-empty">
+        <div class="empty-icon">◈</div>
+        <div class="empty-text">SELECT OR CREATE A DIALOGUE<br>
+          <span class="empty-sub">use the panel on the left</span>
+        </div>
+      </div>
+      <div id="canvas-world">
+        <svg id="conn-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div id="zoom-ctrl">
+        <button class="zoom-btn" id="btn-zoom-in">+</button>
+        <button class="zoom-btn" id="btn-zoom-out">−</button>
+        <button class="zoom-btn sm" id="btn-zoom-reset">⊙</button>
+        <div id="zoom-pct">100%</div>
+      </div>
+      <div id="ink-toggle-wrap">
+        <button id="btn-ink-toggle" onclick="toggleInk()" title="Toggle Ink script panel">◎ INK</button>
+      </div>
+      <div id="status-bar"></div>
+      <div id="space-hint">SPACE + DRAG TO PAN</div>
+    </div>
+
+    <!-- ═══ INK PANEL ════════════════════════════════════ -->
+    <div id="ink-panel">
+      <div id="ink-resize" title="Drag to resize"></div>
+      <div id="ink-hdr">
+        <span class="ink-title">◎ INK SCRIPT</span>
+        <span id="ink-sync">SYNCED</span>
+        <button id="ink-close-btn" onclick="toggleInk()" title="Close Ink panel">×</button>
+      </div>
+      <div id="ink-editor">
+        <pre id="ink-hl" aria-hidden="true"></pre>
+        <textarea id="ink-ta" spellcheck="false" autocorrect="off" autocapitalize="off"
+          placeholder="Open a dialogue to see its Ink script here…"></textarea>
+      </div>
+      <div id="ink-ftr">
+        <span class="ink-hint">Edit Ink → updates nodes &nbsp;•&nbsp; Edit nodes → updates Ink</span>
+        <span class="ink-hint" id="ink-node-count"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ HELP MODAL ════════════════════════════════════ -->
+  <div class="modal-bd" id="modal-help">
+    <div class="modal-box" id="modal-help-box">
+      <div class="modal-hdr">⌨ KEYBOARD SHORTCUTS
+        <button class="modal-close" id="help-close">×</button>
+      </div>
+      <div id="sc-list"></div>
+      <div class="help-tips">
+        Drag <span style="color:var(--gn)">●</span> output connector to link nodes<br>
+        Click a connection line → click <span style="color:var(--red)">●</span> midpoint to delete<br>
+        Drag a connected <span style="color:var(--amb)">●</span> output dot to relink it<br>
+        <span style="color:var(--gn)">Space+drag</span> or middle-click drag to pan canvas<br>
+        <span style="color:var(--bl)">◎ INK</span> button (top-right of canvas) to toggle Ink editor
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DIALOGUE FORM MODAL ══════════════════════════ -->
+  <div class="modal-bd" id="modal-form">
+    <div class="modal-box" id="modal-form-box">
+      <div class="modal-hdr" id="form-title">NEW DIALOGUE</div>
+      <input type="text" class="form-input" id="form-input" placeholder="Dialogue name…">
+      <div class="form-btns">
+        <button class="form-cancel" id="form-cancel">Cancel</button>
+        <button class="form-ok" id="form-ok">Create</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══ MOBILE BOTTOM NAV ════════════════════════════ -->
+  <nav id="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <button class="mob-tab t-dlg" id="mob-dlg" onclick="setMobTab('dlg')" aria-label="Dialogues">
+      <span class="micon">◈</span>DLG
+    </button>
+    <button class="mob-tab t-canvas active" id="mob-canvas" onclick="setMobTab('canvas')" aria-label="Canvas">
+      <span class="micon">⬡</span>CANVAS
+    </button>
+    <button class="mob-tab t-ink" id="mob-ink" onclick="setMobTab('ink')" aria-label="Ink script">
+      <span class="micon">◎</span>INK
+    </button>
+    <button class="mob-tab t-edit" id="mob-edit" onclick="setMobTab('edit')" aria-label="Edit node">
+      <span class="micon">✎</span>EDIT
+    </button>
+  </nav>
+
+  <!-- ═══ NODE BOTTOM SHEET (mobile) ══════════════════ -->
+  <div id="node-sheet" role="dialog" aria-label="Node editor">
+    <div id="sheet-handle" onclick="closeSheet()">
+      <div class="sheet-pill"></div>
+      <div id="sheet-titlebar">
+        <span id="sheet-title">NODE EDITOR</span>
+        <button id="sheet-close" onclick="closeSheet()" aria-label="Close">×</button>
+      </div>
+    </div>
+    <div id="sheet-body"></div>
+  </div>
+
+  <script>
+    /* ═══════════════════════════════════════════════════════
+       DIALOGUE EDITOR — Vanilla JS
+       ═══════════════════════════════════════════════════════ */
+
+    // ── Geometry constants ─────────────────────────────────
+    const NW = 234, HDR = 30, LH = 21, CH = 34, CR = 6;
+
+    let _uid = 1;
+    function uid() { return Date.now().toString(36) + (_uid++ % 9999).toString().padStart(4, '0'); }
+
+    function nodeH(n) {
+      return n.type === 'text'
+        ? HDR + Math.max(1, n.lines.length) * LH + 10
+        : HDR + Math.max(1, n.choices.length) * CH + 8;
+    }
+    function inPt(n) { return { x: n.x + NW / 2, y: n.y }; }
+    function outPt(n, ci = 0) {
+      const h = nodeH(n);
+      if (n.type === 'text') return { x: n.x + NW / 2, y: n.y + h };
+      return { x: n.x + NW, y: n.y + HDR + ci * CH + CH / 2 };
+    }
+    function bezD(x1, y1, x2, y2) {
+      const d = Math.max(50, Math.abs(y2 - y1) * 0.5);
+      return `M${x1},${y1} C${x1},${y1 + d} ${x2},${y2 - d} ${x2},${y2}`;
+    }
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+    function escHl(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+    // ── State ──────────────────────────────────────────────
+    const S = {
+      dialogues: [], activeId: null, selectedId: null, selectedConn: null,
+      zoom: 1, pan: { x: 160, y: 100 },
+      drag: null,   // {nid, ox, oy}
+      wire: null,   // {fid, type, ci, mx, my}
+      panSt: null,  // {sx, sy, px, py}
+      spaceDown: false, leftTab: 'dlg',
+      clipboard: null, flash: null, flashTimer: null,
+      formMode: null, formId: null,
+      // Ink panel state
+      inkVisible: false, inkTimer: null, inkFromNodeTimer: null,
+      inkResizeSt: null,
+    };
+
+    function dlg() { return S.dialogues.find(d => d.id === S.activeId); }
+    function nodes() { return dlg()?.nodes || []; }
+
+    // ── Persistence ────────────────────────────────────────
+    function save() {
+      localStorage.setItem('dlg-editor-v1', JSON.stringify(S.dialogues));
+      scheduleInkUpdate();
+    }
+    function load() {
+      try {
+        const v = localStorage.getItem('dlg-editor-v1');
+        if (v) S.dialogues = JSON.parse(v);
+      } catch (e) { S.dialogues = []; }
+    }
+
+    // ── Coordinate conversion ──────────────────────────────
+    function sc2c(sx, sy) {
+      const r = document.getElementById('canvas-wrap').getBoundingClientRect();
+      return { x: (sx - r.left - S.pan.x) / S.zoom, y: (sy - r.top - S.pan.y) / S.zoom };
+    }
+
+    // ── Flash ──────────────────────────────────────────────
+    function flash(msg) {
+      S.flash = msg;
+      clearTimeout(S.flashTimer);
+      S.flashTimer = setTimeout(() => { S.flash = null; updateStatus(); }, 2000);
+      updateStatus();
+    }
+
+    // ── Node ops ───────────────────────────────────────────
+    function addNode(type) {
+      if (!S.activeId) return;
+      const r = document.getElementById('canvas-wrap').getBoundingClientRect();
+      const cx = r ? (r.width / 2 - S.pan.x) / S.zoom : 300;
+      const cy = r ? (r.height / 2 - S.pan.y) / S.zoom : 200;
+      const n = type === 'text'
+        ? { id: uid(), type: 'text', x: cx - NW / 2, y: cy - 40, lines: ['New message…'], outputTarget: null }
+        : {
+          id: uid(), type: 'choice', x: cx - NW / 2, y: cy - 50,
+          choices: [{ id: uid(), text: 'Option A', target: null }, { id: uid(), text: 'Option B', target: null }]
+        };
+      dlg().nodes.push(n);
+      S.selectedId = n.id; S.leftTab = 'node';
+      save(); render();
+    }
+
+    function delNode(id) {
+      const d = dlg(); if (!d) return;
+      d.nodes = d.nodes.filter(n => n.id !== id).map(n => ({
+        ...n,
+        outputTarget: n.outputTarget === id ? null : n.outputTarget,
+        choices: n.choices?.map(c => c.target === id ? { ...c, target: null } : c),
+      }));
+      save();
+    }
+
+    // ── Dialogue ops ───────────────────────────────────────
+    function createDlg(name) {
+      const d = {
+        id: uid(), name,
+        nodes: [{ id: uid(), type: 'text', x: 200, y: 160, lines: ['Hello…'], outputTarget: null }]
+      };
+      S.dialogues.push(d);
+      S.activeId = d.id; S.selectedId = null; S.leftTab = 'node';
+      save(); render();
+    }
+    function renameDlg(id, name) {
+      const d = S.dialogues.find(x => x.id === id); if (d) { d.name = name; save(); render(); }
+    }
+    function deleteDlg(id) {
+      S.dialogues = S.dialogues.filter(d => d.id !== id);
+      if (S.activeId === id) { S.activeId = null; S.selectedId = null; }
+      save(); render();
+    }
+
+    // ── Export / Import ────────────────────────────────────
+    function dl(content, name) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([content], { type: 'application/json' }));
+      a.download = name; a.click(); URL.revokeObjectURL(a.href);
+    }
+    function exportOne() {
+      const d = dlg(); if (!d) return;
+      dl(JSON.stringify(d, null, 2), `${d.name.replace(/\s+/g, '_')}.json`);
+      flash('📤 EXPORTED');
+    }
+    function exportAll() {
+      dl(JSON.stringify(S.dialogues, null, 2), 'all_dialogues.json');
+      flash('📤 EXPORTED ALL');
+    }
+    function importFile(e) {
+      const f = e.target.files[0]; if (!f) return;
+      const r = new FileReader();
+      r.onload = ev => {
+        try {
+          const data = JSON.parse(ev.target.result);
+          const items = Array.isArray(data) ? data : [data];
+          const ids = new Set(S.dialogues.map(x => x.id));
+          items.forEach(item => {
+            if (ids.has(item.id)) item.id = uid();
+            S.dialogues.push(item);
+          });
+          save(); render(); flash('📥 IMPORTED');
+          if (S.leftTab === 'proj') renderProject(document.getElementById('panel-content'));
+        } catch { alert('Invalid JSON file'); }
+      };
+      r.readAsText(f); e.target.value = '';
+    }
+
+
+
+    /* ═══════════════════════════════════════════════════════
+       MOBILE — touch events, bottom nav, bottom sheet
+       ═══════════════════════════════════════════════════════ */
+
+    function isMobile() { return window.innerWidth <= 768; }
+
+    // ── Mobile tab & sheet state ───────────────────────────
+    S.mobTab = 'canvas';
+    S.sheetOpen = false;
+    S.pinchSt = null;
+
+    /* ── Bottom nav tab switching ─────────────────────────── */
+    function setMobTab(tab) {
+      if (!isMobile()) return;
+      S.mobTab = tab;
+      const lp = document.getElementById('left-panel');
+      const ip = document.getElementById('ink-panel');
+      lp.classList.toggle('mob-open', tab === 'dlg');
+      ip.classList.toggle('open', tab === 'ink');
+      if (tab === 'ink') updateInkFromNodes();
+      // Close sheet unless going to edit
+      if (tab !== 'edit') closeSheet();
+      // Update tab highlights
+      ['dlg', 'canvas', 'ink', 'edit'].forEach(t => {
+        const el = document.getElementById('mob-' + t);
+        if (el) el.classList.toggle('active', t === tab);
+      });
+    }
+
+    /* ── Node bottom sheet ─────────────────────────────────── */
+    function openSheet() {
+      if (!isMobile()) return;
+      const sheet = document.getElementById('node-sheet');
+      const body = document.getElementById('sheet-body');
+      const titleEl = document.getElementById('sheet-title');
+      if (!sheet || !body) return;
+      const el = document.createElement('div');
+      renderNodeEditor(el);
+      body.innerHTML = ''; body.appendChild(el);
+      const sel = nodes().find(n => n.id === S.selectedId);
+      if (titleEl) titleEl.textContent =
+        sel ? (sel.type === 'text' ? '● TEXT NODE' : '◆ CHOICE NODE') : 'NODE EDITOR';
+      if (titleEl) titleEl.style.color =
+        sel ? (sel.type === 'text' ? 'var(--g)' : 'var(--amb)') : 'var(--gn)';
+      sheet.classList.add('sheet-open');
+      S.sheetOpen = true;
+      // Show EDIT tab
+      document.getElementById('mob-edit')?.classList.add('visible');
+      setMobTab('edit');
+    }
+    /* ═══════════════════════════════════════════════════════
+       INK SCRIPT — Serialise / Parse / Highlight
+       ═══════════════════════════════════════════════════════ */
+
+    /* ── Nodes → Ink text ──────────────────────────────── */
+    function nodesToInk() {
+      const ns = nodes();
+      const d = dlg();
+      if (!d || !ns.length) return '';
+      const lines = [];
+      lines.push(`// ${d.name}`);
+      lines.push(`// ${ns.length} node${ns.length !== 1 ? 's' : ''}`);
+      lines.push('');
+      ns.forEach(node => {
+        lines.push(`=== ${node.id} ===`);
+        if (node.type === 'text') {
+          (node.lines || ['']).forEach(l => lines.push(l || ''));
+          lines.push(node.outputTarget ? `-> ${node.outputTarget}` : '-> END');
+        } else {
+          (node.choices || []).forEach(c => {
+            lines.push(`* ${c.text} -> ${c.target || 'END'}`);
+          });
+        }
+        lines.push('');
+      });
+      return lines.join('\n');
+    }
+
+    /* ── Ink text → Nodes ──────────────────────────────── */
+    function inkToNodes(inkText) {
+      const existing = nodes();
+      const lines = inkText.split('\n');
+      const sections = [];
+      let cur = null;
+
+      for (const raw of lines) {
+        const t = raw.trim();
+        if (!t || t.startsWith('//')) { continue; }
+        const km = t.match(/^===\s*([a-zA-Z0-9_]+)\s*(?:===)?$/);
+        if (km) {
+          if (cur) sections.push(cur);
+          cur = { id: km[1], textLines: [], choices: [], outputTarget: null };
+          continue;
+        }
+        if (!cur) continue;
+        const cm = t.match(/^\*\s+(.+)$/);
+        if (cm) {
+          const rest = cm[1];
+          const inline = rest.match(/^(.*?)\s*->\s*([a-zA-Z0-9_]+)\s*$/);
+          cur.choices.push(inline
+            ? { text: inline[1].trim(), target: inline[2] === 'END' ? null : inline[2] }
+            : { text: rest.trim(), target: null }
+          );
+          continue;
+        }
+        const dm = t.match(/^->\s*([a-zA-Z0-9_]+)/);
+        if (dm) {
+          const tgt = dm[1] === 'END' ? null : dm[1];
+          if (cur.choices.length > 0) cur.choices[cur.choices.length - 1].target = tgt;
+          else cur.outputTarget = tgt;
+          continue;
+        }
+        if (cur.choices.length === 0) cur.textLines.push(t);
+      }
+      if (cur) sections.push(cur);
+
+      return sections.map((s, i) => {
+        const ex = existing.find(n => n.id === s.id);
+        const x = ex?.x ?? (200 + (i % 3) * 280);
+        const y = ex?.y ?? (160 + Math.floor(i / 3) * 200);
+        if (s.choices.length > 0) {
+          return {
+            id: s.id, type: 'choice', x, y,
+            choices: s.choices.map(c => ({ id: uid(), text: c.text, target: c.target }))
+          };
+        }
+        return {
+          id: s.id, type: 'text', x, y,
+          lines: s.textLines.length ? s.textLines : [''],
+          outputTarget: s.outputTarget || null
+        };
+      });
+    }
+
+    /* ── Syntax highlighting ───────────────────────────── */
+    function inkHighlight(text) {
+      return text.split('\n').map(line => {
+        const t = line.trim();
+        let cls;
+        if (!t) cls = 'ik-empty';
+        else if (t.startsWith('//')) cls = 'ik-comment';
+        else if (t.match(/^===\s*\S/)) cls = 'ik-knot';
+        else if (t.startsWith('*')) cls = 'ik-choice';
+        else if (t.match(/^->/)) cls = 'ik-divert';
+        else cls = 'ik-text';
+        return `<span class="${cls}">${escHl(line)}</span>`;
+      }).join('\n');
+    }
+
+    /* ── Update ink panel from current nodes ───────────── */
+    function scheduleInkUpdate() {
+      clearTimeout(S.inkFromNodeTimer);
+      S.inkFromNodeTimer = setTimeout(updateInkFromNodes, 0);
+    }
+
+    function updateInkFromNodes() {
+      const ta = document.getElementById('ink-ta');
+      const hl = document.getElementById('ink-hl');
+      const nc = document.getElementById('ink-node-count');
+      if (!ta) return;
+      if (document.activeElement === ta) return;
+      const ns = nodes();
+      if (!S.activeId) {
+        ta.value = '';
+        if (hl) hl.innerHTML = '';
+        if (nc) nc.textContent = '';
+        return;
+      }
+      const ink = nodesToInk();
+      if (ta.value !== ink) {
+        ta.value = ink;
+        if (hl) hl.innerHTML = inkHighlight(ink);
+        syncInkScroll();
+      }
+      if (nc) nc.textContent = `${ns.length} NODE${ns.length !== 1 ? 'S' : ''}`;
+      setInkStatus('SYNCED', 'ok');
+    }
+
+    function syncInkScroll() {
+      const ta = document.getElementById('ink-ta');
+      const hl = document.getElementById('ink-hl');
+      if (ta && hl) { hl.scrollTop = ta.scrollTop; hl.scrollLeft = ta.scrollLeft; }
+    }
+
+    function setInkStatus(msg, type) {
+      const el = document.getElementById('ink-sync');
+      if (!el) return;
+      el.textContent = msg;
+      el.className = type === 'ok' ? '' : type;
+    }
+
+    /* ── Toggle ink panel ──────────────────────────────── */
+    function toggleInk() {
+      S.inkVisible = !S.inkVisible;
+      const panel = document.getElementById('ink-panel');
+      const btn = document.getElementById('btn-ink-toggle');
+      panel.classList.toggle('open', S.inkVisible);
+      btn.classList.toggle('active', S.inkVisible);
+      if (S.inkVisible) updateInkFromNodes();
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       RENDER — LEFT PANEL
+       ═══════════════════════════════════════════════════════ */
+    function renderPanel() {
+      renderTabs(); renderContent(); renderFooter();
+    }
+
+    function renderTabs() {
+      const el = document.getElementById('panel-tabs');
+      let html =
+        `<button class="tab-btn${S.leftTab === 'dlg' ? ' active' : ''}" onclick="setTab('dlg')">DIALOGUES</button>`;
+      if (S.activeId)
+        html += `<button class="tab-btn${S.leftTab === 'node' ? ' active' : ''}" onclick="setTab('node')">NODE EDITOR</button>`;
+      html += `<button class="tab-btn${S.leftTab === 'proj' ? ' active' : ''}" onclick="setTab('proj')">PROJECT</button>`;
+      el.innerHTML = html;
+    }
+
+    function setTab(t) { S.leftTab = t; renderPanel(); }
+
+    function renderContent() {
+      const el = document.getElementById('panel-content');
+      if (S.leftTab === 'proj') return renderProject(el);
+      (!S.activeId || S.leftTab === 'dlg') ? renderDlgList(el) : renderNodeEditor(el);
+    }
+
+    function renderDlgList(el) {
+      let h = `<button class="new-dlg-btn" onclick="openForm('add')">+ NEW DIALOGUE</button>`;
+      if (!S.dialogues.length) {
+        h += `<div class="empty-hint">No dialogues yet.<br>Create one to start.</div>`;
+      } else {
+        S.dialogues.forEach(d => {
+          const act = d.id === S.activeId;
+          h += `<div class="dlg-item${act ? ' active' : ''}" onclick="selDlg('${d.id}')">
+        <div class="dlg-item-row">
+          <span class="dlg-name">${esc(d.name)}</span>
+          <div class="dlg-btns">
+            <button class="icon-btn" onclick="event.stopPropagation();openForm('edit','${d.id}','${esc(d.name)}')" title="Rename">✎</button>
+            <button class="icon-btn del" onclick="event.stopPropagation();confirmDel('${d.id}','${esc(d.name)}')" title="Delete">×</button>
+          </div>
+        </div>
+        <div class="dlg-meta">${d.nodes.length} node${d.nodes.length !== 1 ? 's' : ''}</div>
+      </div>`;
+        });
+      }
+      el.innerHTML = h;
+    }
+
+function selDlg(id) {
+  S.activeId = id; S.selectedId = null;
+  if (!isMobile()) {
+    S.leftTab = 'node';
+  }
+  render();
+  updateInkFromNodes();
+}
+    function confirmDel(id, name) { if (confirm(`Delete "${name}"?`)) deleteDlg(id); }
+
+    function renderNodeEditor(el) {
+      const ns = nodes();
+      const sel = ns.find(n => n.id === S.selectedId);
+
+      let h = `<div class="editor-row">
+    <button class="btn btn-g" style="flex:1" onclick="addNode('text')">+ TEXT [N]</button>
+    <button class="btn btn-amb" style="flex:1" onclick="addNode('choice')">+ CHOICE [C]</button>
+  </div>`;
+
+      if (!sel) {
+        h += `<div class="empty-hint">Click a node to edit it<br>
+      <span style="font-size:9px;color:#2a3942">or use buttons above to add one</span></div>`;
+        el.innerHTML = h; return;
+      }
+
+      const isTxt = sel.type === 'text';
+      const nc = isTxt ? 'var(--g)' : 'var(--amb)';
+      h += `<div class="editor-header">
+    <span class="node-type-lbl" style="color:${nc}">${isTxt ? '● TEXT NODE' : '◆ CHOICE NODE'}</span>
+    <button class="btn btn-red" onclick="doDelNode('${sel.id}')">DELETE</button>
+  </div>`;
+
+      if (isTxt) {
+        h += `<label class="editor-label">LINES — each line = one message bubble</label>
+      <textarea class="editor-ta" id="lines-ta"
+        oninput="updLines('${sel.id}',this.value)">${esc(sel.lines.join('\n'))}</textarea>
+      <div class="note-box">Drag the ● output dot (bottom of node) to link to next node.</div>`;
+      } else {
+        h += `<div class="section-hdr">
+      <label class="editor-label" style="margin:0">CHOICES</label>
+      <button class="btn btn-amb" onclick="addChoice('${sel.id}')">+ ADD</button>
+    </div>`;
+        sel.choices.forEach((c, i) => {
+          h += `<div class="choice-edit-row">
+        <span class="choice-num">${i + 1}.</span>
+        <input class="choice-input" type="text" value="${esc(c.text)}"
+          oninput="updChoice('${sel.id}',${i},this.value)">
+        ${sel.choices.length > 1
+              ? `<button class="choice-del" onclick="rmChoice('${sel.id}',${i})">×</button>`
+              : ''}
+      </div>`;
+        });
+        h += `<div class="note-box">Drag ● dots on node right edge to link each choice to next node.</div>`;
+      }
+      el.innerHTML = h;
+    }
+
+    function doDelNode(id) { delNode(id); S.selectedId = null; render(); }
+
+    function updLines(id, val) {
+      const n = nodes().find(x => x.id === id); if (!n) return;
+      n.lines = val.split('\n'); save(); renderCanvas();
+    }
+    function updChoice(nid, ci, val) {
+      const n = nodes().find(x => x.id === nid); if (!n) return;
+      n.choices[ci].text = val; save(); renderCanvas();
+    }
+    function addChoice(nid) {
+      const n = nodes().find(x => x.id === nid); if (!n) return;
+      n.choices.push({ id: uid(), text: 'New option', target: null });
+      save(); render();
+    }
+    function rmChoice(nid, ci) {
+      const n = nodes().find(x => x.id === nid); if (!n || n.choices.length <= 1) return;
+      n.choices.splice(ci, 1); save(); render();
+    }
+
+    function renderFooter() {
+      const el = document.getElementById('panel-footer');
+      let h = '';
+      if (S.activeId)
+        h += `<button class="btn btn-g"   onclick="addNode('text')">TEXT [N]</button>
+        <button class="btn btn-amb" onclick="addNode('choice')">CHOICE [C]</button>`;
+      el.innerHTML = h;
+    }
+
+    /* ── Project tab ──────────────────────────────────────── */
+    function saveManual() {
+      localStorage.setItem('dlg-editor-v1', JSON.stringify(S.dialogues));
+      const btn = document.getElementById('proj-save-btn');
+      if (btn) {
+        btn.classList.add('saved');
+        btn.querySelector('.pbsave-lbl').textContent = '✓ SAVED';
+        setTimeout(() => {
+          btn.classList.remove('saved');
+          btn.querySelector('.pbsave-lbl').textContent = 'SAVE TO LOCAL STORAGE';
+        }, 1800);
+      }
+      flash('💾 SAVED');
+    }
+
+    function storageInfo() {
+      try {
+        const raw = localStorage.getItem('dlg-editor-v1') || '[]';
+        const bytes = new TextEncoder().encode(raw).length;
+        const kb = (bytes / 1024).toFixed(1);
+        const nd = S.dialogues.reduce((a, d) => a + d.nodes.length, 0);
+        return `<span>${S.dialogues.length}</span> dialogue${S.dialogues.length !== 1 ? 's' : ''} &nbsp;·&nbsp; ` +
+          `<span>${nd}</span> node${nd !== 1 ? 's' : ''} &nbsp;·&nbsp; ` +
+          `<span>${kb} KB</span> stored`;
+      } catch { return 'localStorage unavailable'; }
+    }
+
+    function renderProject(el) {
+      const hasDlg = !!S.activeId;
+      const d = dlg();
+      el.innerHTML = `
+    <div class="proj-section">
+      <div class="proj-section-hdr">◈ LOCAL STORAGE</div>
+      <button id="proj-save-btn" class="proj-save-btn" onclick="saveManual()">
+        <span>💾</span><span class="pbsave-lbl">SAVE TO LOCAL STORAGE</span>
+      </button>
+      <div class="proj-storage-info">${storageInfo()}</div>
+    </div>
+
+    <div class="proj-section">
+      <div class="proj-section-hdr">◉ CURRENT DIALOGUE</div>
+      <div class="proj-action-row">
+        <button class="proj-btn proj-btn-bl${hasDlg ? '' : ' proj-disabled'}" onclick="exportOne()">
+          <span class="pbicon">📤</span>
+          <span><span style="font-weight:700">${hasDlg ? 'EXPORT  ' + esc(d.name) : 'EXPORT DIALOGUE'}</span>
+          <span class="pbdesc">Save active dialogue as .json</span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="proj-section">
+      <div class="proj-section-hdr">◈ ALL DIALOGUES</div>
+      <div class="proj-action-row">
+        <button class="proj-btn proj-btn-gn" onclick="exportAll()">
+          <span class="pbicon">📦</span>
+          <span><span style="font-weight:700">EXPORT ALL</span>
+          <span class="pbdesc">Save every dialogue to all_dialogues.json</span></span>
+        </button>
+        <label class="proj-btn proj-btn-dim" style="cursor:pointer">
+          <span class="pbicon">📥</span>
+          <span><span style="font-weight:700">IMPORT</span>
+          <span class="pbdesc">Load .json — merges with existing data</span></span>
+          <input type="file" accept=".json" style="display:none" onchange="importFile(event)">
+        </label>
+      </div>
+    </div>`;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       RENDER — CANVAS
+       ═══════════════════════════════════════════════════════ */
+    function renderCanvas() {
+      const world = document.getElementById('canvas-world');
+      const empty = document.getElementById('canvas-empty');
+      const ns = nodes();
+
+      if (!S.activeId) {
+        empty.style.display = 'flex'; world.style.display = 'none';
+        updateStatus(); return;
+      }
+      empty.style.display = 'none'; world.style.display = 'block';
+
+      applyTransform();
+      renderConns(ns);
+      rebuildNodes(ns);
+      updateStatus();
+    }
+
+    function applyTransform() {
+      document.getElementById('canvas-world').style.transform =
+        `translate(${S.pan.x}px,${S.pan.y}px) scale(${S.zoom})`;
+      document.getElementById('zoom-pct').textContent = Math.round(S.zoom * 100) + '%';
+    }
+
+    function rebuildNodes(ns) {
+      const world = document.getElementById('canvas-world');
+      world.querySelectorAll('.node').forEach(e => e.remove());
+      ns.forEach(n => world.appendChild(mkNodeEl(n)));
+    }
+
+    function mkNodeEl(node) {
+      const h = nodeH(node), isTxt = node.type === 'text', isSel = node.id === S.selectedId;
+      const el = document.createElement('div');
+      el.className = `node${isTxt ? '' : ' choice-node'}${isSel ? ' selected' : ''}`;
+      el.dataset.nid = node.id;
+      el.style.cssText = `left:${node.x}px;top:${node.y}px;height:${h}px`;
+
+      // Input connector
+      const cIn = document.createElement('div');
+      cIn.className = `conn conn-in${S.wire && S.wire.fid !== node.id ? ' wire-hi' : ''}`;
+      cIn.addEventListener('mousedown', e => e.stopPropagation());
+      el.appendChild(cIn);
+
+      // Header
+      const hdr = document.createElement('div');
+      hdr.className = 'node-header';
+      hdr.innerHTML = `<span class="node-badge">${isTxt ? '● TEXT' : '◆ CHOICE'}</span>
+    <span class="node-id">${node.id.slice(0, 6)}</span>`;
+      el.appendChild(hdr);
+
+      if (isTxt) {
+        // Body lines
+        const body = document.createElement('div');
+        body.className = 'node-body';
+        node.lines.forEach(line => {
+          const row = document.createElement('div');
+          row.className = 'node-line' + (line ? '' : ' empty');
+          row.textContent = line || 'empty';
+          body.appendChild(row);
+        });
+        el.appendChild(body);
+        // Output connector
+        const cOut = document.createElement('div');
+        cOut.className = `conn conn-out${node.outputTarget ? ' live' : ''}`;
+        cOut.addEventListener('mousedown', e => startWire(e, node.id, 'out'));
+        el.appendChild(cOut);
+      } else {
+        // Choice rows
+        node.choices.forEach((c, ci) => {
+          const row = document.createElement('div');
+          row.className = 'choice-row';
+          const txt = document.createElement('span');
+          txt.className = 'choice-txt';
+          txt.textContent = `→ ${c.text}`;
+          row.appendChild(txt);
+          const cC = document.createElement('div');
+          cC.className = `conn conn-choice${c.target ? ' live' : ''}`;
+          cC.addEventListener('mousedown', e => startWire(e, node.id, 'choice', ci));
+          row.appendChild(cC);
+          el.appendChild(row);
+        });
+      }
+
+       // Drag
+       el.addEventListener('mousedown', e => {
+         if (e.button !== 0) return;
+         e.stopPropagation();
+         if (S.spaceDown) {
+           S.panSt = { sx: e.clientX, sy: e.clientY, px: S.pan.x, py: S.pan.y }; return;
+         }
+         S.selectedId = node.id; S.selectedConn = null; S.leftTab = 'node';
+         const p = sc2c(e.clientX, e.clientY);
+         S.drag = { nid: node.id, ox: p.x - node.x, oy: p.y - node.y };
+         updateSel(); renderPanel();
+       });
+       
+       // Double-click to edit on mobile
+       el.addEventListener('dblclick', e => {
+         e.stopPropagation();
+         if (isMobile()) {
+           S.selectedId = node.id;
+           S.selectedConn = null;
+           S.wire = null; // clear wire
+           S.leftTab = 'dlg'; // Ensure left panel shows dialogue list if opened
+           updateSel();
+           updateStatus();
+           // Hide left panel to avoid showing two edit panels
+           document.getElementById('left-panel').classList.remove('mob-open');
+           openSheet();
+         }
+       });
+      return el;
+    }
+
+    function updateSel() {
+      document.querySelectorAll('.node').forEach(el => {
+        const n = nodes().find(x => x.id === el.dataset.nid); if (!n) return;
+        el.className = `node${n.type === 'text' ? '' : ' choice-node'}${el.dataset.nid === S.selectedId ? ' selected' : ''}`;
+      });
+    }
+
+    /* ─── SVG Connections ─────────────────────────────────── */
+    function renderConns(ns) {
+      const svg = document.getElementById('conn-svg');
+      svg.innerHTML = '';
+
+      ns.forEach(node => {
+        if (node.type === 'text' && node.outputTarget) {
+          const tgt = ns.find(n => n.id === node.outputTarget); if (!tgt) return;
+          drawConn(svg, outPt(node), inPt(tgt), `${node.id}-out`, '#00a884');
+        }
+        if (node.type === 'choice') {
+          node.choices.forEach((c, ci) => {
+            if (!c.target) return;
+            const tgt = ns.find(n => n.id === c.target); if (!tgt) return;
+            drawConn(svg, outPt(node, ci), inPt(tgt), `${node.id}-${ci}-out`, '#ffb74d');
+          });
+        }
+      });
+
+      // Temp wire
+      if (S.wire) {
+        const fn = ns.find(n => n.id === S.wire.fid);
+        if (fn) {
+          const fp = S.wire.type === 'out' ? outPt(fn) : outPt(fn, S.wire.ci);
+          const p = mkSvg('path');
+          p.setAttribute('d', bezD(fp.x, fp.y, S.wire.mx, S.wire.my));
+          p.setAttribute('stroke', '#64ffda'); p.setAttribute('stroke-width', '1.5');
+          p.setAttribute('fill', 'none'); p.setAttribute('stroke-dasharray', '6 4');
+          p.setAttribute('opacity', '0.75'); p.style.pointerEvents = 'none';
+          svg.appendChild(p);
+        }
+      }
+    }
+
+    function drawConn(svg, f, t, key, color) {
+      const isSel = S.selectedConn === key;
+      const mx = (f.x + t.x) / 2, my = (f.y + t.y) / 2;
+      const g = mkSvg('g'); g.style.cursor = 'pointer';
+
+      // Wide invisible hit path
+      const hit = mkSvg('path');
+      hit.setAttribute('d', bezD(f.x, f.y, t.x, t.y));
+      hit.setAttribute('stroke', 'rgba(255,255,255,0.01)');
+      hit.setAttribute('stroke-width', '16'); hit.setAttribute('fill', 'none');
+      hit.setAttribute('pointer-events', 'stroke');
+      hit.addEventListener('click', e => {
+        e.stopPropagation();
+        S.selectedConn = (S.selectedConn === key) ? null : key;
+        renderConns(nodes());
+      });
+      g.appendChild(hit);
+
+      // Visible path
+      const path = mkSvg('path');
+      path.setAttribute('d', bezD(f.x, f.y, t.x, t.y));
+      path.setAttribute('stroke', isSel ? '#64ffda' : color);
+      path.setAttribute('stroke-width', isSel ? '2.5' : '1.5');
+      path.setAttribute('fill', 'none'); path.setAttribute('opacity', '0.9');
+      path.style.pointerEvents = 'none';
+      g.appendChild(path);
+
+      // Delete circle when selected
+      if (isSel) {
+        const bg = mkSvg('circle');
+        bg.setAttribute('cx', mx); bg.setAttribute('cy', my); bg.setAttribute('r', '12');
+        bg.setAttribute('fill', 'rgba(0,0,0,0.7)'); bg.style.pointerEvents = 'none';
+        g.appendChild(bg);
+        const del = mkSvg('circle');
+        del.setAttribute('cx', mx); del.setAttribute('cy', my); del.setAttribute('r', '9');
+        del.setAttribute('fill', '#ff6b6b'); del.setAttribute('stroke', '#fff');
+        del.setAttribute('stroke-width', '1.5');
+        del.style.cursor = 'pointer'; del.style.pointerEvents = 'all';
+        del.addEventListener('click', e => {
+          e.stopPropagation();
+          disconnByKey(key);
+          S.selectedConn = null;
+          renderConns(nodes());
+        });
+        g.appendChild(del);
+      }
+      svg.appendChild(g);
+    }
+
+    function disconnByKey(key) {
+      const d = dlg(); if (!d) return;
+      d.nodes.forEach(node => {
+        if (key === `${node.id}-out`) { node.outputTarget = null; save(); return; }
+        node.choices?.forEach((c, ci) => {
+          if (key === `${node.id}-${ci}-out`) { c.target = null; save(); }
+        });
+      });
+    }
+
+    function mkSvg(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+
+    /* ─── Wire creation ───────────────────────────────────── */
+    function startWire(e, fid, type, ci = 0) {
+      e.stopPropagation(); e.preventDefault();
+      const ns = nodes();
+      const nd = ns.find(n => n.id === fid); if (!nd) return;
+      const op = type === 'out' ? outPt(nd) : outPt(nd, ci);
+      // Disconnect existing
+      if (type === 'out') nd.outputTarget = null;
+      else nd.choices[ci].target = null;
+      save();
+      S.wire = { fid, type, ci, mx: op.x, my: op.y };
+      // Highlight all input connectors
+      document.querySelectorAll('.conn-in').forEach(el => {
+        const nid = el.closest('.node')?.dataset.nid;
+        if (nid && nid !== fid) el.classList.add('wire-hi');
+      });
+      renderConns(ns);
+    }
+
+    /* ─── Status bar ──────────────────────────────────────── */
+    function updateStatus() {
+      const el = document.getElementById('status-bar');
+      if (!S.activeId) { el.innerHTML = ''; return; }
+      const ns = nodes(), sel = ns.find(n => n.id === S.selectedId);
+      let h = `<div class="chip">${ns.length} NODE${ns.length !== 1 ? 'S' : ''}`;
+      if (sel) h += ` · ${sel.type.toUpperCase()} SELECTED`;
+      if (S.wire) h += ` · DRAWING WIRE`;
+      h += `</div>`;
+      if (S.flash) h += `<div class="chip flash">${S.flash}</div>`;
+      el.innerHTML = h;
+    }
+
+    /* ─── Zoom ────────────────────────────────────────────── */
+    function setZoom(nz) {
+      S.zoom = Math.max(0.08, Math.min(6, nz));
+      applyTransform();
+    }
+    function resetView() { S.zoom = 1; S.pan = { x: 160, y: 100 }; applyTransform(); }
+
+    /* ─── Dialogue form modal ─────────────────────────────── */
+    function openForm(mode, id, name) {
+      S.formMode = mode; S.formId = id || null;
+      document.getElementById('form-title').textContent = mode === 'add' ? 'NEW DIALOGUE' : 'RENAME DIALOGUE';
+      document.getElementById('form-input').value = name || '';
+      document.getElementById('form-ok').textContent = mode === 'add' ? 'Create' : 'Save';
+      document.getElementById('modal-form').classList.add('open');
+      setTimeout(() => document.getElementById('form-input').focus(), 40);
+    }
+    function closeForm() { document.getElementById('modal-form').classList.remove('open'); }
+    function submitForm() {
+      const name = document.getElementById('form-input').value.trim(); if (!name) return;
+      if (S.formMode === 'add') createDlg(name); else renameDlg(S.formId, name);
+      closeForm();
+    }
+
+    /* ─── Help modal ──────────────────────────────────────── */
+    const SHORTS = [
+      ['N', 'Add new Text node'], ['C', 'Add new Choice node'],
+      ['Delete / ⌫', 'Delete selected node'],
+      ['Ctrl/⌘ + X', 'Cut selected node'], ['Ctrl/⌘ + V', 'Paste node'],
+      ['Escape', 'Deselect / cancel wire'], ['Space + Drag', 'Pan canvas'],
+      ['Scroll Wheel', 'Zoom in / out'], ['+  or  =', 'Zoom in'], ['−', 'Zoom out'],
+      ['0', 'Reset view (100%)'],
+    ];
+    function renderShortcuts() {
+      document.getElementById('sc-list').innerHTML =
+        SHORTS.map(([k, d]) => `<div class="sc-row">
+      <code class="sc-key">${k}</code><span class="sc-desc">${d}</span>
+    </div>`).join('');
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       MAIN RENDER
+       ═══════════════════════════════════════════════════════ */
+    function render() { renderPanel(); renderCanvas(); }
+
+    /* ═══════════════════════════════════════════════════════
+       EVENT SETUP
+       ═══════════════════════════════════════════════════════ */
+    function setup() {
+      // Canvas backdrop click
+      document.getElementById('canvas-wrap').addEventListener('mousedown', e => {
+        if (e.button === 1 || S.spaceDown) {
+          e.preventDefault();
+          S.panSt = { sx: e.clientX, sy: e.clientY, px: S.pan.x, py: S.pan.y }; return;
+        }
+        const tgt = e.target;
+        if (tgt.id === 'canvas-wrap' || tgt.id === 'canvas-world' || tgt.id === 'conn-svg' || tgt.tagName === 'svg') {
+          S.selectedId = null; S.selectedConn = null;
+          updateSel(); renderPanel(); renderConns(nodes());
+        }
+      });
+
+      // Wheel zoom (must be non-passive)
+      document.getElementById('canvas-wrap').addEventListener('wheel', e => {
+        e.preventDefault();
+        const r = document.getElementById('canvas-wrap').getBoundingClientRect();
+        const mx = e.clientX - r.left, my = e.clientY - r.top;
+        const oz = S.zoom;
+        S.zoom = Math.max(0.08, Math.min(6, oz * (e.deltaY > 0 ? 0.9 : 1.1)));
+        S.pan.x = mx - (mx - S.pan.x) * (S.zoom / oz);
+        S.pan.y = my - (my - S.pan.y) * (S.zoom / oz);
+        applyTransform();
+      }, { passive: false });
+
+      // Global move
+      window.addEventListener('mousemove', e => {
+        // Ink panel resize
+        if (S.inkResizeSt) {
+          const panel = document.getElementById('ink-panel');
+          const delta = S.inkResizeSt.sx - e.clientX;
+          panel.style.width = Math.max(200, Math.min(720, S.inkResizeSt.initW + delta)) + 'px';
+          return;
+        }
+        if (S.panSt) {
+          S.pan.x = S.panSt.px + e.clientX - S.panSt.sx;
+          S.pan.y = S.panSt.py + e.clientY - S.panSt.sy;
+          applyTransform(); return;
+        }
+        if (S.drag) {
+          const p = sc2c(e.clientX, e.clientY);
+          const ns = nodes();
+          const node = ns.find(n => n.id === S.drag.nid);
+          if (node) {
+            node.x = p.x - S.drag.ox; node.y = p.y - S.drag.oy;
+            const el = document.querySelector(`.node[data-nid="${S.drag.nid}"]`);
+            if (el) { el.style.left = node.x + 'px'; el.style.top = node.y + 'px'; }
+            renderConns(ns);
+          }
+          return;
+        }
+        if (S.wire) {
+          const p = sc2c(e.clientX, e.clientY);
+          S.wire.mx = p.x; S.wire.my = p.y;
+          renderConns(nodes());
+        }
+      });
+
+      // Global up
+      window.addEventListener('mouseup', e => {
+        if (S.inkResizeSt) {
+          S.inkResizeSt = null;
+          document.getElementById('ink-resize').classList.remove('dragging');
+          return;
+        }
+        if (S.panSt) { S.panSt = null; return; }
+        if (S.drag) { save(); S.drag = null; return; }
+        if (S.wire) {
+          const p = sc2c(e.clientX, e.clientY);
+          const ns = nodes();
+          let hit = null;
+          for (const n of ns) {
+            if (n.id === S.wire.fid) continue;
+            const ip = inPt(n);
+            if (Math.hypot(p.x - ip.x, p.y - ip.y) < 18) { hit = n; break; }
+          }
+          if (hit) {
+            const src = ns.find(n => n.id === S.wire.fid);
+            if (src) {
+              if (S.wire.type === 'out') src.outputTarget = hit.id;
+              else src.choices[S.wire.ci].target = hit.id;
+              save();
+            }
+          }
+          S.wire = null;
+          renderCanvas(); // rebuilds nodes (removes wire-hi classes too)
+        }
+      });
+
+      // Keyboard
+      window.addEventListener('keydown', e => {
+        if (e.key === ' ' && !['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+          e.preventDefault(); S.spaceDown = true;
+          document.getElementById('space-hint').style.display = 'block';
+        }
+        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+        if (e.key === 'Escape') {
+          S.selectedId = null; S.selectedConn = null; S.wire = null;
+          document.querySelectorAll('.conn-in').forEach(el => el.classList.remove('wire-hi'));
+          render(); return;
+        }
+
+        const ns = nodes();
+
+        if ((e.key === 'Delete' || e.key === 'Backspace') && S.selectedId) {
+          delNode(S.selectedId); S.selectedId = null; render();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'x' && S.selectedId) {
+          const nd = ns.find(n => n.id === S.selectedId);
+          if (nd) {
+            S.clipboard = JSON.parse(JSON.stringify(nd)); S.clipboard.id = uid();
+            delNode(S.selectedId); S.selectedId = null; render(); flash('✂ CUT');
+          }
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'v' && S.clipboard) {
+          const d = dlg(); if (!d) return;
+          const p = JSON.parse(JSON.stringify(S.clipboard));
+          p.id = uid(); p.x += 30; p.y += 30;
+          S.clipboard = JSON.parse(JSON.stringify(p)); S.clipboard.id = uid();
+          d.nodes.push(p); S.selectedId = p.id; save(); render(); flash('📋 PASTED');
+        }
+        if (!e.ctrlKey && !e.metaKey && e.key === 'n' && S.activeId) addNode('text');
+        if (!e.ctrlKey && !e.metaKey && e.key === 'c' && S.activeId) addNode('choice');
+        if (e.key === '+' || e.key === '=') setZoom(S.zoom * 1.15);
+        if (e.key === '-') setZoom(S.zoom / 1.15);
+        if (e.key === '0') resetView();
+      });
+      window.addEventListener('keyup', e => {
+        if (e.key === ' ') {
+          S.spaceDown = false;
+          document.getElementById('space-hint').style.display = 'none';
+        }
+      });
+
+      // Zoom buttons
+      document.getElementById('btn-zoom-in').onclick = () => setZoom(S.zoom * 1.18);
+      document.getElementById('btn-zoom-out').onclick = () => setZoom(S.zoom / 1.18);
+      document.getElementById('btn-zoom-reset').onclick = resetView;
+
+      // Help modal
+      document.getElementById('help-btn').onclick = () =>
+        document.getElementById('modal-help').classList.add('open');
+      document.getElementById('help-close').onclick = () =>
+        document.getElementById('modal-help').classList.remove('open');
+      document.getElementById('modal-help').addEventListener('click', e => {
+        if (e.target.id === 'modal-help')
+          document.getElementById('modal-help').classList.remove('open');
+      });
+
+      // Form modal
+      document.getElementById('form-cancel').onclick = closeForm;
+      document.getElementById('form-ok').onclick = submitForm;
+      document.getElementById('modal-form').addEventListener('click', e => {
+        if (e.target.id === 'modal-form') closeForm();
+      });
+      document.getElementById('form-input').addEventListener('keydown', e => {
+        if (e.key === 'Enter') submitForm();
+      });
+
+      /* ── Ink panel setup ──────────────────────────────── */
+      const inkTa = document.getElementById('ink-ta');
+      const inkHl = document.getElementById('ink-hl');
+      const inkResize = document.getElementById('ink-resize');
+
+      // Sync scroll of highlight layer with textarea
+      inkTa.addEventListener('scroll', () => {
+        inkHl.scrollTop = inkTa.scrollTop;
+        inkHl.scrollLeft = inkTa.scrollLeft;
+      }, { passive: true });
+
+      // Live syntax highlight + debounced parse
+      inkTa.addEventListener('input', () => {
+        const val = inkTa.value;
+        inkHl.innerHTML = inkHighlight(val);
+        inkHl.scrollTop = inkTa.scrollTop;
+        inkHl.scrollLeft = inkTa.scrollLeft;
+        setInkStatus('EDITING', 'editing');
+        clearTimeout(S.inkTimer);
+        S.inkTimer = setTimeout(() => {
+          try {
+            const d = dlg(); if (!d) return;
+            const newNodes = inkToNodes(val);
+            if (!newNodes.length) return;
+            d.nodes = newNodes;
+            S.selectedId = null;
+            localStorage.setItem('dlg-editor-v1', JSON.stringify(S.dialogues));
+            renderCanvas();
+            renderPanel();
+            const nc = document.getElementById('ink-node-count');
+            if (nc) nc.textContent = `${newNodes.length} NODE${newNodes.length !== 1 ? 'S' : ''}`;
+            setInkStatus('SYNCED', 'ok');
+          } catch (err) {
+            setInkStatus('ERROR', 'err');
+            console.warn('Ink parse error:', err);
+          }
+        }, 500);
+      });
+
+      // Ink resize handle
+      inkResize.addEventListener('mousedown', e => {
+        e.preventDefault();
+        const panel = document.getElementById('ink-panel');
+        S.inkResizeSt = { sx: e.clientX, initW: panel.offsetWidth };
+        inkResize.classList.add('dragging');
+      });
+    }
+
+    /* ─── Init ────────────────────────────────────────────── */
+    (function init() {
+      load();
+      renderShortcuts();
+      setup();
+      render();
+    })();
+  </script>
+</body>
+
+</html>

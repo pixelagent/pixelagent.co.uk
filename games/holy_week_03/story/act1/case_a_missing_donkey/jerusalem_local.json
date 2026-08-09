@@ -1,0 +1,72 @@
+{
+    "inkVersion": 21,
+    "root": [
+        [
+            { "->": "start" },
+            ["done", { "#f": 5, "#n": "g-0" }],
+            null
+        ],
+        "done",
+        {
+            "start": [
+                [
+                    "^The whole city is in an uproar because of these country pilgrims. They're tracking mud everywhere and throwing their clothes in the middle of the road!",
+                    "\n",
+                    "ev", "str", "^Who do you think this Galilean is?", "/str", "/ev", { "*": ".^.c-0", "flg": 20 },
+                    "ev", "str", "^The crowds are very devoted.", "/str", "/ev", { "*": ".^.c-1", "flg": 20 },
+                    {
+                        "c-0": [ "^ ", { "->": "who_is_he" }, "\n", { "#f": 5 } ],
+                        "c-1": [ "^ ", { "->": "crowd_reaction" }, "\n", { "#f": 5 } ]
+                    }
+                ],
+                { "#f": 1 }
+            ],
+            "who_is_he": [
+                [
+                    "^Everyone is yelling \"Hosanna\" like the Romans aren't watching from the Antonia tower. This Galilean teacher — who does He think He is? David? Nothing good comes from Nazareth, I'll tell you that much.",
+                    "\n",
+                    "ev", "str", "^You think this is dangerous?", "/str", "/ev", { "*": ".^.c-0", "flg": 20 },
+                    "ev", "str", "^At least people have hope.", "/str", "/ev", { "*": ".^.c-1", "flg": 20 },
+                    {
+                        "c-0": [ "^ ", { "->": "danger_path" }, "\n", { "#f": 5 } ],
+                        "c-1": [ "^ ", { "->": "closing" }, "\n", { "#f": 5 } ]
+                    }
+                ],
+                { "#f": 1 }
+            ],
+            "crowd_reaction": [
+                [
+                    "^People were hacking palm branches off the trees out toward Jericho and dragging them all the way up the path. It's a miracle someone wasn't blinded by them. And the cloaks — whose garments are those? Left right in the dirt!",
+                    "\n",
+                    "ev", "str", "^That seems disrespectful.", "/str", "/ev", { "*": ".^.c-0", "flg": 20 },
+                    "ev", "str", "^Maybe it's intentional.", "/str", "/ev", { "*": ".^.c-1", "flg": 20 },
+                    {
+                        "c-0": [ "^ ", { "->": "closing" }, "\n", { "#f": 5 } ],
+                        "c-1": [ "^ ", { "->": "who_is_he" }, "\n", { "#f": 5 } ]
+                    }
+                ],
+                { "#f": 1 }
+            ],
+            "danger_path": [
+                [
+                    "^Look, I just want to buy my grain without a mob blocking the eastern valley gate. They're calling Him a prophet, but prophets don't usually ride into town with an unauthorised parade. The noise was deafening. If the crowd doesn't calm down, the Roman garrison will come down from the walls to quiet us themselves.",
+                    "\n",
+                    "ev", "str", "^So the Pharisees do have reason to worry.", "/str", "/ev", { "*": ".^.c-0", "flg": 20 },
+                    { "c-0": [ "^ ", { "->": "closing" }, "\n", { "#f": 5 } ] }
+                ],
+                { "#f": 1 }
+            ],
+            "closing": [
+                [
+                    "^Go ask the pilgrims with the green hands. I have work to do. The Passover crowds always bring trouble — this year just seems worse than usual.",
+                    "\n",
+                    "done",
+                    { "#f": 1 }
+                ],
+                { "#f": 1 }
+            ],
+            "#f": 1
+        }
+    ],
+    "listDefs": {}
+}

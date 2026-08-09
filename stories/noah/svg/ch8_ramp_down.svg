@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- LAYER 1 BACKGROUND: Vast open sky — warm morning, post-flood -->
+  <rect x="0" y="0" width="400" height="300" fill="#c4956a"/>
+  <!-- Sky bands — warm dawn, horizon glowing -->
+  <rect x="0" y="0" width="400" height="120" fill="#fff8e0" opacity="0.55"/>
+  <rect x="0" y="0" width="400" height="60" fill="#E8B84B" opacity="0.35"/>
+  <!-- Upper sky deepens to blue -->
+  <rect x="0" y="0" width="400" height="180" fill="#7898b8" opacity="0.4"/>
+  <rect x="0" y="0" width="400" height="80" fill="#a8c0d8" opacity="0.3"/>
+
+  <!-- Horizon glow line -->
+  <rect x="0" y="158" width="400" height="10" fill="#E8B84B" opacity="0.6"/>
+  <rect x="0" y="162" width="400" height="6" fill="#fff8e0" opacity="0.4"/>
+
+  <!-- Birds in upper sky — rhythm, freedom, life returning -->
+  <!-- Bird pair 1 — upper left -->
+  <path d="M 58,38 C 63,30 72,28 77,38" stroke="#0A0812" stroke-width="2" fill="none"/>
+  <path d="M 77,38 C 82,30 91,28 96,38" stroke="#0A0812" stroke-width="2" fill="none"/>
+  <!-- Bird pair 2 — upper centre-left -->
+  <path d="M 130,22 C 135,15 143,13 148,22" stroke="#0A0812" stroke-width="2" fill="none"/>
+  <path d="M 148,22 C 153,15 161,13 166,22" stroke="#0A0812" stroke-width="2" fill="none"/>
+  <!-- Bird pair 3 — upper right -->
+  <path d="M 298,44 C 302,37 309,35 313,44" stroke="#0A0812" stroke-width="2" fill="none"/>
+  <path d="M 313,44 C 317,37 324,35 328,44" stroke="#0A0812" stroke-width="2" fill="none"/>
+  <!-- Small distant bird — far upper right -->
+  <path d="M 360,28 C 363,23 368,22 371,28" stroke="#0A0812" stroke-width="1.5" fill="none"/>
+
+  <!-- Clouds — bright, open, few -->
+  <ellipse cx="310" cy="72" rx="60" ry="16" fill="#fff8e0" stroke="#c4b080" stroke-width="1.5" opacity="0.9"/>
+  <ellipse cx="348" cy="62" rx="38" ry="12" fill="#ffffff" stroke="#c4b080" stroke-width="1" opacity="0.85"/>
+  <ellipse cx="80" cy="88" rx="44" ry="12" fill="#fff8e0" stroke="#c4b080" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- LAYER 2 MIDGROUND: Earth — new, muddy, first green -->
+  <rect x="0" y="168" width="400" height="132" fill="#3d2808"/>
+  <!-- Lighter muddy top layer -->
+  <rect x="0" y="168" width="400" height="22" fill="#5a3c14" opacity="0.8"/>
+  <!-- Damp earth tone -->
+  <ellipse cx="280" cy="182" rx="160" ry="18" fill="#4a3010" opacity="0.6"/>
+
+  <!-- ★ New green shoots — first life on dry land -->
+  <!-- Left ground -->
+  <ellipse cx="30" cy="184" rx="18" ry="5" fill="#4A6A2A" opacity="0.9"/>
+  <line x1="30" y1="184" x2="28" y2="173" stroke="#7EC850" stroke-width="2" stroke-linecap="round"/>
+  <line x1="34" y1="183" x2="35" y2="172" stroke="#4A6A2A" stroke-width="2" stroke-linecap="round"/>
+  <line x1="26" y1="185" x2="22" y2="175" stroke="#7EC850" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Right ground shoots -->
+  <ellipse cx="340" cy="186" rx="22" ry="5" fill="#4A6A2A" opacity="0.8"/>
+  <line x1="340" y1="186" x2="338" y2="175" stroke="#7EC850" stroke-width="2" stroke-linecap="round"/>
+  <line x1="345" y1="184" x2="347" y2="174" stroke="#4A6A2A" stroke-width="2" stroke-linecap="round"/>
+  <line x1="335" y1="186" x2="331" y2="176" stroke="#7EC850" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Far right patch -->
+  <ellipse cx="390" cy="190" rx="16" ry="4" fill="#4A6A2A" opacity="0.7"/>
+  <!-- Scattered small sprouts -->
+  <line x1="265" y1="185" x2="264" y2="176" stroke="#7EC850" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="278" y1="183" x2="280" y2="174" stroke="#4A6A2A" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Animal tracks in mud — rhythm of repeated marks -->
+  <ellipse cx="210" cy="196" rx="5" ry="3" fill="#2a1808" opacity="0.7"/>
+  <ellipse cx="220" cy="202" rx="5" ry="3" fill="#2a1808" opacity="0.6"/>
+  <ellipse cx="230" cy="196" rx="4" ry="2.5" fill="#2a1808" opacity="0.6"/>
+  <ellipse cx="242" cy="201" rx="4" ry="2.5" fill="#2a1808" opacity="0.5"/>
+  <ellipse cx="255" cy="196" rx="4" ry="2" fill="#2a1808" opacity="0.5"/>
+  <ellipse cx="268" cy="200" rx="3.5" ry="2" fill="#2a1808" opacity="0.4"/>
+  <!-- Second track line — other animal -->
+  <ellipse cx="300" cy="194" rx="4" ry="2.5" fill="#2a1808" opacity="0.5"/>
+  <ellipse cx="312" cy="199" rx="4" ry="2.5" fill="#2a1808" opacity="0.4"/>
+  <ellipse cx="325" cy="194" rx="3.5" ry="2" fill="#2a1808" opacity="0.4"/>
+
+  <!-- LAYER 3 FOREGROUND: Ark and ramp — upper left, receding diagonally -->
+  <!-- Ark hull — large, anchored upper-left, receding into background -->
+  <rect x="0" y="82" width="200" height="100" rx="5" fill="#6b4420" stroke="#0A0812" stroke-width="3"/>
+  <!-- Ark upper structure -->
+  <rect x="10" y="62" width="176" height="26" rx="3" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Ark roof peak -->
+  <path d="M 22,62 L 98,40 L 186,62 Z" fill="#6b4420" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Ark plank lines -->
+  <line x1="0" y1="106" x2="200" y2="106" stroke="#4a2e10" stroke-width="1.5"/>
+  <line x1="0" y1="126" x2="200" y2="126" stroke="#4a2e10" stroke-width="1.5"/>
+  <line x1="0" y1="148" x2="200" y2="148" stroke="#4a2e10" stroke-width="1.5"/>
+  <line x1="0" y1="168" x2="200" y2="168" stroke="#4a2e10" stroke-width="1.5"/>
+
+  <!-- Ramp — diagonal from ark to ground, upper-right to lower-left: movement -->
+  <polygon points="88,182 128,150 158,150 122,182" fill="#C87050" stroke="#0A0812" stroke-width="3"/>
+  <!-- Ramp plank lines — rhythm -->
+  <line x1="94" y1="180" x2="132" y2="152" stroke="#8B5E2F" stroke-width="2"/>
+  <line x1="102" y1="182" x2="140" y2="153" stroke="#8B5E2F" stroke-width="2"/>
+  <line x1="112" y1="182" x2="150" y2="153" stroke="#8B5E2F" stroke-width="2"/>
+  <!-- Ramp side rails -->
+  <line x1="88" y1="182" x2="128" y2="150" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="122" y1="182" x2="158" y2="150" stroke="#0A0812" stroke-width="2.5"/>
+
+  <!-- ★ FOCAL POINT: Noah's foot touching earth — close-up, lower-left area -->
+  <!-- Noah figure — slightly left of centre, stepping off ramp -->
+  <!-- Robe — lower half prominent in foreground -->
+  <polygon points="130,152 118,210 150,210 146,152" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Tunic upper body -->
+  <rect x="120" y="132" width="30" height="24" rx="3" fill="#C87050" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Head — back slightly visible, turned toward earth -->
+  <circle cx="135" cy="124" r="14" fill="#D4956A" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Hair/beard — white -->
+  <ellipse cx="135" cy="118" rx="13" ry="5" fill="#EEE8DC" stroke="#0A0812" stroke-width="2"/>
+  <path d="M 122,124 C 120,132 121,140 127,144 C 124,136 123,128 126,124 Z" fill="#EEE8DC" stroke="#0A0812" stroke-width="1.5"/>
+  <path d="M 148,124 C 150,132 149,140 143,144 C 146,136 147,128 144,124 Z" fill="#EEE8DC" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- ★ THE FOOT — close-up focal: leading foot descending, just touching muddy earth -->
+  <!-- Back foot still on ramp -->
+  <ellipse cx="142" cy="205" rx="10" ry="4" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+  <!-- Sandal strap detail -->
+  <line x1="135" y1="204" x2="150" y2="205" stroke="#6b4420" stroke-width="2"/>
+
+  <!-- Leading foot — flat on new earth, the moment of landing -->
+  <ellipse cx="124" cy="210" rx="13" ry="5" fill="#D4956A" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Sandal straps on the touching foot -->
+  <line x1="114" y1="209" x2="136" y2="211" stroke="#6b4420" stroke-width="2.5"/>
+  <line x1="116" y1="212" x2="122" y2="207" stroke="#6b4420" stroke-width="1.5"/>
+  <line x1="126" y1="213" x2="130" y2="207" stroke="#6b4420" stroke-width="1.5"/>
+  <!-- Foot impression — slight mud displacement around foot -->
+  <ellipse cx="124" cy="213" rx="15" ry="4" fill="#2a1808" opacity="0.4"/>
+
+  <!-- Staff — visible at frame right edge, diagonal -->
+  <line x1="160" y1="125" x2="175" y2="215" stroke="#6b4420" stroke-width="4" stroke-linecap="round"/>
+  <line x1="160" y1="125" x2="175" y2="215" stroke="#0A0812" stroke-width="1.5" fill="none"/>
+  <!-- Staff tip on ground -->
+  <ellipse cx="175" cy="216" rx="4" ry="2" fill="#0A0812"/>
+
+  <!-- Noah's outstretched arm — balance -->
+  <line x1="138" y1="142" x2="160" y2="152" stroke="#D4956A" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="163" cy="154" rx="7" ry="4.5" fill="#D4956A" stroke="#0A0812" stroke-width="2"/>
+
+</svg>

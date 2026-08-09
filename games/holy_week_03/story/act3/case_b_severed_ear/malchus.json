@@ -1,0 +1,96 @@
+{
+  "inkVersion": 21,
+  "_comments": {
+    "story": "Act III - The encounter with Malchus after his ear was severed by Peter.",
+    "characters": ["Malchus"],
+    "bible_verses": "John 18:10-11, Luke 22:50-51",
+    "prophecies": "Isaiah 53:7 - 'He was oppressed, and he was afflicted, yet he opened not his mouth'"
+  },
+  "root": [
+    [
+      {
+        "->": "start"
+      },
+      [
+        "done",
+        {
+          "#f": 5,
+          "#n": "g-0"
+        }
+      ],
+      null
+    ],
+    "done",
+    {
+      "start": [
+        [
+          "^I am Malchus, servant to the High Priest.",
+          "\n",
+          "^Tonight I came to arrest a man my master called a rebel.",
+          "\n",
+          "^Now I speak with a savior who refused to let my wound stay open.",
+          "\n",
+          "^My severed ear still remembers the cold steel of a disciple's knife.",
+          "\n",
+          "^The Galilean Peter struck me in the darkness.",
+          "\n",
+          "^I fell into the mud, clutching the side of my head.",
+          "\n",
+          "^Then He touched me. And my flesh was whole again.",
+          "\n",
+          "ev",
+          "str",
+          "^What did you see in that garden?",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-0",
+            "flg": 20
+          },
+          "ev",
+          "str",
+          "^How do you account for the healing?",
+          "/str",
+          "/ev",
+          {
+            "*": ".^.c-1",
+            "flg": 20
+          },
+          {
+            "c-0": [
+              "^ ",
+              {
+                "->": "closing"
+              },
+              "\n",
+              {
+                "#f": 5
+              }
+            ],
+            "c-1": [
+              "^ ",
+              {
+                "->": "closing"
+              },
+              "\n",
+              {
+                "#f": 5
+              }
+            ]
+          }
+        ],
+        {
+          "#f": 1
+        }
+      ],
+      "closing": [
+        "done",
+        {
+          "#f": 1
+        }
+      ],
+      "#f": 1
+    }
+  ],
+  "listDefs": {}
+}

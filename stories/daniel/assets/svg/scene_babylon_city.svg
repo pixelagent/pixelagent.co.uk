@@ -1,0 +1,60 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sky gradient — deep contrast bg to pale horizon -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0500"/>
+      <stop offset="100%" stop-color="#3d1e08"/>
+    </linearGradient>
+    <linearGradient id="moonGlow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#FFD84D" stop-opacity=".6"/>
+      <stop offset="100%" stop-color="#FFD84D" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- BG -->
+  <rect width="300" height="200" fill="url(#sky)"/>
+  <!-- Moon halo — emphasis/focal light source -->
+  <circle cx="242" cy="28" r="22" fill="#FFD84D" opacity=".08"/>
+  <circle cx="242" cy="28" r="14" fill="#FFD84D" opacity=".15"/>
+  <circle cx="242" cy="28" r="8"  fill="#FFD84D" opacity=".9"/>
+  <!-- Stars — rhythm, white space -->
+  <circle cx="18"  cy="12" r="1.2" fill="white" opacity=".7"/>
+  <circle cx="55"  cy="22" r="1"   fill="white" opacity=".6"/>
+  <circle cx="100" cy="10" r="1.5" fill="white" opacity=".8"/>
+  <circle cx="140" cy="18" r="1"   fill="white" opacity=".5"/>
+  <circle cx="190" cy="8"  r="1.2" fill="white" opacity=".6"/>
+  <circle cx="210" cy="22" r="1"   fill="white" opacity=".4"/>
+  <circle cx="280" cy="16" r="1.5" fill="white" opacity=".7"/>
+  <!-- Ground plane — proportion: ground is 1/3 of height -->
+  <rect x="0" y="148" width="300" height="52" fill="#2b1d0c"/>
+  <rect x="0" y="146" width="300" height="4"  fill="#4a2e10" opacity=".6"/>
+  <!-- Ziggurat BG — large, hierarchy: distant/muted -->
+  <rect x="160" y="80"  width="110" height="68" fill="#3a2010" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="172" y="68"  width="86"  height="16" fill="#4a2810" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="184" y="58"  width="62"  height="14" fill="#552e10" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="196" y="50"  width="38"  height="12" fill="#5c3412" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Small windows — rhythm, repetition -->
+  <rect x="170" y="100" width="7" height="10" fill="#FFD84D" opacity=".4"/>
+  <rect x="185" y="100" width="7" height="10" fill="#FFD84D" opacity=".3"/>
+  <rect x="200" y="100" width="7" height="10" fill="#FFD84D" opacity=".5"/>
+  <rect x="215" y="100" width="7" height="10" fill="#FFD84D" opacity=".3"/>
+  <rect x="230" y="100" width="7" height="10" fill="#FFD84D" opacity=".4"/>
+  <!-- Foreground building L — dominant vertical, contrast -->
+  <rect x="28"  y="72"  width="58" height="76" fill="#5c4033" stroke="#0A0812" stroke-width="2.5"/>
+  <polygon points="28,72 57,38 86,72" fill="#8b5a2b" stroke="#0A0812" stroke-width="2"/>
+  <!-- Windows L — pattern -->
+  <rect x="36"  y="84"  width="10" height="14" fill="#FFD84D" opacity=".8"/>
+  <rect x="52"  y="84"  width="10" height="14" fill="#FFD84D" opacity=".6"/>
+  <rect x="68"  y="84"  width="10" height="14" fill="#FFD84D" opacity=".7"/>
+  <rect x="36"  y="106" width="10" height="14" fill="#FFD84D" opacity=".5"/>
+  <rect x="52"  y="106" width="10" height="14" fill="#FFD84D" opacity=".4"/>
+  <rect x="68"  y="106" width="10" height="14" fill="#FFD84D" opacity=".6"/>
+  <!-- Mid building C — balance: medium scale between L and BG -->
+  <rect x="100" y="60"  width="52" height="88" fill="#4d3520" stroke="#0A0812" stroke-width="2.5"/>
+  <polygon points="100,60 126,30 152,60" fill="#6b4226" stroke="#0A0812" stroke-width="2"/>
+  <rect x="108" y="74"  width="11" height="15" fill="#FFD84D" opacity=".8"/>
+  <rect x="127" y="74"  width="11" height="15" fill="#FFD84D" opacity=".6"/>
+  <rect x="108" y="98"  width="11" height="15" fill="#FFD84D" opacity=".5"/>
+  <rect x="127" y="98"  width="11" height="15" fill="#FFD84D" opacity=".7"/>
+  <!-- Ground stripe — unity line across all buildings -->
+  <rect x="0" y="148" width="300" height="2" fill="#FFD84D" opacity=".2"/>
+</svg>

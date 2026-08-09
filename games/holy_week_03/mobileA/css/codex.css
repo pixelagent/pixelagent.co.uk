@@ -1,0 +1,115 @@
+/* ─── Prophecy Codex panel ─── */
+
+.codex-panel {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-top: 4px;
+}
+
+.codex-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.codex-progress {
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  color: var(--blue);
+}
+
+.prophecy-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prophecy-card {
+  background: var(--surface3);
+  border: 1.5px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.prophecy-card:hover {
+  background: var(--surface2);
+}
+
+.prophecy-card:active {
+  transform: scale(0.97);
+}
+
+.prophecy-card:hover:not(.locked) {
+  background: var(--surface2);
+  border-color: var(--gold);
+}
+
+.prophecy-card:active:not(.locked) {
+  transform: scale(0.97);
+}
+
+.prophecy-card.locked {
+  opacity: 0.4;
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
+
+.prophecy-card.discovered {
+  border-color: var(--blue);
+}
+
+.prophecy-card-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.prophecy-card-info {
+  flex: 1;
+}
+
+.prophecy-card-reference {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.prophecy-card-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-family: var(--font-mono);
+}
+
+.prophecy-card-status {
+  font-size: 1.1rem;
+}
+
+.codex-match-column .slot-icon .icon-svg {
+  width: 32px;
+  height: 32px;
+}
+
+.sel-badge {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--bg);
+  background: var(--blue);
+  border-radius: 3px;
+  padding: 0 3px;
+  line-height: 1.4;
+}
+
+.selected-b .sel-badge {
+  background: var(--gold);
+}

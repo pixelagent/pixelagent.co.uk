@@ -1,0 +1,106 @@
+{
+    "caseId": "resurrection",
+    "locationId": "garden",
+    "locationTitle": "Garden Tomb, Golgotha",
+    "timeOfDay": "dawn",
+    "environment": {
+        "floorColor": "#1a2a1a",
+        "skyColor": "#f5c842",
+        "ambientLight": 0.7
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "Tomb Interior",
+            "pos": [
+                0,
+                1.5,
+                -10
+            ],
+            "scale": [
+                6,
+                4,
+                8
+            ],
+            "color": "#0a0a0a"
+        },
+        {
+            "type": "cylinder",
+            "name": "Moved Stone",
+            "pos": [
+                -6,
+                2,
+                -6
+            ],
+            "scale": [
+                4,
+                0.8,
+                4
+            ],
+            "color": "#888888",
+            "rotation": [
+                0,
+                0,
+                1.57
+            ]
+        }
+    ],
+    "sprites": [
+        {
+            "id": "angel_light",
+            "type": "effect",
+            "pos": [
+                0,
+                2,
+                -7
+            ],
+            "scale": [
+                3,
+                5
+            ],
+            "texture": "divine_glow"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "mary_magdalene",
+            "name": "Mary",
+            "pos": [
+                3,
+                0,
+                -4
+            ],
+            "color": "#a78bfa",
+            "description": "Mary looking toward the tomb",
+            "unlocksEvidence": [
+                "empty_linens",
+                "shattered_seal"
+            ],
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "empty_linens",
+            "pos": [
+                0,
+                0.5,
+                -9
+            ],
+            "model": "folded_linen",
+            "glowColor": "#ffffff",
+            "hint": "Grave clothes left in a precise arrangement"
+        },
+        {
+            "id": "shattered_seal",
+            "pos": [
+                -5,
+                0.1,
+                -5.5
+            ],
+            "model": "wax_fragments",
+            "glowColor": "#f46060",
+            "hint": "The Roman governor's broken authority"
+        }
+    ]
+}

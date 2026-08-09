@@ -1,0 +1,253 @@
+<svg viewBox="0 0 600 400"
+     xmlns="http://www.w3.org/2000/svg"
+     width="100%"
+     height="100%">
+
+  <defs>
+
+    <linearGradient id="sky"
+                    x1="0" y1="0"
+                    x2="0" y2="1">
+      <stop offset="0%" stop-color="#204b67"/>
+      <stop offset="55%" stop-color="#4f7994"/>
+      <stop offset="100%" stop-color="#e7b26d"/>
+    </linearGradient>
+
+    <radialGradient id="sunGlow">
+      <stop offset="0%" stop-color="#fff0a5" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#fff0a5" stop-opacity="0"/>
+    </radialGradient>
+
+  </defs>
+
+  <!-- Sky -->
+  <rect width="600"
+        height="400"
+        fill="url(#sky)"/>
+
+  <!-- Huge hot sun -->
+  <circle cx="470"
+          cy="95"
+          r="55"
+          fill="#FFD84D"
+          stroke="#0A0812"
+          stroke-width="3"/>
+
+  <circle cx="470"
+          cy="95"
+          r="120"
+          fill="url(#sunGlow)"
+          opacity="0.55"/>
+
+  <!-- Heat rays -->
+  <g opacity="0.25">
+
+    <path d="M470 95 L390 350 L425 350 Z"
+          fill="#fff7d8"/>
+
+    <path d="M470 95 L470 350 L500 350 Z"
+          fill="#fff7d8"/>
+
+    <path d="M470 95 L540 350 L575 350 Z"
+          fill="#fff7d8"/>
+
+  </g>
+
+  <!-- Distant horizon -->
+  <path d="
+      M0 250
+      Q150 220 300 240
+      T600 235
+      L600 400
+      L0 400 Z"
+      fill="#355062"/>
+
+  <!-- Main foreground hill -->
+  <path d="
+      M0 290
+      Q120 240 240 275
+      Q370 310 600 245
+      L600 400
+      L0 400 Z"
+      fill="#14212c"
+      stroke="#0A0812"
+      stroke-width="4"/>
+
+  <!-- DEAD TREE -->
+  <g transform="translate(295 145)">
+
+    <!-- trunk -->
+    <path d="
+         M0 170
+         L5 40
+
+         M0 60
+         L-55 15
+
+         M0 85
+         L65 30
+
+         M5 105
+         L-25 70
+
+         M12 70
+         L45 55"
+         fill="none"
+         stroke="#764520"
+         stroke-width="10"
+         stroke-linecap="round"/>
+
+    <!-- fallen leaves -->
+
+    <ellipse cx="-65"
+             cy="170"
+             rx="18"
+             ry="10"
+             fill="#8e5628"
+             stroke="#0A0812"
+             stroke-width="2"/>
+
+    <ellipse cx="70"
+             cy="170"
+             rx="18"
+             ry="10"
+             fill="#8e5628"
+             stroke="#0A0812"
+             stroke-width="2"/>
+
+    <ellipse cx="5"
+             cy="178"
+             rx="16"
+             ry="10"
+             fill="#8e5628"
+             stroke="#0A0812"
+             stroke-width="2"/>
+
+  </g>
+
+  <!-- Ghost shape showing lost shade -->
+  <ellipse cx="300"
+           cy="265"
+           rx="130"
+           ry="45"
+           fill="#000000"
+           opacity="0.12"
+           stroke-dasharray="8 8"/>
+
+  <!-- Jonah -->
+  <g transform="translate(120 215)">
+
+    <!-- head -->
+    <circle cx="0"
+            cy="0"
+            r="16"
+            fill="#f2d1aa"
+            stroke="#0A0812"
+            stroke-width="3"/>
+
+    <!-- annoyed eyebrows -->
+    <line x1="-8"
+          y1="-6"
+          x2="-2"
+          y2="-2"
+          stroke="#0A0812"
+          stroke-width="2"/>
+
+    <line x1="2"
+          y1="-2"
+          x2="8"
+          y2="-6"
+          stroke="#0A0812"
+          stroke-width="2"/>
+
+    <!-- shouting mouth -->
+    <circle cx="0"
+            cy="8"
+            r="4"
+            fill="#0A0812"/>
+
+    <!-- robe -->
+    <path d="
+          M-24 18
+          L24 18
+          L30 95
+          L-30 95 Z"
+          fill="#58758d"
+          stroke="#0A0812"
+          stroke-width="3"/>
+
+    <!-- dramatic arms -->
+
+    <line x1="-22"
+          y1="40"
+          x2="-55"
+          y2="10"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+    <line x1="22"
+          y1="40"
+          x2="65"
+          y2="15"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+  </g>
+
+  <!-- Tiny distant Nineveh -->
+  <g opacity="0.25"
+     transform="translate(470 220) scale(0.55)">
+
+    <rect x="0"
+          y="40"
+          width="140"
+          height="50"
+          fill="#c58a52"
+          stroke="#0A0812"
+          stroke-width="3"/>
+
+    <rect x="15"
+          y="-5"
+          width="22"
+          height="95"
+          fill="#c58a52"/>
+
+    <rect x="55"
+          y="-25"
+          width="28"
+          height="115"
+          fill="#c58a52"/>
+
+    <rect x="100"
+          y="5"
+          width="22"
+          height="85"
+          fill="#c58a52"/>
+
+  </g>
+
+  <!-- Wind-blown dead leaves -->
+  <g fill="#9b612d"
+     stroke="#0A0812"
+     stroke-width="1.5">
+
+    <ellipse cx="225" cy="210" rx="8" ry="4" transform="rotate(-15 225 210)"/>
+    <ellipse cx="205" cy="240" rx="8" ry="4" transform="rotate(20 205 240)"/>
+    <ellipse cx="380" cy="205" rx="8" ry="4" transform="rotate(-35 380 205)"/>
+
+  </g>
+
+  <!-- First stars -->
+  <g fill="#fff"
+     opacity="0.7">
+
+    <circle cx="90" cy="40" r="1.4"/>
+    <circle cx="140" cy="28" r="1.5"/>
+    <circle cx="250" cy="42" r="1.3"/>
+    <circle cx="560" cy="36" r="1.5"/>
+
+  </g>
+
+</svg>

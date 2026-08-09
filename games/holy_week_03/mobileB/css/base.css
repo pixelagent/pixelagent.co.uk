@@ -1,0 +1,83 @@
+/* ─── Accessibility overrides ─── */
+
+/* ── A11y: high-contrast colour overrides ── */
+.high-contrast {
+    --bg: #000;
+    --surface: #111;
+    --surface2: #1a1a1a;
+    --surface3: #222;
+    --border: rgba(255, 255, 255, 0.3);
+    --text: #fff;
+    --text-muted: #ddd;
+    --gold: #ffe066;
+    --blue: #66ccff;
+}
+
+.large-text {
+    font-size: 118%;
+}
+
+.reduce-motion * {
+    animation: none !important;
+    transition: none !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ═══════════════════════════════════════════
+       BASE
+    ═══════════════════════════════════════════ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-display);
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+
+/* ── App shell: narrow 480 px mobile frame ── */
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+button {
+    font-family: var(--font-display);
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+
+/* ── Keyboard focus ring ── */
+button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+}
+
+
+.icon-svg { width: 1em; height: 1em; vertical-align: -0.125em; display: inline-block; color: #3b82f6; }

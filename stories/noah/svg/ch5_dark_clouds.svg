@@ -1,0 +1,98 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#060c18"/>
+      <stop offset="100%" stop-color="#1c2a3a"/>
+    </linearGradient>
+    <!-- Cloud lower tier gradient -->
+    <linearGradient id="cloudLow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1c2a3a"/>
+      <stop offset="100%" stop-color="#0a0812"/>
+    </linearGradient>
+    <!-- Cloud mid tier -->
+    <linearGradient id="cloudMid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a3d50"/>
+      <stop offset="100%" stop-color="#1c2a3a"/>
+    </linearGradient>
+    <!-- Last-light sliver at upper-right -->
+    <radialGradient id="lastLight" cx="1" cy="0" r="0.7">
+      <stop offset="0%" stop-color="#fff8e0" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#fff8e0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Dark sky base -->
+  <rect width="400" height="300" fill="url(#skyBase)"/>
+
+  <!-- Last light patch — upper-right white space -->
+  <rect width="400" height="300" fill="url(#lastLight)"/>
+
+  <!-- ============================================================ -->
+  <!-- CLOUD MASSES — 3 asymmetric tiers, heavier left -->
+
+  <!-- UPPER TIER — very dark, nearly black, heavy left mass -->
+  <!-- Main upper-left cloud bulk -->
+  <ellipse cx="50" cy="22" rx="90" ry="32" fill="#0a0812" stroke="#0A0812" stroke-width="1"/>
+  <ellipse cx="120" cy="18" rx="80" ry="28" fill="#0c1428" stroke="#0A0812" stroke-width="1"/>
+  <ellipse cx="30" cy="30" rx="70" ry="35" fill="#060c18"/>
+  <ellipse cx="175" cy="25" rx="60" ry="22" fill="#101828"/>
+  <!-- Upper tier right — thinner, lighter, closing in -->
+  <ellipse cx="280" cy="35" rx="50" ry="18" fill="#1c2a3a"/>
+  <ellipse cx="350" cy="28" rx="45" ry="16" fill="#1c2a3a" opacity="0.85"/>
+  <!-- The last sliver open at upper-right: a gap ~20px tall that's NOT covered -->
+
+  <!-- MIDDLE TIER — slightly lighter grey, mid-frame -->
+  <!-- Left-heavy mass -->
+  <ellipse cx="30" cy="88" rx="95" ry="48" fill="#1c2a3a" stroke="#0A0812" stroke-width="1"/>
+  <ellipse cx="100" cy="72" rx="88" ry="40" fill="#2a3d50"/>
+  <ellipse cx="55" cy="102" rx="80" ry="40" fill="#1c2a3a"/>
+  <ellipse cx="180" cy="82" rx="70" ry="34" fill="#1c2a3a"/>
+  <!-- Right side mid tier — lighter, patchy -->
+  <ellipse cx="290" cy="90" rx="60" ry="26" fill="#2a3d50" opacity="0.7"/>
+  <ellipse cx="370" cy="78" rx="45" ry="20" fill="#2a3d50" opacity="0.5"/>
+
+  <!-- LOWER TIER — darkest, rolling, nearly fills frame, almost reaches ground -->
+  <!-- The dominant mass — rolling black-grey cloud wall -->
+  <ellipse cx="20" cy="168" rx="115" ry="65" fill="#0c1428" stroke="#0A0812" stroke-width="1.5"/>
+  <ellipse cx="80" cy="155" rx="100" ry="58" fill="#0a0812"/>
+  <ellipse cx="160" cy="162" rx="95" ry="55" fill="#101828"/>
+  <ellipse cx="240" cy="175" rx="90" ry="52" fill="#0c1428"/>
+  <ellipse cx="320" cy="170" rx="85" ry="50" fill="#101828"/>
+  <ellipse cx="400" cy="160" rx="80" ry="48" fill="#0c1428"/>
+  <!-- Underbelly of lower cloud — darkest, churning shapes -->
+  <ellipse cx="60" cy="205" rx="80" ry="35" fill="#060c18"/>
+  <ellipse cx="150" cy="210" rx="85" ry="38" fill="#060c18"/>
+  <ellipse cx="250" cy="208" rx="80" ry="36" fill="#0a0812"/>
+  <ellipse cx="350" cy="205" rx="75" ry="32" fill="#060c18"/>
+  <!-- Boiling cloud edges protruding down -->
+  <ellipse cx="30" cy="222" rx="45" ry="18" fill="#0a0812"/>
+  <ellipse cx="120" cy="228" rx="52" ry="22" fill="#060c18"/>
+  <ellipse cx="220" cy="225" rx="48" ry="20" fill="#0a0812"/>
+  <ellipse cx="330" cy="220" rx="50" ry="18" fill="#060c18"/>
+
+  <!-- DIAGONAL WIND STREAKS in sky (movement) -->
+  <line x1="0" y1="62" x2="280" y2="42" stroke="#2a3d50" stroke-width="2" opacity="0.5"/>
+  <line x1="0" y1="78" x2="320" y2="56" stroke="#2a3d50" stroke-width="1.5" opacity="0.4"/>
+  <line x1="10" y1="48" x2="240" y2="32" stroke="#1c2a3a" stroke-width="1.5" opacity="0.6"/>
+  <line x1="50" y1="40" x2="400" y2="20" stroke="#2a3d50" stroke-width="1" opacity="0.35"/>
+  <!-- Lower wind streaks through clouds -->
+  <line x1="0" y1="130" x2="260" y2="112" stroke="#1c2a3a" stroke-width="2" opacity="0.4"/>
+  <line x1="0" y1="148" x2="240" y2="130" stroke="#101828" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- GROUND STRIP — thin dark band at bottom -->
+  <rect x="0" y="246" width="400" height="54" fill="#1a3010"/>
+  <rect x="0" y="250" width="400" height="50" fill="#1a2c1a"/>
+  <line x1="0" y1="248" x2="400" y2="246" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- NOAH'S TINY SILHOUETTE — centre-ground, extremely small -->
+  <!-- Body -->
+  <rect x="196" y="254" width="7" height="14" rx="2" fill="#0a0812"/>
+  <!-- Head -->
+  <circle cx="199.5" cy="252" r="4" fill="#0a0812"/>
+  <!-- Staff -->
+  <line x1="203" y1="256" x2="207" y2="268" stroke="#0a0812" stroke-width="1.5"/>
+
+  <!-- ONE DISTANT TREE — far right on ground -->
+  <rect x="360" y="236" width="4" height="12" fill="#152515" stroke="#0A0812" stroke-width="1"/>
+  <ellipse cx="362" cy="234" rx="8" ry="10" fill="#1a2c1a" stroke="#0A0812" stroke-width="1"/>
+</svg>

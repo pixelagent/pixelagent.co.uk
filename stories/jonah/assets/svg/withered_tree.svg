@@ -1,0 +1,28 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <rect width="600" height="400" fill="#142c3d"/>
+  <path d="M0 320 Q150 280, 300 310 T600 290 L600 400 L0 400 Z" fill="#0b1a24"/>
+
+  <!-- Desolate, Angular Dead Branches -->
+  <g fill="none" stroke="#0A0812" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M265 340 L285 210 C290 170, 235 140, 175 130" />
+    <path d="M285 210 C315 160, 365 130, 410 110" />
+    <path d="M280 250 L225 190 L235 170" />
+    <path d="M290 230 L345 185 L330 155" />
+    
+    <!-- Fine Twig Splints -->
+    <path d="M175 130 L140 135" stroke-width="4.5" stroke="#422d22"/>
+    <path d="M175 130 L165 110" stroke-width="4.5" stroke="#422d22"/>
+    <path d="M410 110 L440 120" stroke-width="4.5" stroke="#422d22"/>
+    <path d="M410 110 L420 90" stroke-width="4.5" stroke="#422d22"/>
+  </g>
+
+  <!-- Crumpled, Fallen Leaves Cluttered on the Soil Bed -->
+  <g fill="#526475" stroke="#0A0812" stroke-width="2.5">
+    <path d="M195 325 C205 325, 210 330, 200 332 Z"/>
+    <path d="M245 330 C255 328, 257 334, 249 335 Z"/>
+    <path d="M355 328 C365 330, 360 335, 350 332 Z"/>
+    <path d="M385 324 C395 322, 397 328, 389 330 Z"/>
+  </g>
+
+  <rect y="335" width="600" height="65" fill="#040b12" stroke="#0A0812" stroke-width="4"/>
+</svg>

@@ -1,0 +1,41 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <defs>
+    <linearGradient id="stormSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#050912"/>
+      <stop offset="100%" stop-color="#0f1b29"/>
+    </linearGradient>
+    <linearGradient id="lightningGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#ffd84d" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#stormSky)"/>
+
+  <!-- Dramatic Ambient Lightning Bolt Matrix -->
+  <path id="lightning-bolt" d="M420 40 L370 160 L410 160 L330 270 L360 270 L280 370 L305 250 L270 250 L330 140 L300 140 Z" fill="#FFD84D" stroke="#FFF7E8" stroke-width="3.5" stroke-linejoin="miter"/>
+  
+  <!-- Rolling Heavy Storm Clouds -->
+  <path d="M-40 60 Q40 -10, 140 30 Q200 -20, 290 20 Q370 -10, 460 40 Q540 10, 640 70 L640 0 L-40 0 Z" fill="#1b2333" stroke="#0A0812" stroke-width="5"/>
+  <path d="M10 80 Q100 20, 210 50 Q290 10, 400 40 Q500 20, 600 80 L600 0 L0 0 Z" fill="#121824"/>
+
+  <!-- Tilted, Endangered Ship Vessel -->
+  <g transform="translate(190, 150) rotate(22)">
+    <!-- Snapped Rigging Line Lines -->
+    <line x1="90" y1="90" x2="90" y2="-30" stroke="#0A0812" stroke-width="7"/>
+    <path d="M90 -10 C130 15, 120 60, 90 70 Z" fill="#4ecdc4" opacity="0.4" stroke="#0A0812" stroke-width="3"/>
+    <!-- Tilted Deck Hull -->
+    <path d="M10 80 L170 80 L190 115 L25 115 Z" fill="#6c757d" stroke="#0A0812" stroke-width="5" stroke-linejoin="round"/>
+    <circle cx="55" cy="98" r="5" fill="#FFF7E8" stroke="#0A0812" stroke-width="2"/>
+    <circle cx="100" cy="98" r="5" fill="#FFF7E8" stroke="#0A0812" stroke-width="2"/>
+  </g>
+
+  <!-- Crashing Violent Waves -->
+  <path d="M-20 250 C70 180, 130 220, 200 270 C290 170, 370 220, 450 280 C530 190, 580 230, 640 250 L640 400 L-20 400 Z" fill="#1d3557" stroke="#0A0812" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M-20 300 C90 240, 180 280, 260 300 C340 240, 430 260, 510 310 C570 250, 600 270, 640 290 L640 400 L-20 400 Z" fill="#0f1f34"/>
+
+  <!-- Heavy Downpour Rain Streaks -->
+  <line x1="80" y1="60" x2="30" y2="260" stroke="#4ecdc4" opacity="0.25" stroke-width="3"/>
+  <line x1="280" y1="40" x2="230" y2="240" stroke="#4ecdc4" opacity="0.25" stroke-width="3"/>
+  <line x1="510" y1="70" x2="460" y2="270" stroke="#4ecdc4" opacity="0.25" stroke-width="3"/>
+</svg>

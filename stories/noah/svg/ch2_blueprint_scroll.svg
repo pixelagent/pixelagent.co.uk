@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- ── BACKGROUND ─────────────────────────────────────────── -->
+  <rect width="400" height="300" fill="#0a0812"/>
+
+  <!-- Vignette / depth shadow behind scroll -->
+  <ellipse cx="185" cy="162" rx="175" ry="118" fill="#14100a"/>
+
+  <!-- Drop shadow of scroll on background -->
+  <ellipse cx="192" cy="246" rx="148" ry="14" fill="#05040a" opacity="0.85"/>
+
+  <!-- ── SCROLL BODY — left-of-centre, 70% of frame ─────────── -->
+  <!-- Parchment main face -->
+  <rect x="38" y="58" width="298" height="188" rx="3" fill="#d9c89a" stroke="#3a2a10" stroke-width="3"/>
+
+  <!-- Parchment slight aged tint — inner wash -->
+  <rect x="44" y="64" width="286" height="176" rx="2" fill="#c4ae7d" opacity="0.28"/>
+
+  <!-- Scroll top-edge curl shadow (tight roll) -->
+  <ellipse cx="187" cy="58" rx="149" ry="9" fill="#b09a60" stroke="#3a2a10" stroke-width="2"/>
+  <ellipse cx="187" cy="58" rx="149" ry="4.5" fill="#d9c89a" opacity="0.6"/>
+  <!-- Top roll inner dark lip -->
+  <ellipse cx="187" cy="58" rx="149" ry="2" fill="#7a6030" opacity="0.5"/>
+
+  <!-- Scroll bottom-edge curl shadow -->
+  <ellipse cx="187" cy="246" rx="149" ry="9" fill="#b09a60" stroke="#3a2a10" stroke-width="2"/>
+  <ellipse cx="187" cy="246" rx="149" ry="4.5" fill="#d9c89a" opacity="0.6"/>
+  <ellipse cx="187" cy="246" rx="149" ry="2" fill="#7a6030" opacity="0.5"/>
+
+  <!-- Left curl (tight) -->
+  <ellipse cx="38" cy="152" rx="16" ry="94" fill="#c4ae7d" stroke="#3a2a10" stroke-width="2.5"/>
+  <ellipse cx="38" cy="152" rx="8"  ry="88" fill="#b09a60"/>
+  <ellipse cx="38" cy="152" rx="3.5" ry="82" fill="#9a8850" opacity="0.7"/>
+
+  <!-- Right curl (tight) -->
+  <ellipse cx="336" cy="152" rx="16" ry="94" fill="#c4ae7d" stroke="#3a2a10" stroke-width="2.5"/>
+  <ellipse cx="336" cy="152" rx="8"  ry="88" fill="#b09a60"/>
+  <ellipse cx="336" cy="152" rx="3.5" ry="82" fill="#9a8850" opacity="0.7"/>
+
+  <!-- Ornament border on parchment -->
+  <rect x="50" y="70" width="274" height="164" rx="2" fill="none" stroke="#b09a60" stroke-width="1" stroke-dasharray="7,6"/>
+
+  <!-- ── ARK BLUEPRINT — focal point ───────────────────────── -->
+  <!-- Main hull: curved bow (left), curved stern (right), 3-deck structure -->
+  <!-- Hull outer silhouette -->
+  <path d="M 72,196  Q 66,185 70,172  L 76,155  L 298,155  Q 312,160 316,172  Q 318,185 312,196  Z"
+        fill="none" stroke="#3a2208" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Keel line (bottom of hull, slight curve) -->
+  <path d="M 72,196 Q 192,204 312,196" fill="none" stroke="#3a2208" stroke-width="2.5"/>
+
+  <!-- Deck 1 (main deck at top of hull) -->
+  <line x1="76" y1="155" x2="298" y2="155" stroke="#3a2208" stroke-width="2.5"/>
+
+  <!-- Deck 2 (mid-deck) -->
+  <line x1="78" y1="168" x2="296" y2="168" stroke="#3a2208" stroke-width="1.8"/>
+
+  <!-- Deck 3 (lower deck) -->
+  <line x1="80" y1="181" x2="294" y2="181" stroke="#3a2208" stroke-width="1.8"/>
+
+  <!-- Pitched-roof cabin on top deck -->
+  <polygon points="118,155 128,127 256,127 266,155"
+           fill="none" stroke="#3a2208" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Cabin ridge beam -->
+  <line x1="128" y1="127" x2="256" y2="127" stroke="#3a2208" stroke-width="2"/>
+  <!-- Cabin pitch rafters (rhythm) -->
+  <line x1="155" y1="127" x2="148" y2="155" stroke="#3a2208" stroke-width="1.2"/>
+  <line x1="181" y1="127" x2="178" y2="155" stroke="#3a2208" stroke-width="1.2"/>
+  <line x1="205" y1="127" x2="205" y2="155" stroke="#3a2208" stroke-width="1.2"/>
+  <line x1="230" y1="127" x2="232" y2="155" stroke="#3a2208" stroke-width="1.2"/>
+
+  <!-- 5 Vertical hull rib lines (structural rhythm) -->
+  <line x1="112" y1="155" x2="108" y2="196" stroke="#3a2208" stroke-width="1.5"/>
+  <line x1="148" y1="155" x2="146" y2="196" stroke="#3a2208" stroke-width="1.5"/>
+  <line x1="187" y1="155" x2="187" y2="197" stroke="#3a2208" stroke-width="1.5"/>
+  <line x1="226" y1="155" x2="228" y2="196" stroke="#3a2208" stroke-width="1.5"/>
+  <line x1="264" y1="155" x2="267" y2="196" stroke="#3a2208" stroke-width="1.5"/>
+
+  <!-- Bow angle line (leading edge detail) -->
+  <line x1="76" y1="155" x2="70" y2="172" stroke="#3a2208" stroke-width="2"/>
+  <!-- Stern angle line -->
+  <line x1="298" y1="155" x2="308" y2="172" stroke="#3a2208" stroke-width="2"/>
+
+  <!-- ── MEASUREMENT BRACKETS ───────────────────────────────── -->
+  <!-- Horizontal bottom bracket -->
+  <line x1="72" y1="213" x2="312" y2="213" stroke="#5a3a10" stroke-width="1.8"/>
+  <line x1="72" y1="208" x2="72" y2="218"  stroke="#5a3a10" stroke-width="1.8"/>
+  <line x1="312" y1="208" x2="312" y2="218" stroke="#5a3a10" stroke-width="1.8"/>
+  <!-- Measurement ticks (rhythm) -->
+  <line x1="112" y1="210" x2="112" y2="216" stroke="#5a3a10" stroke-width="1.2"/>
+  <line x1="148" y1="210" x2="148" y2="216" stroke="#5a3a10" stroke-width="1.2"/>
+  <line x1="187" y1="210" x2="187" y2="216" stroke="#5a3a10" stroke-width="1.2"/>
+  <line x1="226" y1="210" x2="226" y2="216" stroke="#5a3a10" stroke-width="1.2"/>
+  <line x1="264" y1="210" x2="264" y2="216" stroke="#5a3a10" stroke-width="1.2"/>
+  <!-- Leader lines from hull to bracket -->
+  <line x1="72"  y1="197" x2="72"  y2="212" stroke="#5a3a10" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="312" y1="197" x2="312" y2="212" stroke="#5a3a10" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Vertical right-side bracket -->
+  <line x1="324" y1="127" x2="324" y2="197" stroke="#5a3a10" stroke-width="1.8"/>
+  <line x1="319" y1="127" x2="329" y2="127" stroke="#5a3a10" stroke-width="1.8"/>
+  <line x1="319" y1="197" x2="329" y2="197" stroke="#5a3a10" stroke-width="1.8"/>
+  <!-- Mid-height tick -->
+  <line x1="321" y1="162" x2="327" y2="162" stroke="#5a3a10" stroke-width="1.2"/>
+  <!-- Deck-height sub-ticks -->
+  <line x1="321" y1="155" x2="327" y2="155" stroke="#5a3a10" stroke-width="1.2"/>
+  <line x1="321" y1="168" x2="327" y2="168" stroke="#5a3a10" stroke-width="1.2"/>
+  <line x1="321" y1="181" x2="327" y2="181" stroke="#5a3a10" stroke-width="1.2"/>
+
+  <!-- ── SMALL CROSS-SECTION VIEW — top-right of parchment ─── -->
+  <!-- Cross-section box -->
+  <rect x="268" y="76" width="46" height="40" fill="#c4ae7d" stroke="#3a2208" stroke-width="1.5"/>
+  <!-- Cross-section hull oval (end view) -->
+  <ellipse cx="291" cy="103" rx="17" ry="9" fill="none" stroke="#3a2208" stroke-width="1.5"/>
+  <!-- Cross-section deck lines in end view -->
+  <line x1="276" y1="98" x2="306" y2="98" stroke="#3a2208" stroke-width="1"/>
+  <line x1="278" y1="103" x2="304" y2="103" stroke="#3a2208" stroke-width="1"/>
+  <!-- Cross-section cabin peak -->
+  <polygon points="282,88 291,81 300,88" fill="none" stroke="#3a2208" stroke-width="1.2"/>
+  <!-- Cross-section label dot -->
+  <circle cx="291" cy="103" r="1.5" fill="#3a2208"/>
+
+</svg>

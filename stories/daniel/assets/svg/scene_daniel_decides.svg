@@ -1,0 +1,42 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="decideGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#FFD84D" stop-opacity=".18"/>
+      <stop offset="100%" stop-color="#FFD84D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="200" fill="#2b1d0c"/>
+  <!-- Central decision glow — emphasis, hierarchy -->
+  <ellipse cx="150" cy="100" rx="80" ry="60" fill="url(#decideGlow)"/>
+  <!-- Dividing line — movement, contrast -->
+  <line x1="150" y1="18" x2="150" y2="182" stroke="#FFD84D" stroke-width="2" stroke-dasharray="6,5" opacity=".6"/>
+  <!-- Left side: KING'S FOOD — warm red, abundance -->
+  <rect x="26" y="44" width="100" height="96" fill="#3d1408" stroke="#FF6B5B" stroke-width="2.5" rx="4"/>
+  <rect x="30" y="48" width="92" height="8"   fill="#FF6B5B" opacity=".5"/>
+  <!-- Food items — variety, rhythm -->
+  <ellipse cx="76" cy="80"  rx="22" ry="12" fill="#FF6B5B" stroke="#0A0812" stroke-width="1.5"/>
+  <ellipse cx="56" cy="98"  rx="14" ry="8"  fill="#c8503a" stroke="#0A0812" stroke-width="1.5"/>
+  <ellipse cx="96" cy="96"  rx="16" ry="8"  fill="#FF6B5B" stroke="#0A0812" stroke-width="1.5"/>
+  <rect x="68"  y="58"  width="6"  height="16" fill="#c8a45a" stroke="#0A0812" stroke-width="1"/>
+  <ellipse cx="71" cy="58" rx="9"  ry="4"  fill="#FFD84D" stroke="#0A0812" stroke-width="1"/>
+  <text x="76" y="128" font-size="8.5" fill="#FF6B5B" text-anchor="middle" font-family="monospace" font-weight="bold">KING'S TABLE</text>
+  <!-- Right side: VEGETABLES — cool teal, simplicity -->
+  <rect x="174" y="44" width="100" height="96" fill="#0d2414" stroke="#4ECDC4" stroke-width="2.5" rx="4"/>
+  <rect x="178" y="48" width="92" height="8"   fill="#4ECDC4" opacity=".4"/>
+  <!-- Vegetables — rhythm, pattern -->
+  <ellipse cx="214" cy="80"  rx="18" ry="10" fill="#4a8a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <path d="M214 70 Q218 58 222 70" fill="#2a6a1a" stroke="#0A0812" stroke-width="1.5"/>
+  <ellipse cx="234" cy="94"  rx="12" ry="8"  fill="#6ab04a" stroke="#0A0812" stroke-width="1.5"/>
+  <ellipse cx="196" cy="96"  rx="12" ry="8"  fill="#4a8a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Water cup — emphasis within right panel -->
+  <rect x="226" y="62"  width="10" height="18" fill="none"  stroke="#4ECDC4" stroke-width="2"/>
+  <rect x="226" y="70"  width="10" height="10" fill="#4ECDC4" opacity=".3"/>
+  <text x="224" y="128" font-size="8.5" fill="#4ECDC4" text-anchor="middle" font-family="monospace" font-weight="bold">SIMPLE FOOD</text>
+  <!-- Balance scale in centre — hierarchy: bridges both sides -->
+  <line x1="150" y1="18" x2="150" y2="38" stroke="#FFD84D" stroke-width="3"/>
+  <line x1="126" y1="38" x2="174" y2="38" stroke="#FFD84D" stroke-width="2.5"/>
+  <line x1="128" y1="38" x2="128" y2="52" stroke="#FFD84D" stroke-width="1.5"/>
+  <line x1="172" y1="38" x2="172" y2="46" stroke="#FFD84D" stroke-width="1.5"/>
+  <ellipse cx="128" cy="54" rx="8" ry="4"  fill="#FFD84D" opacity=".6"/>
+  <ellipse cx="172" cy="48" rx="8" ry="4"  fill="#4ECDC4" opacity=".6"/>
+</svg>

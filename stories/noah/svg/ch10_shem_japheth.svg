@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="sky_sj" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0812"/>
+      <stop offset="55%" stop-color="#0c0604"/>
+      <stop offset="100%" stop-color="#1a0e08"/>
+    </linearGradient>
+    <linearGradient id="ground_sj" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#160a04"/>
+      <stop offset="100%" stop-color="#0a0604"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Night sky -->
+  <rect width="400" height="300" fill="url(#sky_sj)"/>
+  <!-- Ground -->
+  <rect x="0" y="215" width="400" height="85" fill="url(#ground_sj)"/>
+  <line x1="0" y1="215" x2="400" y2="215" stroke="#2a1408" stroke-width="2"/>
+
+  <!-- Stars — few, this chapter's sky is quieter -->
+  <circle cx="180" cy="18" r="1.2" fill="#fff8e0" opacity="0.5"/>
+  <circle cx="245" cy="38" r="0.8" fill="#fff8e0" opacity="0.35"/>
+  <circle cx="310" cy="22" r="1" fill="#fff8e0" opacity="0.4"/>
+  <circle cx="355" cy="48" r="0.8" fill="#fff8e0" opacity="0.3"/>
+  <circle cx="390" cy="28" r="1" fill="#fff8e0" opacity="0.35"/>
+  <circle cx="280" cy="58" r="0.8" fill="#fff8e0" opacity="0.3"/>
+  <circle cx="215" cy="55" r="0.8" fill="#fff8e0" opacity="0.25"/>
+
+  <!-- ============ TENT — LEFT EDGE, dark void, very dark ============ -->
+  <!-- Tent structure — anchored hard to left edge -->
+  <polygon points="0,215 75,215 70,118 35,95 0,118" fill="#3a2010" stroke="#0A0812" stroke-width="3"/>
+  <!-- Shadow face -->
+  <polygon points="35,95 70,118 75,215 50,215 48,140" fill="#1e1008" stroke="#0A0812" stroke-width="2"/>
+  <!-- Peak pole -->
+  <line x1="35" y1="95" x2="35" y2="74" stroke="#5a3818" stroke-width="2"/>
+  <circle cx="35" cy="72" r="2.5" fill="#3a2010" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- TENT OPENING — absolute darkness, this is the moral weight -->
+  <!-- Dark interior void — the darkness they are carrying a garment toward -->
+  <polygon points="18,118 42,98 55,122 53,215 18,215" fill="#040202" stroke="none"/>
+  <!-- Flap edges -->
+  <polygon points="18,118 8,130 6,215 18,215" fill="#2e1808" stroke="#0A0812" stroke-width="2"/>
+  <polygon points="42,98 55,122 53,215 44,215 43,130" fill="#3a2210" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Ground shadow — heavy, spreading from tent -->
+  <ellipse cx="35" cy="222" rx="38" ry="6" fill="#040202" opacity="0.8"/>
+
+  <!-- ============ THE GARMENT — lightest element, horizontal band ============ -->
+  <!-- The garment stretches between the two figures, off-white cream -->
+  <!-- Main garment body — horizontal, dignified, covering -->
+  <path d="M115,178 Q160,196 200,194 Q240,192 285,180" stroke="#d4c8a8" stroke-width="2.5" fill="none"/>
+  <polygon points="110,175 120,215 175,215 200,215 228,215 280,215 290,177 250,184 200,188 150,186" fill="#FFF7E8" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Garment folds — subtle, fabric has weight and dignity -->
+  <path d="M148,185 Q149,200 150,215" stroke="#d4c8a8" stroke-width="1.5" fill="none"/>
+  <path d="M200,188 Q200,202 200,215" stroke="#d4c8a8" stroke-width="1.5" fill="none"/>
+  <path d="M250,184 Q250,199 252,215" stroke="#d4c8a8" stroke-width="1.5" fill="none"/>
+  <!-- Garment top edge — gently catches what little light there is -->
+  <line x1="110" y1="175" x2="290" y2="177" stroke="#e8ddc8" stroke-width="2"/>
+
+  <!-- ============ SHEM — LEFT FIGURE, walking BACKWARDS toward tent ============ -->
+  <!-- He is right of centre-left, facing LEFT (away from tent), walking toward tent -->
+  <!-- We see his BACK, head turned away from tent darkness -->
+
+  <!-- Ground shadow -->
+  <ellipse cx="150" cy="222" rx="30" ry="5" fill="#040202" opacity="0.6"/>
+
+  <!-- Legs — feet pointing LEFT, walking backward into tent direction -->
+  <polygon points="130,215 148,215 150,192 136,190" fill="#7a5030" stroke="#0A0812" stroke-width="2.5"/>
+  <polygon points="146,215 164,215 162,192 148,190" fill="#6b4420" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Feet — toes point LEFT away from tent -->
+  <ellipse cx="133" cy="215" rx="12" ry="4.5" fill="#5a3010" stroke="#0A0812" stroke-width="2" transform="rotate(-8,133,215)"/>
+  <ellipse cx="152" cy="215" rx="11" ry="4.5" fill="#5a3010" stroke="#0A0812" stroke-width="2" transform="rotate(-5,152,215)"/>
+
+  <!-- Torso — Shem, robe green-brown, upright posture, dignified -->
+  <polygon points="134,194 166,192 163,155 150,146 138,148 132,163" fill="#4A6A2A" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Robe folds — straight back, measured -->
+  <line x1="142" y1="193" x2="143" y2="150" stroke="#2e4018" stroke-width="1.5"/>
+  <line x1="155" y1="192" x2="157" y2="149" stroke="#2e4018" stroke-width="1.5"/>
+
+  <!-- Right arm — extends to RIGHT, gripping garment end -->
+  <polygon points="162,160 175,156 188,172 175,178" fill="#4A6A2A" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Right hand gripping garment -->
+  <ellipse cx="190" cy="176" rx="9" ry="6" fill="#C8855A" stroke="#0A0812" stroke-width="2"/>
+  <!-- Grip lines -->
+  <line x1="183" y1="173" x2="196" y2="173" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- Left arm — swings slightly outward for balance -->
+  <polygon points="135,165 122,170 118,188 130,192" fill="#4A6A2A" stroke="#0A0812" stroke-width="2"/>
+  <ellipse cx="116" cy="190" rx="7" ry="4.5" fill="#C8855A" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Neck -->
+  <rect x="143" y="136" width="13" height="13" rx="3" fill="#C8855A" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- HEAD — turned LEFT, facing away from tent (away from the darkness) -->
+  <!-- We see only his BACK and profile — his face deliberately averted -->
+  <ellipse cx="147" cy="126" rx="17" ry="18" fill="#C8855A" stroke="#0A0812" stroke-width="3" transform="rotate(12,147,126)"/>
+  <!-- Head cloth — dignified, neatly wound -->
+  <polygon points="131,120 133,108 143,100 157,101 163,110 161,122 151,117 139,118" fill="#3a2010" stroke="#0A0812" stroke-width="2"/>
+  <!-- Back of neck cloth hanging — we see back of head -->
+  <path d="M131,120 Q126,128 128,138" stroke="#2e1808" stroke-width="2" fill="none"/>
+  <!-- Ear far side, partially visible — profile -->
+  <ellipse cx="160" cy="127" rx="3.5" ry="5" fill="#C8855A" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Beard — white, seen from back/side -->
+  <path d="M130,130 Q126,137 128,144 Q132,148 137,145" stroke="#e8ddd0" stroke-width="2" fill="#d4cfc0" stroke-linejoin="round"/>
+
+  <!-- ============ JAPHETH — RIGHT FIGURE, walking BACKWARDS ============ -->
+  <!-- He is further right, facing RIGHT (away from tent), walking toward tent too -->
+  <!-- They mirror each other across the garment -->
+
+  <!-- Ground shadow -->
+  <ellipse cx="265" cy="222" rx="30" ry="5" fill="#040202" opacity="0.6"/>
+
+  <!-- Legs — feet pointing RIGHT away from tent -->
+  <polygon points="246,215 264,215 262,192 248,190" fill="#7a5030" stroke="#0A0812" stroke-width="2.5"/>
+  <polygon points="262,215 280,215 278,192 264,190" fill="#6b4420" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Feet pointing RIGHT -->
+  <ellipse cx="264" cy="215" rx="12" ry="4.5" fill="#5a3010" stroke="#0A0812" stroke-width="2" transform="rotate(5,264,215)"/>
+  <ellipse cx="278" cy="215" rx="11" ry="4.5" fill="#5a3010" stroke="#0A0812" stroke-width="2" transform="rotate(8,278,215)"/>
+
+  <!-- Torso — Japheth, same green-brown robe, same dignified straight back -->
+  <polygon points="248,194 280,192 277,155 264,146 252,148 246,163" fill="#4A6A2A" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="256" y1="193" x2="257" y2="150" stroke="#2e4018" stroke-width="1.5"/>
+  <line x1="269" y1="192" x2="271" y2="149" stroke="#2e4018" stroke-width="1.5"/>
+
+  <!-- Left arm — extends to LEFT, gripping garment other end -->
+  <polygon points="248,160 234,155 222,172 234,178" fill="#4A6A2A" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Left hand gripping garment -->
+  <ellipse cx="220" cy="176" rx="9" ry="6" fill="#C8855A" stroke="#0A0812" stroke-width="2"/>
+  <line x1="213" y1="173" x2="226" y2="173" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- Right arm — balance swing -->
+  <polygon points="278,165 292,170 296,188 282,192" fill="#4A6A2A" stroke="#0A0812" stroke-width="2"/>
+  <ellipse cx="298" cy="190" rx="7" ry="4.5" fill="#C8855A" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Neck -->
+  <rect x="257" y="136" width="13" height="13" rx="3" fill="#C8855A" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- HEAD — turned RIGHT, facing away from tent -->
+  <ellipse cx="265" cy="125" rx="17" ry="18" fill="#C8855A" stroke="#0A0812" stroke-width="3" transform="rotate(-12,265,125)"/>
+  <!-- Head cloth — same dignified style -->
+  <polygon points="250,119 252,107 262,99 276,100 282,109 280,121 270,116 258,117" fill="#3a2010" stroke="#0A0812" stroke-width="2"/>
+  <!-- Back of head cloth -->
+  <path d="M280,121 Q286,129 284,138" stroke="#2e1808" stroke-width="2" fill="none"/>
+  <!-- Ear far side -->
+  <ellipse cx="250" cy="126" rx="3.5" ry="5" fill="#C8855A" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Beard — white, from back/side -->
+  <path d="M280,131 Q284,138 282,145 Q278,148 273,145" stroke="#e8ddd0" stroke-width="2" fill="#d4cfc0" stroke-linejoin="round"/>
+
+  <!-- Ground track — path back toward tent, faint -->
+  <polygon points="40,215 200,215 200,240 40,240" fill="#1e0e06" opacity="0.3"/>
+  <line x1="40" y1="227" x2="200" y2="227" stroke="#2a1408" stroke-width="1" opacity="0.4"/>
+</svg>

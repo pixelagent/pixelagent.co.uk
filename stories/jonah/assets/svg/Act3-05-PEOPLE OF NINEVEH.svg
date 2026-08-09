@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 603 401.5">
+  <!-- Generator: Adobe Illustrator 30.6.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 109)  -->
+  <defs>
+    <style>
+      .st0 {
+        opacity: .2;
+      }
+
+      .st0, .st1, .st2 {
+        isolation: isolate;
+      }
+
+      .st1 {
+        fill: url(#radial-gradient);
+        opacity: .5;
+      }
+
+      .st3 {
+        fill: #ffd84d;
+      }
+
+      .st3, .st4, .st5, .st6, .st7, .st8, .st9, .st10, .st11, .st12, .st13, .st14, .st15, .st16 {
+        stroke: #0a0812;
+      }
+
+      .st3, .st6, .st15, .st16 {
+        stroke-width: 3px;
+      }
+
+      .st4 {
+        fill: #b67b47;
+      }
+
+      .st4, .st5, .st8, .st9, .st13 {
+        stroke-width: 4px;
+      }
+
+      .st4, .st5, .st9, .st13 {
+        stroke-linejoin: round;
+      }
+
+      .st5 {
+        fill: #cb8f59;
+      }
+
+      .st6, .st10 {
+        fill: #f2d1aa;
+      }
+
+      .st17 {
+        fill: url(#linear-gradient);
+      }
+
+      .st7, .st10, .st2, .st14 {
+        stroke-width: 2px;
+      }
+
+      .st8 {
+        fill: #4a2a12;
+      }
+
+      .st9 {
+        fill: #bf844f;
+      }
+
+      .st11 {
+        stroke-width: 5px;
+      }
+
+      .st11, .st12 {
+        stroke-linecap: round;
+      }
+
+      .st11, .st12, .st2 {
+        fill: none;
+      }
+
+      .st12 {
+        stroke-width: 6px;
+      }
+
+      .st13 {
+        fill: #8e592c;
+      }
+
+      .st2 {
+        opacity: .15;
+        stroke: #fff;
+        stroke-dasharray: 6 8;
+      }
+
+      .st14 {
+        fill: #e6c29c;
+      }
+
+      .st15 {
+        fill: #52708a;
+      }
+
+      .st16 {
+        fill: #8c5b2b;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-292.51" y1="620.34" x2="-292.51" y2="619.34" gradientTransform="translate(175806.5 248134.9326) scale(600 -400)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8c5a2b"/>
+      <stop offset=".5" stop-color="#c88a52"/>
+      <stop offset="1" stop-color="#f2c98a"/>
+    </linearGradient>
+    <radialGradient id="radial-gradient" cx="-291.88" cy="618.94" fx="-291.88" fy="618.94" r=".5" gradientTransform="translate(64666.5 136339.7629) scale(220 -220)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff3c2"/>
+      <stop offset="1" stop-color="#fff3c2" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect class="st17" x="1.5" width="600" height="400"/>
+  <g>
+    <circle class="st3" cx="452" cy="172.5" r="45"/>
+    <circle class="st1" cx="452" cy="172.5" r="110"/>
+  </g>
+  <g>
+    <rect class="st4" x="37" y="212.5" width="520" height="140"/>
+    <rect class="st5" x="232" y="112.5" width="130" height="240"/>
+    <polygon class="st13" points="232 112.5 297 52.5 362 112.5 232 112.5"/>
+    <rect class="st9" x="77" y="162.5" width="70" height="190"/>
+    <polygon class="st13" points="77 162.5 112 122.5 147 162.5 77 162.5"/>
+    <rect class="st9" x="162" y="187.5" width="45" height="165"/>
+    <rect class="st9" x="387" y="182.5" width="50" height="170"/>
+    <rect class="st9" x="467" y="152.5" width="70" height="200"/>
+    <polygon class="st13" points="467 152.5 502 112.5 537 152.5 467 152.5"/>
+  </g>
+  <path class="st8" d="M267,352.5v-80c20-26.67,40-26.67,60,0v80h-60Z"/>
+  <g>
+    <g>
+      <circle class="st14" cx="171.5" cy="280" r="8"/>
+      <circle class="st14" cx="201.5" cy="275" r="8"/>
+      <circle class="st14" cx="231.5" cy="278" r="8"/>
+      <circle class="st14" cx="261.5" cy="270" r="8"/>
+      <circle class="st14" cx="291.5" cy="268" r="8"/>
+      <circle class="st14" cx="321.5" cy="268" r="8"/>
+      <circle class="st14" cx="351.5" cy="270" r="8"/>
+      <circle class="st14" cx="381.5" cy="276" r="8"/>
+      <circle class="st14" cx="411.5" cy="280" r="8"/>
+    </g>
+    <g>
+      <circle class="st10" cx="151.5" cy="310" r="11"/>
+      <circle class="st10" cx="191.5" cy="300" r="11"/>
+      <circle class="st10" cx="236.5" cy="305" r="11"/>
+      <circle class="st10" cx="291.5" cy="295" r="11"/>
+      <circle class="st10" cx="341.5" cy="300" r="11"/>
+      <circle class="st10" cx="391.5" cy="305" r="11"/>
+      <circle class="st10" cx="441.5" cy="310" r="11"/>
+    </g>
+  </g>
+  <g>
+    <ellipse class="st0" cx="81.5" cy="345" rx="40" ry="12"/>
+    <circle class="st6" cx="81.5" cy="255" r="16"/>
+    <circle cx="77.5" cy="253" r="2"/>
+    <circle cx="85.5" cy="253" r="2"/>
+    <path class="st7" d="M77.5,263h8"/>
+    <path class="st15" d="M57.5,275h48l10,85H47.5l10-85Z"/>
+    <line class="st12" x1="101.5" y1="290" x2="156.5" y2="260"/>
+    <line class="st11" x1="61.5" y1="295" x2="36.5" y2="275"/>
+  </g>
+  <path class="st2" d="M107,347.5c46.67-23.33,96.67-43.33,150-60,26.67-6.67,40-21.67,40-45"/>
+  <path class="st16" d="M1.5,340c100-16.67,200-18.33,300-5s200,10,300-10v75H1.5v-60Z"/>
+</svg>

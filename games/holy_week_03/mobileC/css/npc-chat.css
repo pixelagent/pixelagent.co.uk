@@ -1,0 +1,461 @@
+/* ─── NPC / Chat ─── */
+
+/* ── NPC panel: vertical list of conversation cards ── */
+.npc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+
+/* Single NPC card: avatar, mood, actions, feed. */
+.npc-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+}
+
+
+/* Top row: avatar + name/role + mood pill. */
+.npc-header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.npc-avatar {
+    font-size: 1.8rem;
+}
+
+.npc-info {
+    flex: 1;
+}
+
+.npc-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.npc-role {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.npc-mood {
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+}
+
+
+/* Locked NPC card: greyed out until found in the Scene. */
+.npc-card.locked {
+    opacity: 0.5;
+    filter: grayscale(1);
+    border-style: dashed;
+    pointer-events: none;
+}
+
+.npc-lock {
+    font-size: 1.2rem;
+    margin-left: auto;
+}
+
+.npc-locked-note {
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-align: center;
+    padding: 4px 0;
+}
+
+
+/* "Go to Scene" button inside the People intro. */
+.people-intro-scene-btn {
+    display: inline-block;
+    margin-top: 8px;
+    width: 100%;
+    background: var(--gold);
+    color: var(--bg, #0c1018);
+    border: none;
+    border-radius: var(--radius-sm, 8px);
+    padding: 8px 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.12s, transform 0.12s;
+}
+
+.people-intro-scene-btn:hover {
+    filter: brightness(1.1);
+}
+
+.people-intro-scene-btn:active {
+    transform: scale(0.96);
+}
+
+
+/* Talk / Show Evidence / Challenge button row. */
+.npc-actions {
+    display: flex;
+    gap: 6px;
+}
+
+
+/* Base NPC action button. */
+.npc-btn {
+    flex: 1;
+    background: var(--surface3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 8px 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text);
+    transition: background 0.12s, transform 0.12s;
+}
+
+.npc-btn:hover:not([aria-disabled='true']) {
+    background: var(--surface2);
+}
+
+.npc-btn:active:not([aria-disabled='true']) {
+    transform: scale(0.95);
+}
+
+.npc-btn[aria-disabled='true'] {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.npc-btn-challenge {
+    border-color: rgba(244, 96, 96, 0.3);
+}
+
+
+/* Visual pressure / truthfulness meter. */
+.pressure-bar {
+    height: 3px;
+    background: var(--surface3);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.pressure-fill {
+    height: 100%;
+    background: var(--red);
+    border-radius: 4px;
+    transition: width 0.5s var(--ease-out);
+}
+
+
+/* Evidence-selection popover (choose up to 2 items). */
+.show-evidence-picker {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-top: 10px;
+}
+
+.show-evidence-picker h3 {
+    font-size: 0.82rem;
+    margin-bottom: 10px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.evidence-pick-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.picker-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    gap: 12px;
+}
+
+.evidence-counter {
+    font-size: 0.68rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+}
+
+.picker-btns {
+    display: flex;
+    gap: 8px;
+}
+
+
+/* Challenge outcome text block. */
+.challenge-result {
+    margin-top: 10px;
+    animation: fadeSlide 0.2s var(--ease-out);
+}
+
+.challenge-result-box {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+}
+
+.challenge-result-box.breakthrough {
+    border-color: var(--gold);
+    background: rgba(245, 200, 66, 0.06);
+}
+
+.challenge-result-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.challenge-result-icon {
+    font-size: 1rem;
+}
+
+.challenge-result-speaker {
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--gold);
+}
+
+.challenge-result-text {
+    font-size: 0.82rem;
+    color: var(--text);
+    line-height: 1.5;
+}
+
+.challenge-breakthrough-badge {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(245, 200, 66, 0.2);
+    color: var(--gold);
+}
+
+.active-evidence-indicator {
+    font-size: 0.72rem;
+    color: var(--blue);
+    font-family: var(--font-mono);
+    padding: 6px 10px;
+    background: rgba(79, 163, 232, 0.08);
+    border-radius: var(--radius-sm);
+    margin-top: 8px;
+    animation: fadeSlide 0.2s var(--ease-out);
+}
+
+.evidence-pick-btn {
+    background: var(--surface3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text);
+    transition: all 0.15s;
+}
+
+.evidence-pick-btn:active {
+    background: var(--surface);
+}
+
+.evidence-pick-btn.selected {
+    background: rgba(79, 163, 232, 0.2);
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+.evidence-pick-btn[aria-pressed="true"] {
+    background: rgba(79, 163, 232, 0.2);
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+.cancel-btn,
+.confirm-show-btn {
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    padding: 8px 14px;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+}
+
+
+
+.cancel-btn:hover:not([aria-disabled='true']) {
+    background: var(--surface3);
+}
+
+.cancel-btn:active:not([aria-disabled='true']) {
+    background: var(--surface);
+}
+
+.cancel-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.confirm-picker-btn {
+    background: var(--blue);
+    color: var(--bg);
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    margin-left: auto;
+    transition: all 0.2s var(--ease-out);
+    box-shadow: 0 4px 12px rgba(79, 163, 232, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.confirm-picker-btn:hover:not(:disabled) {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(79, 163, 232, 0.3);
+}
+
+.confirm-picker-btn.mode-challenge {
+    background: var(--red);
+    box-shadow: 0 4px 12px rgba(244, 96, 96, 0.2);
+}
+
+.confirm-picker-btn.mode-challenge:hover:not(:disabled) {
+    box-shadow: 0 6px 16px rgba(244, 96, 96, 0.3);
+}
+
+.confirm-picker-btn:disabled {
+    opacity: 0.3;
+    background: var(--surface3);
+    color: var(--text-dim);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+
+/* Scrollable mini-conversation history inside the card. */
+.npc-feed {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    min-height: 80px;
+    max-height: 160px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.msg {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 10px;
+    animation: fadeSlide 0.2s var(--ease-out);
+}
+
+.msg-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.msg-speaker-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    margin-right: 6px;
+}
+
+.msg-npc .msg-speaker-badge {
+    color: var(--gold);
+}
+
+.msg-player .msg-speaker-badge {
+    color: var(--blue);
+}
+
+.msg-system .msg-speaker-badge {
+    color: var(--green);
+}
+
+.msg-speaker-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+}
+
+.msg-text {
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+.msg-npc .msg-speaker-badge {
+    color: var(--gold);
+}
+
+.msg-player .msg-speaker-badge {
+    color: var(--blue);
+}
+
+.msg-system .msg-speaker-badge {
+    color: var(--green);
+}
+
+.msg-system .msg-text {
+    color: var(--green);
+    font-size: 0.76rem;
+}
+
+.breakthrough-badge,
+.clue-badge,
+.truth-badge,
+.evidence-tag-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 3px;
+    background: rgba(244, 96, 96, 0.2);
+    color: var(--red);
+}
+
+.clue-badge {
+    background: rgba(79, 163, 232, 0.2);
+    color: var(--blue);
+}
+
+.evidence-tag-badge {
+    background: var(--surface3);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+}
+
+.truth-badge {
+    background: rgba(61, 214, 140, 0.2);
+    color: var(--green);
+}

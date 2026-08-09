@@ -1,0 +1,72 @@
+{
+    "inkVersion": 21,
+    "root": [
+        [
+            {
+                "->": "judas_betrayal"
+            },
+            [
+                "done",
+                {
+                    "#n": "g-0"
+                }
+            ],
+            null
+        ],
+        "done",
+        {
+            "judas_betrayal": [
+                [
+                    "^The room is heavy with the smell of lamb and bitter herbs. I carry the bag, as I always have. Someone must think of the costs while others dream of kingdoms.",
+                    {
+                        "*": ".^.c-0",
+                        "flg": 2,
+                        "s": [
+                            "^The money bag seems heavy tonight.",
+                            null
+                        ]
+                    },
+                    {
+                        "*": ".^.c-1",
+                        "flg": 2,
+                        "s": [
+                            "^Jesus spoke of a new covenant.",
+                            null
+                        ]
+                    },
+                    null
+                ],
+                {
+                    "c-0": [
+                        "^Thirty pieces of silver is the weight of a life in this city. A slave's price. I did what was necessary for the group.",
+                        "#",
+                        "^reveal:money_bag_impression",
+                        "/#",
+                        "\n",
+                        "^He told us to be prepared. I am merely ensuring we are.",
+                        {
+                            "->": "closing"
+                        },
+                        null
+                    ],
+                    "c-1": [
+                        "^He speaks of many things. Blood, wine, bread. I look at the silver and I see reality. He is walking into a trap he won't avoid.",
+                        {
+                            "->": "closing"
+                        },
+                        null
+                    ]
+                }
+            ],
+            "closing": [
+                [
+                    "done",
+                    null
+                ],
+                null
+            ]
+        }
+    ],
+    "globals": {},
+    "listDefs": {}
+}

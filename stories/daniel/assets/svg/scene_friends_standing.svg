@@ -1,0 +1,48 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="friendsGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#4ECDC4" stop-opacity=".1"/>
+      <stop offset="100%" stop-color="#4ECDC4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="200" fill="#1a0700"/>
+  <!-- Ground -->
+  <rect x="0" y="157" width="300" height="43" fill="#2a0e00"/>
+  <rect x="0" y="155" width="300" height="4"  fill="#5a1a00" opacity=".5"/>
+  <!-- Floor tiles — pattern -->
+  <line x1="75"  y1="155" x2="75"  y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="150" y1="155" x2="150" y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <line x1="225" y1="155" x2="225" y2="200" stroke="#0A0812" stroke-width="1" opacity=".3"/>
+  <!-- Statue in bg — hierarchy: looms behind, muted, puts them in context -->
+  <rect x="124" y="22" width="52" height="128" fill="#3d1200" stroke="#0A0812" stroke-width="2" opacity=".7"/>
+  <polygon points="124,22 150,-2 176,22" fill="#3d1200" stroke="#0A0812" stroke-width="2" opacity=".7"/>
+  <!-- Unity glow around the three — emphasis, unity -->
+  <ellipse cx="150" cy="100" rx="90" ry="70" fill="url(#friendsGlow)"/>
+  <!-- Figure 1 — L — balance: equally spaced trio -->
+  <circle cx="70"  cy="62"  r="22" fill="#C8956C" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M48 54 Q70 40 92 54" fill="none" stroke="#2a1a0a" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="63"  cy="60"  r="3"  fill="#0A0812"/>
+  <circle cx="77"  cy="60"  r="3"  fill="#0A0812"/>
+  <path d="M63 72 Q70 78 77 72" fill="none" stroke="#0A0812" stroke-width="2" stroke-linecap="round"/>
+  <rect x="50"  y="84"  width="40" height="70" fill="#4ECDC4" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M50 84 L30 157" stroke="#4ECDC4" stroke-width="9"  stroke-linecap="round"/>
+  <path d="M90 84 L110 157" stroke="#4ECDC4" stroke-width="9" stroke-linecap="round"/>
+  <!-- Figure 2 — C — emphasis: centre, slightly larger -->
+  <circle cx="150" cy="58"  r="24" fill="#D4A574" stroke="#0A0812" stroke-width="3"/>
+  <path d="M126 50 Q150 34 174 50" fill="none" stroke="#2a1a0a" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="143" cy="56"  r="3.5" fill="#0A0812"/>
+  <circle cx="157" cy="56"  r="3.5" fill="#0A0812"/>
+  <path d="M143 68 Q150 76 157 68" fill="none" stroke="#0A0812" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="128" y="82"  width="44" height="74" fill="#38a3a5" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M128 82 L108 157" stroke="#38a3a5" stroke-width="10" stroke-linecap="round"/>
+  <path d="M172 82 L192 157" stroke="#38a3a5" stroke-width="10" stroke-linecap="round"/>
+  <!-- Figure 3 — R — balance: mirror of fig 1 -->
+  <circle cx="230" cy="62"  r="22" fill="#C8956C" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M208 54 Q230 40 252 54" fill="none" stroke="#2a1a0a" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="223" cy="60"  r="3"  fill="#0A0812"/>
+  <circle cx="237" cy="60"  r="3"  fill="#0A0812"/>
+  <path d="M223 72 Q230 78 237 72" fill="none" stroke="#0A0812" stroke-width="2" stroke-linecap="round"/>
+  <rect x="210" y="84"  width="40" height="70" fill="#4ECDC4" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M210 84 L190 157" stroke="#4ECDC4" stroke-width="9"  stroke-linecap="round"/>
+  <path d="M250 84 L270 157" stroke="#4ECDC4" stroke-width="9"  stroke-linecap="round"/>
+</svg>

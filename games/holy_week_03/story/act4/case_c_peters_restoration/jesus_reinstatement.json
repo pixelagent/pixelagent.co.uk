@@ -1,0 +1,135 @@
+{
+    "inkVersion": 21,
+    "root": [
+        [
+            {
+                "->": "start"
+            },
+            [
+                "done",
+                {
+                    "#n": "g-0"
+                }
+            ],
+            null
+        ],
+        "done",
+        {
+            "start": [
+                [
+                    "^'Children, do you have any fish?'",
+                    {
+                        "*": "cast_net",
+                        "flg": 2,
+                        "s": [
+                            "^No, we have caught nothing all night."
+                        ]
+                    },
+                    {
+                        "*": "identity",
+                        "flg": 2,
+                        "s": [
+                            "^Who is asking?"
+                        ]
+                    },
+                    null
+                ],
+                null
+            ],
+            "cast_net": [
+                [
+                    "^'Cast the net on the right side of the boat, and you will find some.'",
+                    {
+                        "*": "catch",
+                        "flg": 2,
+                        "s": [
+                            "^We will try once more."
+                        ]
+                    },
+                    null
+                ],
+                null
+            ],
+            "identity": [
+                [
+                    "^The light of the morning reflects off the water. 'It is the Lord!' John whispers beside you.",
+                    {
+                        "*": "shore",
+                        "flg": 2,
+                        "s": [
+                            "^Peter jumps into the sea."
+                        ]
+                    },
+                    null
+                ],
+                null
+            ],
+            "catch": [
+                [
+                    "^The net strains, nearly tearing with the weight of one hundred and fifty-three large fish.",
+                    {
+                        "*": "shore",
+                        "flg": 2,
+                        "s": [
+                            "^It is the Lord!"
+                        ]
+                    },
+                    null
+                ],
+                null
+            ],
+            "shore": [
+                [
+                    "^A charcoal fire is burning on the sand, with fish on it and some bread. 'Come and have breakfast,' Jesus says.",
+                    {
+                        "*": "restoration",
+                        "flg": 2,
+                        "s": [
+                            "^Sit and eat."
+                        ]
+                    },
+                    null
+                ],
+                null
+            ],
+            "restoration": [
+                [
+                    "^He turns to Simon Peter. 'Simon, son of John, do you love me more than these?'",
+                    {
+                        "*": "feeding",
+                        "flg": 2,
+                        "s": [
+                            "^He is asking about the love that stays."
+                        ]
+                    },
+                    null
+                ],
+                null
+            ],
+            "feeding": [
+                [
+                    "^'Feed my lambs... Tend my sheep... Feed my sheep.' Three times He asks, and three times He commissions the one who fled.",
+                    {
+                        "*": "closing",
+                        "flg": 2,
+                        "s": [
+                            "^Continue."
+                        ]
+                    },
+                    null
+                ],
+                null
+            ],
+            "closing": [
+                [
+                    "^'Follow me,' He says. The investigation of the empty tomb leads here\u2014to a life given back and a mission that will change the world.",
+                    "^-> DONE",
+                    null
+                ],
+                null
+            ]
+        }
+    ],
+    "globals": {},
+    "listDefs": {}
+}

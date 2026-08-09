@@ -1,0 +1,2 @@
+// Re-export BufferGeometryUtils from CDN for backward compatibility
+export { toTrianglesDrawMode, computeMikkTSpaceTangents, mergeGeometries, mergeBufferGeometries, mergeAttributes, mergeBufferAttributes, interleaveAttributes, estimateBytesUsed, mergeVertices, deinterleaveAttribute, deinterleaveGeometry, deepCloneAttribute, computeMorphedAttributes, mergeGroups, toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';

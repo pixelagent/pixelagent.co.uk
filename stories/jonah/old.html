@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Journey of Jonah</title>
+
+    <!-- Font Awesome (icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Modular stylesheets -->
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/ui.css">
+    <link rel="stylesheet" href="styles/compass.css">
+    <link rel="stylesheet" href="styles/act1-sea.css">
+    <link rel="stylesheet" href="styles/act2-storm.css">
+    <link rel="stylesheet" href="styles/act3-city.css">
+    <link rel="stylesheet" href="styles/act4-desert.css">
+</head>
+
+<body class="theme-sea">
+    <!-- Particle Canvas -->
+    <div id="tsparticles"></div>
+
+    <!-- 3D Canvas -->
+    <div id="threejs-container"></div>
+
+    <!-- Isometric exploration world (per-act) -->
+    <div id="isometric-container" class="hidden">
+        <div id="iso-loader" class="hidden">Loading World...</div>
+    </div>
+
+    <!-- Choice prompt, shown via the isometric:choice custom event -->
+    <div id="choice-prompt" class="hidden">
+        <div id="choice-options"></div>
+    </div>
+
+    <!-- Compass of the Heart indicator -->
+    <div id="compass-indicator">
+        <i class="fa-solid fa-compass icon"></i>
+    </div>
+
+    <main id="story-ui">
+        <div id="text-box">
+            <h1 id="scene-title">1. The Storm at Sea</h1>
+            <p id="bible-text">"But the Lord sent out a great wind into the sea, and there was a mighty tempest in the
+                sea, so that the ship was like to be broken." - Jonah 1:4</p>
+
+            <div id="prophecy-zone" class="hidden">
+                <p class="prophecy-header">
+                    <i class="fa-solid fa-star icon"></i> Fulfillment in Christ:
+                </p>
+                <a href="https://www.biblegateway.com/passage/?search=Matthew+12%3A40&version=KJV" target="_blank"
+                    id="prophecy-link">
+                    Matthew 12:40: "For as Jonas was three days and three nights in the whale's belly..."
+                </a>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn" onclick="StoryEngine.prev()">
+                <i class="fa-solid fa-arrow-left icon"></i> Back
+            </button>
+            <div id="chapter-indicator">Chapter 1</div>
+            <button class="nav-btn" id="nextBtn" onclick="StoryEngine.next()">
+                Next Scene <i class="fa-solid fa-arrow-right icon"></i>
+            </button>
+        </div>
+    </main>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/inkjs/dist/ink.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
+
+    <!-- Project modules — config first, then systems, then beats, then engine last -->
+    <script src="config.js"></script>
+    <script src="compass.js"></script>
+    <script src="dialogueEngine.js"></script>
+    <script src="postProduction.js"></script>
+    <script src="beats/act1.js"></script>
+    <script src="beats/act2.js"></script>
+    <script src="beats/act3.js"></script>
+    <script src="beats/act4.js"></script>
+    <script src="storyEngine.js"></script>
+    <script src="isometricEngine.js"></script>
+    <script src="testing.js"></script>
+
+    <script>
+        // Bootstraps both async-initialized systems.
+        Compass.init();
+
+        // Listen for choice-hotspot prompts from the isometric engine
+        // and render simple buttons — kept generic/DOM-only per the
+        // no-inline-styles rule (all styling lives in ui.css).
+        window.addEventListener('isometric:choice', (e) => {
+            const { choices, onChoose } = e.detail;
+            const prompt = document.getElementById('choice-prompt');
+            const options = document.getElementById('choice-options');
+            options.innerHTML = '';
+            choices.forEach((label, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'nav-btn';
+                btn.innerText = label;
+                btn.onclick = () => {
+                    onChoose(i);
+                    prompt.classList.add('hidden');
+                };
+                options.appendChild(btn);
+            });
+            prompt.classList.remove('hidden');
+        });
+    </script>
+</body>
+
+<!-- Shader logic for the isometric engine's tile materials -->
+<script id="tile-shader-logic" type="x-shader/x-fragment">
+    bool isTop = true;
+    vec3 overlayCol = colorA;
+
+    if (materialMode == 0) { // Split Color
+        isTop = vLocalY > splitY;
+        overlayCol = isTop ? colorA : colorB;
+    } else if (materialMode == 1) { // Solid Color
+        overlayCol = colorA;
+    }
+
+    vec3 finalColor = mix(baseColor, overlayCol, 0.55);
+    vec4 diffuseColor = vec4( finalColor, opacity );
+
+    // Dithering
+    int dMode = isTop ? tMode : bMode;
+    if (dMode > 0 && materialMode != 2) {
+        int dInkMode = isTop ? tInkMode : bInkMode;
+        vec3 dInkColor = isTop ? tInkColor : bInkColor;
+        float dSpace = isTop ? tSpace : bSpace;
+        float dThick = isTop ? tThick : bThick;
+        float dBright = isTop ? tBright : bBright;
+        float dAlpha = isTop ? tAlpha : bAlpha;
+
+        bool isDither = false;
+        vec2 scaledUv = myUv * (100.0 / dSpace);
+        float lineThreshold = dThick / dSpace;
+
+        if (dMode == 1) { isDither = fract(sin(dot(floor(scaledUv), vec2(12.9898,78.233)))*43758.5453) > 0.5; }
+        else if (dMode == 2) { isDither = fract(scaledUv.y) < lineThreshold; }
+        else if (dMode == 3) { isDither = fract(scaledUv.x) < lineThreshold; }
+        else if (dMode == 4) { isDither = (fract(scaledUv.y) < lineThreshold) || (fract(scaledUv.x) < lineThreshold); }
+
+        if (isDither) {
+            vec3 targetCol = (dInkMode == 1) ? dInkColor : mix(diffuseColor.rgb, dBright > 0.0 ? vec3(1.0) : vec3(0.0), abs(dBright));
+            diffuseColor.rgb = mix(diffuseColor.rgb, targetCol, dAlpha);
+        }
+    }
+</script>
+
+
+</html>

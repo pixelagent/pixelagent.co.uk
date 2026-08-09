@@ -1,0 +1,291 @@
+<svg viewBox="0 0 600 400"
+     xmlns="http://www.w3.org/2000/svg"
+     width="100%"
+     height="100%">
+
+  <defs>
+
+    <linearGradient id="sky"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1">
+      <stop offset="0%" stop-color="#1a4663"/>
+      <stop offset="55%" stop-color="#4d7fa1"/>
+      <stop offset="100%" stop-color="#efb36f"/>
+    </linearGradient>
+
+    <radialGradient id="sunGlow">
+      <stop offset="0%" stop-color="#fff4bc"/>
+      <stop offset="100%" stop-color="#fff4bc" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="cityGlow">
+      <stop offset="0%" stop-color="#ffd98a"/>
+      <stop offset="100%" stop-color="#ffd98a" stop-opacity="0"/>
+    </radialGradient>
+
+  </defs>
+
+  <!-- SKY -->
+
+  <rect width="600"
+        height="400"
+        fill="url(#sky)"/>
+
+  <!-- SUN -->
+
+  <circle cx="500"
+          cy="85"
+          r="48"
+          fill="#FFD84D"
+          stroke="#0A0812"
+          stroke-width="3"/>
+
+  <circle cx="500"
+          cy="85"
+          r="100"
+          fill="url(#sunGlow)"
+          opacity="0.4"/>
+
+  <!-- DISTANT HILLS -->
+
+  <path d="
+      M0 230
+      Q140 190 280 220
+      T600 205
+      L600 400
+      L0 400 Z"
+      fill="#355164"/>
+
+  <!-- NINEVEH -->
+
+  <g transform="translate(300 120)">
+
+    <ellipse cx="120"
+             cy="100"
+             rx="170"
+             ry="90"
+             fill="url(#cityGlow)"/>
+
+    <rect x="0"
+          y="95"
+          width="250"
+          height="60"
+          fill="#b67d48"
+          stroke="#0A0812"
+          stroke-width="4"/>
+
+    <rect x="25"
+          y="30"
+          width="60"
+          height="125"
+          fill="#c58d56"
+          stroke="#0A0812"
+          stroke-width="4"/>
+
+    <polygon points="25,30 55,0 85,30"
+             fill="#965f2f"
+             stroke="#0A0812"
+             stroke-width="4"/>
+
+    <rect x="95"
+          y="10"
+          width="80"
+          height="145"
+          fill="#d09d67"
+          stroke="#0A0812"
+          stroke-width="4"/>
+
+    <rect x="190"
+          y="45"
+          width="45"
+          height="110"
+          fill="#c58d56"
+          stroke="#0A0812"
+          stroke-width="4"/>
+
+    <!-- happy banners -->
+
+    <path d="M20 90
+             Q40 110 60 90
+             L60 130
+             L20 130 Z"
+          fill="#4ecdc4"/>
+
+    <path d="M115 85
+             Q135 105 155 85
+             L155 130
+             L115 130 Z"
+          fill="#f4b942"/>
+
+    <path d="M190 90
+             Q210 110 230 90
+             L230 130
+             L190 130 Z"
+          fill="#7ad66d"/>
+
+    <!-- lights / citizens -->
+
+    <g fill="#fff7d8">
+
+      <circle cx="30" cy="80" r="2.5"/>
+      <circle cx="45" cy="70" r="2.5"/>
+      <circle cx="65" cy="80" r="2.5"/>
+
+      <circle cx="110" cy="65" r="2.5"/>
+      <circle cx="130" cy="55" r="2.5"/>
+      <circle cx="150" cy="65" r="2.5"/>
+
+      <circle cx="205" cy="75" r="2.5"/>
+      <circle cx="225" cy="70" r="2.5"/>
+
+    </g>
+
+  </g>
+
+  <!-- FOREGROUND HILL -->
+
+  <path d="
+      M0 295
+      Q150 250 270 285
+      Q380 315 600 250
+      L600 400
+      L0 400 Z"
+      fill="#121c26"
+      stroke="#0A0812"
+      stroke-width="4"/>
+
+  <!-- JONAH -->
+
+  <g transform="translate(150 235)">
+
+    <!-- shadow -->
+
+    <ellipse cx="0"
+             cy="95"
+             rx="55"
+             ry="18"
+             fill="#000"
+             opacity="0.25"/>
+
+    <!-- head -->
+
+    <circle cx="0"
+            cy="0"
+            r="18"
+            fill="#f2d1aa"
+            stroke="#0A0812"
+            stroke-width="3"/>
+
+    <!-- angry eyebrows -->
+
+    <line x1="-10"
+          y1="-5"
+          x2="-2"
+          y2="0"
+          stroke="#0A0812"
+          stroke-width="2"/>
+
+    <line x1="2"
+          y1="0"
+          x2="10"
+          y2="-5"
+          stroke="#0A0812"
+          stroke-width="2"/>
+
+    <!-- shouting mouth -->
+
+    <circle cx="0"
+            cy="8"
+            r="5"
+            fill="#0A0812"/>
+
+    <!-- robe -->
+
+    <path d="
+        M-25 20
+        L25 20
+        L35 95
+        L-35 95 Z"
+        fill="#56748d"
+        stroke="#0A0812"
+        stroke-width="3"/>
+
+    <!-- wildly flailing arms -->
+
+    <line x1="-22"
+          y1="40"
+          x2="-75"
+          y2="0"
+          stroke="#0A0812"
+          stroke-width="6"
+          stroke-linecap="round"/>
+
+    <line x1="22"
+          y1="40"
+          x2="85"
+          y2="0"
+          stroke="#0A0812"
+          stroke-width="6"
+          stroke-linecap="round"/>
+
+    <!-- legs -->
+
+    <line x1="-10"
+          y1="95"
+          x2="-25"
+          y2="125"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+    <line x1="10"
+          y1="95"
+          x2="30"
+          y2="125"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+  </g>
+
+  <!-- COMIC FRUSTRATION SYMBOLS -->
+
+  <g stroke="#fff7d8"
+     stroke-width="4"
+     stroke-linecap="round">
+
+    <line x1="80" y1="170" x2="95" y2="155"/>
+    <line x1="95" y1="170" x2="80" y2="155"/>
+
+    <line x1="210" y1="165" x2="225" y2="150"/>
+    <line x1="225" y1="165" x2="210" y2="150"/>
+
+  </g>
+
+  <!-- PATH TO CITY -->
+
+  <path d="
+      M170 400
+      Q250 340 320 290
+      Q380 255 420 220"
+      fill="none"
+      stroke="#ddb57f"
+      stroke-width="8"
+      opacity="0.8"
+      stroke-linecap="round"/>
+
+  <!-- EARLY STARS -->
+
+  <g fill="#ffffff"
+     opacity="0.7">
+
+    <circle cx="80" cy="45" r="1.4"/>
+    <circle cx="130" cy="30" r="1.4"/>
+    <circle cx="250" cy="55" r="1.2"/>
+    <circle cx="560" cy="40" r="1.4"/>
+
+  </g>
+
+</svg>

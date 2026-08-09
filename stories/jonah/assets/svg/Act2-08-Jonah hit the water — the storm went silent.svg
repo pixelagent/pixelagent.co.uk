@@ -1,0 +1,26 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <defs>
+    <linearGradient id="deepWater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1d3557"/>
+      <stop offset="100%" stop-color="#050912"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Underwater -->
+  <rect width="600" height="400" fill="url(#deepWater)"/>
+
+  <!-- Surface Agitation Above (calming down) -->
+  <path d="M0 50 Q150 70, 300 50 T600 50 L600 0 L0 0 Z" fill="#0f1b29" stroke="#0A0812" stroke-width="4"/>
+  <path d="M0 20 Q150 40, 300 20 T600 20 L600 0 L0 0 Z" fill="#4ecdc4" opacity="0.3"/>
+
+  <!-- Plunge Trail -->
+  <path d="M300 50 Q280 150, 320 250 T300 400" fill="none" stroke="#4ecdc4" stroke-width="6" opacity="0.4" stroke-dasharray="10 15" stroke-linecap="round"/>
+  <circle cx="290" cy="100" r="8" fill="#FFF7E8" opacity="0.5"/>
+  <circle cx="315" cy="160" r="12" fill="#FFF7E8" opacity="0.4"/>
+  <circle cx="285" cy="220" r="6" fill="#FFF7E8" opacity="0.3"/>
+
+  <!-- Jonah sinking (tiny silhouette) -->
+  <path d="M290 320 Q300 280, 330 310 Q320 340, 300 350 Z" fill="#0A0812"/>
+  <line x1="310" y1="300" x2="340" y2="270" stroke="#0A0812" stroke-width="5" stroke-linecap="round"/>
+  <line x1="300" y1="350" x2="280" y2="390" stroke="#0A0812" stroke-width="5" stroke-linecap="round"/>
+</svg>

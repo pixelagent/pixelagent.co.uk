@@ -1,0 +1,132 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyPrd" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#E8B84B"/>
+      <stop offset="45%" stop-color="#c07020"/>
+      <stop offset="100%" stop-color="#1c2a3a"/>
+    </linearGradient>
+    <linearGradient id="gndPrd" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3d2808"/>
+      <stop offset="100%" stop-color="#1a1208"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky background -->
+  <rect width="400" height="300" fill="url(#skyPrd)"/>
+
+  <!-- Amber sky streaks — movement, upper sky -->
+  <path d="M0,55 Q120,45 240,58 Q310,63 400,50" stroke="#E8B84B" stroke-width="3" fill="none" opacity="0.4"/>
+  <path d="M0,72 Q100,62 210,74 Q300,80 400,66" stroke="#c07020" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M0,38 Q80,30 180,42 Q260,48 380,35" stroke="#fff8e0" stroke-width="1.5" fill="none" opacity="0.18"/>
+
+  <!-- Ground strip -->
+  <rect x="0" y="258" width="400" height="42" fill="url(#gndPrd)"/>
+  <line x1="0" y1="262" x2="400" y2="258" stroke="#1e0e04" stroke-width="1" opacity="0.5"/>
+
+  <!-- DIAGONAL PARADE LINE: lower-left to upper-right implied -->
+
+  <!-- === BACKGROUND TIER: 3 small receding silhouettes === -->
+  <!-- Silhouette 3 — smallest, furthest right-upper -->
+  <ellipse cx="375" cy="218" rx="14" ry="9" fill="#2a3d50" stroke="#0A0812" stroke-width="1"/>
+  <circle cx="385" cy="212" r="6" fill="#2a3d50" stroke="#0A0812" stroke-width="1"/>
+  <line x1="369" y1="227" x2="367" y2="238" stroke="#0A0812" stroke-width="1"/>
+  <line x1="374" y1="227" x2="373" y2="238" stroke="#0A0812" stroke-width="1"/>
+  <line x1="379" y1="227" x2="378" y2="238" stroke="#0A0812" stroke-width="1"/>
+  <line x1="383" y1="227" x2="383" y2="238" stroke="#0A0812" stroke-width="1"/>
+
+  <!-- Silhouette 2 — medium, mid-right -->
+  <ellipse cx="342" cy="228" rx="18" ry="11" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="356" cy="220" r="8" fill="#1c2a3a" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="333" y1="238" x2="331" y2="252" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="339" y1="239" x2="337" y2="252" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="346" y1="239" x2="345" y2="252" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="352" y1="238" x2="351" y2="252" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- Silhouette 1 — larger, nearer right -->
+  <ellipse cx="300" cy="238" rx="24" ry="14" fill="#101828" stroke="#0A0812" stroke-width="1.5"/>
+  <circle cx="318" cy="228" r="10" fill="#101828" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="288" y1="251" x2="285" y2="265" stroke="#0A0812" stroke-width="2"/>
+  <line x1="296" y1="252" x2="294" y2="266" stroke="#0A0812" stroke-width="2"/>
+  <line x1="306" y1="251" x2="304" y2="265" stroke="#0A0812" stroke-width="2"/>
+  <line x1="314" y1="250" x2="313" y2="264" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- === MIDGROUND TIER: GIRAFFE PAIR — tall necks into sky === -->
+  <!-- Giraffe 2 (slightly behind, left of giraffe 1) -->
+  <rect x="196" y="196" width="18" height="40" rx="5" fill="#C8A850" stroke="#0A0812" stroke-width="2"/>
+  <!-- Neck leaning forward -->
+  <polygon points="208,196 214,196 224,140 218,140" fill="#C8A850" stroke="#0A0812" stroke-width="2"/>
+  <ellipse cx="221" cy="137" rx="9" ry="7" fill="#C8A850" stroke="#0A0812" stroke-width="2"/>
+  <line x1="218" y1="131" x2="217" y2="121" stroke="#0A0812" stroke-width="2"/>
+  <line x1="224" y1="131" x2="225" y2="121" stroke="#0A0812" stroke-width="2"/>
+  <!-- Spots on giraffe 2 -->
+  <ellipse cx="200" cy="204" rx="4" ry="3" fill="#a06a35" opacity="0.65"/>
+  <ellipse cx="206" cy="214" rx="3" ry="4" fill="#a06a35" opacity="0.65"/>
+  <ellipse cx="213" cy="168" rx="3" ry="3" fill="#a06a35" opacity="0.65"/>
+  <!-- Legs giraffe 2 -->
+  <line x1="199" y1="236" x2="196" y2="260" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="206" y1="236" x2="204" y2="260" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="212" y1="236" x2="210" y2="260" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="210" y1="236" x2="213" y2="260" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Tail -->
+  <path d="M196,215 Q188,222 190,230" stroke="#0A0812" stroke-width="1.5" fill="none"/>
+
+  <!-- Giraffe 1 (main, leaning forward) -->
+  <rect x="230" y="188" width="22" height="46" rx="6" fill="#D4A030" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Neck leaning forward-right -->
+  <polygon points="244,188 252,188 268,124 260,124" fill="#D4A030" stroke="#0A0812" stroke-width="2.5"/>
+  <ellipse cx="264" cy="120" rx="11" ry="8" fill="#D4A030" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="260" y1="113" x2="259" y2="101" stroke="#0A0812" stroke-width="2.5"/>
+  <line x1="268" y1="113" x2="270" y2="101" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Spots giraffe 1 -->
+  <ellipse cx="234" cy="196" rx="5" ry="4" fill="#a06a35" opacity="0.7"/>
+  <ellipse cx="243" cy="208" rx="4" ry="5" fill="#a06a35" opacity="0.7"/>
+  <ellipse cx="256" cy="155" rx="4" ry="3" fill="#a06a35" opacity="0.7"/>
+  <ellipse cx="261" cy="140" rx="3" ry="3" fill="#a06a35" opacity="0.7"/>
+  <!-- Legs giraffe 1 -->
+  <line x1="233" y1="234" x2="230" y2="262" stroke="#0A0812" stroke-width="3"/>
+  <line x1="241" y1="234" x2="239" y2="263" stroke="#0A0812" stroke-width="3"/>
+  <line x1="249" y1="234" x2="247" y2="262" stroke="#0A0812" stroke-width="3"/>
+  <line x1="249" y1="234" x2="252" y2="262" stroke="#0A0812" stroke-width="3"/>
+  <!-- Tail -->
+  <path d="M230,208 Q220,217 222,227" stroke="#0A0812" stroke-width="2" fill="none"/>
+
+  <!-- === FOREGROUND TIER: ELEPHANT PAIR — dominant, lower half === -->
+  <!-- Elephant 2 body (slightly behind elephant 1, right side) -->
+  <ellipse cx="110" cy="255" rx="45" ry="32" fill="#6e6e6e" stroke="#0A0812" stroke-width="2.5"/>
+  <ellipse cx="148" cy="238" rx="22" ry="20" fill="#6e6e6e" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Ear 2 -->
+  <ellipse cx="134" cy="233" rx="13" ry="16" fill="#7e7e7e" stroke="#0A0812" stroke-width="1.5" opacity="0.8"/>
+  <!-- Trunk 2 leaning forward -->
+  <path d="M158,248 Q174,260 170,276 Q167,286 161,280" stroke="#0A0812" stroke-width="2.5" fill="#6e6e6e"/>
+  <!-- Eye 2 -->
+  <circle cx="154" cy="233" r="2.5" fill="#0A0812"/>
+  <circle cx="154" cy="233" r="1.2" fill="#fff8e0"/>
+  <!-- Tusk 2 -->
+  <path d="M158,250 Q170,246 174,252" stroke="#fff8e0" stroke-width="2" fill="none"/>
+  <!-- Legs 2 -->
+  <rect x="76" y="279" width="14" height="21" rx="4" fill="#5e5e5e" stroke="#0A0812" stroke-width="2"/>
+  <rect x="96" y="280" width="14" height="20" rx="4" fill="#5e5e5e" stroke="#0A0812" stroke-width="2"/>
+  <rect x="118" y="279" width="14" height="21" rx="4" fill="#5e5e5e" stroke="#0A0812" stroke-width="2"/>
+  <rect x="136" y="278" width="14" height="22" rx="4" fill="#5e5e5e" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Elephant 1 body (dominant, lower-left, leaning forward) -->
+  <ellipse cx="-10" cy="262" rx="62" ry="42" fill="#808080" stroke="#0A0812" stroke-width="3"/>
+  <!-- This extends partly off screen left — fill with visible body parts -->
+  <ellipse cx="28" cy="252" rx="58" ry="40" fill="#808080" stroke="#0A0812" stroke-width="3"/>
+  <!-- Head, leaning forward-right -->
+  <ellipse cx="78" cy="234" rx="30" ry="27" fill="#808080" stroke="#0A0812" stroke-width="3"/>
+  <!-- Ear -->
+  <ellipse cx="60" cy="228" rx="16" ry="20" fill="#909090" stroke="#0A0812" stroke-width="2" opacity="0.85"/>
+  <!-- Trunk leaning right (motion) -->
+  <path d="M92,248 Q112,262 108,282 Q104,294 96,288" stroke="#0A0812" stroke-width="3" fill="#808080"/>
+  <!-- Eye -->
+  <circle cx="86" cy="228" r="3.5" fill="#0A0812"/>
+  <circle cx="86" cy="228" r="1.8" fill="#fff8e0"/>
+  <!-- Tusk -->
+  <path d="M93,250 Q110,247 116,255" stroke="#fff8e0" stroke-width="3" fill="none"/>
+  <!-- Legs foreground elephant -->
+  <rect x="0" y="282" width="17" height="18" rx="5" fill="#707070" stroke="#0A0812" stroke-width="2"/>
+  <rect x="22" y="284" width="17" height="16" rx="5" fill="#707070" stroke="#0A0812" stroke-width="2"/>
+  <rect x="46" y="282" width="17" height="18" rx="5" fill="#707070" stroke="#0A0812" stroke-width="2"/>
+  <rect x="68" y="280" width="17" height="20" rx="5" fill="#707070" stroke="#0A0812" stroke-width="2"/>
+</svg>

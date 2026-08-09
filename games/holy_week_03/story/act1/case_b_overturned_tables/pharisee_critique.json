@@ -1,0 +1,55 @@
+{
+  "start": {
+    "content": "I am Simon the Pharisee. I return from the synagogue and for some this town calls it conversation. For those who respect the Law, this matter is not as straightforward as the crowds claim. A man heals on the Sabbath and claims authority over the Law. Torah asks the question. The crowd needs an answer.",
+    "choices": [
+      {
+        "text": "He healed a man born blind \u2014 on the Sabbath.",
+        "destination": "healing"
+      },
+      {
+        "text": "The crowd follows Him like a king.",
+        "destination": "popularity"
+      }
+    ]
+  },
+  "healing": {
+    "content": "The evidence is troubling. A man blind from birth \u2014 that is a condition no one disputes \u2014 begins to see on the Sabbath. The Pharisees questioned him for hours. His answer was simple: \"I was blind. Now I can see.\" The council couldn't refute it.",
+    "choices": [
+      {
+        "text": "So the miracle is real?",
+        "destination": "law_challenge"
+      }
+    ]
+  },
+  "popularity": {
+    "content": "The crowds are laying cloaks on the road. People are calling Him king. But a king who rides on a donkey colt? A king who refuses to call down legions? The crowd wants a liberator. He seems to be offering something far more disruptive \u2014 truth itself.",
+    "choices": [
+      {
+        "text": "That threatens your system.",
+        "destination": "law_challenge"
+      }
+    ]
+  },
+  "law_challenge": {
+    "content": "He quoted Daniel 7:13 \u2014 the Son of Man coming with the clouds of heaven. He claimed that title openly. In our Law, that is a claim to divine authority. The Sadducees fear it. The Pharisees debate it. I cannot deny the case He is building.",
+    "choices": [
+      {
+        "text": "And the Sabbath healings continue?",
+        "destination": "exposed"
+      }
+    ]
+  },
+  "exposed": {
+    "content": "I asked Him about the greatest commandment \u2014 truly asked. I wanted to trap Him. Instead He answered with a simplicity that shattered my categories. \"Love God with all your heart, soul, mind, and strength, and your neighbour as yourself. On these two commands hang all the Law and the Prophets.\"",
+    "choices": [
+      {
+        "text": "That stopped you.",
+        "destination": "closing"
+      }
+    ]
+  },
+  "closing": {
+    "content": "You are not far from the kingdom of God. Those were His words to me. I have thought about nothing else since.",
+    "choices": []
+  }
+}

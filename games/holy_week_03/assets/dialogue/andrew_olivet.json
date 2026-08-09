@@ -1,0 +1,16 @@
+{
+    "inkVersion": 21,
+    "root": [
+        "^I am Andrew. I was there with the Master on the Mount of Olives when He spoke of the end.",
+        "\n",
+        "^He told us that not one stone of the Temple would be left upon another. It is a weight upon my heart.",
+        "\n",
+        "ev",
+        "str",
+        "^Tell me more about the signs.",
+        "/str",
+        "out",
+        "/ev",
+        "done"
+    ]
+}

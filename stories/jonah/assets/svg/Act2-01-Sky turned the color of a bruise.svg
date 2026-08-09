@@ -1,0 +1,33 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bruiseSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#050912"/>
+      <stop offset="60%" stop-color="#141029"/> <!-- Bruise purple hint -->
+      <stop offset="100%" stop-color="#0f1b29"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#bruiseSky)"/>
+
+  <!-- Rolling Heavy Storm Clouds -->
+  <path d="M-40 60 Q40 -10, 140 30 Q200 -20, 290 20 Q370 -10, 460 40 Q540 10, 640 70 L640 0 L-40 0 Z" fill="#1b2333" stroke="#0A0812" stroke-width="5"/>
+  <path d="M10 80 Q100 20, 210 50 Q290 10, 400 40 Q500 20, 600 80 L600 0 L0 0 Z" fill="#121824" stroke="#0A0812" stroke-width="4"/>
+  <path d="M-20 120 Q120 70, 250 110 Q350 70, 480 110 Q580 80, 620 130 L620 0 L-20 0 Z" fill="#0A0812" opacity="0.5"/>
+
+  <!-- Tiny Endangered Ship -->
+  <g transform="translate(280, 230) rotate(-10) scale(0.5)">
+    <line x1="90" y1="90" x2="90" y2="-30" stroke="#0A0812" stroke-width="7"/>
+    <path d="M90 -10 C130 15, 120 60, 90 70 Z" fill="#4ecdc4" opacity="0.4" stroke="#0A0812" stroke-width="3"/>
+    <path d="M10 80 L170 80 L190 115 L25 115 Z" fill="#6c757d" stroke="#0A0812" stroke-width="5" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Approaching Violent Waves -->
+  <path d="M-20 280 C150 250, 200 320, 350 290 C500 260, 550 330, 640 300 L640 400 L-20 400 Z" fill="#1d3557" stroke="#0A0812" stroke-width="6"/>
+  <path d="M-20 330 C120 290, 250 350, 400 310 C500 280, 580 340, 640 330 L640 400 L-20 400 Z" fill="#0f1f34" stroke="#0A0812" stroke-width="5"/>
+
+  <!-- Heavy Downpour Rain Streaks -->
+  <line x1="150" y1="-20" x2="30" y2="400" stroke="#4ecdc4" opacity="0.3" stroke-width="2"/>
+  <line x1="300" y1="-20" x2="180" y2="400" stroke="#4ecdc4" opacity="0.3" stroke-width="4"/>
+  <line x1="450" y1="-20" x2="330" y2="400" stroke="#4ecdc4" opacity="0.2" stroke-width="3"/>
+  <line x1="600" y1="-20" x2="480" y2="400" stroke="#4ecdc4" opacity="0.4" stroke-width="2"/>
+</svg>

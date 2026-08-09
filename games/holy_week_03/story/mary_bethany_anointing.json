@@ -1,0 +1,14 @@
+{
+    "id": "mary_bethany_anointing",
+    "name": "Mary of Bethany",
+    "title": "Worshipper at Bethany",
+    "faction": "disciples",
+    "icon": "jar-duotone.svg",
+    "description": "Sister of Martha and Lazarus, Mary is known for her quiet, contemplative devotion. While her sister Martha is occupied with the duties of hospitality, Mary often sits at Jesus's feet to listen to His teaching. Her most notable act is anointing Jesus with expensive perfume at a dinner in Bethany, an act of extravagant worship that Jesus defends as a preparation for His burial.",
+    "attitude": {
+        "neutral": "Quiet, observant, and deeply devoted, focused more on the person of Jesus than the surrounding events.",
+        "positive": "Expresses profound love and worship, unconcerned with the practical or financial cost.",
+        "negative": "Becomes sorrowful and withdrawn when confronted with unbelief or misunderstanding of Jesus's mission."
+    },
+    "background": "Living in Bethany with her siblings, Mary's home is a frequent resting place for Jesus and His disciples. Her act of anointing Jesus is a pivotal moment, highlighting the theme of sacrificial love just before the Passion Week begins."
+}

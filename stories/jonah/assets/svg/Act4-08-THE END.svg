@@ -1,0 +1,35 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="twilight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#143547"/>
+      <stop offset="100%" stop-color="#1e4d6b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="600" height="400" fill="url(#twilight)"/>
+  
+  <rect y="335" width="600" height="65" fill="#07131c" stroke="#0A0812" stroke-width="4"/>
+
+  <!-- Tilted ground -->
+  <path d="M0 320 Q150 280, 300 310 T600 290 L600 400 L0 400 Z" fill="#0f2638"/>
+
+  <!-- Withered fig tree base background left -->
+  <g transform="translate(50, 310) scale(0.6)" opacity="0.6">
+    <path d="M265 340 L285 240 Q230 200, 190 190 L195 175 Q250 190, 295 220 Q335 180, 390 150 L400 162 Q345 200, 320 240 L335 340 Z" fill="#3d2a1e" stroke="#0A0812" stroke-width="5.5" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Distant Cool Nineveh Gate Structure (Calm) -->
+  <g transform="translate(400, 150) scale(0.6)" stroke="#0A0812" stroke-width="4.5" stroke-linejoin="round" opacity="0.6">
+    <rect x="40" y="40" width="125" height="320" fill="#22577a"/>
+    <rect x="165" y="90" width="275" height="270" fill="#1f4e70"/>
+    <path d="M195 360 L195 230 A 105 105 0 0 1 405 230 L405 360" fill="#38a3a5"/>
+    <path d="M215 360 L215 240 A 85 85 0 0 1 385 240 L385 360 Z" fill="#0A0812"/> 
+  </g>
+
+  <!-- Peaceful, Un-armored Jonah (Sitting) -->
+  <g transform="translate(180, 240) scale(1.1)">
+    <circle cx="50" cy="35" r="16" fill="#FFAD87" stroke="#0A0812" stroke-width="3.5"/>
+    <path d="M15 70 Q50 55 85 70 L75 115 L25 115 Z" fill="#38a3a5" stroke="#0A0812" stroke-width="3.5"/> 
+  </g>
+</svg>

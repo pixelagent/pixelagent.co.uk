@@ -1,0 +1,30 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Royal robe — proportion: fills lower half, rich red -->
+  <path d="M18 76 Q50 64 82 76 L78 100 L22 100 Z" fill="#8B0000" stroke="#0A0812" stroke-width="3"/>
+  <!-- Gold trim on robe — variety, emphasis -->
+  <path d="M18 76 Q50 64 82 76" fill="none" stroke="#FFD84D" stroke-width="2.5"/>
+  <!-- Robe folds — rhythm -->
+  <line x1="34" y1="78" x2="30" y2="100" stroke="#0A0812" stroke-width="1" opacity=".4"/>
+  <line x1="66" y1="78" x2="70" y2="100" stroke="#0A0812" stroke-width="1" opacity=".4"/>
+  <!-- Shoulder mantle — hierarchy, proportion -->
+  <path d="M24 66 Q50 56 76 66 L76 76 Q50 68 24 76 Z" fill="#6a0000" stroke="#0A0812" stroke-width="2"/>
+  <!-- Head -->
+  <circle cx="50" cy="42" r="28" fill="#D4A574" stroke="#0A0812" stroke-width="3.5"/>
+  <!-- Crown — emphasis: most distinctive feature, largest detail -->
+  <path d="M22 32 L28 42 L36 28 L44 38 L50 24 L56 38 L64 28 L72 42 L78 32 L74 44 L26 44 Z"
+        fill="#FFD84D" stroke="#0A0812" stroke-width="2.5"/>
+  <circle cx="50" cy="22" r="6"  fill="#FF6B5B" stroke="#0A0812" stroke-width="2"/>
+  <!-- Eyes — authority expression -->
+  <circle cx="41" cy="46" r="4"  fill="#0A0812"/>
+  <circle cx="59" cy="46" r="4"  fill="#0A0812"/>
+  <circle cx="42" cy="45" r="1.5" fill="white" opacity=".5"/>
+  <circle cx="60" cy="45" r="1.5" fill="white" opacity=".5"/>
+  <!-- Brow — commanding, slightly lowered -->
+  <path d="M35 40 Q41 37 47 40" fill="none" stroke="#0A0812" stroke-width="2"/>
+  <path d="M53 40 Q59 37 65 40" fill="none" stroke="#0A0812" stroke-width="2"/>
+  <!-- Beard — variety: kingly -->
+  <path d="M30 58 Q50 68 70 58 Q65 75 50 78 Q35 75 30 58 Z" fill="#c8a45a" stroke="#0A0812" stroke-width="2"/>
+  <line x1="40" y1="60" x2="38" y2="76" stroke="#8b7030" stroke-width="1.5" opacity=".5"/>
+  <line x1="50" y1="62" x2="50" y2="78" stroke="#8b7030" stroke-width="1.5" opacity=".5"/>
+  <line x1="60" y1="60" x2="62" y2="76" stroke="#8b7030" stroke-width="1.5" opacity=".5"/>
+</svg>

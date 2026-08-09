@@ -1,0 +1,28 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <rect width="600" height="400" fill="#0A0812"/>
+
+  <!-- The Enormous Open Jaws -->
+  <!-- Top Jaw -->
+  <path d="M-50 -50 L650 -50 L600 150 C400 50, 200 50, 0 150 Z" fill="#121824" stroke="#4ecdc4" stroke-width="4"/>
+  <!-- Bottom Jaw -->
+  <path d="M-50 450 L650 450 L600 250 C400 380, 200 380, 0 250 Z" fill="#121824" stroke="#4ecdc4" stroke-width="4"/>
+
+  <!-- Baleen / Teeth Rows -->
+  <g stroke="#1b2333" stroke-width="8" stroke-linecap="round">
+    <!-- Top -->
+    <line x1="50" y1="140" x2="30" y2="200"/><line x1="150" y1="90" x2="140" y2="170"/>
+    <line x1="250" y1="70" x2="245" y2="150"/><line x1="350" y1="70" x2="355" y2="150"/>
+    <line x1="450" y1="90" x2="460" y2="170"/><line x1="550" y1="140" x2="570" y2="200"/>
+    <!-- Bottom -->
+    <line x1="50" y1="270" x2="30" y2="210"/><line x1="150" y1="330" x2="140" y2="250"/>
+    <line x1="250" y1="360" x2="245" y2="280"/><line x1="350" y1="360" x2="355" y2="280"/>
+    <line x1="450" y1="330" x2="460" y2="250"/><line x1="550" y1="270" x2="570" y2="210"/>
+  </g>
+
+  <!-- Deep Throat Gradient -->
+  <ellipse cx="300" cy="210" rx="150" ry="100" fill="#050912"/>
+
+  <!-- Jonah falling in (center) -->
+  <path d="M295 190 Q310 180, 315 200 Q300 220, 285 200 Z" fill="#FFF7E8"/>
+  <line x1="290" y1="190" x2="270" y2="170" stroke="#FFF7E8" stroke-width="3" stroke-linecap="round"/>
+</svg>

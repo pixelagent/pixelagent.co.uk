@@ -1,0 +1,398 @@
+{
+  "start": {
+    "content": "I am a priest of the course of Abijah, serving in the Temple of the Lord. The Law of Sinai does not bend for crowds or healings. A man claims to be Lord of the Sabbath and calls this house his own. Torah knows what to do with such questions. By turning the Court of the Gentiles into a riot, He has given Rome every excuse to restrict our ceremonies and profane our sacred courts.",
+    "choices": [
+      { "text": "Did He have a legitimate complaint?", "destination": "complaint" },
+      { "text": "What about the Psalm He quoted?", "destination": "psalm_69" }
+    ]
+  },
+  "complaint": {
+    "content": "Legitimate? The Court of the Gentiles is not a marketplace. It is the only place on earth where a non-Jew can come to pray to the God of Israel. By driving out the merchants, He made it impossible for the nations to worship. That is not zeal. That is sabotage against the very purpose of the Temple.",
+    "choices": [
+      { "text": "The merchants were exploiting the poor.", "destination": "exploiting" },
+      { "text": "He said the Temple had become a den of thieves.", "destination": "den_thieves" }
+    ]
+  },
+  "psalm_69": {
+    "content": "Psalm 69:9. 'Zeal for your house will consume me.' Even a zealot can be a prophet. But a prophet who attacks the priesthood's authority without divine commission is a blasphemer. The Sanhedrin will decide. But mark my words: this man has declared war on the Temple, and the Temple will not fall without a fight.",
+    "choices": [
+      { "text": "The Temple needs reform, not war.", "destination": "reform" },
+      { "text": "What will the Sanhedrin do?", "destination": "sanhedrin_action" }
+    ]
+  },
+  "exploiting": {
+    "content": "Exploiting? The exchange rates are set by the priestly families according to Torah. The half-shekel tax is required by Moses. If there is exploitation, it is our system, not His to destroy. He should have come to the Sanhedrin. Presented his case. Argued his point. Not picked up a whip like a common zealot.",
+    "choices": [
+      { "text": "The Sanhedrin would not have listened.", "destination": "not_listen" },
+      { "text": "He acted with prophetic authority.", "destination": "prophetic_auth" }
+    ]
+  },
+  "den_thieves": {
+    "content": "'Den of thieves.' He quoted Isaiah 56:7 and turned it against us. The merchants operate under priestly license. Their profits maintain the Temple. Their sacrifices provide for the poor. By destroying their cages, He has made it impossible for the poor to offer their doves. That is not justice. That is cruelty.",
+    "choices": [
+      { "text": "The cages were a business, not a mitzvah.", "destination": "business" },
+      { "text": "He freed the birds.", "destination": "freed" }
+    ]
+  },
+  "reform": {
+    "content": "Reform comes from within. From the Sanhedrin. From the priests who have spent lifetimes studying the Law. Not from a Galilean carpenter with a whip and a crowd. This man offers destruction, not reform. And destruction is always easier than rebuilding.",
+    "choices": [
+      { "text": "Destruction can be prophetic.", "destination": "prophetic_destruction" },
+      { "text": "The system is beyond reform.", "destination": "beyond_reform" }
+    ]
+  },
+  "sanhedrin_action": {
+    "content": "The Sanhedrin will convene. We will examine the charges. We will hear the witnesses. We will apply the Law. If He is a blasphemer, He will be stoned. If He is a prophet, we will acknowledge Him. There is no middle ground for a man who claims to be Lord of the Sabbath.",
+    "choices": [
+      { "text": "And if He is both?", "destination": "both" },
+      { "text": "You have already decided.", "destination": "decided" }
+    ]
+  },
+  "not_listen": {
+    "content": "Would they? The High Priest has already declared Him a threat. The Sadducees have already plotted. The Sanhedrin is a court, not a debating society. It judges. It does not listen. Especially not to Galilean prophets who disrupt the courts with whips.",
+    "choices": [
+      { "text": "Then the Sanhedrin is corrupt.", "destination": "corrupt" },
+      { "text": "You are all guilty of the same crime.", "destination": "guilty" }
+    ]
+  },
+  "prophetic_auth": {
+    "content": "Prophetic authority? The prophets of old called the people to repentance. They wept over Jerusalem. They interceded for the nation. They did not pick up whips and break cages. This man is not a prophet. He is a revolutionary. And revolutionaries get crucified.",
+    "choices": [
+      { "text": "He offered a different kind of kingdom.", "destination": "kingdom" },
+      { "text": "You fear what you cannot control.", "destination": "fear_control" }
+    ]
+  },
+  "business": {
+    "content": "A business that serves the poor. The dove merchants provide the sacrifices the Law requires. Without them, the lepers have no offerings. The poor have no access to atonement. The Temple closes its doors to the very people it was built to serve. That is not a business. That is a sacred trust.",
+    "choices": [
+      { "text": "The trust was broken by the priests.", "destination": "broken_trust" },
+      { "text": "He offered direct access to God.", "destination": "direct_access" }
+    ]
+  },
+  "freed": {
+    "content": "He freed them. And now the poor have no way to offer. The Temple stands empty of the very people it was built for. That is not freedom. That is abandonment. And abandonment is not a virtue.",
+    "choices": [
+      { "text": "He freed them from exploitation.", "destination": "free_exploit" },
+      { "text": "The priests will replace the cages.", "destination": "replace" }
+    ]
+  },
+  "prophetic_destruction": {
+    "content": "Prophetic destruction? Jeremiah destroyed the scroll. Ezekiel burned the hair. But they did it with God's command. With prophetic authority. This man has no commission. No call. No authority from the Sanhedrin. He is a prophet without a portfolio. A voice without a call.",
+    "choices": [
+      { "text": "His call is from the Father.", "destination": "father_call" },
+      { "text": "You reject what you cannot control.", "destination": "reject_control" }
+    ]
+  },
+  "beyond_reform": {
+    "content": "Beyond reform? Never. The Temple has survived worse. It has survived Babylon. Greece. Rome. It will survive a Galilean with a whip. The cages will be mended. The coins will be recollected. The merchants will return. And the system will continue. Because God protects His own.",
+    "choices": [
+      { "text": "God protects the humble, not the system.", "destination": "humble" },
+      { "text": "The system is falling.", "destination": "falling" }
+    ]
+  },
+  "both": {
+    "content": "Both? A man cannot be both Messiah and blasphemer. If He is the Christ, He must sit on David's throne. If He is a blasphemer, He must be stoned. The Sanhedrin will decide. And the decision will be according to the Law, not according to crowds or prophecies or wishes.",
+    "choices": [
+      { "text": "The Law is not your tool.", "destination": "law_tool" },
+      { "text": "You will condemn an innocent man.", "destination": "innocent_condemned" }
+    ]
+  },
+  "decided": {
+    "content": "Decided? I have not decided. I have observed. I have assessed. And my assessment is this: a man who claims divine authority and acts with violent zeal is a threat to the peace. A threat to the Temple. A threat to Israel. The Sanhedrin will judge. And I will vote according to my conscience.",
+    "choices": [
+      { "text": "Your conscience is silent.", "destination": "silent_conscience" },
+      { "text": "You fear the truth.", "destination": "fear_truth_priest" }
+    ]
+  },
+  "corrupt": {
+    "content": "Corrupt? The Sanhedrin has guided Israel for centuries. We have preserved the Law through every empire. We are not corrupt. We are survivors. And survival requires hard choices.",
+    "choices": [
+      { "text": "Survival is not the same as righteousness.", "destination": "survival_righteousness" },
+      { "text": "You are surviving by destroying innocence.", "destination": "destroying_innocence" }
+    ]
+  },
+  "guilty": {
+    "content": "Guilty? Of what? Of serving the Law? Of protecting the Temple? Of preserving the covenant? If those are crimes, then I am guilty. And I will stand guilty before the God of Israel with a clean conscience.",
+    "choices": [
+      { "text": "Your conscience is not clean.", "destination": "unclean_conscience" },
+      { "text": "God sees the heart.", "destination": "heart" }
+    ]
+  },
+  "kingdom": {
+    "content": "A different kingdom? Every prophet claims a different kingdom. The Zealots claim a military kingdom. The Essenes claim a holy kingdom. This man claims a spiritual kingdom. But kingdoms require power. And power requires authority. And authority requires... proof.",
+    "choices": [
+      { "text": "His proof is in the miracles.", "destination": "miracles" },
+      { "text": "His kingdom is not of this world.", "destination": "not_this_world" }
+    ]
+  },
+  "fear_control": {
+    "content": "Fear? I am a priest of the living God. I do not fear Galilean prophets. I fear the Lord. And the Lord has given me the Law. The Law commands me to purge blasphemy from Israel. That is my duty. Not fear. Duty.",
+    "choices": [
+      { "text": "Your duty is to justice.", "destination": "duty_justice" },
+      { "text": "You confuse duty with fear.", "destination": "duty_fear" }
+    ]
+  },
+  "broken_trust": {
+    "content": "Broken? The trust is three thousand years old. It has survived every empire, every conquest, every persecution. It will survive a Galilean with a whip. The cages will be rebuilt. The coins will be recollected. The trust will endure.",
+    "choices": [
+      { "text": "Not if the people reject it.", "destination": "reject_trust" },
+      { "text": "Endurance is not the same as righteousness.", "destination": "endurance_righteousness" }
+    ]
+  },
+  "direct_access": {
+    "content": "Direct access? There is no direct access to God. There is only the Law. The sacrifices. The priesthood. That is the system God ordained. This man would abolish the system and leave the people with nothing but his own authority. And that is not access. That is chaos.",
+    "choices": [
+      { "text": "He is the way.", "destination": "the_way" },
+      { "text": "You are the barrier.", "destination": "barrier_priest" }
+    ]
+  },
+  "free_exploit": {
+    "content": "From exploitation? The Law protects the poor. The dove merchants serve the poor. The exchange rates serve the poor. If there is exploitation, it is in the hearts of men, not in the system. And you do not fix hearts by breaking cages.",
+    "choices": [
+      { "text": "You preserve exploitation.", "destination": "preserve_exploit" },
+      { "text": "The Law should protect the vulnerable.", "destination": "vulnerable" }
+    ]
+  },
+  "replace": {
+    "content": "Replace? They will replace them by sundown. The merchants will return. The coins will be reset. The cages will be mended. The system will continue. Because the system is not made of wood and string. It is made of Law and covenant. And those cannot be broken by a whip.",
+    "choices": [
+      { "text": "The covenant is broken by your hearts.", "destination": "broken_covenant" },
+      { "text": "The system is already broken.", "destination": "already_broken" }
+    ]
+  },
+  "father_call": {
+    "content": "From the Father? Every prophet claims that. Every false messiah claims that. The test is not the claim. The test is the fruit. And the fruit of today is broken cages and a Sanhedrin that must now decide whether to stone a prophet or acknowledge a Messiah.",
+    "choices": [
+      { "text": "The fruit is corruption exposed.", "destination": "exposed_fruit" },
+      { "text": "You will choose to stone.", "destination": "choose_stone" }
+    ]
+  },
+  "reject_control": {
+    "content": "Reject? I do not reject. I judge. I apply the Law. The Law is clear: a prophet who acts without authority is a false prophet. And a false prophet must be silenced. Not because I fear Him. Because I love the Law more than my own safety.",
+    "choices": [
+      { "text": "You love the Law more than the Lawgiver.", "destination": "lawgiver_priest" },
+      { "text": "The Law is love.", "destination": "law_love" }
+    ]
+  },
+  "humble": {
+    "content": "The humble? The poor who bring their doves? The widows who give their coins? The Temple serves them every day. This man disrupted their worship. He made it impossible for them to offer. That is not humility. That is arrogance.",
+    "choices": [
+      { "text": "He offered something better.", "destination": "better_offering" },
+      { "text": "You serve the system, not the people.", "destination": "system_not_people" }
+    ]
+  },
+  "falling": {
+    "content": "Falling? The Temple has stood for a thousand years. It will stand for a thousand more. This man will fall. His movement will fall. The crowds will disperse. And the Temple will remain. Because the Temple is not built by human hands. It is built by God.",
+    "choices": [
+      { "text": "God is not bound to this building.", "destination": "not_bound" },
+      { "text": "The Temple fell in AD 70.", "destination": "fell_70" }
+    ]
+  },
+  "law_tool": {
+    "content": "Not a tool? The Law is the sword of God. It cuts both ways. It protects the innocent. It punishes the guilty. If this man is guilty of blasphemy, the Law demands his death. Not because I want it. Because the Law requires it.",
+    "choices": [
+      { "text": "The Law was fulfilled in Him.", "destination": "fulfilled_law" },
+      { "text": "You wield the Law as a weapon.", "destination": "weapon_law" }
+    ]
+  },
+  "innocent_condemned": {
+    "content": "Innocent? By whose standard? By the standard of the Galilean? By the standard of the crowd? By the standard of the Romans? I answer to the Law. To the Torah. To the covenant. And if the Law says He is guilty, He is guilty. Not because I say so. Because God says so.",
+    "choices": [
+      { "text": "God does not condemn the innocent.", "destination": "god_innocent" },
+      { "text": "You are condemning God's Son.", "destination": "condemning_son" }
+    ]
+  },
+  "silent_conscience": {
+    "content": "Silent? My conscience speaks louder than you know. It speaks in the Law. In the Psalms. In the prophets. And today, it speaks in the wreckage of the Court of the Gentiles. A conscience that does not speak is not silent. It is waiting.",
+    "choices": [
+      { "text": "Waiting for what?", "destination": "waiting" },
+      { "text": "Your conscience is dead.", "destination": "dead_conscience" }
+    ]
+  },
+  "fear_truth_priest": {
+    "content": "Fear the truth? I study the truth every Sabbath. I teach the truth every festival. I live the truth every day. What I fear is a man who claims to be the truth and acts like a revolutionary. Because revolutionaries destroy the very things they claim to love.",
+    "choices": [
+      { "text": "He is not a revolutionary.", "destination": "not_revolutionary" },
+      { "text": "You fear what you cannot explain.", "destination": "cannot_explain" }
+    ]
+  },
+  "survival_righteousness": {
+    "content": "Survival is righteousness? When Israel survives, righteousness endures. When Israel falls, righteousness perishes. I choose survival. Not because I love power. Because I love the covenant. And the covenant requires a people. A Temple. A Law. Without these, there is nothing.",
+    "choices": [
+      { "text": "The covenant is bigger than the Temple.", "destination": "bigger_covenant" },
+      { "text": "You are preserving a corpse.", "destination": "corpse" }
+    ]
+  },
+  "destroying_innocence": {
+    "content": "Destroying innocence? I am preserving the Law. The Law is innocent. The Temple is innocent. The covenant is innocent. If condemning this man preserves these things, then I will condemn Him. Not with joy. With sorrow. But with resolve.",
+    "choices": [
+      { "text": "That is not sorrow. That is murder.", "destination": "murder" },
+      { "text": "The Law is not innocent if it kills the innocent.", "destination": "law_not_innocent" }
+    ]
+  },
+  "miracles": {
+    "content": "Miracles? Moses performed miracles. Elijah performed miracles. But they did so with God's authority. With a call. With a commission. This man has no commission. No call. No authority from the Sanhedrin. His miracles are impressive. But they prove nothing about his messiahship.",
+    "choices": [
+      { "text": "His miracles prove His Father's approval.", "destination": "father_approval" },
+      { "text": "You reject the evidence.", "destination": "reject_evidence" }
+    ]
+  },
+  "not_this_world": {
+    "content": "Not of this world? Then why does He act in this world? Why does He disrupt our courts? Why does He challenge our authority? A kingdom not of this world does not interfere in the governance of this world. This man interferes constantly.",
+    "choices": [
+      { "text": "His kingdom is advancing.", "destination": "advancing" },
+      { "text": "You are threatened by a greater kingdom.", "destination": "greater_kingdom" }
+    ]
+  },
+  "duty_justice": {
+    "content": "Justice? The Law is justice. The Law demands blood for blasphemy. If this man is guilty, justice demands His death. If He is innocent, justice demands His release. I will apply the Law fairly. Not because I am just. Because the Law is just.",
+    "choices": [
+      { "text": "The Law is not just if it condemns the innocent.", "destination": "unjust_law" },
+      { "text": "You will find Him guilty.", "destination": "find_guilty" }
+    ]
+  },
+  "duty_fear": {
+    "content": "Duty and fear are not opposites. A priest who fears God fears His Law. And the Law is terrifying. It demands perfection. It condemns imperfection. It kills the blasphemer. If I fear the Law, it is because I know its power. And its power is absolute.",
+    "choices": [
+      { "text": "The Law is love.", "destination": "law_love2" },
+      { "text": "You have turned the Law into a terror.", "destination": "law_terror" }
+    ]
+  },
+  "reject_trust": {
+    "content": "Reject it? The people need the Temple. They need the sacrifices. They need the Law. Without these, they are lost. This man offers them nothing but chaos. And chaos is not what Israel needs. Israel needs order. Covenant. Sacrifice. The things that have sustained us for millennia.",
+    "choices": [
+      { "text": "Israel needs a Messiah.", "destination": "messiah_needed" },
+      { "text": "You mistake control for care.", "destination": "control_care" }
+    ]
+  },
+  "endurance_righteousness": {
+    "content": "Endurance is righteousness? The righteous endure. The wicked fall. The Temple has endured because it is righteous. This man will fall because He is wicked. Not because He is powerful. Because He opposes the very things that make Israel great.",
+    "choices": [
+      { "text": "He is the righteousness of Israel.", "destination": "righteousness_israel" },
+      { "text": "You have it backwards.", "destination": "backwards" }
+    ]
+  },
+  "law_tool2": {
+    "content": "A tool? The Law is the word of God. It is not a tool. It is a sword. A light. A guide. It demands justice. It protects the vulnerable. It punishes the guilty. If this man is guilty of blasphemy, the Law demands his death. Not because I wield it. Because God ordained it.",
+    "choices": [
+      { "text": "God ordained mercy, not murder.", "destination": "mercy_not_murder" },
+      { "text": "You have made the Law your god.", "destination": "law_god" }
+    ]
+  },
+  "the_way": {
+    "content": "The way? There is only one way. The way of the Law. The way of sacrifice. The way of the covenant. This man offers a different way. A way without the Temple. Without the priesthood. Without the Law. That is not the way. That is a dead end.",
+    "choices": [
+      { "text": "He is the way.", "destination": "he_is_way" },
+      { "text": "You are blocking the way.", "destination": "blocking_way" }
+    ]
+  },
+  "barrier_priest": {
+    "content": "I am the barrier? I am the one who has spent my life studying the Law. Teaching the Law. Living the Law. I am the barrier between God and the people. And without that barrier, the people would be destroyed by the holiness of the Most High.",
+    "choices": [
+      { "text": "He tore the barrier.", "destination": "tore_barrier" },
+      { "text": "You hide behind the barrier.", "destination": "hide_barrier" }
+    ]
+  },
+  "preserve_exploit": {
+    "content": "Preserve? The system provides sacrifices for the poor. Access to God for the nations. Order for the people. Yes, there is exploitation. There is always exploitation. But you do not fix exploitation by destroying the system. You fix it by reforming it. From within. Through the Law.",
+    "choices": [
+      { "text": "He offered immediate reform.", "destination": "immediate_reform" },
+      { "text": "Reform is too slow for the oppressed.", "destination": "too_slow" }
+    ]
+  },
+  "vulnerable": {
+    "content": "The vulnerable? The Law protects them. The dove merchants serve them. The sacrifices atone for them. This man has taken away their sacrifices. Their access. Their hope. And given them nothing in return but broken cages and scattered coins.",
+    "choices": [
+      { "text": "He gave them dignity.", "destination": "dignity" },
+      { "text": "You have never cared for the poor.", "destination": "never_cared" }
+    ]
+  },
+  "waiting": {
+    "content": "Waiting for the Sanhedrin to convene. For the witnesses to testify. For the Law to speak. And when it speaks, it will condemn this man. Not because I hate Him. Because the Law demands it. And I am a priest of the Law.",
+    "choices": [
+      { "text": "The Law will judge you too.", "destination": "law_judges" },
+      { "text": "You are already condemned.", "destination": "already_condemned" }
+    ]
+  },
+  "dead_conscience": {
+    "content": "Dead? My conscience is alive. It speaks every time I enter the Holy Place. It speaks every time I read the prophets. It speaks every time I see the poor bringing their offerings. And today, it speaks in the wreckage of the Court of the Gentiles. A dead conscience would not feel this weight.",
+    "choices": [
+      { "text": "Then act on it.", "destination": "act_conscience" },
+      { "text": "Weight is not the same as action.", "destination": "weight_action" }
+    ]
+  },
+  "not_revolutionary": {
+    "content": "Not a revolutionary? He disrupted the Temple with a whip. He scattered the tax. He released the doves. He incited the crowd. If that is not revolution, what is? A man who acts like a revolutionary will die like a revolutionary.",
+    "choices": [
+      { "text": "He died like a lamb.", "destination": "lamb" },
+      { "text": "You will make Him a martyr.", "destination": "martyr" }
+    ]
+  },
+  "cannot_explain": {
+    "content": "Cannot explain? I have studied the Law for forty years. I have taught in the synagogues. I have served in the Temple. I can explain anything. What I cannot explain is a man who acts without authority and claims to be God. That is not explanation. That is revelation. And revelation is not my domain.",
+    "choices": [
+      { "text": "It is God's domain.", "destination": "gods_domain" },
+      { "text": "You fear revelation.", "destination": "fear_revelation" }
+    ]
+  },
+  "bigger_covenant": {
+    "content": "Bigger? The covenant is the Temple. The sacrifices. The Law. The people. You cannot separate them. If you remove the Temple, you remove the covenant. If you remove the covenant, you remove Israel. And if you remove Israel, you remove God from the earth.",
+    "choices": [
+      { "text": "God is not confined to a building.", "destination": "not_confined" },
+      { "text": "The new covenant is in His blood.", "destination": "new_covenant" }
+    ]
+  },
+  "corpse": {
+    "content": "A corpse? The Temple is alive. The sacrifices continue. The priests serve. The people come. It is alive. It is vibrant. It is the heart of Israel. This man would stop the heart. And if he does, Israel dies.",
+    "choices": [
+      { "text": "Israel will survive the Temple.", "destination": "survive_temple" },
+      { "text": "The heart is already dead.", "destination": "dead_heart" }
+    ]
+  },
+  "fulfilled_law": {
+    "content": "Fulfilled? The Law is eternal. It cannot be fulfilled and discarded. It must be kept. Every Sabbath. Every festival. Every sacrifice. This man claims to fulfill it and then abolishes it. That is not fulfillment. That is destruction.",
+    "choices": [
+      { "text": "He fulfilled it in love.", "destination": "fulfilled_love" },
+      { "text": "You have missed the point entirely.", "destination": "missed_point" }
+    ]
+  },
+  "weapon_law": {
+    "content": "A weapon? The Law is a sword. It cuts both ways. It protects the innocent. It punishes the guilty. If this man is guilty, the Law demands his death. Not because I wield it as a weapon. Because God ordained it as a sword.",
+    "choices": [
+      { "text": "God's sword is justice, not murder.", "destination": "sword_justice" },
+      { "text": "You have blood on your hands.", "destination": "blood_hands" }
+    ]
+  },
+  "god_innocent": {
+    "content": "God does not condemn the innocent. I agree. And if this man is innocent, God will vindicate Him. But my duty is not to vindicate. My duty is to judge according to the Law. And the Law will decide His innocence or guilt.",
+    "choices": [
+      { "text": "The Law has already decided.", "destination": "law_decided" },
+      { "text": "You are playing God.", "destination": "playing_god" }
+    ]
+  },
+  "condemning_son": {
+    "content": "God's Son? Every Jew is God's son. Every priest is God's son. Every Israelite is a child of the covenant. This man is no different. Except that He claims to be the Son. And that claim makes Him a blasphemer. Because there is only one Son. And He is not a Galilean carpenter.",
+    "choices": [
+      { "text": "He is the Son of God.", "destination": "son_of_god" },
+      { "text": "You have condemned yourself.", "destination": "condemned_self" }
+    ]
+  },
+  "waiting_priest": {
+    "content": "Waiting for the Sanhedrin. For the witnesses. For the Law to speak its word. And when it does, it will condemn this man. Not because I hate Him. Because the Law demands it. And I am a priest of the Law.",
+    "choices": [
+      { "text": "The Law is not your tool.", "destination": "law_tool3" },
+      { "text": "You are the one who needs to be judged.", "destination": "judge_priest" }
+    ]
+  },
+  "not_listen3": {
+    "content": "Not listen? The Sanhedrin listens to everything. Even to Galilean prophets. But listening is not the same as believing. And believing is not the same as releasing. If the evidence points to guilt, we must condemn. That is the Law.",
+    "choices": [
+      { "text": "The evidence points to innocence.", "destination": "evidence_innocent" },
+      { "text": "You will twist the evidence.", "destination": "twist_evidence" }
+    ]
+  },
+  "closing_priest": {
+    "content": "Go. Investigate. Write your reports. But know this: the Temple is the house of God. The Law is the word of God. And I am a priest of the living God. I will not let a Galilean carpenter destroy what God has built. Not without a fight. Not without the Law. Not without a verdict.",
+    "choices": []
+  }
+}

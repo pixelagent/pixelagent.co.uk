@@ -1,0 +1,19 @@
+/* ============================
+    ACT2-STORM.CSS
+    Storm/deep sea palette theme (Act 2: the whale).
+    Activated via the .theme-act2 class on <body>.
+    ============================ */
+
+body.theme-act2 {
+    background-color: #0a1930;
+    color: #4ECDC4;
+}
+
+body.theme-act2 #text-box {
+    background: rgba(0, 0, 0, 0.8);
+    border-left-color: #4ECDC4;
+}
+
+body.theme-act2 #prophecy-zone {
+    border-color: #4ECDC4;
+}

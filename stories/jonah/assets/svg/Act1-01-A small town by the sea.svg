@@ -1,0 +1,206 @@
+<svg viewBox="0 0 600 400"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+
+    <linearGradient id="sky"
+                    x1="0" y1="0"
+                    x2="0" y2="1">
+      <stop offset="0%" stop-color="#183a5a"/>
+      <stop offset="55%" stop-color="#5d89ad"/>
+      <stop offset="100%" stop-color="#f0b36b"/>
+    </linearGradient>
+
+    <linearGradient id="sea"
+                    x1="0" y1="0"
+                    x2="0" y2="1">
+      <stop offset="0%" stop-color="#2c608d"/>
+      <stop offset="100%" stop-color="#0f2740"/>
+    </linearGradient>
+
+    <radialGradient id="sunGlow">
+      <stop offset="0%" stop-color="#fff7d8"/>
+      <stop offset="100%" stop-color="#fff7d8" stop-opacity="0"/>
+    </radialGradient>
+
+  </defs>
+
+  <!-- Sky -->
+
+  <rect width="600"
+        height="400"
+        fill="url(#sky)"/>
+
+  <!-- Sunrise -->
+
+  <circle cx="130"
+          cy="115"
+          r="38"
+          fill="#FFF7D8"
+          stroke="#0A0812"
+          stroke-width="3"/>
+
+  <circle cx="130"
+          cy="115"
+          r="80"
+          fill="url(#sunGlow)"
+          opacity="0.5"/>
+
+  <!-- Sea -->
+
+  <rect y="210"
+        width="600"
+        height="190"
+        fill="url(#sea)"/>
+
+  <!-- Sea highlights -->
+
+  <g opacity="0.4"
+     stroke="#8db3d1"
+     stroke-width="2">
+
+    <line x1="0" y1="245" x2="600" y2="245"/>
+    <line x1="0" y1="275" x2="600" y2="275"/>
+    <line x1="0" y1="305" x2="600" y2="305"/>
+
+  </g>
+
+  <!-- Cliff -->
+
+  <path d="
+      M600 120
+      Q500 140 410 200
+      Q350 235 290 300
+      L600 400
+      Z"
+      fill="#8a2e1c"
+      stroke="#0A0812"
+      stroke-width="5"/>
+
+  <!-- Cliff highlight -->
+
+  <path d="
+      M600 160
+      Q520 175 445 220
+      Q395 255 340 305
+      L600 360
+      Z"
+      fill="#bc462e"
+      stroke="#0A0812"
+      stroke-width="3"/>
+
+  <!-- Town -->
+
+  <g stroke="#0A0812"
+     stroke-width="3">
+
+    <!-- House 1 -->
+    <rect x="410" y="210"
+          width="42"
+          height="35"
+          fill="#fff4e0"/>
+
+    <polygon points="405,210 431,185 457,210"
+             fill="#e65c40"/>
+
+    <!-- House 2 -->
+    <rect x="450" y="195"
+          width="50"
+          height="45"
+          fill="#fff4e0"/>
+
+    <polygon points="445,195 475,168 505,195"
+             fill="#d94f37"/>
+
+    <!-- House 3 -->
+    <rect x="500"
+          y="205"
+          width="45"
+          height="40"
+          fill="#fff4e0"/>
+
+    <polygon points="495,205 522,178 549,205"
+             fill="#e65c40"/>
+
+    <!-- Taller building -->
+    <rect x="530"
+          y="160"
+          width="40"
+          height="85"
+          fill="#fff4e0"/>
+
+    <rect x="525"
+          y="148"
+          width="50"
+          height="12"
+          fill="#e65c40"/>
+
+  </g>
+
+  <!-- Windows -->
+
+  <g fill="#0A0812">
+
+    <rect x="422" y="223" width="8" height="8"/>
+    <rect x="475" y="212" width="8" height="8"/>
+    <rect x="514" y="220" width="8" height="8"/>
+
+    <rect x="543" y="180" width="10" height="10"/>
+    <rect x="543" y="202" width="10" height="10"/>
+
+  </g>
+
+  <!-- Small fishing boat -->
+
+  <g transform="translate(220 250)"
+     stroke="#0A0812"
+     stroke-width="3">
+
+    <path d="M-25 10
+             L25 10
+             L15 25
+             L-15 25 Z"
+          fill="#6e3f19"/>
+
+    <line x1="0"
+          y1="-20"
+          x2="0"
+          y2="10"/>
+
+    <path d="M0 -20
+             L18 -5
+             L0 5 Z"
+          fill="#fff4e0"/>
+
+  </g>
+
+  <!-- Seagulls -->
+
+  <g fill="none"
+     stroke="#FFF7E8"
+     stroke-width="2">
+
+    <path d="M150 60 q8 -8 16 0"/>
+    <path d="M166 60 q8 -8 16 0"/>
+
+    <path d="M220 90 q8 -8 16 0"/>
+    <path d="M236 90 q8 -8 16 0"/>
+
+    <path d="M300 70 q8 -8 16 0"/>
+    <path d="M316 70 q8 -8 16 0"/>
+
+  </g>
+
+  <!-- Foreground shoreline -->
+
+  <path d="
+      M0 340
+      Q100 320 200 340
+      T400 335
+      T600 330
+      L600 400
+      L0 400 Z"
+      fill="#10202f"
+      opacity="0.35"/>
+
+</svg>

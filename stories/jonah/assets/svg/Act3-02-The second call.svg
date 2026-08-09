@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 605 474.59">
+  <!-- Generator: Adobe Illustrator 30.6.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 109)  -->
+  <defs>
+    <style>
+      .st0 {
+        opacity: .15;
+      }
+
+      .st0, .st1 {
+        fill: #ffd84d;
+      }
+
+      .st0, .st2 {
+        isolation: isolate;
+      }
+
+      .st1 {
+        stroke-width: 4.5px;
+      }
+
+      .st1, .st2, .st3, .st4, .st5, .st6 {
+        stroke: #0a0812;
+      }
+
+      .st7 {
+        fill: #f97316;
+      }
+
+      .st8 {
+        fill: url(#linear-gradient);
+      }
+
+      .st9 {
+        filter: url(#blur1784116670745);
+      }
+
+      .st2 {
+        fill: #1d3557;
+        opacity: .3;
+        stroke-width: 8px;
+      }
+
+      .st10 {
+        fill: #f2d364;
+      }
+
+      .st11 {
+        fill: #d5a807;
+      }
+
+      .st3 {
+        stroke-width: 3px;
+      }
+
+      .st4 {
+        fill: #ffad87;
+      }
+
+      .st4, .st6 {
+        stroke-miterlimit: 2.6;
+        stroke-width: 2.27px;
+      }
+
+      .st5 {
+        fill: #6c757d;
+        opacity: .5;
+        stroke-width: 5px;
+      }
+
+      .st6 {
+        fill: #6e3f16;
+      }
+
+      .st12 {
+        fill: none;
+        stroke: #ffd84d;
+        stroke-dasharray: 20 10;
+        stroke-width: 12px;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-291.51" y1="678.29" x2="-291.51" y2="677.29" gradientTransform="translate(175207.5 271374.4985) scale(600 -400)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3d2a1e"/>
+      <stop offset="1" stop-color="#c48246"/>
+    </linearGradient>
+    <filter id="blur1784116670745">
+      <feGaussianBlur stdDeviation="100"/>
+    </filter>
+  </defs>
+  <rect class="st8" x="2.5" y="57.95" width="600" height="400"/>
+  <path class="st5" d="M2.5,407.95c200-20,400-20,600,0v50H2.5v-50Z"/>
+  <g>
+    <polygon class="st2" points="102.5 107.95 302.5 7.95 502.5 107.95 302.5 157.95 102.5 107.95"/>
+    <path class="st12" d="M102.5,107.95l180,150M502.5,107.95l-180,150"/>
+  </g>
+  <g class="st9">
+    <circle class="st10" cx="464.98" cy="140.89" r="120.27"/>
+    <circle class="st11" cx="212.01" cy="192.26" r="192.26"/>
+    <circle class="st7" cx="340.51" cy="313.25" r="161.34"/>
+  </g>
+  <circle class="st1" cx="302.5" cy="157.95" r="120"/>
+  <circle class="st0" cx="302.5" cy="157.95" r="150"/>
+  <path class="st3" d="M102.5,417.95l50,20M202.5,427.95l-20,20"/>
+  <g>
+    <circle class="st4" cx="315" cy="390.7" r="10.4"/>
+    <path class="st6" d="M292.25,413.45c15.17-6.5,30.33-6.5,45.5,0l-6.5,29.25h-32.5l-6.5-29.25Z"/>
+  </g>
+</svg>

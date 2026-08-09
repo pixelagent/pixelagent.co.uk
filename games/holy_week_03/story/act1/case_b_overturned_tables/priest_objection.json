@@ -1,0 +1,37 @@
+{
+  "start": {
+    "content": "I was on duty when it happened. I will tell you only what I witnessed \u2014 nothing more. Last Sabbath, outside the outer court \u2014 tables overturned, animals scattered, the crowd orange with excitement. He called it My Father's house. The merchants called it their living. I called it my afternoon.",
+    "choices": [
+      {
+        "text": "Did He strike anyone?",
+        "destination": "violence"
+      },
+      {
+        "text": "What did the priests do?",
+        "destination": "priestly"
+      }
+    ]
+  },
+  "violence": {
+    "content": "No blade was drawn. No centurion was summoned. He simply stood there while the merchants fled. It was the most disciplined crowd-disruption I have ever witnessed in this province.",
+    "choices": [
+      {
+        "text": "That is unusual.",
+        "destination": "priestly"
+      }
+    ]
+  },
+  "priestly": {
+    "content": "The merchants ran straight to the priests. By evening, the Sanhedrin was in emergency session. They were not discussing the disruption. They were discussing the man.",
+    "choices": [
+      {
+        "text": "And the following days?",
+        "destination": "closing"
+      }
+    ]
+  },
+  "closing": {
+    "content": "I have my instructions. I watch. I report. The Galilean's movement is being catalogued, questioned, and debated at every level of authority in this city. The outcome is not in doubt.",
+    "choices": []
+  }
+}

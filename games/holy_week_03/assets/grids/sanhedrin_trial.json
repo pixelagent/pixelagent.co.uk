@@ -1,0 +1,142 @@
+{
+    "caseId": "sanhedrin_trial",
+    "locationId": "high_priest_palace",
+    "locationTitle": "High Priest's Courtyard, Jerusalem",
+    "timeOfDay": "night",
+    "environment": {
+        "floorColor": "#2a1f1a",
+        "skyColor": "#020205",
+        "ambientLight": 0.3
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "Judgment Hall Walls",
+            "pos": [
+                0,
+                4,
+                -12
+            ],
+            "scale": [
+                20,
+                8,
+                1
+            ],
+            "color": "#3d2b1f"
+        },
+        {
+            "type": "box",
+            "name": "Brazier Stand",
+            "pos": [
+                -5,
+                0.5,
+                -4
+            ],
+            "scale": [
+                1,
+                1,
+                1
+            ],
+            "color": "#1a1a1a"
+        },
+        {
+            "type": "cylinder",
+            "name": "Pillar Left",
+            "pos": [
+                -8,
+                4,
+                -10
+            ],
+            "scale": [
+                0.6,
+                8,
+                0.6
+            ],
+            "color": "#2d1e12"
+        }
+    ],
+    "sprites": [
+        {
+            "id": "brazier_fire",
+            "type": "effect",
+            "pos": [
+                -5,
+                1.2,
+                -4
+            ],
+            "scale": [
+                1,
+                1.5
+            ],
+            "texture": "fire_glow"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "caiaphas",
+            "name": "Caiaphas",
+            "pos": [
+                0,
+                0,
+                -10
+            ],
+            "color": "#a78bfa",
+            "description": "The High Priest presiding over the assembly",
+            "unlocksEvidence": [
+                "torn_robe_scrap"
+            ],
+            "hasDialogue": true
+        },
+        {
+            "id": "peter_denial",
+            "name": "Peter",
+            "pos": [
+                -6,
+                0,
+                -3
+            ],
+            "color": "#60a5fa",
+            "description": "Peter warming his hands by the fire",
+            "unlocksEvidence": [
+                "charcoal_brazier"
+            ],
+            "hasDialogue": true
+        },
+        {
+            "id": "false_witness",
+            "name": "Witness",
+            "pos": [
+                4,
+                0,
+                -8
+            ],
+            "color": "#94a3b8",
+            "description": "Witness waiting to testify",
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "charcoal_brazier",
+            "pos": [
+                -5,
+                0.1,
+                -4
+            ],
+            "model": "ash_pile",
+            "glowColor": "#fbbf24",
+            "hint": "The fire where a disciple was recognized"
+        },
+        {
+            "id": "torn_robe_scrap",
+            "pos": [
+                0,
+                0.05,
+                -9
+            ],
+            "model": "cloth_fragment",
+            "glowColor": "#f46060",
+            "hint": "Discarded in a moment of ritual outrage"
+        }
+    ]
+}

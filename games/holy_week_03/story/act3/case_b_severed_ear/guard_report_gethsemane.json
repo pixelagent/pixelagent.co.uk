@@ -1,0 +1,307 @@
+{
+  "start": {
+    "content": "I was part of the cohort sent to the garden. A Roman commander. Temple police. A mixed force. We went expecting a fight. We went expecting swords and spears and revolutionaries. What we found was a man standing in the darkness. Waiting. Like He knew we were coming.",
+    "choices": [
+      { "text": "What happened when you arrived?", "destination": "arrived" },
+      { "text": "Did Jesus resist?", "destination": "resist" }
+    ]
+  },
+  "arrived": {
+    "content": "Judas walked ahead of us. He kissed Him. A signal. We moved in. I had my sword drawn. Ready to fight. Ready to kill. And then... the man in the middle said something. 'I am He.' And the whole cohort... fell backward. Like they were pushed. By an invisible hand. By a word. By power.",
+    "choices": [
+      { "text": "What did He say?", "destination": "said" },
+      { "text": "The cohort fell backward?", "destination": "fell" }
+    ]
+  },
+  "resist": {
+    "content": "Resist? He didn't resist. He stepped forward. Like a volunteer. Like He was the one leading the arrest, not the one being arrested. He asked us whose son we were looking for. We said 'Jesus of Nazareth.' He said 'I am He.' And the power of that statement... it knocked the entire cohort backward. I have never seen anything like it.",
+    "choices": [
+      { "text": "Divine power.", "destination": "divine_power" },
+      { "text": "He surrendered willingly.", "destination": "willingly" }
+    ]
+  },
+  "said": {
+    "content": "He said 'I am.' In Greek. 'Ego eimi.' The name of God. The name Moses heard in the burning bush. The name that makes demons tremble. When He said it... the ground shook. The men fell. The torches flickered. And in that moment... I knew. This is not a man. This is God. And we are arresting God.",
+    "choices": [
+      { "text": "You believed in that moment.", "destination": "believed" },
+      { "text": "You were witnessing the divine.", "destination": "witnessing_divine" }
+    ]
+  },
+  "fell": {
+    "content": "Fell backward? All of us. Like dominoes. Like we were pushed by an invisible force. I hit the ground hard. My helmet rolled away. My sword skittered into the dirt. And there was this man standing there. Unarmed. Unafraid. Surrounded by armed soldiers. And He was in control. Not us. Him.",
+    "choices": [
+      { "text": "He is in control of everything.", "destination": "control" },
+      { "text": "That was a divine manifestation.", "destination": "manifestation" }
+    ]
+  },
+  "divine_power": {
+    "content": "Divine? I don't believe in your Jewish God. But I know power. And that was not human power. That was something else. Something beyond swords. Beyond shields. Beyond legions. Something that made two hundred men fall backward with a single word. Whatever that was... it was divine.",
+    "choices": [
+      { "text": "You encountered the living God.", "destination": "living_god" },
+      { "text": "You are a witness to the divine.", "destination": "witness_divine" }
+    ]
+  },
+  "willingly": {
+    "content": "Willingly? He could have stopped it. With a word. With a thought. With the power that just knocked two hundred men backward. But He didn't. He let them arrest Him. He let them bind Him. He let them lead Him away. Like a lamb to the slaughter. Like Isaiah said. 'He was led like a lamb to the slaughter.'",
+    "choices": [
+      { "text": "He is the suffering servant.", "destination": "suffering_servant" },
+      { "text": "He laid down His life.", "destination": "laid_down" }
+    ]
+  },
+  "believed": {
+    "content": "Believed? In that moment, I believed. That this man is who He claims to be. The Son of God. The Messiah. The Lord. And I... I was there to arrest Him. To bind Him. To lead Him to death. I believed. And I participated. In the arrest of God. That is my burden. That is my guilt. That is my shame.",
+    "choices": [
+      { "text": "You are a witness anyway.", "destination": "witness_anyway" },
+      { "text": "Your testimony is powerful.", "destination": "powerful_testimony2" }
+    ]
+  },
+  "witnessing_divine": {
+    "content": "Witnessing? I witnessed God. In a garden. In the dark. Surrounded by soldiers. Unarmed. Unafraid. Speaking a word that knocked two hundred men backward. That was God. And I... I arrested Him. I helped nail Him to a cross. I watched Him die. And I know. I know He is the Son of God. And I am guilty of His death.",
+    "choices": [
+      { "text": "But you are forgiven.", "destination": "forgiven" },
+      { "text": "Your guilt proves the truth.", "destination": "guilt_truth" }
+    ]
+  },
+  "control": {
+    "content": "In control? He was in control of the arrest. Of the trial. Of the cross. Of everything. He could have called twelve legions of angels. He could have shattered the cross. He could have raised an army. But He didn't. Because He was in control. Not the priests. Not Pilate. Not the crowds. Him. And He chose to die. For me. For you. For everyone.",
+    "choices": [
+      { "text": "You understand the cross.", "destination": "understand_cross" },
+      { "text": "You are a theologian now.", "destination": "theologian_guard" }
+    ]
+  },
+  "manifestation": {
+    "content": "Manifestation? The divine? Yes. That was a manifestation of God's power. A glimpse of the glory that awaits. The same glory that will come again. When every knee bows. When every tongue confesses. When every soldier falls backward. Not in fear. In worship. That day is coming. And I was privileged to see a preview.",
+    "choices": [
+      { "text": "You are a forerunner.", "destination": "forerunner" },
+      { "text": "You have seen the glory.", "destination": "seen_glory" }
+    ]
+  },
+  "living_god": {
+    "content": "The living God? Yes. I met Him. In a garden. In the dark. Surrounded by soldiers. And He spoke. And I fell. And I believed. And I arrested Him. And I watched Him die. And I know. I know the living God. And I love Him. Despite my guilt. Despite my shame. Despite my sin. He loves me. And He died for me.",
+    "choices": [
+      { "text": "You are a son of God.", "destination": "son_god" },
+      { "text": "Your encounter is real.", "destination": "real_encounter" }
+    ]
+  },
+  "witness_divine": {
+    "content": "Witness? I am a witness. To the divine. To the power. To the love. To the sacrifice. I saw God. In human form. On His way to the cross. And I participated. In His arrest. In His trial. In His death. I am a witness. And I am a sinner. And I am forgiven. And I will tell the world.",
+    "choices": [
+      { "text": "You are an eyewitness.", "destination": "eyewitness" },
+      { "text": "Your testimony is the gospel.", "destination": "gospel2" }
+    ]
+  },
+  "suffering_servant": {
+    "content": "Suffering servant? Isaiah 53. I've heard the Jews talk about it. A man of sorrows. Acquainted with grief. Led like a lamb. pierced for our transgressions. Crushed for our iniquities. By His stripes we are healed. I watched that prophecy fulfilled. In the garden. On the cross. In the tomb. I watched the Suffering Servant die. For me.",
+    "choices": [
+      { "text": "You have seen the prophecy fulfilled.", "destination": "prophecy_fulfilled" },
+      { "text": "You are a witness to Isaiah.", "destination": "witness_isaiah" }
+    ]
+  },
+  "laid_down": {
+    "content": "Laid down His life? No one took it from Him. He gave it. Freely. Willingly. For me. A Roman soldier. A Gentile. A sinner. He laid down His life for me. And I... I took it. I helped nail Him to the cross. I watched Him die. And I know. I know He did it for me. And He loves me anyway.",
+    "choices": [
+      { "text": "You are forgiven.", "destination": "forgiven2" },
+      { "text": "Your testimony is grace.", "destination": "grace_testimony2" }
+    ]
+  },
+  "witness_anyway": {
+    "content": "Witness anyway? Yes. Despite my guilt. Despite my shame. Despite my participation in His death. I am a witness. To the truth. To the love. To the resurrection. Because I saw it. I was there. And the truth is... the truth is that Jesus is Lord. He died for sinners. He rose again. And He loves even a Roman soldier who helped kill Him.",
+    "choices": [
+      { "text": "You are a testimony to grace.", "destination": "grace_witness" },
+      { "text": "Your story will save souls.", "destination": "save_souls2" }
+    ]
+  },
+  "powerful_testimony2": {
+    "content": "Powerful? My testimony is powerful because it is true. Because I saw the power. I felt the power. I participated in the arrest of the Son of God. And I know the truth. Jesus is Lord. He died for sinners. He rose again. And He forgives even those who killed Him. That is a powerful testimony. And I will tell it. To everyone.",
+    "choices": [
+      { "text": "You are a voice for the voiceless.", "destination": "voice_voiceless" },
+      { "text": "Your testimony is unstoppable.", "destination": "unstoppable" }
+    ]
+  },
+  "forgiven": {
+    "content": "Forgiven? Yes. Forgiven by the very man I helped kill. That is grace. That is love. That is the gospel. He died for me. While I was still a sinner. While I was arresting Him. While I was nailing Him to the cross. He died for me. And He forgave me. And He loves me. And I am His. Forever.",
+    "choices": [
+      { "text": "You are a trophy of grace.", "destination": "trophy_grace" },
+      { "text": "Your story is the gospel.", "destination": "gospel3" }
+    ]
+  },
+  "guilt_truth": {
+    "content": "Guilt proves the truth? My guilt proves that Jesus is real. That He is innocent. That He is the Son of God. Because if He were just a man... if He were just a criminal... my guilt would not matter. But because He is who He is... because He is the Son of God... my guilt is real. My sin is real. And His forgiveness is real.",
+    "choices": [
+      { "text": "You are a witness to the reality of Christ.", "destination": "reality_christ" },
+      { "text": "Your guilt is the proof.", "destination": "proof" }
+    ]
+  },
+  "understand_cross": {
+    "content": "Understand the cross? I watched it happen. I was there. I saw the nails. I saw the blood. I saw the darkness. I saw the curtain tear. I saw the earth shake. I saw the resurrection begin. I understand the cross. Because I witnessed it. And I know. I know it was for me. For my sins. For my rebellion. For my unbelief. And He died anyway.",
+    "choices": [
+      { "text": "You are a theologian of the cross.", "destination": "theologian_cross2" },
+      { "text": "You have seen the love of God.", "destination": "seen_love2" }
+    ]
+  },
+  "theologian_guard": {
+    "content": "Theologian? I'm a Roman guard. I don't do theology. I do formations. I do patrols. I do arrests. But today... today I saw theology in action. Love on a cross. Grace in a tomb. Resurrection in a garden. I saw the theology of the Bible. And it is real. And it is powerful. And it changed me.",
+    "choices": [
+      { "text": "You are a practical theologian.", "destination": "practical" },
+      { "text": "Your theology is experiential.", "destination": "experiential" }
+    ]
+  },
+  "forerunner": {
+    "content": "Forerunner? I saw the glory. A preview. A glimpse. Of what is coming. When every knee bows. When every tongue confesses. When every soldier falls backward. Not in fear. In worship. I was a forerunner. A preview. A witness. And now... now I tell the world. The glory is coming. And it starts with a cross.",
+    "choices": [
+      { "text": "You are a herald of the King.", "destination": "herald2" },
+      { "text": "Your witness points to the return.", "destination": "return" }
+    ]
+  },
+  "seen_glory": {
+    "content": "Seen the glory? I saw the glory of God. In a garden. In the dark. In a man on His way to the cross. The same glory that filled the Temple. The same glory that appeared to Moses. The same glory that will fill the new heaven and the new earth. I saw it. And I will never be the same.",
+    "choices": [
+      { "text": "You are a glory-bearer.", "destination": "glory_bearer" },
+      { "text": "Your life reflects the glory.", "destination": "reflect_glory" }
+    ]
+  },
+  "son_god": {
+    "content": "A son of God? I was a son of Rome. A son of Mars. A son of the empire. But now... now I am a son of the living God. Adopted. Forgiven. Loved. Chosen. I met my Father. In a garden. On a cross. In a resurrection. And He loves me. Even me. A Roman soldier. A Gentile. A murderer. He loves me. And I am His son. Forever.",
+    "choices": [
+      { "text": "You are in the family of God.", "destination": "family_god2" },
+      { "text": "Your adoption is complete.", "destination": "adoption_complete" }
+    ]
+  },
+  "real_encounter": {
+    "content": "Real? It was real. More real than any battle. More real than any victory. More real than anything I have ever experienced. I met God. In a garden. In the dark. And He spoke to me. With a word. With power. With love. And I have never been the same.",
+    "choices": [
+      { "text": "You are a new creation.", "destination": "new_creation2" },
+      { "text": "Your encounter is forever.", "destination": "forever2" }
+    ]
+  },
+  "eyewitness": {
+    "content": "Eyewitness? I am an eyewitness. To the arrest of the Son of God. To the trial of the King of kings. To the crucifixion of the Lord of glory. I saw it all. With my own eyes. With my own hands. With my own heart. And I will testify. To everyone. To every nation. To every generation. Jesus is Lord.",
+    "choices": [
+      { "text": "Your testimony is the foundation.", "destination": "foundation" },
+      { "text": "You are a pillar of the Church.", "destination": "pillar2" }
+    ]
+  },
+  "gospel2": {
+    "content": "The Gospel? The good news? That Jesus Christ died for sinners. That He rose again. That He offers forgiveness. Eternal life. A new life. A new family. A new future. And I... I witnessed it all. I was there. I saw the cross. I saw the resurrection. I believe. And I will tell everyone. The Gospel is true. Jesus is Lord. And He loves everyone.",
+    "choices": [
+      { "text": "You are a gospel preacher.", "destination": "gospel_preacher2" },
+      { "text": "Your message will change the world.", "destination": "change_world2" }
+    ]
+  },
+  "prophecy_fulfilled": {
+    "content": "Fulfilled? Every prophecy. Every psalm. Every sacrifice. Every shadow. It all pointed to this day. To this garden. To this cross. To this resurrection. I watched Isaiah 53 unfold. I watched Psalm 22 unfold. I watched the entire Bible unfold. In real time. In real history. And I was there. A witness to the fulfillment of all Scripture.",
+    "choices": [
+      { "text": "You are a living testament to prophecy.", "destination": "living_testament2" },
+      { "text": "Your witness validates the Bible.", "destination": "validates_bible" }
+    ]
+  },
+  "witness_isaiah": {
+    "content": "Witness to Isaiah? Yes. I saw the suffering servant. Led like a lamb. Pierced for our transgressions. Crushed for our iniquities. By His stripes we are healed. I saw it all. On a cross. Outside Jerusalem. And I... I helped put Him there. And He healed me anyway. He forgave me anyway. He loves me anyway. That is Isaiah. That is Jesus. That is grace.",
+    "choices": [
+      { "text": "You are a living Isaiah.", "destination": "living_isaiah" },
+      { "text": "Your testimony is Scriptural.", "destination": "scriptural" }
+    ]
+  },
+  "forgiven2": {
+    "content": "Forgiven? Yes. By the man I helped kill. By the Son of God. By the Lamb of God. By the Savior of the world. He died for me. While I was crucifying Him. While I was mocking Him. While I was participating in His murder. He died for me. And He forgave me. And He loves me. And I am His. Forever.",
+    "choices": [
+      { "text": "You are a trophy of grace.", "destination": "trophy_grace2" },
+      { "text": "Your forgiveness is complete.", "destination": "complete_forgiveness" }
+    ]
+  },
+  "grace_testimony2": {
+    "content": "Grace? That is all I have. I do not deserve to be a witness. I do not deserve to be forgiven. I do not deserve to be loved. But I am. By the very man I helped kill. That is grace. Unmerited. Unfailing. Unlimited. And I will spend the rest of my life telling everyone about the grace that saved a Roman soldier. That saved me.",
+    "choices": [
+      { "text": "You are an ambassador of grace.", "destination": "ambassador_grace" },
+      { "text": "Your story is the gospel.", "destination": "gospel4" }
+    ]
+  },
+  "grace_witness": {
+    "content": "Grace witness? I am a witness to the greatest act of grace in history. The Son of God dying for His enemies. For His killers. For me. While I was still a sinner. While I was nailing Him to the cross. He died for me. That is grace. And I will tell everyone. Until the whole world knows. That Jesus loves even Roman soldiers. Even murderers. Even me.",
+    "choices": [
+      { "text": "You are a grace preacher.", "destination": "grace_preacher" },
+      { "text": "Your witness is revolutionary.", "destination": "revolutionary_witness" }
+    ]
+  },
+  "save_souls2": {
+    "content": "Save souls? My testimony will save souls. Because it is true. Because it is powerful. Because it is about Jesus. And Jesus saves. He saved me. A Roman soldier. A Gentile. A murderer. He saved me. And He will save everyone who hears my story. Everyone who believes. Everyone who calls on His name. My testimony is a weapon. Against sin. Against death. Against the devil. And it will save souls.",
+    "choices": [
+      { "text": "You are a soul-winner.", "destination": "soul_winner" },
+      { "text": "Your testimony is eternal.", "destination": "eternal2" }
+    ]
+  },
+  "voice_voiceless": {
+    "content": "Voice for the voiceless? I was a voice for the Roman empire. A voice for the legion. A voice for Pilate. But now... now I am a voice for Jesus. For the innocent. For the crucified. For the risen Lord. I speak for the one who cannot speak. The one who died. The one who lives. And my voice will be heard. In every nation. In every language. Forever.",
+    "choices": [
+      { "text": "You are a voice of the Gospel.", "destination": "voice_gospel" },
+      { "text": "Your voice echoes through history.", "destination": "echoes_history" }
+    ]
+  },
+  "unstoppable": {
+    "content": "Unstoppable? My testimony is unstoppable. Because it is true. Because it is powerful. Because it is about Jesus. And Jesus is unstoppable. They killed Him. But He rose. They silenced Him. But He speaks. They buried Him. But He lives. And my testimony... my testimony is part of His unstoppable movement. To save the world. Through a Roman soldier. Through a murderer. Through me.",
+    "choices": [
+      { "text": "You are part of the unstoppable Gospel.", "destination": "unstoppable_gospel" },
+      { "text": "Your testimony is resurrection power.", "destination": "resurrection_power" }
+    ]
+  },
+  "trophy_grace": {
+    "content": "Trophy of grace? Yes. I am a trophy. A display. A demonstration. Of the grace of God. He saved a Roman soldier. A Gentile. A murderer. He saved me. While I was killing Him. That is grace. That is love. That is the gospel. And I will display it. For the rest of my life. So everyone can see. What Jesus can do. With a murderer. With a sinner. With me.",
+    "choices": [
+      { "text": "You are a masterpiece of grace.", "destination": "masterpiece" },
+      { "text": "Your life displays the gospel.", "destination": "displays_gospel" }
+    ]
+  },
+  "gospel3": {
+    "content": "The Gospel? I am the Gospel. A Roman soldier. Saved by grace. Through faith. In Christ. Not by works. Not by nationality. Not by religion. But by grace. Through faith. Because Jesus died for me. And rose again. And loves me. And I am His. That is the Gospel. And I am living it. Every day. Every breath. Every testimony.",
+    "choices": [
+      { "text": "You are a walking Gospel.", "destination": "walking_gospel" },
+      { "text": "Your life is the good news.", "destination": "good_news_life" }
+    ]
+  },
+  "reality_christ": {
+    "content": "Reality of Christ? My guilt proves He is real. Because if He were not real... if He were not God... my guilt would not matter. But He is real. He is God. He is the Son. And I killed Him. And He forgave me. That is the reality of Christ. Not a story. Not a myth. A real man. A real God. A real cross. A real resurrection. And a real forgiveness. For me. A real Roman soldier.",
+    "choices": [
+      { "text": "You are a proof of Christ.", "destination": "proof_christ" },
+      { "text": "Your reality is the truth.", "destination": "reality_truth" }
+    ]
+  },
+  "proof": {
+    "content": "Proof? My guilt is proof. My testimony is proof. My transformation is proof. My faith is proof. My love is proof. My life is proof. That Jesus is real. That He died. That He rose. That He loves. That He saves. I am proof. A living. Breathing. Testifying. Proof. Of the reality of Jesus Christ. And I will prove it. To everyone. Forever.",
+    "choices": [
+      { "text": "You are an evidence of grace.", "destination": "evidence_grace" },
+      { "text": "Your proof is undeniable.", "destination": "undeniable" }
+    ]
+  },
+  "theologian_cross2": {
+    "content": "Theologian of the cross? I watched the cross happen. I saw the theology in action. Love dying for enemies. Grace paying for sin. Justice satisfied. Mercy extended. The old covenant ending. The new covenant beginning. The temple curtain tearing. The earth shaking. The resurrection beginning. I saw theology. Real theology. On a cross. And it changed me.",
+    "choices": [
+      { "text": "You are a cross theologian.", "destination": "cross_theologian" },
+      { "text": "Your theology is life-changing.", "destination": "life_changing" }
+    ]
+  },
+  "seen_love2": {
+    "content": "Seen the love of God? I saw it. On a cross. In a garden. In a tomb. In a resurrection. The love of God is not abstract. It is concrete. It is bloody. It is real. It is Jesus. Dying for a Roman soldier. While that soldier arrests Him. Nails Him. Watches Him die. That is love. Unconditional. Unfailing. Unending. And I saw it. With my own eyes.",
+    "choices": [
+      { "text": "You have seen the heart of God.", "destination": "heart_god" },
+      { "text": "Your vision of love is complete.", "destination": "complete_love" }
+    ]
+  },
+  "practical": {
+    "content": "Practical? My theology is practical. Because I lived it. I saw the cross. I felt the earthquake. I witnessed the resurrection power. I experienced the grace. I am a practical theologian. Not from books. From life. From reality. From Jesus. And my theology changes lives. Because it is true. Because it is real. Because it is Jesus.",
+    "choices": [
+      { "text": "You are a practical theologian.", "destination": "practical_theologian" },
+      { "text": "Your theology is incarnational.", "destination": "incarnational" }
+    ]
+  },
+  "experiential": {
+    "content": "Experiential? Yes. I experienced the cross. The resurrection. The grace. The love. The forgiveness. I did not read about it. I lived it. I saw it. I felt it. I believed it. And I am not the same. My theology is not intellectual. It is experiential. It is real. It is Jesus. And it is powerful.",
+    "choices": [
+      { "text": "You are a living theology.", "destination": "living_theology" },
+      { "text": "Your experience validates the truth.", "destination": "validates" }
+    ]
+  },
+  "closing_guard_gethsemane": {
+    "content": "I was there. In the garden. When He said 'I am.' When the cohort fell. When He surrendered. When they led Him away. I saw the divine. I felt the power. I witnessed the arrest of God. And I know... I know He is the Son of God. And I will tell the world. Forever.",
+    "choices": []
+  }
+}

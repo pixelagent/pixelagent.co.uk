@@ -1,0 +1,114 @@
+/* ─── Evidence card styles ─── */
+
+/* Individual evidence tile. */
+.evidence-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 10px;
+    cursor: pointer;
+    transition: transform 0.15s var(--ease-out), border-color 0.15s, background 0.15s;
+    text-align: center;
+    position: relative;
+}
+
+.evidence-card:hover:not([aria-disabled='true']) {
+    background: var(--surface3);
+}
+
+.evidence-card:active:not([aria-disabled='true']) {
+    transform: scale(0.95);
+}
+
+.evidence-card.locked {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.evidence-card.locked .evidence-card-icon {
+    filter: grayscale(1);
+}
+
+.evidence-card.locked .evidence-card-name {
+    color: var(--text-dim);
+}
+
+.evidence-card.locked::after {
+    content: "🔒";
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 0.8rem;
+}
+
+.evidence-card.collected {
+    border-color: var(--blue);
+    background: var(--surface2);
+}
+
+.evidence-card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+}
+
+.evidence-card-name {
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.evidence-card-type {
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    margin-top: 3px;
+}
+
+.evidence-card-new {
+    display: inline-block;
+    background: var(--blue);
+    color: var(--bg);
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 4px;
+    margin-top: 3px;
+}
+
+.evidence-detail {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-bottom: 12px;
+    animation: fadeSlide 0.2s var(--ease-out);
+}
+
+.evidence-detail-header {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.evidence-detail-icon {
+    font-size: 2rem;
+}
+
+.evidence-detail-name {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.evidence-detail-location {
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+}
+
+.evidence-detail-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+

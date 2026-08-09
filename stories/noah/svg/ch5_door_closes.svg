@@ -1,0 +1,144 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Interior ark — almost completely dark -->
+    <linearGradient id="interiorDark" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#030608"/>
+      <stop offset="70%" stop-color="#060c18"/>
+      <stop offset="100%" stop-color="#0a0812"/>
+    </linearGradient>
+    <!-- The bright exterior slit — amber/white daylight -->
+    <linearGradient id="slitGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#E8B84B"/>
+      <stop offset="50%" stop-color="#fff8e0"/>
+      <stop offset="100%" stop-color="#E8B84B"/>
+    </linearGradient>
+    <!-- Slit ambient spill — light spreading left from the slit -->
+    <linearGradient id="lightSpill" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0%" stop-color="#E8B84B" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#E8B84B" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ============================================================ -->
+  <!-- INSIDE THE ARK — almost all dark -->
+  <!-- Base interior fill -->
+  <rect width="400" height="300" fill="url(#interiorDark)"/>
+
+  <!-- DOOR PLANKS — vertical rhythm, dark brown, covering most of the frame -->
+  <!-- The door is closing — the planks are the main mass -->
+  <!-- Door plank 1 — leftmost -->
+  <rect x="0" y="0" width="32" height="300" fill="#3d1a04" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Plank grain -->
+  <line x1="8" y1="0" x2="8" y2="300" stroke="#2a1002" stroke-width="1"/>
+  <line x1="16" y1="0" x2="18" y2="300" stroke="#2a1002" stroke-width="1"/>
+  <line x1="26" y1="0" x2="24" y2="300" stroke="#1e0e04" stroke-width="0.5" opacity="0.8"/>
+
+  <!-- Plank 2 -->
+  <rect x="32" y="0" width="32" height="300" fill="#351604" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="40" y1="0" x2="40" y2="300" stroke="#2a1002" stroke-width="1"/>
+  <line x1="50" y1="0" x2="52" y2="300" stroke="#1e0e04" stroke-width="0.8"/>
+  <line x1="60" y1="0" x2="58" y2="300" stroke="#2a1002" stroke-width="1"/>
+
+  <!-- Plank 3 -->
+  <rect x="64" y="0" width="32" height="300" fill="#3d1a04" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="72" y1="0" x2="72" y2="300" stroke="#2a1002" stroke-width="1"/>
+  <line x1="84" y1="0" x2="82" y2="300" stroke="#1e0e04" stroke-width="0.8"/>
+  <line x1="92" y1="0" x2="94" y2="300" stroke="#2a1002" stroke-width="1"/>
+
+  <!-- Plank 4 -->
+  <rect x="96" y="0" width="32" height="300" fill="#301204" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="104" y1="0" x2="105" y2="300" stroke="#2a1002" stroke-width="1"/>
+  <line x1="116" y1="0" x2="114" y2="300" stroke="#1e0e04" stroke-width="0.8"/>
+  <line x1="124" y1="0" x2="126" y2="300" stroke="#2a1002" stroke-width="1"/>
+
+  <!-- Plank 5 -->
+  <rect x="128" y="0" width="32" height="300" fill="#3d1a04" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="136" y1="0" x2="136" y2="300" stroke="#2a1002" stroke-width="1"/>
+  <line x1="148" y1="0" x2="146" y2="300" stroke="#1e0e04" stroke-width="0.8"/>
+  <line x1="156" y1="0" x2="158" y2="300" stroke="#2a1002" stroke-width="1"/>
+
+  <!-- Plank 6 -->
+  <rect x="160" y="0" width="32" height="300" fill="#351604" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="168" y1="0" x2="168" y2="300" stroke="#2a1002" stroke-width="1"/>
+  <line x1="180" y1="0" x2="178" y2="300" stroke="#1e0e04" stroke-width="0.8"/>
+  <line x1="188" y1="0" x2="190" y2="300" stroke="#2a1002" stroke-width="1"/>
+
+  <!-- Plank 7 -->
+  <rect x="192" y="0" width="32" height="300" fill="#3d1a04" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="200" y1="0" x2="200" y2="300" stroke="#2a1002" stroke-width="1"/>
+  <line x1="212" y1="0" x2="210" y2="300" stroke="#1e0e04" stroke-width="0.8"/>
+  <line x1="220" y1="0" x2="222" y2="300" stroke="#2a1002" stroke-width="1"/>
+
+  <!-- Plank 8 -->
+  <rect x="224" y="0" width="32" height="300" fill="#301204" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="232" y1="0" x2="233" y2="300" stroke="#2a1002" stroke-width="1"/>
+  <line x1="244" y1="0" x2="242" y2="300" stroke="#1e0e04" stroke-width="0.8"/>
+  <line x1="252" y1="0" x2="254" y2="300" stroke="#2a1002" stroke-width="1"/>
+
+  <!-- Plank 9 -->
+  <rect x="256" y="0" width="32" height="300" fill="#3d1a04" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="264" y1="0" x2="264" y2="300" stroke="#2a1002" stroke-width="1"/>
+  <line x1="276" y1="0" x2="274" y2="300" stroke="#1e0e04" stroke-width="0.8"/>
+  <line x1="284" y1="0" x2="286" y2="300" stroke="#2a1002" stroke-width="1"/>
+
+  <!-- Plank 10 -->
+  <rect x="288" y="0" width="32" height="300" fill="#351604" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="296" y1="0" x2="296" y2="300" stroke="#2a1002" stroke-width="1"/>
+  <line x1="308" y1="0" x2="306" y2="300" stroke="#1e0e04" stroke-width="0.8"/>
+  <line x1="316" y1="0" x2="318" y2="300" stroke="#2a1002" stroke-width="1"/>
+
+  <!-- Plank 11 -->
+  <rect x="320" y="0" width="32" height="300" fill="#3d1a04" stroke="#0A0812" stroke-width="1.5"/>
+  <line x1="328" y1="0" x2="328" y2="300" stroke="#2a1002" stroke-width="1"/>
+  <line x1="340" y1="0" x2="338" y2="300" stroke="#1e0e04" stroke-width="0.8"/>
+  <line x1="348" y1="0" x2="350" y2="300" stroke="#2a1002" stroke-width="1"/>
+
+  <!-- Cross-braces on door — horizontal rhythm -->
+  <rect x="0" y="78" width="375" height="10" fill="#2a1002" opacity="0.7"/>
+  <rect x="0" y="148" width="375" height="10" fill="#2a1002" opacity="0.7"/>
+  <rect x="0" y="218" width="375" height="10" fill="#2a1002" opacity="0.7"/>
+  <!-- Bolt details on cross-braces -->
+  <circle cx="30" cy="83" r="4" fill="#0a0812" stroke="#1e0e04" stroke-width="1.5"/>
+  <circle cx="94" cy="83" r="4" fill="#0a0812" stroke="#1e0e04" stroke-width="1.5"/>
+  <circle cx="158" cy="83" r="4" fill="#0a0812" stroke="#1e0e04" stroke-width="1.5"/>
+  <circle cx="222" cy="83" r="4" fill="#0a0812" stroke="#1e0e04" stroke-width="1.5"/>
+  <circle cx="286" cy="83" r="4" fill="#0a0812" stroke="#1e0e04" stroke-width="1.5"/>
+  <circle cx="350" cy="83" r="4" fill="#0a0812" stroke="#1e0e04" stroke-width="1.5"/>
+  <circle cx="30" cy="153" r="4" fill="#0a0812" stroke="#1e0e04" stroke-width="1.5"/>
+  <circle cx="94" cy="153" r="4" fill="#0a0812" stroke="#1e0e04" stroke-width="1.5"/>
+  <circle cx="158" cy="153" r="4" fill="#0a0812" stroke="#1e0e04" stroke-width="1.5"/>
+  <circle cx="222" cy="153" r="4" fill="#0a0812" stroke="#1e0e04" stroke-width="1.5"/>
+  <circle cx="286" cy="153" r="4" fill="#0a0812" stroke="#1e0e04" stroke-width="1.5"/>
+  <circle cx="350" cy="153" r="4" fill="#0a0812" stroke="#1e0e04" stroke-width="1.5"/>
+
+  <!-- AMBIENT LIGHT SPILL — from the slit, spreading weakly left across door face -->
+  <rect x="335" y="0" width="65" height="300" fill="url(#lightSpill)"/>
+
+  <!-- NARROWING SLIT OF DAYLIGHT — right edge, the FOCAL POINT -->
+  <!-- Exterior sky/earth visible through the narrowing gap -->
+  <!-- Ground band at bottom of slit -->
+  <rect x="377" y="248" width="23" height="52" fill="#3d2808"/>
+  <!-- Sky amber in slit -->
+  <rect x="377" y="0" width="23" height="248" fill="url(#slitGlow)"/>
+  <!-- Slit bright white core -->
+  <rect x="386" y="0" width="8" height="300" fill="#fff8e0" opacity="0.7"/>
+  <!-- Slit edge glow — bloom effect -->
+  <rect x="374" y="0" width="6" height="300" fill="#E8B84B" opacity="0.5"/>
+  <rect x="372" y="0" width="5" height="300" fill="#E8B84B" opacity="0.3"/>
+  <rect x="368" y="0" width="6" height="300" fill="#c07020" opacity="0.2"/>
+
+  <!-- NOAH'S PROFILE — just inside the doorframe to the left of the slit -->
+  <!-- Noah is dark, silhouetted against the narrow slit light -->
+  <!-- Body/robe — right edge catches the slit light (rim lighting) -->
+  <ellipse cx="340" cy="210" rx="18" ry="30" fill="#0a0812" stroke="#0A0812" stroke-width="1"/>
+  <!-- Right edge of robe catches light -->
+  <path d="M354,184 Q362,200 360,240 Q356,258 348,258" fill="none" stroke="#E8B84B" stroke-width="2" opacity="0.7"/>
+  <!-- Head (profile facing right, toward the slit) -->
+  <circle cx="350" cy="182" r="14" fill="#0a0812"/>
+  <!-- Profile: nose ridge lit by slit -->
+  <path d="M358,178 Q366,183 362,190" fill="none" stroke="#E8B84B" stroke-width="1.5" opacity="0.6"/>
+  <!-- Eye area — barely visible -->
+  <circle cx="356" cy="180" r="2" fill="#0c1428"/>
+  <!-- Staff in hand -->
+  <line x1="358" y1="205" x2="368" y2="270" stroke="#2a1002" stroke-width="2.5"/>
+</svg>

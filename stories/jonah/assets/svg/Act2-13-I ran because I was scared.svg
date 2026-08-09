@@ -1,0 +1,222 @@
+<svg viewBox="0 0 600 400"
+     xmlns="http://www.w3.org/2000/svg"
+     width="100%"
+     height="100%">
+
+  <defs>
+
+    <radialGradient id="whaleGlow" cx="50%" cy="80%" r="80%">
+      <stop offset="0%" stop-color="#6ddfd8" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#050912" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="hopeLight" cx="50%" cy="0%" r="60%">
+      <stop offset="0%" stop-color="#fff7d8" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#fff7d8" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="whaleWall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#14263d"/>
+      <stop offset="100%" stop-color="#050912"/>
+    </linearGradient>
+
+  </defs>
+
+  <!-- Whale Interior -->
+  <rect width="600"
+        height="400"
+        fill="url(#whaleWall)"/>
+
+  <!-- Subtle light from above -->
+  <circle cx="300"
+          cy="40"
+          r="140"
+          fill="url(#hopeLight)"
+          opacity="0.6"/>
+
+  <!-- Whale rib cave -->
+
+  <g opacity="0.9">
+
+    <path d="M80 30 Q140 180 130 400"
+          fill="none"
+          stroke="#2f4f63"
+          stroke-width="14"
+          stroke-linecap="round"/>
+
+    <path d="M160 20 Q210 180 205 400"
+          fill="none"
+          stroke="#385f77"
+          stroke-width="14"
+          stroke-linecap="round"/>
+
+    <path d="M240 10 Q275 180 275 400"
+          fill="none"
+          stroke="#446d86"
+          stroke-width="14"
+          stroke-linecap="round"/>
+
+    <path d="M360 10 Q325 180 325 400"
+          fill="none"
+          stroke="#446d86"
+          stroke-width="14"
+          stroke-linecap="round"/>
+
+    <path d="M440 20 Q390 180 395 400"
+          fill="none"
+          stroke="#385f77"
+          stroke-width="14"
+          stroke-linecap="round"/>
+
+    <path d="M520 30 Q460 180 470 400"
+          fill="none"
+          stroke="#2f4f63"
+          stroke-width="14"
+          stroke-linecap="round"/>
+
+  </g>
+
+  <!-- Rib shadows -->
+
+  <g opacity="0.35">
+
+    <path d="M120 0 L80 400"
+          stroke="#020407"
+          stroke-width="30"/>
+
+    <path d="M220 0 L190 400"
+          stroke="#020407"
+          stroke-width="30"/>
+
+    <path d="M380 0 L410 400"
+          stroke="#020407"
+          stroke-width="30"/>
+
+    <path d="M480 0 L520 400"
+          stroke="#020407"
+          stroke-width="30"/>
+
+  </g>
+
+  <!-- Bioluminescent floor -->
+
+  <ellipse cx="300"
+           cy="365"
+           rx="240"
+           ry="45"
+           fill="url(#whaleGlow)"/>
+
+  <!-- Seaweed silhouettes -->
+
+  <g fill="none"
+     stroke="#245768"
+     stroke-width="5"
+     stroke-linecap="round"
+     opacity="0.5">
+
+    <path d="M130 360 Q120 340 130 315 Q145 290 135 260"/>
+
+    <path d="M470 360 Q480 335 470 305 Q455 280 465 250"/>
+
+    <path d="M510 360 Q525 320 500 280"/>
+
+  </g>
+
+  <!-- Jonah seated -->
+
+  <g transform="translate(300 275)">
+
+    <!-- soft focus glow -->
+    <circle cx="0"
+            cy="0"
+            r="45"
+            fill="#fff7d8"
+            opacity="0.08"/>
+
+    <!-- head -->
+    <circle cx="0"
+            cy="-40"
+            r="16"
+            fill="#f0d0b0"
+            stroke="#0A0812"
+            stroke-width="3"/>
+
+    <!-- hair -->
+    <path d="M-10 -45
+             Q0 -60 12 -44"
+          fill="none"
+          stroke="#1a1a1a"
+          stroke-width="4"
+          stroke-linecap="round"/>
+
+    <!-- closed reflective eyes -->
+    <path d="M-8 -40
+             Q-4 -42 0 -40"
+          stroke="#0A0812"
+          stroke-width="2"
+          fill="none"/>
+
+    <path d="M4 -40
+             Q8 -42 12 -40"
+          stroke="#0A0812"
+          stroke-width="2"
+          fill="none"/>
+
+    <!-- body -->
+    <path d="M-20 -20
+             L20 -20
+             L25 40
+             L-25 40 Z"
+          fill="#314863"
+          stroke="#0A0812"
+          stroke-width="3"/>
+
+    <!-- arms wrapped around knees -->
+    <line x1="-20"
+          y1="0"
+          x2="15"
+          y2="18"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+    <line x1="20"
+          y1="0"
+          x2="-15"
+          y2="18"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+    <!-- legs -->
+    <line x1="-10"
+          y1="40"
+          x2="-30"
+          y2="60"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+    <line x1="10"
+          y1="40"
+          x2="30"
+          y2="60"
+          stroke="#0A0812"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+  </g>
+
+  <!-- Small floating particles -->
+
+  <g fill="#9de9df" opacity="0.7">
+
+    <circle cx="250" cy="180" r="2"/>
+    <circle cx="275" cy="150" r="2"/>
+    <circle cx="300" cy="120" r="3"/>
+    <circle cx="325" cy="150" r="2"/>
+    <circle cx="350" cy="180" r="2"/>
+
+  </g>
+
+</svg>

@@ -1,0 +1,43 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="healthBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#0d1e0d"/>
+      <stop offset="100%" stop-color="#1a2e1a"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="200" fill="url(#healthBg)"/>
+  <!-- Ground -->
+  <rect x="0" y="158" width="300" height="42" fill="#0a160a"/>
+  <rect x="0" y="156" width="300" height="4" fill="#1e3a1a" opacity=".6"/>
+  <!-- Comparison chart line — movement, hierarchy: ties the two figures -->
+  <polyline points="40,130 70,106 110,116 148,102 188,110 228,98 260,104"
+            fill="none" stroke="#4ECDC4" stroke-width="2.5" opacity=".7"/>
+  <circle cx="40"  cy="130" r="3.5" fill="#4ECDC4" opacity=".6"/>
+  <circle cx="148" cy="102" r="3.5" fill="#4ECDC4" opacity=".8"/>
+  <circle cx="260" cy="104" r="3.5" fill="#4ECDC4" opacity=".6"/>
+  <!-- Figure L: Daniel — emphasis, contrast: bright, upright, proportionally larger -->
+  <circle cx="90" cy="58" r="22" fill="#C8956C" stroke="#0A0812" stroke-width="3"/>
+  <!-- Hair -->
+  <path d="M68 50 Q90 36 112 50" fill="none" stroke="#2a1a0a" stroke-width="8" stroke-linecap="round"/>
+  <!-- Smile -->
+  <path d="M82 66 Q90 74 98 66" fill="none" stroke="#0A0812" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Eyes -->
+  <circle cx="83" cy="56" r="3" fill="#0A0812"/>
+  <circle cx="97" cy="56" r="3" fill="#0A0812"/>
+  <!-- Body — upright, strong -->
+  <rect x="72" y="80" width="36" height="64" fill="#3a5a8c" stroke="#0A0812" stroke-width="2.5"/>
+  <path d="M72 80 L54 158" stroke="#3a5a8c" stroke-width="10" stroke-linecap="round"/>
+  <path d="M108 80 L126 158" stroke="#3a5a8c" stroke-width="10" stroke-linecap="round"/>
+  <!-- Glow ring — emphasis -->
+  <circle cx="90" cy="58" r="28" fill="none" stroke="#4ECDC4" stroke-width="1.5" opacity=".5" stroke-dasharray="4,3"/>
+  <!-- Figure R: other trainee — balance: slightly smaller, duller -->
+  <circle cx="208" cy="64" r="18" fill="#B8834A" stroke="#0A0812" stroke-width="2.5" opacity=".8"/>
+  <path d="M190 58 Q208 46 226 58" fill="none" stroke="#2a1a0a" stroke-width="7" stroke-linecap="round" opacity=".8"/>
+  <path d="M200 72 Q208 78 216 72" fill="none" stroke="#0A0812" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="202" cy="62" r="2.5" fill="#0A0812" opacity=".8"/>
+  <circle cx="214" cy="62" r="2.5" fill="#0A0812" opacity=".8"/>
+  <rect x="192" y="82" width="32" height="56" fill="#6b3a1a" stroke="#0A0812" stroke-width="2" opacity=".8"/>
+  <!-- Health badge — variety, emphasis -->
+  <circle cx="90"  cy="32" r="10" fill="#4ECDC4" stroke="#0A0812" stroke-width="2"/>
+  <text x="90" y="36" font-size="9" fill="#0A0812" text-anchor="middle" font-family="monospace" font-weight="bold">✓</text>
+</svg>

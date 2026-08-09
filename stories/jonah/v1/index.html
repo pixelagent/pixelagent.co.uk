@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Journey of Jonah</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+<body>
+    <!-- Particle Canvas -->
+    <div id="tsparticles"></div>
+
+    <!-- 3D Canvas -->
+    <div id="threejs-container"></div>
+
+    <main id="story-ui">
+        <div id="text-box">
+            <h1 id="scene-title">1. The Storm at Sea</h1>
+            <p id="bible-text">"But the Lord sent out a great wind into the sea, and there was a mighty tempest in the
+                sea, so that the ship was like to be broken." - Jonah 1:4</p>
+
+            <div id="prophecy-zone" class="hidden">
+                <p class="prophecy-header">✨ Fulfillment in Christ:</p>
+                <a href="https://www.biblegateway.com/passage/?search=Matthew+12%3A40&version=KJV" target="_blank"
+                    id="prophecy-link">
+                    Matthew 12:40: "For as Jonas was three days and three nights in the whale's belly..."
+                </a>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn" onclick="StoryEngine.prev()">← Back</button>
+            <div id="chapter-indicator">Chapter 1</div>
+            <button class="nav-btn" id="nextBtn" onclick="StoryEngine.next()">Next Scene →</button>
+        </div>
+    </main>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

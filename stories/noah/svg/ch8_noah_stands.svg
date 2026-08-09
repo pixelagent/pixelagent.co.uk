@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- LAYER 1 BACKGROUND: Sky — vast, dawn warmth, 60% of frame -->
+  <rect x="0" y="0" width="400" height="300" fill="#8ab8d0"/>
+  <rect x="0" y="0" width="400" height="180" fill="#b8d8e8"/>
+  <!-- Dawn warmth at horizon -->
+  <rect x="0" y="0" width="400" height="80" fill="#E8B84B" opacity="0.18"/>
+  <rect x="0" y="150" width="400" height="32" fill="#c4956a" opacity="0.3"/>
+  <rect x="0" y="162" width="400" height="14" fill="#E8B84B" opacity="0.25"/>
+
+  <!-- Clouds — open sky, few, varied -->
+  <ellipse cx="95" cy="44" rx="65" ry="17" fill="#e8f4fa" stroke="#b0ccd8" stroke-width="1.5"/>
+  <ellipse cx="135" cy="33" rx="40" ry="13" fill="#f0f8fc" stroke="#b0ccd8" stroke-width="1"/>
+  <ellipse cx="65" cy="58" rx="30" ry="9" fill="#e4f0f8" opacity="0.8"/>
+  <!-- Far right clouds — open space preserved -->
+  <ellipse cx="340" cy="58" rx="50" ry="14" fill="#e8f4fa" stroke="#b0ccd8" stroke-width="1.5"/>
+  <ellipse cx="372" cy="48" rx="28" ry="10" fill="#f0f8fc" opacity="0.9"/>
+  <!-- Single wisp centre-right — open space on right preserved -->
+  <ellipse cx="248" cy="36" rx="28" ry="7" fill="#e4f0f8" opacity="0.6"/>
+
+  <!-- Birds on horizon — tiny, peaceful, wide spacing (rhythm) -->
+  <path d="M 178,138 C 181,133 186,132 189,138" stroke="#0A0812" stroke-width="1.5" fill="none"/>
+  <path d="M 189,138 C 192,133 197,132 200,138" stroke="#0A0812" stroke-width="1.5" fill="none"/>
+  <path d="M 218,130 C 221,125 226,124 229,130" stroke="#0A0812" stroke-width="1.5" fill="none"/>
+  <path d="M 229,130 C 232,125 237,124 240,130" stroke="#0A0812" stroke-width="1.5" fill="none"/>
+  <path d="M 270,142 C 273,138 277,137 280,142" stroke="#0A0812" stroke-width="1" fill="none"/>
+  <path d="M 310,126 C 312,122 316,121 318,126" stroke="#0A0812" stroke-width="1" fill="none"/>
+  <path d="M 340,138 C 342,134 346,133 348,138" stroke="#0A0812" stroke-width="1" fill="none"/>
+
+  <!-- LAYER 2 MIDGROUND: Rolling open land -->
+  <rect x="0" y="176" width="400" height="124" fill="#4A6A2A"/>
+  <!-- Muddy earth surface — still damp -->
+  <rect x="0" y="176" width="400" height="30" fill="#3d2808" opacity="0.65"/>
+  <!-- Rolling land ridge -->
+  <ellipse cx="200" cy="178" rx="280" ry="20" fill="#4A6A2A" opacity="0.6"/>
+  <!-- Distant land lighter — atmosphere -->
+  <ellipse cx="380" cy="185" rx="80" ry="12" fill="#7EC850" opacity="0.35"/>
+  <ellipse cx="60" cy="188" rx="70" ry="10" fill="#7EC850" opacity="0.3"/>
+
+  <!-- Animal tracks — coming from behind Noah, radiating from right -->
+  <ellipse cx="252" cy="196" rx="5" ry="2.5" fill="#2a1808" opacity="0.5"/>
+  <ellipse cx="264" cy="201" rx="4.5" ry="2" fill="#2a1808" opacity="0.45"/>
+  <ellipse cx="278" cy="196" rx="4" ry="2" fill="#2a1808" opacity="0.4"/>
+  <ellipse cx="292" cy="200" rx="4" ry="2" fill="#2a1808" opacity="0.35"/>
+  <ellipse cx="308" cy="195" rx="3.5" ry="1.8" fill="#2a1808" opacity="0.3"/>
+  <!-- Second track -->
+  <ellipse cx="260" cy="205" rx="4.5" ry="2" fill="#2a1808" opacity="0.35"/>
+  <ellipse cx="274" cy="209" rx="4" ry="1.8" fill="#2a1808" opacity="0.3"/>
+  <ellipse cx="290" cy="205" rx="3.5" ry="1.8" fill="#2a1808" opacity="0.28"/>
+
+  <!-- Foreground young shoots — first life, foreground left and right of Noah -->
+  <!-- Left foreground -->
+  <ellipse cx="58" cy="200" rx="20" ry="5" fill="#4A6A2A"/>
+  <line x1="52" y1="200" x2="48" y2="188" stroke="#7EC850" stroke-width="2" stroke-linecap="round"/>
+  <line x1="58" y1="199" x2="57" y2="186" stroke="#a8d870" stroke-width="2" stroke-linecap="round"/>
+  <line x1="65" y1="200" x2="68" y2="188" stroke="#7EC850" stroke-width="2" stroke-linecap="round"/>
+  <!-- Right foreground -->
+  <ellipse cx="362" cy="203" rx="18" ry="5" fill="#4A6A2A"/>
+  <line x1="356" y1="202" x2="352" y2="191" stroke="#7EC850" stroke-width="2" stroke-linecap="round"/>
+  <line x1="364" y1="202" x2="365" y2="190" stroke="#a8d870" stroke-width="2" stroke-linecap="round"/>
+  <line x1="370" y1="203" x2="374" y2="192" stroke="#7EC850" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Small scattered shoots -->
+  <line x1="102" y1="197" x2="100" y2="187" stroke="#7EC850" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="120" y1="200" x2="122" y2="190" stroke="#a8d870" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="330" y1="198" x2="328" y2="188" stroke="#7EC850" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- ★ FOCAL POINT: Ark — FAR LEFT, small, behind Noah — belonging to the past -->
+  <rect x="0" y="162" width="98" height="46" rx="3" fill="#6b4420" stroke="#0A0812" stroke-width="2"/>
+  <rect x="4" y="150" width="86" height="16" rx="2" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+  <path d="M 8,150 L 47,136 L 90,150 Z" fill="#6b4420" stroke="#0A0812" stroke-width="2"/>
+  <line x1="0" y1="176" x2="98" y2="176" stroke="#4a2e10" stroke-width="1.5"/>
+  <line x1="0" y1="190" x2="98" y2="190" stroke="#4a2e10" stroke-width="1.5"/>
+  <!-- Ramp still down — small -->
+  <polygon points="28,208 42,168 52,168 40,208" fill="#C87050" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- LAYER 3 FOREGROUND: NOAH — from behind, slightly right of centre, small vs landscape -->
+  <!-- Long SHADOW falling LEFT — morning light from the right -->
+  <!-- Shadow as elongated dark shape to the left -->
+  <polygon points="218,270 152,278 155,284 222,278" fill="#0a0812" opacity="0.28"/>
+  <!-- Shadow head -->
+  <ellipse cx="148" cy="278" rx="10" ry="3" fill="#0a0812" opacity="0.22"/>
+
+  <!-- Robe — full length, slightly billowing right (light breeze) -->
+  <polygon points="226,188 214,278 244,278 238,188" fill="#8B5E2F" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- Cloak side — billowing left slightly -->
+  <polygon points="214,200 200,272 216,278" fill="#6b4420" stroke="#0A0812" stroke-width="2"/>
+  <!-- Cloak billowing right -->
+  <polygon points="238,200 252,270 242,278" fill="#8B5E2F" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- Upper body -->
+  <rect x="216" y="168" width="30" height="24" rx="3" fill="#6b4420" stroke="#0A0812" stroke-width="2.5"/>
+
+  <!-- Head — back of head, facing the horizon ahead (right) -->
+  <circle cx="231" cy="160" r="15" fill="#D4956A" stroke="#0A0812" stroke-width="2.5"/>
+  <!-- White hair — back of head -->
+  <ellipse cx="231" cy="153" rx="14" ry="6" fill="#EEE8DC" stroke="#0A0812" stroke-width="2"/>
+  <path d="M 217,160 C 215,170 217,178 223,182 C 220,172 219,165 222,160 Z" fill="#EEE8DC" stroke="#0A0812" stroke-width="1.5"/>
+  <path d="M 245,160 C 247,170 245,178 239,182 C 242,172 243,165 240,160 Z" fill="#EEE8DC" stroke="#0A0812" stroke-width="1.5"/>
+
+  <!-- Staff in left hand — diagonal to ground left -->
+  <line x1="215" y1="192" x2="195" y2="280" stroke="#6b4420" stroke-width="4" stroke-linecap="round"/>
+  <line x1="215" y1="192" x2="195" y2="280" stroke="#0A0812" stroke-width="1.5" fill="none"/>
+  <!-- Staff tip -->
+  <ellipse cx="194" cy="281" rx="4" ry="2" fill="#0A0812"/>
+
+  <!-- Right arm slightly raised — gesture toward horizon -->
+  <line x1="244" y1="180" x2="258" y2="170" stroke="#D4956A" stroke-width="3.5" stroke-linecap="round"/>
+  <ellipse cx="261" cy="168" rx="6" ry="4" fill="#D4956A" stroke="#0A0812" stroke-width="2"/>
+
+  <!-- ★ The HORIZON he faces — open, warm, new -->
+  <!-- Subtle warm glow on horizon line directly ahead of Noah (to his right) -->
+  <rect x="245" y="173" width="155" height="4" fill="#E8B84B" opacity="0.3"/>
+
+</svg>

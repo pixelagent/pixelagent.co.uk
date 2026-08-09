@@ -1,0 +1,53 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="statueGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#FFD84D"/>
+      <stop offset="40%"  stop-color="#c8a45a"/>
+      <stop offset="100%" stop-color="#888"/>
+    </linearGradient>
+    <radialGradient id="dreamHaze" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#B98CFF" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#B98CFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="200" fill="#1e0f0a"/>
+  <!-- Dream haze bg — variety, atmosphere -->
+  <ellipse cx="150" cy="100" rx="130" ry="90" fill="url(#dreamHaze)"/>
+  <!-- Ground -->
+  <rect x="0" y="168" width="300" height="32" fill="#1a0e06"/>
+  <!-- Statue base -->
+  <rect x="118" y="158" width="64" height="12" fill="#8b5a2b" stroke="#0A0812" stroke-width="2"/>
+  <rect x="112" y="168" width="76" height="8"  fill="#6b3a1a" stroke="#0A0812" stroke-width="1.5"/>
+  <!-- Statue body — hierarchy: tallest, centred, dominant — proportion: each section smaller going up -->
+  <!-- Feet of clay — mixed colors, unity breaks here -->
+  <rect x="128" y="136" width="22" height="24" fill="#aaa"    stroke="#0A0812" stroke-width="2"/>
+  <rect x="150" y="136" width="22" height="24" fill="#C8956C" stroke="#0A0812" stroke-width="2" opacity=".8"/>
+  <!-- Iron legs -->
+  <rect x="124" y="106" width="52" height="32" fill="#888"    stroke="#0A0812" stroke-width="2"/>
+  <!-- Bronze belly -->
+  <rect x="120" y="80"  width="60" height="28" fill="#cd7f32" stroke="#0A0812" stroke-width="2"/>
+  <!-- Silver chest -->
+  <rect x="118" y="54"  width="64" height="28" fill="#C0C0C0" stroke="#0A0812" stroke-width="2"/>
+  <!-- Gold head -->
+  <rect x="128" y="28"  width="44" height="28" fill="#FFD84D" stroke="#0A0812" stroke-width="3"/>
+  <!-- Crown on head — emphasis: topmost, brightest -->
+  <polygon points="128,28 136,14 144,22 150,12 156,22 164,14 172,28" fill="#FFD84D" stroke="#0A0812" stroke-width="2"/>
+  <!-- Highlight line on statue — unity: connects all sections -->
+  <line x1="150" y1="14" x2="150" y2="168" stroke="white" stroke-width="1" opacity=".12"/>
+  <!-- Material labels — hierarchy, variety -->
+  <text x="86"  y="36"  font-size="7" fill="#FFD84D" text-anchor="end" font-family="monospace">GOLD</text>
+  <text x="86"  y="70"  font-size="7" fill="#C0C0C0" text-anchor="end" font-family="monospace">SILVER</text>
+  <text x="86"  y="96"  font-size="7" fill="#cd7f32" text-anchor="end" font-family="monospace">BRONZE</text>
+  <text x="86"  y="124" font-size="7" fill="#aaa"    text-anchor="end" font-family="monospace">IRON</text>
+  <text x="86"  y="150" font-size="7" fill="#C8956C" text-anchor="end" font-family="monospace">CLAY</text>
+  <!-- Divider dashes — rhythm: visually separating each material -->
+  <line x1="90" y1="39"  x2="118" y2="39"  stroke="#FFD84D" stroke-width="1" opacity=".4" stroke-dasharray="2,2"/>
+  <line x1="90" y1="74"  x2="118" y2="74"  stroke="#C0C0C0" stroke-width="1" opacity=".4" stroke-dasharray="2,2"/>
+  <line x1="90" y1="99"  x2="120" y2="99"  stroke="#cd7f32" stroke-width="1" opacity=".4" stroke-dasharray="2,2"/>
+  <line x1="90" y1="126" x2="124" y2="126" stroke="#aaa"    stroke-width="1" opacity=".4" stroke-dasharray="2,2"/>
+  <!-- Dream stars — white space, rhythm -->
+  <circle cx="28"  cy="22" r="1.5" fill="white" opacity=".5"/>
+  <circle cx="58"  cy="12" r="1"   fill="#B98CFF" opacity=".6"/>
+  <circle cx="256" cy="18" r="1.5" fill="white" opacity=".5"/>
+  <circle cx="278" cy="30" r="1"   fill="#B98CFF" opacity=".5"/>
+</svg>

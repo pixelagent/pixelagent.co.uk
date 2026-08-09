@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+
+  <!-- ── BACKGROUND: earthy mid-tone — she reads light against it ── -->
+  <rect width="400" height="300" fill="#2a1e0c"/>
+
+  <!-- Sky band — upper portion, darker -->
+  <rect x="0" y="0" width="400" height="140" fill="#150e06"/>
+
+  <!-- Ground -->
+  <rect x="0" y="235" width="400" height="65" fill="#14100a"/>
+  <!-- Ground surface band -->
+  <rect x="0" y="228" width="400" height="10" fill="#3a2a10"/>
+
+  <!-- ── BACKGROUND: VILLAGE SILHOUETTE — far left, very dark ──── -->
+  <!-- Roofline cluster — low, simple, far depth -->
+  <polygon points="0,205 22,182 44,205" fill="#0a0812"/>
+  <rect x="22" y="182" width="22" height="23" fill="#0a0812"/>
+  <polygon points="18,182 33,168 48,182" fill="#0a0812"/>
+
+  <polygon points="48,205 68,190 88,205" fill="#0a0812"/>
+  <rect x="48" y="190" width="40" height="15" fill="#0a0812"/>
+  <polygon points="44,190 68,174 92,190" fill="#0a0812"/>
+
+  <polygon points="88,205 104,196 120,205" fill="#0a0812"/>
+  <rect x="88" y="196" width="32" height="9" fill="#0a0812"/>
+
+  <polygon points="118,205 132,188 146,205" fill="#0a0812"/>
+  <rect x="118" y="188" width="28" height="17" fill="#0a0812"/>
+  <polygon points="115,188 132,174 149,188" fill="#0a0812"/>
+
+  <!-- Ground shadow line under village -->
+  <line x1="0" y1="205" x2="170" y2="205" stroke="#14100a" stroke-width="2"/>
+
+  <!-- ── MIDGROUND: NOAH — small, behind her, kneeling at log ──── -->
+  <!-- Log in midground -->
+  <rect x="60" y="214" width="110" height="9" rx="2" fill="#6b4420" stroke="#1a0e04" stroke-width="1.5"/>
+
+  <!-- Noah's robe (small figure from behind) -->
+  <polygon points="102,185 118,185 122,215 98,215" fill="#8B5E2F" stroke="#1a0e04" stroke-width="1.5"/>
+  <!-- Noah's torso -->
+  <polygon points="104,172 116,172 118,186 102,186" fill="#C87050" stroke="#1a0e04" stroke-width="1.5"/>
+  <!-- Noah's head (from behind) -->
+  <circle cx="110" cy="165" r="11" fill="#D4956A" stroke="#1a0e04" stroke-width="1.5"/>
+  <!-- Head cloth from behind -->
+  <polygon points="100,162 110,155 120,162 118,168 110,164 102,168"
+           fill="#8B5E2F" stroke="#1a0e04" stroke-width="1.2"/>
+  <!-- Noah's arm reaching to log -->
+  <line x1="102" y1="180" x2="88" y2="212" stroke="#D4956A" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- ── FOREGROUND: NOAH'S WIFE — right 1/3, FOCAL POINT ──────── -->
+
+  <!-- Shadow under her feet -->
+  <ellipse cx="318" cy="240" rx="40" ry="9" fill="#0a0812" opacity="0.7"/>
+
+  <!-- ── ROBE / DRESS — full, long, dark earthy ─────────────── -->
+  <!-- Skirt — wide at hem, slightly flared, body turned 3/4 -->
+  <polygon points="272,228 296,162 356,162 374,228 360,242 284,242"
+           fill="#6b4420" stroke="#1a0e04" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Robe hem band -->
+  <rect x="272" y="236" width="102" height="6" rx="1" fill="#5a3010" stroke="#1a0e04" stroke-width="1.5"/>
+  <!-- Robe fold / pleat lines (rhythm) -->
+  <line x1="296" y1="162" x2="284" y2="240" stroke="#5a3010" stroke-width="1.2"/>
+  <line x1="316" y1="162" x2="308" y2="241" stroke="#5a3010" stroke-width="1.2"/>
+  <line x1="340" y1="162" x2="346" y2="241" stroke="#5a3010" stroke-width="1.2"/>
+  <line x1="356" y1="162" x2="364" y2="240" stroke="#5a3010" stroke-width="1.2"/>
+
+  <!-- Torso / chest — 3/4 facing, slightly narrowed on left side -->
+  <polygon points="294,162 352,162 348,200 298,200"
+           fill="#C8855A" stroke="#1a0e04" stroke-width="2"/>
+
+  <!-- ── CROSSED ARMS — over chest, tight and deliberate ─────── -->
+  <!-- Upper arm right (crosses over) -->
+  <path d="M 350,178 Q 338,172 324,176 Q 310,180 300,175"
+        fill="none" stroke="#D4956A" stroke-width="10" stroke-linecap="round"/>
+  <!-- Lower arm left (crosses under) -->
+  <path d="M 298,184 Q 310,190 324,186 Q 338,182 350,187"
+        fill="none" stroke="#D4956A" stroke-width="9" stroke-linecap="round"/>
+  <!-- Fist right (tucked under left elbow) -->
+  <circle cx="300" cy="175" r="8" fill="#D4956A" stroke="#1a0e04" stroke-width="2"/>
+  <!-- Fist left (tucked under right elbow) -->
+  <circle cx="350" cy="187" r="7.5" fill="#D4956A" stroke="#1a0e04" stroke-width="2"/>
+  <!-- Sleeve edge lines -->
+  <line x1="298" y1="170" x2="294" y2="182" stroke="#C87050" stroke-width="1.5"/>
+  <line x1="351" y1="170" x2="355" y2="182" stroke="#C87050" stroke-width="1.5"/>
+
+  <!-- ── HEAD — three-quarter view, slightly to viewer's left ─── -->
+  <circle cx="322" cy="142" r="24" fill="#C8855A" stroke="#1a0e04" stroke-width="2.5"/>
+
+  <!-- Head covering — wrapped cloth -->
+  <path d="M 298,136 Q 302,118 322,112 Q 342,118 346,136 Q 344,148 322,152 Q 300,148 298,136 Z"
+        fill="#8B5E2F" stroke="#1a0e04" stroke-width="2"/>
+  <!-- Cloth wrap over crown -->
+  <path d="M 302,130 Q 322,124 342,130" fill="none" stroke="#6b4420" stroke-width="1.5"/>
+  <!-- Drape folds on side -->
+  <line x1="298" y1="136" x2="296" y2="158" stroke="#6b4420" stroke-width="1.2"/>
+  <line x1="346" y1="136" x2="348" y2="155" stroke="#6b4420" stroke-width="1.2"/>
+  <!-- Cloth drape over shoulders -->
+  <polygon points="298,136 288,162 296,162" fill="#8B5E2F" stroke="#1a0e04" stroke-width="1.2"/>
+  <polygon points="346,136 360,158 352,162" fill="#8B5E2F" stroke="#1a0e04" stroke-width="1.2"/>
+
+  <!-- ── FACE: SKEPTICAL — raised eyebrow, 3/4 view ──────────── -->
+  <!-- Nose bridge (3/4 view — cast slightly right) -->
+  <path d="M 318,130 L 314,143 Q 316,148 320,148" fill="none" stroke="#1a0e04" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- LEFT eye (near side, slightly wider) — narrow, side-eye look -->
+  <ellipse cx="312" cy="137" rx="4" ry="3" fill="#1a0e04"/>
+  <!-- Eyelid crease — narrowed / skeptical -->
+  <path d="M 308,135 Q 312,133 316,135" fill="none" stroke="#1a0e04" stroke-width="1" stroke-linecap="round"/>
+
+  <!-- RIGHT eye (far side, foreshortened) -->
+  <ellipse cx="330" cy="136" rx="3" ry="3.2" fill="#1a0e04"/>
+
+  <!-- LEFT eyebrow — flat/low (skeptical near side) -->
+  <path d="M 306,130 Q 311,129 316,130" fill="none" stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- RIGHT eyebrow — sharply raised (the key expression!) -->
+  <path d="M 325,127 Q 330,122 336,125" fill="none" stroke="#1a0e04" stroke-width="2.8" stroke-linecap="round"/>
+
+  <!-- Mouth — set firm, slight downward pull at near corner (dismissive) -->
+  <path d="M 310,152 Q 318,154 326,151" fill="none" stroke="#1a0e04" stroke-width="2" stroke-linecap="round"/>
+  <!-- Near corner slight pull down -->
+  <line x1="310" y1="152" x2="308" y2="155" stroke="#1a0e04" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- ── FEET ─────────────────────────────────────────────────── -->
+  <ellipse cx="298" cy="243" rx="13" ry="5" fill="#5a3010" stroke="#1a0e04" stroke-width="1.5"/>
+  <ellipse cx="328" cy="244" rx="11" ry="4.5" fill="#5a3010" stroke="#1a0e04" stroke-width="1.5"/>
+
+  <!-- ── LEFT SIDE OPEN SPACE — balance with her weight on right ── -->
+  <!-- Faint ground scratch lines mid-left (midground texture) -->
+  <line x1="30"  y1="232" x2="150" y2="232" stroke="#3a2a10" stroke-width="1" opacity="0.5"/>
+  <line x1="40"  y1="238" x2="130" y2="238" stroke="#3a2a10" stroke-width="0.8" opacity="0.4"/>
+
+</svg>

@@ -1,0 +1,101 @@
+{
+    "caseId": "last_supper",
+    "locationId": "upperroom",
+    "locationTitle": "Upper Room, Jerusalem",
+    "timeOfDay": "night",
+    "environment": {
+        "floorColor": "#2d1e12",
+        "skyColor": "#000000",
+        "ambientLight": 0.4
+    },
+    "primitives": [
+        {
+            "type": "box",
+            "name": "Dinner Table",
+            "pos": [
+                0,
+                0.8,
+                0
+            ],
+            "scale": [
+                8,
+                0.2,
+                3
+            ],
+            "color": "#5d4037"
+        },
+        {
+            "type": "box",
+            "name": "Room Wall N",
+            "pos": [
+                0,
+                2.5,
+                -6
+            ],
+            "scale": [
+                15,
+                5,
+                0.5
+            ],
+            "color": "#a1887f"
+        }
+    ],
+    "sprites": [
+        {
+            "id": "oil_lamp",
+            "type": "prop",
+            "pos": [
+                0,
+                1,
+                0
+            ],
+            "scale": [
+                0.5,
+                0.5
+            ],
+            "texture": "flame_flicker"
+        }
+    ],
+    "npcs": [
+        {
+            "id": "john_apostle",
+            "name": "John",
+            "pos": [
+                2,
+                0,
+                2
+            ],
+            "color": "#4fa3e8",
+            "description": "John by the table",
+            "unlocksEvidence": [
+                "broken_cup"
+            ],
+            "hasDialogue": true
+        },
+        {
+            "id": "judas",
+            "name": "Judas",
+            "pos": [
+                -6,
+                0,
+                -4
+            ],
+            "color": "#7c8fa8",
+            "description": "Judas near the exit door",
+            "hasDialogue": true
+        }
+    ],
+    "evidence": [
+        {
+            "id": "broken_cup",
+            "pos": [
+                0.5,
+                0.9,
+                1
+            ],
+            "model": "ceramic_shards",
+            "glowColor": "#f46060",
+            "hint": "An ornamental cup shattered on the table"
+        }
+    ]
+}

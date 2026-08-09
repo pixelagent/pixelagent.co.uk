@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 1461.93 908.55">
+  <!-- Generator: Adobe Illustrator 30.6.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 109)  -->
+  <defs>
+    <style>
+      .st0 {
+        opacity: .4;
+        stroke: #4ecdc4;
+        stroke-linecap: round;
+      }
+
+      .st0, .st1 {
+        stroke-width: 9.92px;
+      }
+
+      .st0, .st1, .st2, .st3, .st4, .st5, .st6 {
+        stroke-miterlimit: 7.94;
+      }
+
+      .st0, .st2, .st3, .st4, .st5 {
+        fill: none;
+      }
+
+      .st0, .st7 {
+        isolation: isolate;
+      }
+
+      .st8 {
+        fill: url(#radial-gradient);
+      }
+
+      .st1 {
+        fill: #454a50;
+      }
+
+      .st1, .st4, .st5, .st6 {
+        stroke: #0a0812;
+      }
+
+      .st2 {
+        stroke: #121824;
+        stroke-width: 39.69px;
+      }
+
+      .st7 {
+        fill: #4ecdc4;
+        opacity: .1;
+      }
+
+      .st3 {
+        stroke: #1b2333;
+        stroke-width: 29.76px;
+      }
+
+      .st4 {
+        stroke-width: 79.37px;
+      }
+
+      .st5 {
+        stroke-width: 59.53px;
+      }
+
+      .st6 {
+        fill: #6c757d;
+        stroke-width: 11.91px;
+      }
+    </style>
+    <radialGradient id="radial-gradient" cx="136.19" cy="817.3" fx="136.19" fy="817.3" r=".5" gradientTransform="translate(-161408.8792 649084.7275) scale(1190.5511 -793.7007)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1b2333"/>
+      <stop offset=".6" stop-color="#0f1b29"/>
+      <stop offset="1" stop-color="#050912"/>
+    </radialGradient>
+  </defs>
+  <rect class="st8" x="135.69" width="1190.55" height="793.7"/>
+  <path class="st4" d="M36.48,892.91C334.11,198.43,532.54,99.21,730.96,99.21s396.85,99.21,694.49,793.7"/>
+  <path class="st2" d="M36.48,892.91C334.11,198.43,532.54,99.21,730.96,99.21s396.85,99.21,694.49,793.7"/>
+  <path class="st5" d="M234.9,892.91c198.43-496.06,337.32-595.28,496.06-595.28s297.64,99.21,496.06,595.28"/>
+  <path class="st3" d="M234.9,892.91c198.43-496.06,337.32-595.28,496.06-595.28s297.64,99.21,496.06,595.28"/>
+  <path class="st0" d="M691.28,99.21c13.23,92.6,16.54,158.74,9.92,198.43M770.65,99.21c-13.23,66.14-6.61,119.06,19.84,158.74"/>
+  <g>
+    <path class="st6" d="M686.6,781.98c0-138.86,138.86-138.86,138.86,0h-138.86Z"/>
+    <circle class="st7" cx="756.04" cy="684.78" r="83.32"/>
+    <circle class="st1" cx="756.04" cy="684.78" r="34.72"/>
+  </g>
+</svg>
