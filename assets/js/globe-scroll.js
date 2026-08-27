@@ -13,6 +13,7 @@
   var textEls    = Array.from(root.querySelectorAll(config.textSelector));
   var NUM_SECTIONS = config.sections;
   var EXIT_MS    = config.exitMs || 900;
+  var ENTER_DELAY = config.enterDelay || 0;
   var exitTimers = new Array(NUM_SECTIONS).fill(null);
   var scrollProgress = 0;
   var activeSection  = -1;
@@ -54,9 +55,9 @@
       var exitCls2 = 'exit-' + (el.dataset.exit || 'fade');
       clearTimeout(exitTimers[idx]);
       el.classList.remove(exitCls2);
-      requestAnimationFrame(function () {
+      setTimeout(function () {
         el.classList.add('is-visible');
-      });
+      }, ENTER_DELAY);
     }
   }
 
