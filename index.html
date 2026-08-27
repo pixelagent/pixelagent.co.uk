@@ -1,333 +1,86 @@
-<!DOCTYPE html>
-<html  lang="en">
+<!doctype html>
+<html lang="en">
 <head>
-  
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="assets/images/software-meta-128x128.png" type="image/x-icon">
-  <meta name="description" content="home > Pixelagent">
-  
-  
-  <title>Home</title>
-  <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
-  <link rel="stylesheet" href="assets/web/assets/mobirise-icons-bold/mobirise-icons-bold.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/parallax/jarallax.css">
-  <link rel="stylesheet" href="assets/animatecss/animate.css">
-  <link rel="stylesheet" href="assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Epilogue:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Epilogue:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"></noscript>
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"></noscript>
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=kilQWf"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=kilQWf" type="text/css">
-
-  
-  <link rel="icon" type="image/png" href="assets/images/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
-<link rel="shortcut icon" href="assets/images/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="Pixelagent" />
-<link rel="manifest" href="/site.webmanifest" />
-  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pixelagent builds games, creative tools, apps and interactive stories for creators, learners and communities.">
+  <meta name="theme-color" content="#05070a">
+  <title>Pixelagent — Games, tools & interactive stories</title>
+  <link rel="icon" type="image/png" href="assets/images/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/pixelagent-home.css">
 </head>
 <body>
-  
-  <section data-bs-version="5.1" class="menu menu1 cid-viKwcnMDAw" once="menu" id="menu1-2m">
-    
-
-    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
-        <div class="container-fluid">
-            <div class="navbar-brand">
-                <span class="navbar-logo">
-                    <a href="https://www.pixelagent.co.uk">
-                        <img src="assets/images/apple-touch-icon.png-1-180x180.png" alt="Pixelagent" style="height: 3rem;">
-                    </a>
-                </span>
-                
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                
-                
-                <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="about.html">About</a> <a class="btn btn-primary display-4" href="games.html">Games</a> <a class="btn btn-primary display-4" href="software.html">Software</a> <a class="btn btn-primary display-4" href="websites.html">Websites</a></div>
-            </div>
-        </div>
+<canvas class="bg-canvas" id="bg-canvas" aria-hidden="true"></canvas>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="Pixelagent home">
+      <span class="brand-mark" aria-hidden="true"><canvas id="logo-canvas" width="52" height="52"></canvas></span>
+      <span class="brand-word">PIXEL<span>AGENT</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span><span class="sr-only">Open navigation</span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+      <a href="#work">Work</a><a href="games.html">Games</a><a href="software.html">Tools</a>
+      <a href="stories.html">Stories</a><a href="websites.html">Apps</a><a href="about.html">About</a>
     </nav>
-</section>
+    <a class="header-cta" href="mailto:hello@pixelagent.co.uk">Start a project <span aria-hidden="true">↗</span></a>
+  </header>
 
-<section data-bs-version="5.1" class="header19 cid-sFGzrhlvIh" id="header19-3">
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-grid" aria-hidden="true"></div><canvas class="world-canvas" id="world-canvas" aria-hidden="true"></canvas><img class="hero-brand-icon" src="assets/images/apple-touch-icon.png" alt="" aria-hidden="true" data-parallax="-0.12"><div class="hero-noise" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow reveal"><span></span> Independent creative technology studio</p>
+        <h1 id="hero-title" class="reveal"><span>Create tools.</span><span>Build <em>worlds.</em></span><span>Tell stories.</span></h1>
+        <p class="hero-intro reveal">Pixelagent combines game design, software, education and visual storytelling to make playful digital experiences with purpose.</p>
+        <div class="hero-actions reveal"><a class="button button-primary" href="#work">Explore the work <span aria-hidden="true">↓</span></a><a class="button button-ghost" href="about.html">Meet Pixelagent</a></div>
+      </div>
+      <div class="hero-status" aria-hidden="true"><span>PA//26</span><span class="status-live">Studio online</span><span>50.8225° N / 0.1372° W</span></div>
+      <div class="hero-orbit" aria-hidden="true"><div class="orbit-label orbit-label-one"><i></i> 3D</div><div class="orbit-label orbit-label-two"><i></i> STORY</div><div class="orbit-label orbit-label-three"><i></i> CODE</div></div>
+      <svg class="signal-line" viewBox="0 0 800 160" preserveAspectRatio="none" aria-hidden="true"><path d="M0 114H118V72H213V126H328V38H432V92H544V55H660V112H800"/></svg>
+    </section>
 
-    
+    <section class="manifesto section-shell" aria-labelledby="manifesto-title">
+      <div class="section-index" aria-hidden="true">01 / WHAT I MAKE</div>
+      <div class="manifesto-heading"><p class="eyebrow"><span></span> One connected practice</p><h2 id="manifesto-title">Where imagination<br>meets <em>interaction.</em></h2></div>
+      <div class="manifesto-copy"><p>I’m Pixelagent—a designer, developer and educator building at the point where games, tools and stories overlap.</p><p>From browser-native creation studios to narrative worlds and community apps, every project begins with a simple question: <strong>what could this let people do, feel or discover?</strong></p><a class="text-link" href="about.html">The story behind Pixelagent <span aria-hidden="true">↗</span></a></div>
+    </section>
 
-    <div class="mbr-overlay" style="opacity: 0.9; background-color: rgb(19, 58, 77);">
-    </div>
+    <section class="disciplines" aria-label="Creative disciplines">
+      <a class="discipline discipline-games" href="games.html"><span class="discipline-number">01</span><span class="discipline-icon pixel-icon" aria-hidden="true"></span><span class="discipline-title">Games<br>& Worlds</span><span class="discipline-copy">Playful systems, atmospheric prototypes and worlds built to be explored.</span><span class="discipline-arrow" aria-hidden="true">↗</span></a>
+      <a class="discipline discipline-stories" href="stories.html"><span class="discipline-number">02</span><span class="discipline-icon pixel-icon" aria-hidden="true"></span><span class="discipline-title">Stories &<br>Experiences</span><span class="discipline-copy">Interactive narratives where research, place and player choice collide.</span><span class="discipline-arrow" aria-hidden="true">↗</span></a>
+      <a class="discipline discipline-tools" href="software.html"><span class="discipline-number">03</span><span class="discipline-icon pixel-icon" aria-hidden="true"></span><span class="discipline-title">Creative<br>Tools</span><span class="discipline-copy">Browser-based studios that make sophisticated creation more accessible.</span><span class="discipline-arrow" aria-hidden="true">↗</span></a>
+      <a class="discipline discipline-apps" href="websites.html"><span class="discipline-number">04</span><span class="discipline-icon pixel-icon" aria-hidden="true"></span><span class="discipline-title">Apps for<br>Communities</span><span class="discipline-copy">Useful digital products designed around real people and shared purpose.</span><span class="discipline-arrow" aria-hidden="true">↗</span></a>
+    </section>
 
-    <div class="container">
-        <div class="media-container">
-            <div class="col-md-12 col-lg-10 m-auto align-center">
-                <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1"><strong>Pixelagent</strong></h1>
-                <p class="mbr-text mbr-white mbr-fonts-style display-7">Solo developer creating games, web apps, and custom software tools. Building interactive experiences one pixel at a time.<br></p>
-                
+    <section class="work section-shell" id="work" aria-labelledby="work-title">
+      <div class="work-head"><div><p class="eyebrow"><span></span> Selected work</p><h2 id="work-title">Made to be<br><em>experienced.</em></h2></div><p>Flagship projects that bring together story, code, visual design and experimentation.</p></div>
+      <article class="project project-featured">
+        <a class="project-media" href="games.html#holy-week" aria-label="Explore the Holy Week project"><img src="assets/images/prototype1-1-2000x792.webp" alt="Holy Week interactive narrative prototype"><span class="media-grid" aria-hidden="true"></span><span class="project-state">Active development</span><span class="media-action" aria-hidden="true">Explore case <b>↗</b></span></a>
+        <div class="project-info"><div class="project-meta"><span>Interactive narrative</span><span>Three.js + Ink</span><span>2026</span></div><h3>Holy Week</h3><p>An investigative story world told across desktop, mobile and a tactile globe—connecting character testimony, place and player deduction.</p><a class="text-link" href="games.html#holy-week">Enter the story <span aria-hidden="true">↗</span></a></div>
+      </article>
+      <div class="project-grid">
+        <article class="project"><a class="project-media" href="software.html" aria-label="Explore Pixel creative tools"><img src="assets/images/pixel3d1-1361x744.webp" alt="Pixel 3D browser-based scene creation tool"><span class="media-grid" aria-hidden="true"></span><span class="project-state">Toolkit</span><span class="media-action" aria-hidden="true">Launch tools <b>↗</b></span></a><div class="project-info"><div class="project-meta"><span>Creative software</span><span>Browser native</span></div><h3>Pixel Studios</h3><p>A growing family of capable, accessible tools for making game art, sound, scenes and interactive worlds.</p><a class="text-link" href="software.html">Explore the toolkit <span aria-hidden="true">↗</span></a></div></article>
+        <article class="project project-offset"><a class="project-media" href="websites.html" aria-label="Explore the Lewes Food Sharing project"><img src="assets/images/foodshare2-816x522.webp" alt="Lewes Food Sharing community map"><span class="media-grid" aria-hidden="true"></span><span class="project-state">Community app</span><span class="media-action" aria-hidden="true">View project <b>↗</b></span></a><div class="project-info"><div class="project-meta"><span>Service design</span><span>Mapping + community</span></div><h3>Foodshare</h3><p>A community-powered map that makes surplus local produce visible, shareable and responsibly accessible.</p><a class="text-link" href="websites.html">Read the case study <span aria-hidden="true">↗</span></a></div></article>
+      </div>
+    </section>
 
-                <div class="row pt-5 justify-content-center">
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="card-wrapper">
-                            <div class="card-box align-center">
-                                <span class="mbr-iconfont mbrib-hearth" style="color: rgb(255, 255, 255); fill: rgb(255, 255, 255);"></span>
-                                <h4 class="card-title align-center mbr-black mbr-fonts-style display-7"><strong>Building Games &amp; Creative Tools</strong></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="card-wrapper">
-                            <div class="card-box align-center">
-                                <span class="mbr-iconfont mbrib-flag" style="color: rgb(255, 255, 255); fill: rgb(255, 255, 255);"></span>
-                                <h4 class="card-title align-center mbr-black mbr-fonts-style display-7"><strong>Code. Create. Ship.</strong></h4>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <section class="process" aria-labelledby="process-title">
+      <div class="process-intro section-shell"><div class="section-index" aria-hidden="true">03 / PROCESS</div><div><p class="eyebrow"><span></span> Make, test, learn</p><h2 id="process-title">Build it rough.<br><em>Learn it fast.</em></h2></div><p>Ideas become meaningful through play. My process moves quickly from story and intent to something tangible—then lets real use reveal what comes next.</p></div>
+      <ol class="process-steps section-shell"><li><span>01</span><strong>Discover</strong><small>Purpose, people & possibility</small></li><li><span>02</span><strong>Prototype</strong><small>Make the idea tangible</small></li><li><span>03</span><strong>Play</strong><small>Test what truly works</small></li><li><span>04</span><strong>Refine</strong><small>Focus, polish & release</small></li></ol>
+    </section>
 
-<section data-bs-version="5.1" class="features18 cid-sFGGxz3b6J" id="features19-a">
+    <section class="contact section-shell" aria-labelledby="contact-title"><div class="contact-pixels" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p class="eyebrow"><span></span> Have an idea?</p><h2 id="contact-title">Let’s make something<br><em>people remember.</em></h2><p>Games, creative tools, educational experiences and useful apps—I’m always interested in an intriguing problem.</p><a class="button button-light" href="mailto:hello@pixelagent.co.uk">Start a conversation <span aria-hidden="true">↗</span></a></section>
+  </main>
 
-    
-
-    
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="card col-12 col-lg">
-                <div class="card-wrapper">
-                    <h6 class="card-title mbr-fonts-style mb-4 display-2"><strong>About </strong><br><strong>Pixelagent</strong></h6>
-                    <p class="mbr-text mbr-fonts-style display-7">Hi, I’m Nigel — a designer, developer, and educator with a love for animation, games, and storytelling. I teach game design and digital media to young creatives and have over 20 years’ experience building everything from interactive websites to immersive apps.<br><br>Right now, I’m focused on building games, web apps, and creative software tools for a new generation. Whether I’m in the classroom or coding a new platformer, I’m all about combining creativity with purpose.<br><br><br><br></p>
-                    
-                </div>
-            </div>
-            <div class="col-12 col-lg-6">
-                <div class="image-wrapper">
-                    <img src="assets/images/unity1-1-1256x1526.webp" alt="Unity">
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section data-bs-version="5.1" class="features19 cid-sFGBbGYuTc" id="features20-4">
-
-    
-    
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12 col-lg-10">
-                <div class="card-wrapper pb-4">
-                    <div class="card-box align-center">
-                        <h4 class="card-title mbr-fonts-style mb-4 display-2">
-                            <strong>Current Projects</strong></h4>
-                        <p class="mbr-text mbr-fonts-style mb-4 display-7">Currently working on browser-based creative tools and experimental games. <br>Building things that push my skills and maybe end up useful for others.<br><br></p>
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-9">
-                <div class="item mbr-flex">
-                    <div class="icon-box">
-                        <span class="step-number mbr-fonts-style display-5">1</span>
-                    </div>
-                    <div class="text-box">
-                        <h4 class="icon-title card-title mbr-black mbr-fonts-style display-7"><strong>Concept &amp; Pre-Production</strong><div><br></div></h4>
-                        <h5 class="icon-text mbr-black mbr-fonts-style display-7"><div><span style="color: rgb(187, 187, 187); font-size: 1.1rem;"># Define game vision, story arc (based on Game Project’ life)</span><br></div><div># Outline key gameplay mechanics (platforming, puzzles, progression)</div><div><span style="color: rgb(187, 187, 187); font-size: 1.1rem;"># Create initial art concepts and moodboards</span><br></div><div><span style="color: rgb(187, 187, 187); font-size: 1.1rem;"># Build early design document</span><br></div><div><span style="color: rgb(187, 187, 187); font-size: 1.1rem;"># Build prototypes and test mechanics</span></div></h5>
-                    </div>
-                </div>
-                <div class="item mbr-flex">
-                    <div class="icon-box">
-                        <span class="step-number mbr-fonts-style display-5">2</span>
-                    </div>
-                    <div class="text-box">
-                        <h4 class="icon-title card-title mbr-black mbr-fonts-style display-7"><strong>Prototype &amp; Core Development</strong><div><strong><br></strong></div></h4>
-                        <h5 class="icon-text mbr-black mbr-fonts-style display-7"># Develop core 2D platformer mechanics (movement, jumping, interaction)<div><span style="color: rgb(187, 187, 187); font-size: 1.1rem;"># Build a working prototype of one level (e.g. first level prototype)</span><br></div><div><span style="color: rgb(187, 187, 187); font-size: 1.1rem;"># Begin asset production (characters, backgrounds, music)</span><br></div><div><span style="color: rgb(187, 187, 187); font-size: 1.1rem;"># Implement basic UI and game flow</span><br></div><div><span style="color: rgb(187, 187, 187); font-size: 1.1rem;"># Playtesting and feedback</span></div></h5>
-                    </div>
-                </div>
-                <div class="item mbr-flex">
-                    <div class="icon-box">
-                        <span class="step-number mbr-fonts-style display-5">3</span>
-                    </div>
-                    <div class="text-box">
-                        <h4 class="icon-title card-title mbr-black mbr-fonts-style display-7"><strong>Full Production</strong></h4>
-                        <h5 class="icon-text mbr-black mbr-fonts-style display-4"># Expand level design across major story beats (e.g. key gameplay moments)<div><span style="color: rgb(187, 187, 187); font-size: 1rem;"># Add animations, sound effects, and dialogue</span><br></div><div><span style="color: rgb(187, 187, 187); font-size: 1rem;"># Polish character controls and environmental interaction</span><br></div><div><span style="color: rgb(187, 187, 187); font-size: 1rem;"># Integrate progression systems and progression systems</span><br></div><div><span style="color: rgb(187, 187, 187); font-size: 1rem;"># Continued testing and iteration</span><br></div></h5>
-                    </div>
-                </div>
-                <div class="item mbr-flex last">
-                    <div class="icon-box">
-                        <span class="step-number mbr-fonts-style display-5">4</span>
-                    </div>
-                    <div class="text-box">
-                        <h4 class="icon-title card-title mbr-black mbr-fonts-style display-7"><strong>Final Polish &amp; Launch Prep</strong></h4>
-                        <h5 class="icon-text mbr-black mbr-fonts-style display-7"># Final bug fixing, optimization, and balancing<br># Add accessibility features and localization<div># Marketing campaign: trailers, website updates, social media</div><div><span style="color: rgb(187, 187, 187); font-size: 1.1rem;"># Prepare launch platforms (App Store, Steam, etc.)</span><br></div><div><span style="color: rgb(187, 187, 187); font-size: 1.1rem;"># Soft launch or demo release for feedback</span><br></div><div><span style="color: rgb(187, 187, 187); font-size: 1.1rem;"># Official release</span><br></div><div><br></div><div><br></div></h5>
-                    </div>
-                </div>
-                
-                
-                
-                
-                
-                
-            </div>
-        </div>
-    </div>
-</section>
-
-<section data-bs-version="5.1" class="content5 cid-vUh77HzGBd" id="design-block-vUh77HzGBd">
-    
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12 col-lg-11 frame">
-                
-                <iframe allow="camera; microphone; fullscreen; autoplay" style="height: 100%; width: 100%; border: 0px;" src="https://purna.github.io/pixelGame/"></iframe>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section data-bs-version="5.1" class="features3 cid-sFGGDvi61Z" id="features3-b">
-    
-    
-    <div class="container">
-        <div class="mbr-section-head">
-            <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-                <strong>Portfolio Projects</strong></h4>
-            
-        </div>
-        <div class="row mt-4">
-            <div class="item features-image col-12 col-md-6 col-lg-4">
-                <div class="item-wrapper">
-                    <div class="item-img">
-                        <img src="assets/images/unity1-3-1256x765.webp" alt="Unity">
-                    </div>
-                    <div class="item-content">
-                        <h5 class="item-title mbr-fonts-style display-5"><strong>Games&nbsp;</strong></h5>
-                        
-                        <p class="mbr-text mbr-fonts-style mt-3 display-7">My game development work focuses on creativity, purpose, and player engagement. I build using Unity and Blender — often combining narrative design with creative and technical themes.<br><br></p>
-                    </div>
-                    <div class="mbr-section-btn item-footer mt-2"><a href="games.html" class="btn btn-primary item-btn display-4">Learn More
-                            &gt;</a></div>
-                </div>
-            </div>
-            <div class="item features-image col-12 col-md-6 col-lg-4">
-                <div class="item-wrapper">
-                    <div class="item-img">
-                        <img src="assets/images/foodshare2-816x522.webp" alt="Unity">
-                    </div>
-                    <div class="item-content">
-                        <h5 class="item-title mbr-fonts-style display-5"><strong>Websites</strong></h5>
-                        
-                        <p class="mbr-text mbr-fonts-style mt-3 display-7">I’ve designed and developed a wide range of websites, from content-rich platforms to lightweight, high-performance micro sites. My tools of choice include Umbraco, WordPress, and custom-built CMS solutions.<br><br></p>
-                    </div>
-                    <div class="mbr-section-btn item-footer mt-2"><a href="websites.html" class="btn btn-primary item-btn display-4">Learn More
-                            &gt;</a></div>
-                </div>
-            </div>
-            <div class="item features-image col-12 col-md-6 col-lg-4">
-                <div class="item-wrapper">
-                    <div class="item-img">
-                        <img src="assets/images/pixelkanban1-1-1283x701.webp" alt="Mobirise Website Builder">
-                    </div>
-                    <div class="item-content">
-                        <h5 class="item-title mbr-fonts-style display-5"><strong>Software</strong></h5>
-                        
-                        <p class="mbr-text mbr-fonts-style mt-3 display-7">Beyond games and web, I’ve created software tools and multimedia apps for a range of platforms — from interactive DVD and iPad apps to internal business tools and content streaming services.<br><br></p>
-                    </div>
-                    <div class="mbr-section-btn item-footer mt-2"><a href="software.html" class="btn btn-primary item-btn display-4">Learn More
-                            &gt;</a></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section data-bs-version="5.1" class="footer4 cid-uKYpjqQw9g mbr-parallax-background" once="footers" id="footer4-0">
-
-    
-
-    
-    <div class="mbr-overlay" style="opacity: 1; background-color: rgb(51, 153, 204);"></div>
-    <div class="container">
-        <div class="row mbr-white">
-            <div class="col-6 col-lg-3">
-                <div class="media-wrap col-md-8 col-12">
-                    <a href="https://www.pixelagent.co.uk">
-                        <img src="assets/images/apple-touch-icon.png-1-180x180.png" alt="Pixelagent">
-                    </a>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
-                    <strong>About</strong>
-                </h5>
-                <p class="mbr-text mbr-fonts-style mb-4 display-4">
-                    Pixelagent is a solo development studio. I create games, web apps, and custom software tools — building things I'd actually want to use myself.</p>
-                <h5 class="mbr-section-subtitle mbr-fonts-style mb-3 display-7">
-                    <strong>Follow Us</strong>
-                </h5>
-                <div class="social-row display-7">
-                    <div class="soc-item">
-                        <a href="https://www.facebook.com/pixelagent" target="_blank">
-                            <span class="mbr-iconfont socicon-facebook socicon"></span>
-                        </a>
-                    </div>
-                    <div class="soc-item">
-                        <a href="https://www.instagram.com/pixelagent" target="_blank">
-                            <span class="mbr-iconfont socicon-instagram socicon"></span>
-                        </a>
-                    </div>
-                    <div class="soc-item">
-                        <a href="https://github.com/pixelagent" target="_blank">
-                            <span class="mbr-iconfont mobi-mbri-github mobi-mbri"></span>
-                        </a>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7"><strong>Projects</strong></h5>
-                <ul class="list mbr-fonts-style display-4">
-                    <li class="mbr-text item-wrap"><a href="https://sussexdowns.github.io/Foodshare/" class="text-warning">Foodshare</a>&nbsp;(Website)</li><li class="mbr-text item-wrap"><a href="https://sussexdowns.github.io/Foodshare/presentation/index.html" class="text-warning">Foodshare</a>&nbsp; (About)</li>
-                </ul>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
-                    <strong>Blender Extensions</strong>
-                </h5>
-                <ul class="list mbr-fonts-style display-4">
-                    <li class="mbr-text item-wrap"><a href="software.html" class="text-warning">Unity Exporter</a></li>
-                </ul>
-            </div>
-            <div class="col-12 mt-4">
-                <p class="mbr-text mb-0 mbr-fonts-style copyright align-center display-7">
-                    © Copyright 2025 Pixelagent - All Rights Reserved
-                </p>
-            </div>
-        </div>
-    </div>
-</section><section><a href="https://mobiri.se"></a><a href="https://mobiri.se"></a></section><script src="assets/witsec-jquery-3.6.0/jquery-3.6.0.min.js"></script>  <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="assets/parallax/jarallax.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/ytplayer/index.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/vimeoplayer/player.js"></script>  <script src="assets/theme/js/script.js"></script>  
-  
-  
- <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
-    <input name="animation" type="hidden">
-  </body>
+  <footer class="site-footer"><a class="brand footer-brand" href="index.html"><span class="brand-pixel" aria-hidden="true"></span><span class="brand-word">PIXEL<span>AGENT</span></span></a><p>Independent creative technology studio<br>Brighton, UK</p><div class="footer-links"><ul class="social-links"><li><a href="https://github.com/pixelagent" target="_blank" rel="noopener" aria-label="Pixelagent on GitHub"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.11.78-.25.78-.55v-2.15c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.29-1.69-1.29-1.69-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg></a></li><li><a href="https://www.instagram.com/pixelagent" target="_blank" rel="noopener" aria-label="Pixelagent on Instagram"><svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"></rect><circle cx="12" cy="12" r="3.6"></circle><circle cx="17.3" cy="6.7" r=".6" fill="currentColor" stroke="none"></circle></svg></a></li></ul><a href="about.html">About ↗</a></div><small>© 2026 Pixelagent</small></footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="assets/js/pixelagent-home.js"></script>
+</body>
 </html>

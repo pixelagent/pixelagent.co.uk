@@ -1,6 +1,6 @@
 {
   "settings": {
-    "currentPage": "games.html",
+    "currentPage": "index.html",
     "theme": {
       "name": "mobirise5",
       "title": "Mobirise 5",
@@ -53,7 +53,7 @@
       }
     ],
     "imageResize": true,
-    "uniqCompNum": 108,
+    "uniqCompNum": 109,
     "versionPublish": "6.1.12",
     "favicon": "@PROJECT_PATH@/assets/images/software-meta-128x128.png",
     "mbrsiteDomain": "t3fzahxybm",
