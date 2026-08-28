@@ -62,26 +62,24 @@ function initBackgroundField(){
   const renderer=new THREE.WebGLRenderer({canvas:bgCanvas,alpha:true,antialias:true});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.5));
   const scene=new THREE.Scene();
-  scene.fog=new THREE.Fog(0x05070a,14,46);
-  const camera=new THREE.PerspectiveCamera(44,window.innerWidth/window.innerHeight,.1,120);
-  camera.position.set(0,0,23);
-  const blue=new THREE.MeshStandardMaterial({color:0x3399cc,emissive:0x062d43,roughness:.3,metalness:.5});
-  const dark=new THREE.MeshStandardMaterial({color:0x161b21,emissive:0x020406,roughness:.4,metalness:.7});
-  const wire=new THREE.MeshBasicMaterial({color:0x50c8ff,wireframe:true,transparent:true,opacity:.4});
-  const materials=[blue,dark,dark,wire];
+  scene.fog=new THREE.Fog(0x05070a,16,42);
+  const camera=new THREE.PerspectiveCamera(52,window.innerWidth/window.innerHeight,.1,120);
+  camera.position.set(0,0,19);
+  const blue=new THREE.MeshBasicMaterial({color:0x3399cc,transparent:true,opacity:.35});
+  const cyan=new THREE.MeshBasicMaterial({color:0x50c8ff,transparent:true,opacity:.3});
+  const violet=new THREE.MeshBasicMaterial({color:0xa879ff,transparent:true,opacity:.25});
+  const wire=new THREE.MeshBasicMaterial({color:0x8fe0ff,wireframe:true,transparent:true,opacity:.2});
+  const materials=[blue,cyan,cyan,violet,wire];
   const group=new THREE.Group();scene.add(group);
-  const RANGE=30,cubes=[];
-  for(let i=0;i<40;i++){
-    const size=.35+Math.random()*.85;
+  const RANGE=26,cubes=[];
+  for(let i=0;i<56;i++){
+    const size=.3+Math.random()*.75;
     const cube=new THREE.Mesh(new THREE.BoxGeometry(size,size,size),materials[Math.floor(Math.random()*materials.length)]);
-    cube.position.set((Math.random()-.5)*24,(Math.random()-.5)*RANGE,(Math.random()-.5)*16-4);
+    cube.position.set((Math.random()-.5)*20,(Math.random()-.5)*RANGE,(Math.random()-.5)*14-3);
     cube.userData.baseY=cube.position.y;
     cube.userData.spin=[(Math.random()-.5)*.05,(Math.random()-.5)*.05,(Math.random()-.5)*.035];
     group.add(cube);cubes.push(cube);
   }
-  scene.add(new THREE.AmbientLight(0x6f8da1,.85));
-  const key=new THREE.PointLight(0x50c8ff,2.4,60);key.position.set(10,10,22);scene.add(key);
-  const rim=new THREE.PointLight(0xa879ff,1.3,50);rim.position.set(-10,-8,10);scene.add(rim);
   let pointerX=0,pointerY=0,scrollOffset=0,eased=0;
   window.addEventListener('pointermove',function(event){pointerX=(event.clientX/window.innerWidth-.5)*2;pointerY=(event.clientY/window.innerHeight-.5)*2},{passive:true});
   window.addEventListener('scroll',function(){scrollOffset=window.scrollY*.045},{passive:true});
@@ -107,6 +105,61 @@ function initBackgroundField(){
   }
   requestAnimationFrame(animateField)
 }
+function initTimelineVisual(){
+  const timelineCanvas=document.querySelector('.timeline-canvas');
+  const phases=document.querySelectorAll('.phase[data-phase]');
+  if(!timelineCanvas||!phases.length)return;
+  const holder=timelineCanvas.parentElement;
+  const renderer=new THREE.WebGLRenderer({canvas:timelineCanvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.75));
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(42,1,.1,100);
+  camera.position.set(0,0,8.5);
+  const count=phases.length;
+  const group=new THREE.Group();scene.add(group);
+  const track=new THREE.Mesh(new THREE.TorusGeometry(2.4,.015,8,64),new THREE.MeshBasicMaterial({color:0x50c8ff,transparent:true,opacity:.25}));
+  group.add(track);
+  const nodes=[];
+  function baseMat(){return new THREE.MeshStandardMaterial({color:0x11161c,emissive:0x020406,roughness:.4,metalness:.6})}
+  function activeMat(){return new THREE.MeshStandardMaterial({color:0x3399cc,emissive:0x0d5b86,roughness:.22,metalness:.5})}
+  for(let i=0;i<count;i++){
+    const angle=(i/count)*Math.PI*2-Math.PI/2;
+    const cube=new THREE.Mesh(new THREE.BoxGeometry(.8,.8,.8),baseMat());
+    cube.position.set(Math.cos(angle)*2.4,Math.sin(angle)*2.4,0);
+    group.add(cube);nodes.push(cube);
+  }
+  scene.add(new THREE.AmbientLight(0x6f8da1,.8));
+  const key=new THREE.PointLight(0x50c8ff,2.6,20);key.position.set(4,4,6);scene.add(key);
+  const rim=new THREE.PointLight(0xa879ff,1.4,18);rim.position.set(-4,-3,4);scene.add(rim);
+  function resize(){const width=holder.clientWidth,height=holder.clientHeight;if(!width||!height)return;renderer.setSize(width,height,false);camera.aspect=width/height;camera.updateProjectionMatrix()}
+  resize();window.addEventListener('resize',resize);
+  const progressLabel=document.querySelector('.timeline-progress');
+  let activeIndex=0;
+  const observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting)return;
+      const idx=Number(entry.target.dataset.phase);
+      activeIndex=idx;
+      phases.forEach(function(phase){phase.classList.toggle('is-active',Number(phase.dataset.phase)===idx)});
+      nodes.forEach(function(node,i){node.material=i===idx?activeMat():baseMat()});
+      if(progressLabel)progressLabel.textContent='0'+(idx+1)+' / 0'+count;
+    });
+  },{threshold:.5,rootMargin:'-35% 0px -35% 0px'});
+  phases.forEach(function(phase){observer.observe(phase)});
+  const clock=new THREE.Clock();
+  function animateTimeline(){
+    const time=clock.getElapsedTime();
+    const targetRotation=-(activeIndex/count)*Math.PI*2;
+    group.rotation.z+=(targetRotation-group.rotation.z)*.05;
+    group.rotation.y=Math.sin(time*.2)*.12;
+    nodes.forEach(function(node,i){const target=i===activeIndex?1.3:1;node.scale.x+=(target-node.scale.x)*.08;node.scale.y=node.scale.z=node.scale.x});
+    renderer.render(scene,camera);
+    requestAnimationFrame(animateTimeline)
+  }
+  requestAnimationFrame(animateTimeline)
+}
+initTimelineVisual();
+
 initBackgroundField();
 
 document.querySelectorAll('.page-canvas').forEach(initPageCore);
