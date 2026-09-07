@@ -4,3 +4,6 @@ _site/
 .jekyll-metadata
 # Ignore all .mobirise_history files in the history folder
 [Hh]istory/*.mobirise_history
+.DS_Store
+*/.DS_Store
+
