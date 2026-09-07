@@ -521,9 +521,9 @@ export class Game {
     // setupUIEventListeners() (every state transition) don't stack listeners.
     // Stacked listeners made a single click toggle the faith panel several
     // times, often leaving it stuck open over the canvas/toolbar.
-    addClickListener('dayNightBtn', this.toggleDayNight);
-    addClickListener('faithBtn', this.toggleFaithPanel);
-    addClickListener('closeFaith', this.toggleFaithPanel);
+    document.getElementById('dayNightBtn').addEventListener('click', () => this.toggleDayNight());
+    document.getElementById('faithBtn').addEventListener('click', () => this.toggleFaithPanel());
+    document.getElementById('closeFaith').addEventListener('click', () => this.toggleFaithPanel());
 
     // Setup for buttons that trigger game state changes
     document.querySelectorAll('.btn-difficulty').forEach(btn => {

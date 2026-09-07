@@ -1,5 +1,9 @@
 (function(){
   'use strict';
+  const header=document.querySelector('[data-header]');
+  function setHeader(){if(header)header.classList.toggle('is-scrolled',window.scrollY>30)}
+  setHeader();
+  window.addEventListener('scroll',setHeader,{passive:true});
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const revealSelectors=[
     '.mbr-section-head',
@@ -82,4 +86,44 @@
     }
     requestAnimationFrame(animateLogo);
   }
+
+  function initPageCore(pageCanvas){
+    const holder=pageCanvas.closest('.inner-hero')||pageCanvas.parentElement;
+    const renderer=new THREE.WebGLRenderer({canvas:pageCanvas,alpha:true,antialias:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.75));
+    const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(42,1,.1,100);
+    camera.position.set(0,0,10.5);
+    const group=new THREE.Group();scene.add(group);
+    const blue=new THREE.MeshStandardMaterial({color:0x3399cc,emissive:0x062d43,roughness:.28,metalness:.5});
+    const dark=new THREE.MeshStandardMaterial({color:0x11161c,emissive:0x020406,roughness:.4,metalness:.7});
+    const geo=new THREE.BoxGeometry(.62,.62,.62);
+    for(let x=0;x<4;x++){for(let y=0;y<4;y++){for(let z=0;z<4;z++){
+      if(Math.random()>.5)continue;
+      const cube=new THREE.Mesh(geo,Math.random()>.4?blue:dark);
+      cube.position.set((x-1.5)*.86,(y-1.5)*.86,(z-1.5)*.86);
+      cube.userData.origin=cube.position.clone();
+      cube.userData.phase=Math.random()*Math.PI*2;
+      group.add(cube);
+    }}}
+    const wire=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(3.7,3.7,3.7)),new THREE.LineBasicMaterial({color:0x50c8ff,transparent:true,opacity:.16}));
+    group.add(wire);
+    scene.add(new THREE.AmbientLight(0x6f8da1,.8));
+    const key=new THREE.PointLight(0x50c8ff,2.6,24);key.position.set(4,4,6);scene.add(key);
+    const rim=new THREE.PointLight(0xa879ff,1.6,20);rim.position.set(-3,-2,3);scene.add(rim);
+    let pointerX=0,pointerY=0;
+    window.addEventListener('pointermove',function(event){pointerX=(event.clientX/window.innerWidth-.5)*2;pointerY=(event.clientY/window.innerHeight-.5)*2},{passive:true});
+    function resize(){const width=holder.clientWidth,height=holder.clientHeight;if(!width||!height)return;renderer.setSize(width,height,false);camera.aspect=width/height;camera.updateProjectionMatrix()}
+    resize();window.addEventListener('resize',resize);
+    const clock=new THREE.Clock();
+    function animatePage(){
+      const time=clock.getElapsedTime();
+      group.rotation.x+=((pointerY*.12)+time*.045-group.rotation.x)*.025;
+      group.rotation.y+=((pointerX*.16)+time*.075-group.rotation.y)*.025;
+      group.children.forEach(function(child){if(!child.userData.origin)return;const pulse=Math.sin(time*1.1+child.userData.phase)*.04;child.position.copy(child.userData.origin).multiplyScalar(1+pulse)});
+      renderer.render(scene,camera);
+      requestAnimationFrame(animatePage)
+    }
+    requestAnimationFrame(animatePage)
+  }
+  document.querySelectorAll('.page-canvas').forEach(initPageCore);
 })();
