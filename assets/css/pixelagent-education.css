@@ -3,9 +3,10 @@
 .education-grid .tool-card { border: 1px solid var(--line); transform: none; }
 .education-summary { max-width: 760px; color: var(--muted); line-height: 1.7; }
 .education-screenshot { display: block; }
-.education-screenshot img { display: block; width: 100%; height: 100%; object-fit: contain; filter: none; opacity: 1; }
+.education-screenshot img { display: block; width: 100%; height: 100%; object-fit: contain; filter: grayscale(1); opacity: 1; }
 .education-screenshot::after { background: none; pointer-events: none; }
-.education-grid .tool-card:hover img { transform: none; }
+.education-grid .tool-card:hover img,
+.education-grid .tool-card:focus-within img { filter: grayscale(0); transform: none; }
 .education-resource-group { margin-top: 3rem; scroll-margin-top: 160px; }
 .education-resource-group > h3 { margin: 0; padding-bottom: 1rem; border-bottom: 1px solid var(--line); font-size: clamp(1.3rem, 2vw, 1.8rem); line-height: 1.4; }
 .education-resource-group .tool-grid { margin-top: 1.5rem; }
