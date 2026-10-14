@@ -10,8 +10,8 @@
     event.preventDefault();
     status.textContent='';
     if(!form.reportValidity())return;
-    if(form.action.indexOf('YOUR_FORM_ID')!==-1){
-      status.textContent='This form needs its Formspree form ID before it can send.';
+    if(form.action.indexOf('formsubmit.co')===-1){
+      status.textContent='This form needs its FormSubmit endpoint before it can send.';
       return;
     }
     button.disabled=true;
