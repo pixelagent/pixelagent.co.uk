@@ -110,11 +110,12 @@ export class PlayerManager {
   update() {
     if (!this.player) return;
 
-    this.animationTime++;
+    this.animationTime += this.game.frameScale;
     this.handleMovement();
+    this.checkCollisions();
     this.animateBob();
     this.handleDustTrail();
-    this.checkCollisions();
+    Object.assign(GameState.player.position, this.player.position);
   }
 
   handleMovement() {
@@ -126,7 +127,7 @@ export class PlayerManager {
     if (isMovingWithKeys) {
       // Steering: left/right yaw the heading at a controlled rate. This is stable (no
       // camera-relative feedback loop that made the view spin when strafing).
-      const turn = gameConfig.player.turnSpeed;
+      const turn = gameConfig.player.turnSpeed * this.game.frameScale;
       if (this.game.input.left) rotateHeadingY(heading, turn);
       if (this.game.input.right) rotateHeadingY(heading, -turn);
 
@@ -142,7 +143,7 @@ export class PlayerManager {
 
       if (moveDir.length() > 0) {
         moveDir.normalize();
-        this.player.position.add(moveDir.multiplyScalar(settings.moveSpeed));
+        this.player.position.add(moveDir.multiplyScalar(settings.moveSpeed * this.game.frameScale));
 
         this.game.clickTarget = null;
         GameState.player.position.x = this.player.position.x;
@@ -154,8 +155,10 @@ export class PlayerManager {
       this.game.cameraHeading.copy(heading).normalize();
     } else if (this.game.clickTarget) {
       const clickDir = new THREE.Vector3().subVectors(this.game.clickTarget, this.player.position);
+      clickDir.y = 0;
       const clickDist = clickDir.length();
-      const step = Math.min(settings.moveSpeed, clickDist);
+      clickDir.y = 0;
+      const step = Math.min(settings.moveSpeed * this.game.frameScale, Math.hypot(clickDir.x, clickDir.z));
       if (clickDist > 0) clickDir.normalize();
 
       this.player.position.add(clickDir.multiplyScalar(step));
@@ -194,8 +197,8 @@ export class PlayerManager {
 
     // Jump arc: integrate vertical velocity with gravity; land back on the ground.
     if (this.isJumping) {
-      this.jumpOffset += this.velocityY;
-      this.velocityY -= gameConfig.player.gravity;
+      this.jumpOffset += this.velocityY * this.game.frameScale;
+      this.velocityY -= gameConfig.player.gravity * this.game.frameScale;
       if (this.jumpOffset <= 0) {
         this.jumpOffset = 0;
         this.velocityY = 0;
@@ -224,30 +227,24 @@ export class PlayerManager {
   }
 
   checkCollisions() {
-    const playerRadius = 0.4; // Approximate player radius, based on dress geometry
-    this.game.obstacleColliders.forEach((collider) => {
-      const colliderPosition = collider.position;
-      const playerPosition = this.player.position;
-      let collisionRadius = 0;
-
-      if (collider.geometry instanceof THREE.SphereGeometry) {
-        collisionRadius = playerRadius + collider.geometry.parameters.radius;
-      } else if (collider.geometry instanceof THREE.CylinderGeometry) {
-        collisionRadius = playerRadius + collider.geometry.parameters.radiusTop;
-      } else {
-        return; // Unsupported collider type
+    // Two passes let the player slide along overlapping rocks without oscillation.
+    for (let pass = 0; pass < 2; pass++) {
+      for (const collider of this.game.obstacleColliders) {
+        const center = collider.getWorldPosition(new THREE.Vector3());
+        const scale = collider.getWorldScale(new THREE.Vector3());
+        const shape = collider.geometry.parameters;
+        const radius = (shape.radius || Math.max(shape.radiusTop || 0, shape.radiusBottom || 0)) * Math.max(Math.abs(scale.x), Math.abs(scale.z)) + 0.45;
+        if (!radius) continue;
+        const dx = this.player.position.x - center.x;
+        const dz = this.player.position.z - center.z;
+        const distance = Math.hypot(dx, dz);
+        if (distance >= radius) continue;
+        const nx = distance > 0.0001 ? dx / distance : 1;
+        const nz = distance > 0.0001 ? dz / distance : 0;
+        this.player.position.x = center.x + nx * (radius + 0.005);
+        this.player.position.z = center.z + nz * (radius + 0.005);
+        if (this.game.clickTarget && Math.hypot(this.game.clickTarget.x - center.x, this.game.clickTarget.z - center.z) < radius) this.game.clickTarget = null;
       }
-
-      // Use 2D distance for collision check on the XZ plane
-      const dx = playerPosition.x - colliderPosition.x;
-      const dz = playerPosition.z - colliderPosition.z;
-      const dist = Math.sqrt(dx * dx + dz * dz);
-
-      if (dist < collisionRadius) {
-        const overlap = collisionRadius - dist;
-        const pushDir = new THREE.Vector3(dx, 0, dz).normalize();
-        this.player.position.add(pushDir.multiplyScalar(overlap));
-      }
-    });
+    }
   }
 }

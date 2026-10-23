@@ -27,6 +27,7 @@ export const GameState = {
 
   player: {
     health: config.player.initialHealth,
+    hydration: 100,
     money: config.player.initialMoney,
     mana: 0,
     score: 0,

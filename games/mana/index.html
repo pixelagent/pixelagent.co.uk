@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Manna Collector — A Wilderness Chronicle</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap"
@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/survival.css" />
     <style>
         .btn-buy {
             background: linear-gradient(90deg, #5c6b3e, #7a8f55) !important;
@@ -67,18 +68,19 @@
             <button class="icon-btn" id="pauseBtn" title="Pause">
                 <i class="fas fa-pause" id="pauseIcon"></i>
             </button>
-            <button class="icon-btn" id="dayNightBtn" title="Toggle Day / Night">
+            <button class="icon-btn" id="dayNightBtn" hidden title="Toggle Day / Night">
                 <i class="fas fa-sun"></i>
             </button>
             <button class="icon-btn" id="faithBtn" title="Faith &amp; Tithe">
                 <i class="fas fa-scroll"></i>
             </button>
-            <button class="icon-btn" id="mobileToggleBtn" title="Toggle Mobile Controls">
+            <button class="icon-btn" id="mobileToggleBtn" hidden title="Toggle Mobile Controls">
                 <i class="fas fa-mobile-alt"></i>
             </button>
             <button class="icon-btn" id="audioBtn" title="Toggle Audio">
                 <i class="fas fa-volume-up" id="audioIcon"></i>
             </button>
+            <button class="icon-btn" id="creditsBtn" title="Credits" aria-label="Credits">♫</button>
             <button class="icon-btn" id="aboutBtn" title="About">
                 <i class="fas fa-info"></i>
             </button>
@@ -102,19 +104,16 @@
 
         <div class="about-panel" id="aboutPanel">
             <button class="close-btn" id="closeAbout"><i class="fas fa-times"></i></button>
-            <h2>The Wilderness Law</h2>
-            <p>Each dawn the manna falls upon the desert. Gather it, but heed this: manna spoils — what is not sold
-                by nightfall is wasted and lost.</p>
+            <h2>How to survive</h2><p><strong>Weather:</strong> Each dawn brings a forecast. Heatwaves increase thirst, wind increases exposed walking effort, and light rain slows water loss. Water sources refill your water; shelter protects you from extra exposure. Tomorrow follows a four-day cycle: clear, heat, wind, rain.</p><p>Gather your household quota first: this food is reserved at dusk. Trade only surplus. Midday heat drains water faster: shelter near Camp or the Temple, and refill at the Oasis or Split Rock. Return to Camp to finish early.</p>
+            <p>Each dawn the manna falls upon the desert. Gather it, but heed this: surplus manna spoils — food for your household is reserved first.</p>
             <p><strong class="text-sage">Walk:</strong> Use arrow keys, WASD, or the on-screen controls. The
                 journey itself wearies you — walking slowly drains your wellbeing, so move with purpose.</p>
             <p><strong class="text-sage-light">Gather:</strong> Touch the glowing manna to add it to your basket.</p>
-            <p><strong class="text-gold">Trade:</strong> Visit the Market to learn the day's price. The price is
-                only set once your gathering is done — some days the camp is generous, other days every soul is
-                selling and the price falls to nothing.</p>
+            <p><strong class="text-gold">Trade:</strong> Finish at Camp or wait until dusk. Household food is set aside first; then sell your surplus or buy food to cover a shortage.</p>
             <p><strong class="text-crimson">Wellbeing &amp; Wealth:</strong> These are two separate fates. Gather
                 too little and you go hungry — wellbeing falls. Gather too much and cannot sell it all — the waste
                 also costs you wellbeing. Sell well and your wealth grows, but wealth alone cannot save a starving
-                soul. Gather exactly what is needed, sell it all, and you may survive forever.</p>
+                soul. Gather what your household needs, then weigh the risk of collecting extra for trade.</p>
             <p><strong class="text-parch-shadow">Places:</strong> Explore to find the Camp, the Oasis, Split Rock, the
                 Temple, and the Wilderness beyond.</p>
             <p class="instructions-text">Your Tribe sets how you travel and how much manna falls; your
@@ -133,6 +132,12 @@
             <div class="location-popup-content" id="locationPopupContent">Location: --</div>
         </div>
 
+        <section id="survivalHud" hidden aria-label="Survival objectives">
+            <strong id="survivalObjective">Gather food for your household</strong>
+            <span id="survivalWeather">Water 100%</span>
+            <small id="survivalGuide">Camp: NE · Oasis: NW · Split Rock: S · Temple: SW</small>
+            <button id="makeCampBtn" disabled>Return to Camp</button>
+        </section>
         <div class="status-bars">
             <div class="health-bar-container" id="healthBarContainer">
                 <div class="health-bar-label">Wellbeing: <span id="healthValue">100</span>/100 — <span
@@ -163,12 +168,9 @@
 
         <div class="modal active" id="menuModal">
             <h1>✦ Manna Collector ✦</h1>
-            <p>Then the LORD said to Moses, “I will rain down bread from heaven for you. The people are to go out each
-                day and gather enough for that day. In this way I will test them and see whether they will follow my
-                instructions." <i>EXODUS 16:4</i> <br>Wander the wilderness and gather
-                manna — but take heed: too little and you starve, too much and it spoils. Sell your basket at
-                market, where the price is never known until the gathering is done.</p>
-
+            <p>Feed your household. Find water. Reach camp before dusk.</p>
+            <p class="menu-subtitle">A wilderness survival journey inspired by Exodus 16.</p>
+            <button class="btn-primary" id="quickStartBtn">Play · guided first journey</button>
             <div id="saveGameContainer">
                 <h3>A Previous Journey Awaits...</h3>
                 <div id="saveGameInfo" style="margin-bottom: 15px; font-size: 16px; line-height: 1.6;">
@@ -180,7 +182,7 @@
                 <button class="btn-secondary" id="newGameBtn" style="margin-left: 10px;">Start Anew</button>
             </div>
 
-            <button class="btn-primary" id="beginJourneyBtn">Begin the Journey</button>
+            <button class="btn-primary" id="beginJourneyBtn">Customise tribe &amp; household</button>
         </div>
 
         <div class="modal" id="difficultyModal">
@@ -313,6 +315,7 @@
         </div>
 
         <div class="modal" id="marketModal">
+            <p id="foodReserved"></p>
             <h2>The Market</h2>
 
             <div class="market-description">
@@ -363,6 +366,16 @@
             <button class="btn-continue" id="eveningRestBtn">Rest until Dawn</button>
         </div>
 
+        <div class="modal" id="creditsModal" role="dialog" aria-modal="true" aria-labelledby="creditsTitle">
+            <h2 id="creditsTitle">Credits</h2>
+            <p>Sound effects from <a href="https://dailysounds.org/" target="_blank" rel="noopener">DailySounds.org</a>.</p>
+            <p><a href="https://dailysounds.org/sounds/1439">Desert Winds Ambiance</a> ·
+            <a href="https://dailysounds.org/sounds/1497">Water Bubbling</a> ·
+            <a href="https://dailysounds.org/sounds/1744">Picking Up Pocket Change</a></p>
+            <p>Used under the <a href="https://dailysounds.org/license">DailySounds license</a>. Existing music and other prototype sounds retained.</p>
+            <p>Built with Three.js, Partykals, Howler.js, FastNoiseLite and localForage.</p>
+            <button class="btn-primary" id="closeCredits">Close credits</button>
+        </div>
         <div class="modal" id="pauseModal">
             <h2>The Day is Paused</h2>
             <p style="margin-bottom: 26px; font-size: 18px;">The manna waits while you rest. Consider your next move
@@ -387,13 +400,13 @@
           "webgl-sdf-generator": "./js/libs/webgl-sdf-generator.esm.js",
           "bidi-js": "./js/libs/bidi-js.esm.js",
           "fastnoise-lite": "./plugins/FastNoiseLite.js",
-          "three/examples/jsm/libs/stats.module.js": "./plugins/stats.module.js",
+          "three/examples/jsm/libs/stats.module.js": "./node_modules/three/examples/jsm/libs/stats.module.js",
           "lil-gui": "https://cdn.jsdelivr.net/npm/lil-gui@0.19/dist/lil-gui.esm.js",
           "partykals": "./plugins/partykals.esm.js"
         }
       }
     </script>
-    <script src="plugins/howler.min.js"></script>
+    <script src="./plugins/howler.min.js"></script>
     <script src="plugins/localforage.min.js"></script>
     <script src="plugins/gsap.min.js"></script>
     <script src="js/electricBorder.js"></script>

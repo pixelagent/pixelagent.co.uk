@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import * as Partykals from 'partykals';
+import * as Partykals from '../plugins/partykals.esm.js';
 
 export class ParticleManager {
     constructor(scene) {
@@ -17,11 +17,9 @@ export class ParticleManager {
                     endColor: new THREE.Color(0.5, 0.8, 1.0),
                     startAlpha: 1.0,
                     endAlpha: 0,
-                    startSize: 0.1,
+                    startSize: new Partykals.Randomizers.MinMaxRandomizer(0.05, 0.15),
                     endSize: 0.3,
-                    // sizeRandomness is not a direct property, but we can use a randomizer.
-                    size: new Partykals.Randomizers.MinMaxRandomizer(0.1 - 0.05, 0.1 + 0.05),
-                    lifetime: 0.5,
+                    ttl: 0.5,
                     velocity: new Partykals.Randomizers.SphereRandomizer(0.5),
                     velocityBonus: new THREE.Vector3(0, 1, 0),
                     worldPosition: true, // Particles should burst in world space
@@ -49,7 +47,7 @@ export class ParticleManager {
                     startSize: 0.04,
                     endSize: 0.14,
                     sizeRandomness: 0.2,
-                    lifetime: 0.5,
+                    ttl: 0.5,
                     // Small random spread + a bias DOWN and BEHIND the player (local -Z is "behind"
                     // the facing direction, local -Y is down). This makes the trail kick up at the
                     // feet and drift backward rather than puffing upward like a chimney.
@@ -79,7 +77,7 @@ export class ParticleManager {
                     startSize: 0.1,
                     endSize: 1.5,
                     sizeRandomness: 0.4,
-                    lifetime: 4,
+                    ttl: 4,
                     velocity: new Partykals.Randomizers.SphereRandomizer(0.3),
                     velocityBonus: new THREE.Vector3(0, 0.8, 0),
                     worldPosition: true,
@@ -105,7 +103,7 @@ export class ParticleManager {
                     endAlpha: 0,
                     startSize: 0.05,
                     endSize: 0.01,
-                    lifetime: 1.5,
+                    ttl: 1.5,
                     velocity: new Partykals.Randomizers.SphereRandomizer(0.4),
                     velocityBonus: new THREE.Vector3(0, 0.6, 0),
                     worldPosition: true,
@@ -131,7 +129,7 @@ export class ParticleManager {
                     endAlpha: 0,
                     startSize: 0.05,
                     endSize: 0.25,
-                    lifetime: 0.7,
+                    ttl: 0.7,
                     velocity: new Partykals.Randomizers.SphereRandomizer(1.8),
                     velocityBonus: new THREE.Vector3(0, 0.8, 0),
                     worldPosition: true, // Particles stay in world space
@@ -149,7 +147,17 @@ export class ParticleManager {
                 }
             },
             oasis: {
-                // TODO: Configuration for mist
+                particles: {
+                    startColor: new THREE.Color(0x9bdce8), endColor: new THREE.Color(0xdaf5ee),
+                    startAlpha: 0.18, endAlpha: 0, startSize: 0.12, endSize: 0.7,
+                    ttl: 1.8, velocity: new Partykals.Randomizers.SphereRandomizer(0.25),
+                    velocityBonus: new THREE.Vector3(0, 0.2, 0), worldPosition: true,
+                },
+                system: {
+                    ttl: Infinity, particlesCount: 16,
+                    emitters: new Partykals.Emitter({ onInterval: 1, interval: 0.25 }),
+                    perspective: true, scale: 600, depthWrite: false, blending: THREE.NormalBlending,
+                }
             },
             campfire: {
                 particles: {
@@ -161,7 +169,7 @@ export class ParticleManager {
                     startSize: 0.18,
                     endSize: 0.02,
                     sizeRandomness: 0.1,
-                    lifetime: 0.4,
+                    ttl: 0.4,
                     velocity: new Partykals.Randomizers.SphereRandomizer(0.15),
                     velocityBonus: new THREE.Vector3(0, 1.4, 0),
                     worldPosition: true,
@@ -189,7 +197,7 @@ export class ParticleManager {
                     startSize: 0.04,
                     endSize: 0.14,
                     sizeRandomness: 0.1,
-                    lifetime: 1.6,
+                    ttl: 1.6,
                     velocity: new Partykals.Randomizers.SphereRandomizer(0.2),
                     velocityBonus: new THREE.Vector3(0, 0.35, 0),
                     worldPosition: true,
@@ -219,7 +227,7 @@ export class ParticleManager {
                     startSize: 0.12,
                     endSize: 0.1,
                     sizeRandomness: 0.3,
-                    lifetime: 1.6,
+                    ttl: 1.6,
                     velocity: new Partykals.Randomizers.BoxRandomizer(
                         new THREE.Vector3(-0.8, 1.2, -0.8),
                         new THREE.Vector3(0.8, 2.2, 0.8)
@@ -240,12 +248,7 @@ export class ParticleManager {
                     blending: THREE.NormalBlending,
                 }
             },
-            rain: {
-                // TODO: Configuration for rain
-            },
-            magic: {
-                // TODO: Configuration for magic burst
-            }
+
         };
     }
 
@@ -257,13 +260,21 @@ export class ParticleManager {
      */
     createEmitter(name, target) {
         const config = this.systemConfigs[name];
-        if (!config) {
+        if (!config?.particles || !config?.system) {
             console.warn(`Particle effect "${name}" not found.`);
             return;
         }
 
         // The original library adds the system to a container you provide in options.
-        const finalConfig = { ...config };
+        const emitters = [].concat(config.system.emitters || []);
+        // Partykals mutates options and advances emitters; every instance owns its state.
+        const finalConfig = {
+            particles: { ...config.particles,
+                blending: config.system.blending === THREE.AdditiveBlending ? 'additive' : 'blend' },
+            system: { ...config.system,
+                emitters: emitters.map(emitter => new Partykals.Emitter({ ...emitter.options })) },
+        };
+        delete finalConfig.system.blending;
         if (target && target instanceof THREE.Object3D) {
             finalConfig.container = target;
         } else {
@@ -304,6 +315,10 @@ export class ParticleManager {
             system.dispose();
             this.activeSystems.delete(system);
         }
+    }
+
+    clear() {
+        for (const system of [...this.activeSystems]) this.stopEmitter(system, false);
     }
 
     /**

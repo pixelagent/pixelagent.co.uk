@@ -1,0 +1,82 @@
+/* Compact survival layout: keep the view clear and all touch targets reachable. */
+[hidden], .icon-btn[hidden] { display: none !important; }
+html, body, #gameContainer { height: 100%; height: 100dvh; overflow: hidden; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { touch-action: manipulation; }
+button:focus-visible, a:focus-visible { outline: 3px solid #1c6370; outline-offset: 3px; }
+button:disabled { opacity: .55; cursor: default; }
+#canvas, .arrow-btn { touch-action: none; }
+.controls-top-right { top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); flex-direction: row; gap: 8px; }
+.controls-top-right .icon-btn { width: 44px; height: 44px; }
+#creditsModal { z-index: 180; }
+.modal { max-height: calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); overscroll-behavior: contain; }
+.about-panel { width: min(400px, 100vw); max-height: 100dvh; padding-top: max(64px, env(safe-area-inset-top)); }
+#survivalHud { position: absolute; top: 85px; right: 16px; z-index: 35; width: min(300px, 42vw); display: grid; gap: 7px; padding: 14px; border-radius: 10px; background: rgba(39,32,20,.85); color: #fff2cb; pointer-events: none; }
+#survivalHud button { pointer-events: auto; padding: 10px; border: 1px solid #ddc488; border-radius: 6px; color: #fff2cb; background: #51623b; min-height: 44px; }
+#survivalHud small { line-height: 1.4; opacity: .8; }
+#survivalWeather { color: #aadce4; }
+.hud { pointer-events: none; font-size: 15px; padding: 12px; min-width: 180px; }
+.hud-item { font-size: 15px; }
+.hud-time { font-size: 18px; }
+.wealth-bar-container { display: none !important; }
+.status-bars { bottom: max(16px, env(safe-area-inset-bottom)); width: min(320px, 70vw); pointer-events: none; }
+.health-bar-container { padding: 8px 12px; }
+.health-bar-label { font-size: 12px; }
+.health-bar { height: 12px; }
+.mobile-controls { top: auto; bottom: max(16px, env(safe-area-inset-bottom)); left: max(16px, env(safe-area-inset-left)); right: auto; transform: none; grid-template-columns: repeat(3, 48px); grid-template-rows: repeat(3, 48px); gap: 5px; padding: 8px; background: rgba(235,213,162,.7); }
+.mobile-controls > div { display: block; }
+.arrow-btn { width: 48px; height: 48px; }
+#btnUp { grid-column: 2; grid-row: 1; }
+#btnLeft { grid-column: 1; grid-row: 2; }
+#btnJump { grid-column: 2; grid-row: 2; }
+#btnRight { grid-column: 3; grid-row: 2; }
+#btnDown { grid-column: 2; grid-row: 3; }
+.menu-subtitle { opacity: .75; font-size: 16px !important; }
+#beginJourneyBtn { margin: 12px auto; background: transparent; color: var(--ink); box-shadow: none; font-size: 15px; }
+#saveGameContainer { margin-top: 18px; }
+@media (max-width: 650px) {
+ .modal, #difficultyModal { width: calc(100vw - 24px); padding: 26px 18px; height: auto; max-width: none; }
+ .modal h1 { font-size: clamp(21px, 6vw, 30px); }
+ .modal h2 { font-size: 23px; }
+ .modal p { font-size: 16px; }
+ .modal button { min-height: 44px; max-width: 100%; white-space: normal; }
+ .tribe-buttons { grid-template-columns: repeat(2,minmax(0,1fr)); }
+ .tribe-btn { min-width: 0; }
+ .controls-top-right { gap: 5px; }
+ .controls-top-right .icon-btn { width: 44px; height: 44px; }
+ #faithBtn { display: none; }
+ .hud { top: max(12px, env(safe-area-inset-top)); left: 12px; min-width: 0; width: 125px; padding: 8px; }
+ .hud-item { font-size: 12px; margin-bottom: 4px; }
+ .hud-time { font-size: 14px; margin-bottom: 0; padding-bottom: 0; border: 0; }
+ .hud > .hud-item:first-child, #money-display { display: none; }
+ #survivalHud { top: max(84px, calc(env(safe-area-inset-top) + 72px)); right: 12px; left: 12px; width: auto; padding: 10px; gap: 4px; font-size: 13px; }
+ #survivalHud small { font-size: 11px; }
+ #survivalHud button { justify-self: end; min-height: 44px; }
+ .status-bars { left: auto; right: 12px; bottom: max(18px,env(safe-area-inset-bottom)); transform: none; width: calc(100vw - 202px); max-width: 240px; }
+ .health-bar-label { font-size: 11px; line-height: 1.4; }
+ .location-popup { display: none !important; }
+ .about-panel { padding: 64px 20px 24px; }
+ .flex-center, .pause-buttons { flex-wrap: wrap; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+ #survivalHud { left: auto; top: 65px; right: 12px; width: 235px; }
+ #survivalGuide { display: none; }
+ .mobile-controls { grid-template-columns: repeat(3,44px); grid-template-rows: repeat(3,44px); padding: 5px; gap: 2px; }
+ .arrow-btn { width: 44px; height: 44px; }
+ .status-bars { left: 50%; right: auto; transform: translateX(-50%); width: 220px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+@media (max-width: 650px) {
+ .day-announcement { top: 34% !important; max-width: calc(100vw - 32px); width: max-content; font-size: 15px !important; padding: 10px 14px !important; }
+ .narrative-toasts { top: auto; bottom: 220px; left: 12px; right: 12px; width: auto; transform: none; max-width: none; }
+ .narrative-toast { font-size: 13px; padding: 8px; }
+}
+@media (max-height: 500px) {
+ .modal h1 { font-size: 28px; margin-bottom: 12px; }
+ .modal p { font-size: 15px; margin-bottom: 12px; }
+ .modal { padding: 20px 24px; }
+ .modal button { padding: 10px 20px; font-size: 15px; }
+ .day-announcement { top: 42% !important; font-size: 14px !important; padding: 8px 12px !important; }
+ .narrative-toasts { top: auto; bottom: 90px; max-width: 280px; }
+ .narrative-toast { font-size: 12px; padding: 6px; }
+}

@@ -1,269 +1,249 @@
-# Manna Collector — Source of Truth
+# Manna Collector — Survival Game Source of Truth
 
-_Last updated: 2026-07-14 (Tribe → Household start flow added)_
+Updated: 23 October 2026  
+Product: Manna Collector — A Wilderness Chronicle  
+Scope: the modular browser prototype in `Prototypes/Mana_v1/`  
+Status: playable development prototype; survival balance is provisional.
 
-This document is the canonical reference for **Manna Collector**. It is derived from:
+## 1. Purpose and authority
 
-- **`v3/mana_collector_v3_1.html`** — the current single-file prototype (the visual/design reference).
-- **`index.html` + `js/*` + `styles/*` + `config.js`** — the modular production build (the code we ship).
-- The design + roadmap notes in **`docs/`**.
+This document describes the current game, the experience it should deliver, and the remaining work. It supersedes the July source-of-truth document and conflicting descriptions in older design notes. The previous document is preserved in `docs/archive/SOURCE_OF_TRUTH-2026-07-14.md`.
 
-> ⚠️ **Read this first.** The two codebases have *diverged*. The modular build (`index.html`) is
-> **not** simply "behind" the prototype — in most systems it is far **ahead** (save/load, market
-> simulation, quotas, particles, camp props, GUI, music). At the same time it is **missing a small
-> set of visual/UX features** that exist in `v3_1`. The precise gap list is in
-> [§6 Gap Analysis](#6-gap-analysis-in-v31-not-yet-in-indexhtml).
+The implementation is `index.html`, `js/`, `styles/`, and `plugins/`. Historical single-file prototypes are references, not the active product. Some historical files are absent from the current checkout; development must not depend on them.
 
----
+**Status language:** “Implemented” means present in the current source. “Verified” identifies an actual check. “Planned” means a proposal, not a shipped feature. Numbers below are current defaults, not final balancing commitments. If code and this document disagree, record the discrepancy and update both after deciding the intended behaviour.
 
-## 1. The two codebases
+## 2. The player promise
 
-| | `v3/mana_collector_v3_1.html` | `index.html` (+ `js/`, `styles/`) |
+**Survive another day by gathering enough food, managing water and effort, and deciding when to return to camp.**
+
+A small wanderer crosses an expressive desert inspired by Exodus 16. Food sustains the household; water makes exploration possible; silver gives trading options. Taking more is a choice with costs, rather than the automatic route to success.
+
+The immediate question should be clear: “What do I need next, and can I safely reach it?” The longer question is: “Can I sustain this household over many days?”
+
+### Design pillars
+
+1. **Readable survival.** Show food needs, remaining time, water, and wellbeing. Explain the cause of losses and gains.
+2. **Useful exploration.** Camp, water and shelter must change the player's route. Landmarks should be recognisable and reachable.
+3. **Understandable risk.** Extra gathering costs time, effort and water; unsold surplus spoils. Hunger is a food shortage, not a failure to sell food.
+4. **Mobile first.** Controls must work with thumbs, recover from interrupted touches, and leave a clear view of the player.
+5. **Restraint and care.** The Exodus setting informs gathering, household responsibility, Sabbath, generosity and temptation. Narrative systems should support survival rather than obscure it.
+
+## 3. Current playable loop — implemented
+
+| Phase | Player experience | Transition |
 |---|---|---|
-| Structure | One file, ~2,800 lines, everything inline | Modular ES modules under `js/`, CSS under `styles/` |
-| Three.js | CDN `three@0.128` (global `THREE`) + legacy example passes | Import-map `three.module.js` + jsm modules |
-| State | Ad-hoc properties on `window.game` | Central `GameState` object (`js/GameState.js`) |
-| Config | Hard-coded literals | `js/config.js` (all tunables) |
-| Persistence | None | `SaveManager` + LocalForage |
-| Market | Random price roll | `MarketSimulation` (10k-household economy) |
-| Particles | None | `ParticleManager` (Partykals) |
-| Dev tools | None | lil-gui + Stats.js (behind `config.debug`) |
-| Role | **Design/visual reference** | **Production target** |
+| Start | Play immediately with Judah + Single, continue a saved journey, or customise tribe and household | Enter the day |
+| Dawn | Daily market conditions are calculated; tithe, blessings and Sabbath rules run | Gathering begins |
+| Gather | Collect manna, watch water and wellbeing, visit water or shelter, decide whether surplus is worth it | Timer reaches zero, or player chooses Make Camp near Camp |
+| Food reservation | Set aside up to the household quota from the basket | Remaining basket becomes tradeable surplus |
+| Market | Buy 5, Sell 5, Sell All, or leave; demand and stock constrain trades | Leave Market |
+| Evening | Purchases first cover missing household food; remaining inventory is waste; legacy temptation/healing options appear | Rest until Dawn |
+| Reckoning | Apply food/waste health consequences and score; show results; save | Next day or game over |
 
-**Rule of thumb:** treat `v3_1` as the "art direction & feel" reference, and the modular build as
-the living product. New work goes into the modular build.
+There is no mid-day trading. Returning to Camp finishes the gathering phase early; it does not open a shop while the day continues. If the timer expires elsewhere, the game currently advances to the market automatically. Forced travel back to camp, a missed-return penalty and rescue are **not implemented**.
 
----
+The game is currently endless. Health reaching zero ends the journey. There is no final victory, campaign ending, multiplayer or leaderboard.
 
-## 2. Canonical game design
+## 4. Resources and rules — implemented
 
-(Summarised from `docs/GAME_DESIGN.md`; the modular build is the authority for exact numbers.)
+| Resource | Meaning | Persistence |
+|---|---|---|
+| Wellbeing / health | 0–100; lost through movement, dehydration, shortages, waste and existing wilderness events | Across days |
+| Water / hydration | 0–100; falls during gathering, faster in exposed midday heat | Carries between days with an overnight refill |
+| Manna gathered | Count of world pickups gathered today; used for progress and part of scoring | Resets each day |
+| Basket | Manna still available for food reservation or trading | Resets each day |
+| Food reserved | Manna assigned to the household; cannot be sold | Resets each day |
+| Silver | Currency for food and existing wilderness choices | Across days |
+| Score | Pickup points plus the current surplus-based day bonus | Across days |
 
-**Concept:** A wanderer survives a desert wilderness by gathering and selling mystical *manna*.
-Endless daily survival loop. Game ends when Health reaches 0.
+### Food and waste
 
-**Resources**
-- **Gathered manna** (`dayManaGathered`) — total collected in a day; drives the end-of-day health calc.
-- **Collected manna / basket** (`dayManaCollected`) — sellable inventory; decreases as you sell.
-- **Wasted manna** — anything in the basket not sold by nightfall; spoils and damages health.
-- **Silver** — persistent currency from selling; feeds the Wealth bar.
-- **Health** — 0–100, persistent; drains with movement, adjusted at day end.
-- **Score** — running total from pickups + perfect-day bonuses.
+At the end of gathering:
 
-**Daily flow:** Day start (market sets price + demand) → Gathering phase → Market phase (sell) →
-Day end (health + score evaluated).
+- `foodReserved = min(quota, basket)`.
+- Subtract reserved food from the basket.
+- Only the remaining basket enters the market.
+- When leaving the market, bought manna first fills any household food shortage. Anything remaining is surplus that spoils.
 
-**"Goldilocks" feedback loop:** under-gathering starves you, over-gathering causes overexertion
-**and** waste risk, waste hurts health hard, optimal gathering + full sell is the sweet spot.
+Example: quota 10 and basket 14 reserves 10 food and offers 4 for trade. Selling those 4 does not make the household hungry. If only 6 food was reserved, buying 5 supplies the missing 4; the remaining 1 must be sold or it becomes waste.
 
----
+At reckoning, current health adjustments are:
 
-## 3. Feature inventory of the current version (`v3_1`)
+- Food shortage: lose `1.2 × missing food` health.
+- Enough food gathered and zero waste: gain 8 health.
+- Otherwise, when there is surplus waste: lose `1.5 × wasted manna` health.
+- These branches are mutually exclusive: a shortage currently takes precedence over waste damage.
+- Health is clamped to 0–100. A purchase that fills the quota prevents hunger, but does not earn the gathering-based health bonus if the gathered total remains below quota.
 
-### 3.1 UI / DOM elements
-- **Loading screen** — parchment card, animated walking character, "collectible" mana dots, % bar.
-- **Top-right control cluster** — Pause, Toggle Mobile Controls, Toggle Audio, About (`.icon-btn`).
-- **About panel** — slide-in "The Wilderness Law" rules panel.
-- **Market** — appears automatically at the **end of each day** (state `'market'`, opened by
-  `Game.endDay()` → `UIManager.showMarket`). The market panel has **Buy 5 / Sell 5 / Sell All / Leave**
-  actions. There is **no** on-demand mid-day trigger button (it was prototyped then reverted on
-  2026-07-14 so the market stays an end-of-day event).
-- **HUD** — `Mana` (score), `Day N · Ns` timer, `Basket` (`.hud-mana`), `Location`, `Silver`.
-- **Location popup** (`#locationPopup`) — lower-left zone name badge.
-- **Status bars** — Wellbeing (health) + Wealth (silver), bottom-centre.
-- **Mobile D-pad** — 4-direction on-screen arrows (`.mobile-controls`).
-- **Modals** — Menu, Difficulty+Character, Day End, Game Over, Market, Pause.
+Current scoring gives 1 point per manna pickup, plus `max(0, gathered − quota − waste)` at day end. This rewards sold surplus; it is **not** a separately implemented fixed “perfect day” score bonus. Whether this score incentive fits the restraint theme needs playtesting.
 
-### 3.2 Start flow — Tribe → Household (modular build, canonical)
+### Daily weather — implemented
 
-The player is chosen in **two steps** before a run begins.
+`WeatherManager.js` defines a repeatable four-day cycle: **clear → heatwave → desert wind → light rain**. The day number determines the forecast, so save/load does not reroll weather. Day one is clear. Each dawn announces the forecast; the survival HUD displays current weather.
 
-1. **Choose Your Tribe** (`#characterStep` → `#tribeButtons`) — pick **one of the 12 tribes** of
-   Israel. This is the **base gameplay profile** (see `js/tribes.json` and [§3.2a](#32a-the-tribe-data-file)).
-   Each tribe defines: `moveSpeed`, `manaCount` (manna spawned per day), `quota` (daily manna needed),
-   `moveDrain` (health lost per step), `startMoney`, `startHealth`, plus flavour (`color`, `epithet`,
-   `blessing`, `description`). Selecting a tribe also tints the player's dress with the tribe colour.
-2. **Household Size** (`#householdStep`) — pick **single / couple / family**. This is a **modifier**
-   applied on top of the tribe base (see `config.household`): single = lighter/faster, family =
-   heavier/slower. The combined profile is `tribe base × household modifier`.
+- Clear: normal thirst, with extra exposed midday loss.
+- Heatwave: heat lasts all day, with an exposed thirst multiplier of 1.45 (3.335 water per second).
+- Desert wind: exposed thirst multiplier of 1.15, and exposed movement health cost ×1.35. Normal midday heat also applies.
+- Light rain: no midday heat; exposed thirst is 0.85 ×0.25 = 0.2125 per second. Rain does not refill water.
+- Shelter removes weather multipliers and extra heat, retaining baseline 0.85 thirst per second. Actual water sources still refill at 12 per second.
+- Sabbath prevents thirst and extra wind effort regardless of weather.
+- Wind/rain visuals use bounded Three.js points (96 on the touch/small-screen profile; 180 otherwise). Oasis mist uses 16 Partykals particles. Weather visuals hide while paused or outside gathering.
 
-> **Design decision (2026-07-14):** _Tribe = base profile, Household = modifier._ The tribe sets the
-> core feel and numbers; the household scales them (e.g. family multiplies quota ×1.25 and moveSpeed ×0.85).
-> `GameState.world.difficulty` internally stores the household type (`single`/`couple`/`family`).
+This is an initial predictable weather system. Random storms, wetness, lightning, rain audio, weather-dependent spawns and forecast uncertainty are not implemented. The balance requires multi-day playtesting.
 
-#### 3.2a The tribe data file (`js/tribes.json`)
-- Loaded at startup by `Game.loadTribes()` (fetched, then `this.tribeMap` keyed by `id`).
-- 12 tribes in birth order: Reuben, Simeon, Levi, Judah, Dan, Naphtali, Gad, Asher, Issachar,
-  Zebulun, Joseph, Benjamin. `judah` is the default selected tribe (balanced/recommended).
-- Buttons are rendered dynamically by `UIManager.buildTribeButtons()` (grid of 12 cards with a colour
-  swatch, name, epithet, and base quota). There is **no** static Character select anymore — the old
-  warrior/mage/rogue presets and the `selectedCharacter` field were removed.
-- `Game.getDifficultySettings()` returns the combined profile used by movement, spawn counts, quota,
-  and starting money/health. A legacy fallback exists if `tribes.json` fails to load.
-- Save summary stores `GameSummary.tribe` (the chosen tribe id); the menu "Continue Journey" panel
-  shows **Tribe** + **Household**.
+### Water, heat and shelter
 
-### 3.3 Scene elements
-- **Infinite terrain tiles** (`createTile`/`updateTileGrid`) with **Bayer 4×4 ordered-dither**
-  vertex colours baked into the mesh (world-space stipple = seamless retro sand look).
-- **Sky** canvas gradient background.
-- **Lighting** — ambient + hemisphere + shadow-casting sun (follows player) + a torch point light.
-- **Fog**.
-- **Landmarks** — Camp, Oasis, Split Rock, Temple, Wilderness (emissive cylinder markers).
-- **Location flags** (`createLocationFlag` + `animateFlagWave`) — a **3D wooden pole + gold finial +
-  parchment cloth banner** with the place name, and a **rippling cloth wave animation**. Shown only
-  when the player is near.
-- **Props** — rocks (pebble/medium/boulder), round trees, **palm trees**, scattered rocks.
-- **Birds** — flock drifting overhead.
-- **Player** — "lovelable" capsule/sphere character with eyes, dress, feet, walk bob.
+| Rule | Current value |
+|---|---:|
+| New journey hydration | 100 |
+| Clear-weather water loss | 0.85 per second |
+| Clear-weather exposed midday water loss | 2.3 per second |
+| Midday window | After 30% and before 75% of the day has elapsed |
+| Standing near a water source | +12 water per second, up to 100 |
+| Water collectible | +24 water, up to 100 |
+| Dehydrated health loss | 2.5 per second while water is zero |
+| Overnight water recovery | +45, up to 100 |
 
-### 3.4 Post-processing
-- `EffectComposer`: RenderPass → UnrealBloom → **inline Vignette ShaderPass**.
-- The old full-screen pixel/scanline pass was **removed** in v3_1 (dither now lives in the terrain
-  mesh instead — see [§5](#5-what-changed-v30--v31)).
-- A separate `uiScene` is rendered as a depth-cleared overlay pass.
+Water sources are the Oasis (within 8 world units) and Split Rock (within 11). Shelter covers those water zones, Camp (10) and Temple (13). Shelter prevents the extra midday water loss; it does not stop normal thirst. Water areas refill hydration without consuming a collectible. This makes water recovery repeatable while health pickup recovery remains limited.
 
-### 3.5 Systems
-- Movement: WASD/arrows/D-pad + click-to-move raycast onto ground.
-- Simple obstacle collision (push-out).
-- Day timer (60s), day-end health math, score/perfect-day bonus.
-- **Market:** `generateMarketPrices()` — random daily demand (22–35) and price (crash 1–2 /
-  normal 3–6 / boom 7–10). Sell 5 / Sell All only. Waste warning.
-- Audio: Howler SFX (pickup, sell, sellAll, dayEnd, gameOver, hurt, click, pause).
+Hydration is independent from health. It currently does not change movement speed. There is no stamina meter, sprinting, crafting, equipment durability or temperature meter.
 
----
+### Movement and health recovery
 
-## 4. Modular build (`index.html`) status
+Movement speed, steering, jump integration and movement health cost are scaled by elapsed frame time. Difficulty is the chosen tribe profile multiplied by the household modifier. Global movement drain multiplier is 0.3.
 
-### 4.1 Already implemented (and often beyond v3_1)
-- Full ES-module architecture: `Game`, `GameState`, `SceneManager`, `PlayerManager`, `UIManager`,
-  `ParticleManager`, `MarketSimulation`, `SaveManager`, `AudioManager`, `LoadingScreenManager`.
-- **Config-driven** everything (`js/config.js`).
-- **Save/Load** via LocalForage (+ "Continue Journey" panel on the menu, manual Save in Pause).
-- **Market simulation** — 10,000-household supply/demand economy with market *status*
-  (shortage/glut/surplus/balanced), moods, quota, and a **Buy** action.
-- **Quota system** + **Day 6/7 special events** (doubled quota / barren day).
-- **Particle effects** (Partykals): dust trail, campfire flames, smoke, embers, temple sparkles,
-  market confetti, mana burst.
-- **Richer camp**: `createCampfire`, `createTent`, `createMarketStall`.
-- **Detailed landmarks**: `createSplitRock`, `createTemple` (base, roof, pillars, walls).
-- **Better terrain**: FastNoiseLite (OpenSimplex) + ripples + procedural grain sand texture.
-- **Better birds**: wandering flight, wing flap, bob (config-driven).
-- **Music** (menu + desert loops with fades), **lil-gui**, **Stats.js**.
-- **Tribe → Household start flow**: two-step character creation. Step 1 picks one of **12 tribes**
-  (`js/tribes.json`, the base gameplay profile); Step 2 picks **household size** single/couple/family
-  (a multiplier on the tribe base — see [§3.2](#32-start-flow--tribe--household-modular-build-canonical)).
-  Replaces the old warrior/mage/rogue Character select.
-- **End-of-day Market** — opened automatically by `Game.endDay()` (state `'market'`). Panel has
-  **Buy 5 / Sell 5 / Sell All / Leave**; Buy is now wired (`Game.buyMana`) and the panel shows Buy
-  Price + Manna-for-Sale. _The earlier on-demand mid-day trigger button was reverted (2026-07-14)._
-- **3D parchment banner flags** (`createLocationFlag` + cloth-ripple `animateFlagWave`) — ported from
-  `v3_1`: wooden pole + gold finial + waving cloth banner, shown near a zone.
-- **Bayer 4×4 ordered-dither terrain** — ported into `SceneManager.createTile` (world-space stipple).
-- **Household difficulty**: single / couple / family modifier (lighter/steady/heavier load).
+Split Rock water collectibles and Temple rest collectibles each restore 4 health per pickup, subject to an actual-health-gained cap of 10 health per type per day. Each location initially spawns 6 recovery pickups. Standing at water restores water, not unlimited health.
 
-### 4.2 Orphaned CSS (historical)
-- `styles/main.css` previously had `.market-trigger-btn` styling with no matching element. The
-  `#marketTriggerBtn` element now **exists** in `index.html` and is wired (`Game.openMarket()`), so
-  this is resolved — kept only as a note that the styling is now live.
+## 5. Days, households, market and faith
 
----
+### Current defaults
 
-## 5. What changed v3.0 → v3.1
+- Day length: 60 seconds. This is a balancing starting point, not a confirmed target session length.
+- Starting silver: 50 plus the tribe's starting-money modifier, before dawn events.
+- Starting health: tribe profile; hydration starts at 100.
+- Household: Single = speed ×1.15, pickups ×0.85, quota ×0.8, movement drain ×0.85. Couple = ×1 throughout. Family = speed ×0.85, pickups ×1.15, quota ×1.25, movement drain ×1.15.
+- Manna spawn count also uses a global ×2 multiplier.
+- Every sixth day in a seven-day cycle doubles the food quota.
+- Every seventh day is Sabbath: no manna spawns, no movement health drain, no thirst drain, no market/evening trade; existing dawn/rest rules apply.
+- Day-six preparation does **not** currently carry food into Sabbath. Sabbath is mechanically protected rest, not a simulated stored-food day.
 
-The only differences between the two prototype files:
-1. **Mobile status-bar layout** — bars moved to bottom-left at 50% width on small screens.
-2. **Bayer 4×4 ordered-dither** added to terrain vertex colours (world-space stipple).
-3. **Removed** the full-screen retro pixel/quantise/scanline `ShaderPass` (the dither in the terrain
-   mesh replaces it, so props/player are no longer posterised).
+The twelve tribes and their base movement, food, drain and starting-resource profiles are defined in `js/tribes.json`. Quick Play uses Judah + Single; custom selection remains Tribe → Household. Internal `world.difficulty` stores household size.
 
----
+### Market
 
-## 6. Gap Analysis — in `v3_1`, NOT yet in `index.html`
+A simulated household economy sets price, demand, available stock and mood before gathering. The UI reveals them at market time. Defaults include base sell price 4 silver, buy price 6 silver, minimum calculated demand 5 and a 60% chance of a quiet market after the first day. Actual demand can be zero. Selling cannot exceed remaining demand; buying cannot exceed stock or affordability. Market closure never removes reserved household food.
 
-These are the genuine additions from the current prototype that have **not** been ported to the
-modular build. (Note: several things you might expect here — **palm trees, mobile controls, the
-market modal itself** — are **already present** in the modular build.)
+Prices, demand and quiet-market odds need balance testing. Visible forecasts before gathering are **planned**, not implemented.
 
-| # | Feature | In `v3_1` | In `index.html` | Notes |
-|---|---------|:---:|:---:|-------|
-| 1 | **On-demand Market trigger button** (open market mid-day) | ✅ | ❌ (intentionally removed) | Reverted 2026-07-14: the market is an **end-of-day** event only (`Game.endDay()` → `showMarket`). The end-of-day panel still has Buy/Sell/Sell All/Leave. |
-| 2 | **3D parchment banner flags** (pole + gold finial + waving cloth banner) | ✅ | ✅ (done) | `createLocationFlag` + cloth-ripple `animateFlagWave` ported. |
-| 3 | **Bayer-dithered terrain colouring** (retro stipple sand) | ✅ | ✅ (done) | `createTile` now bakes the 4×4 Bayer matrix into vertex colours. |
-| 4 | **HUD "Basket" line + "Mana=score" wording** | ✅ | ⚠️ different | Modular shows `Score` + `Mana x/quota`; prototype shows `Mana`(score) + `Basket`. Reconcile intentionally. |
-| 5 | **`easy/normal/hard` difficulty naming** | ✅ | ⚠️ replaced | Modular uses **Tribe (base profile) + Household size (single/couple/family modifier)**. Canonical. |
-| 6 | **Separate `uiScene` overlay render pass** | ✅ | ⚠️ declared but not rendered | Only matters if we add screen-space 3D UI. |
-| 7 | **Torch point light on the player** | ✅ (created; movement commented) | ❌ (`this.torchLight` declared, never created) | Low priority. |
-| 8 | **12-tribe selection** | ❌ (n/a in prototype) | ✅ (new) | `js/tribes.json` + two-step Tribe→Household start flow (see [§3.2](#32-start-flow--tribe--household-modular-build-canonical)). |
+### Existing faith systems
 
-### Things the user asked about specifically
-- **Market panel** → already in modular build (and richer: Buy button, market status, mood,
-  waste warning). The *on-demand trigger button* (#1) was prototyped then **reverted** — the market
-  is intentionally end-of-day only.
-- **Mobile control panel** → already in modular build (DOM + CSS + handlers).
-- **Palm trees / scene elements** → palm trees, rocks, round trees, birds are already in modular
-  build. The missing scene element is the **banner flag** (#2) and the **terrain dither** (#3).
+Dawn tithes, Levite exceptions, blessings, Golden Calf temptation, wrath, plagues, Bronze Serpent healing and cumulative faith statistics remain in the prototype. Exact rules live in `js/wilderness-day-cycle.js`, with integration in `js/WildernessManager.js` and settings in `js/config.js`.
 
----
+These are secondary systems. Do not describe them as a replacement for food and water survival. The evening choices are still relatively complex and are a candidate for progressive introduction after the first successful day. They are not currently tutorial-gated.
 
-## 7. Reverse gaps — in `index.html`, NOT in `v3_1`
+## 6. World and controls — implemented
 
-So nothing is lost if `v3_1` is ever treated as the base: the modular build additionally has
-save/load, market simulation + Buy, quota + day 6/7 events, particles, campfire/tents/stalls,
-detailed Split Rock + Temple, FastNoiseLite terrain + grain texture, music, lil-gui, Stats.js,
-dust trail, household difficulty, the 3D banner flags, Bayer-dithered terrain, the on-demand
-market trigger, and the **12-tribe selection** (`js/tribes.json`).
+| Place | World X, Z | Purpose |
+|---|---|---|
+| Camp | 20, −20 | Finish the day early within 12 units; shelter within 10 |
+| Oasis | −25, −15 | Repeatable water refill and shelter |
+| Split Rock | 0, 25 | Repeatable water refill and limited healing pickups |
+| Temple | −20, 20 | Shelter and limited rest/healing pickups |
+| Wilderness | 25, 15 | Exploration landmark |
 
----
+Desktop: WASD or arrows; left/right steer the heading, forward/back move along it. Click ground to walk. Space jumps. Escape pauses/resumes.
 
-## 8. Known issues / blockers
+Touch: a thumb D-pad and central jump button appear automatically on coarse-pointer devices. Pointer capture and release/cancel handlers prevent stuck inputs. The page pauses when hidden and clears movement when focus is lost. The direction guide uses world directions; there is no minimap or live compass yet.
 
-- 🟢 **Resolved (2026-07-14):** the fatal `Game.js animate()` duplicate `const playerPos` /
-  `const heading` `SyntaxError` was fixed (single declarations + camera follow). The module now parses
-  and runs.
-- 🟢 **Resolved:** `sellMana` no longer hard-codes a 5-unit sell (Sell 5 button passes a click event,
-  coerced to the default). `sellAllMana` delegates to `sellMana`.
-- 🟡 **Reverted (2026-07-14):** the on-demand mid-day market trigger (`#marketTriggerBtn` /
-  `Game.openMarket()`) was prototyped then removed — the market is now an **end-of-day** event only
-  (`Game.endDay()` → `showMarket`). Selling is guarded to the `'market'` state again; `buyMana` is
-  now wired so the **Buy** button works too.
-- 🟠 `UIManager.showLocationPopup()` is a no-op (`return`), so the lower-left location popup never
-  shows; in-world text was meant to replace it (the 3D banner flags cover the zone name instead).
-- 🟡 `GameState.world.difficulty` stores the household type (`single`/`couple`/`family`) rather than a
-  literal "difficulty" — named for legacy reasons; harmless but worth a rename if touched.
+The interface uses a compact HUD, water/heat/objective guidance, a Camp action, wellbeing bar, and Pause / Audio / Credits / Help controls. Advanced tribe/household setup is optional. Long dialogs scroll within the viewport; touch controls use explicit grid positions and safe-area spacing. Real-device portrait, landscape and browser-toolbar behaviour still require acceptance testing.
 
----
+## 7. Terrain, collisions and effects — implemented
 
-## 9. Config / tunables quick reference (`js/config.js`)
+- Three.js desert with procedural OpenSimplex terrain, wind ripples, grain texture, smooth height colour transitions, sky, fog, shadows, bloom and vignette.
+- Tiles are now 96 world units with 80 subdivisions per edge; a 3×3 neighbourhood follows the player. The former 1,000-unit tiles were too coarse near the player.
+- Texture UVs use world coordinates so neighbouring tiles align. Shared textures are retained when tiles unload; cached height grids are removed with their tiles.
+- Ground height follows the same triangles as the rendered mesh.
+- Circular obstacle push-out uses world position and scale, two passes, and a deterministic escape direction for exact centre overlap. It remains an approximation, not mesh-accurate physics.
+- Pickups search for clear positions outside collider footprints. Existing landmark collision volumes can still be broader than the visible architecture; walking inside buildings is not an implemented feature.
+- Partykals supplies dust, fire, smoke, embers, landmark sparkles and world-space pickup bursts. The VFX references below were reviewed; their runtimes were **not integrated**.
 
-- **Day length:** 60s. **Initial health:** 100. **Initial money:** 50.
-- **Tribe base profile (`js/tribes.json`):** 12 tribes, each with `moveSpeed`, `manaCount`, `quota`,
-  `moveDrain`, `startMoney`, `startHealth`, plus `color`/`epithet`/`blessing`/`description`. Default
-  selected tribe: `judah` (balanced/recommended).
-- **Household modifier (`config.household`):** single = ×{1.15 speed, 0.85 mana, 0.8 quota, 0.85 drain}
-  (lighter/faster); couple = ×1.0 (baseline); family = ×{0.85 speed, 1.15 mana, 1.25 quota, 1.15 drain}
-  (heavier/slower). Final profile = `tribe base × household`.
-- **Start money:** `config.player.initialMoney` (50) + tribe `startMoney`. **Start health:** tribe
-  `startHealth` (default 100).
-- **Health math:** penalty ×1.2 (under quota), +8 bonus (met, no waste), waste penalty ×1.5,
-  day-6 quota ×2.
-- **Market:** base sell price 4, min demand 5, `closedChance` 0.6 (quiet market after day 1).
-- **Terrain:** OpenSimplex, scale 0.02, height 1, 4 octaves, ripples on.
-- **Post-fx:** bloom 0.3/0.2/0.97, exposure 1.9, vignette offset 1.0 / darkness 0.9.
-- **Debug:** `debug.stats` / `debug.gui` (both off by default).
+## 8. Audio, credits and third-party references
 
----
+**Implemented DailySounds assets:**
 
-## 10. Roadmap / docs index
+| Asset | Source | Use |
+|---|---|---|
+| Desert Winds Ambiance | https://dailysounds.org/sounds/1439 | Looping gameplay ambience |
+| Water Bubbling | https://dailysounds.org/sounds/1497 | Trimmed water pickup cue |
+| Picking Up Pocket Change | https://dailysounds.org/sounds/1744 | Trimmed buy/sell cues |
 
-Integration plans and future features live in `docs/`:
+The Credits dialog contains **“Sound effects from DailySounds.org”**, individual sound links and the license link. Local provenance is recorded in `assets/audio/CREDITS.md`. The [DailySounds license](https://dailysounds.org/license), checked 23 October 2026, permits personal/commercial games and editing; it prohibits redistribution as a standalone sound library and claiming original recording authorship. Existing music and remaining prototype effects are retained; their original provenance has not been re-audited.
 
-- `item_1` EffectComposer + Bloom · `item_2` Troika Text · `item_3` GSAP · `item_4` Simplex terrain
-- `Item_5` MeshBVH · `Item_6` Stats.js · `Item_7` lil-gui · `Item_8` Howler · `Item_9` GameState
-- `Item_10` LocalForage · `Item_11` SeedRandom · `Item_12` Partykals · `Item_13` Tweakpane
-- `item_14` Texture generation · `item_15` Pixel art / dither · `item_16` Leaderboards
-- `item_17` Achievements · `item_18` Dialogue/Narrative · `updates.md` library priorities
-- `GAME_DESIGN.md` core loop · `js/procedural_models.md` model notes
+Howler handles playback. Short cue cooldowns limit overlapping sound; pickup pitch varies subtly. Browser autoplay policy still applies. Per-channel volume controls and spatial footsteps are not implemented.
 
-**Status:** items 1, 4, 6, 7, 8, 9, 10, 12 are effectively **done** in the modular build.
-Items 2 (Troika), 3 (GSAP), 5 (MeshBVH), 11 (SeedRandom), 13 (Tweakpane) are still open.
+Effects references supplied for investigation:
+
+- [NixieFX](https://nixiefx.com/) — Three.js particle editing/runtime workflow.
+- [Effekseer WebGL sample](https://effekseer.github.io/EffekseerForWebGL/Sample/index.html) — authored WebGL effects reference.
+- [ShaderParticleEngine](https://squarefeet.github.io/ShaderParticleEngine/) — GPU particle approach/reference.
+
+The immediate prototype retains its existing particle engine. Adding another engine requires a specific visual need and measured mobile benefit.
+
+## 9. Technical ownership and persistence
+
+| File | Responsibility |
+|---|---|
+| `js/Game.js` | State transitions, timer, gathering, survival pressure, food reservation and daily accounting |
+| `js/GameState.js` | Shared persistent resources and session counters |
+| `js/config.js` / `js/tribes.json` | Tunable defaults / tribe base profiles |
+| `js/PlayerManager.js` | Movement, animation, jumping, obstacle resolution |
+| `js/SceneManager.js` | Terrain, landmarks, clear pickup placement |
+| `js/UIManager.js` / `index.html` | Screens, HUD, feedback and credits |
+| `styles/survival.css` | Current responsive survival UI overrides |
+| `js/AudioManager.js` / `js/ParticleManager.js` | Audio / particle playback |
+| `js/WeatherManager.js` | Daily forecasts, exposure rules and bounded wind/rain visuals |
+| `js/SaveManager.js` | LocalForage save/continue |
+| `js/WildernessManager.js` / `js/wilderness-day-cycle.js` | Faith/economy integration / rule engine |
+| `vite.config.js` | Build aliases and copying runtime assets into the output |
+| `tests/survival.test.mjs` | Regression checks for core repaired rules |
+
+Save/continue persists resources, location, day, time and wilderness state through LocalForage. Resuming gathering preserves remaining time. Market, evening and reckoning phases reopen their matching UI. Saves are local to the browser; there is no cloud sync.
+
+**Known limitation:** exact remaining world pickups and random market/world seeds are not snapshotted. Loading during gathering can regenerate pickups. Do not claim deterministic, exploit-proof or exact-world restoration. Save-format migration and full inventory snapshots are follow-up work.
+
+## 10. Verification and release gate
+
+Verified during this update:
+
+- Production build completes and explicitly copies audio, tribe data, fonts and legacy browser scripts.
+- Browser startup reaches the menu and Quick Play renders a playable 3D scene.
+- Fourteen automated regression checks pass: survival accounting, heat/water behaviour, collision and movement, triangle-ground interpolation, effect isolation/expiry/cleanup, visible camp props, local dependency references, world rebuild disposal, daily weather/exposure and bounded weather particles.
+
+Still required before calling this a finished survival game:
+
+- Test a complete multi-day journey, including sixth-day preparation and repeating Sabbaths.
+- Test actual iOS Safari and Android Chrome in portrait/landscape, including simultaneous movement+jump, interrupted touches, safe areas and address-bar changes.
+- Confirm all HUD/actions stay inside the viewport at 320px width and short landscape heights.
+- Listen to the audio mix on phone speakers/headphones; verify mute, pause, resume and autoplay behaviour.
+- Measure frame rate, memory and battery impact on a representative lower-end phone.
+- Confirm water detours and health costs create decisions without making the first day punitive.
+- Verify save/load across every phase, then address pickup regeneration before persistent progression matters.
+
+Build success is not proof of mobile usability or balanced survival.
+
+## 11. Prioritised next decisions — planned, not shipped
+
+1. **Playtest the first three days.** Target a clear first successful day, followed by harder route choices. Adjust day length, food density and drain based on observed play rather than adding meters.
+2. **Improve navigation.** Add a small heading/landmark compass, reachable-distance cues and a water detour hint. Current cardinal text is insufficient when the camera turns.
+3. **Extend forecasts after playtesting.** Daily weather forecasts now exist. Next consider a tomorrow preview and market-demand forecast; avoid storms/disasters until the current weather is balanced.
+4. **Make return meaningful.** Decide whether a dusk return is required, rewarded, or optional. Current automatic dusk transition is intentionally recorded above; no penalty should be described until implemented and taught.
+5. **Simplify the evening.** Introduce faith choices progressively, combine redundant panels, and make food eaten / surplus sold / waste / health change explicit in one summary.
+6. **Protect progression.** Snapshot pickups and randomness; add save migration/versioning and round-trip regression coverage.
+7. **Add longer-term purpose.** Consider a seven-day expedition milestone and household/camp improvements. No upgrades, crafting or campaign promises are committed yet.
+
+## 12. Change record
+
+**23 October 2026:** Established the modular survival prototype as the sole active reference; replaced the stale sell-everything food model with reserved household meals; added hydration, midday heat, water/shelter utility and early Camp finish; repaired startup wiring, touch release, frame-dependent movement, terrain density/interpolation and clear pickup placement; added DailySounds audio and a Credits dialog; documented verification limits and separated proposals from implemented behaviour.
+
+**23 October 2026 — migration audit:** Repaired particle lifetime/blending settings, conflicting pickup-size options and shared emitters; added Oasis mist and world-rebuild cleanup; restored visible tents/stalls; completed scenery surface placement and time-scaled bird movement; verified local dependency references. Added a predictable daily weather cycle with dawn forecasts and exposure rules. Fourteen regression checks and the production build pass; real-device and multi-day balance testing remain open.

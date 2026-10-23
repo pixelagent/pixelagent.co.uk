@@ -91,6 +91,7 @@ export class UIManager {
     this.dom.gold.textContent = GameState.player.money;
     this.dom.healthStatus.textContent = this.game.getHealthStatus();
 
+    document.getElementById('survivalHud').hidden = GameState.world.gameState !== 'playing';
     if (GameState.player.score > oldScore) {
       const scoreDiff = GameState.player.score - oldScore;
       if (!isNaN(scoreDiff) && scoreDiff > 0) {
@@ -171,6 +172,7 @@ export class UIManager {
   showMenu() {
     this.hideAllModals();
     this.dom.menuModal.classList.add('active');
+    document.getElementById('survivalHud').hidden = true;
     this.dom.hud.style.display = 'none';
     this.dom.mobileControls.style.display = 'none';
 
@@ -213,6 +215,7 @@ export class UIManager {
 
   showGameUI() {
     this.hideAllModals();
+    document.getElementById('survivalHud').hidden = false;
     this.dom.hud.style.display = 'block';
     this.dom.healthBarContainer.style.display = 'block';
     this.dom.wealthBarContainer.style.display = 'block';
@@ -307,6 +310,7 @@ export class UIManager {
   }
 
   updateMarket(game) {
+    document.getElementById('foodReserved').textContent = `Household fed: ${GameState.session.foodReserved || 0}/${game.manaQuota}. Only surplus is traded. Buy manna to cover any shortage.`;
     this.dom.dailyDemand.textContent = GameState.market.dailyDemand;
     this.dom.sellPrice.textContent = GameState.market.sellPrice;
     this.dom.playerMoney.textContent = GameState.player.money;
@@ -346,6 +350,7 @@ export class UIManager {
       opacity: 1;
       transition: opacity 0.8s ease;
     `;
+    el.className = 'day-announcement';
     el.textContent = message;
     document.body.appendChild(el);
     setTimeout(() => { el.style.opacity = '0'; }, 2500);
@@ -354,6 +359,7 @@ export class UIManager {
 
   showDayEnd(game, manaBonus) {
     this.hideAllModals();
+    document.getElementById('survivalHud').hidden = true;
     this.dom.hud.style.display = 'none';
     this.dom.dayEndModal.classList.add('active');
 
@@ -383,6 +389,7 @@ export class UIManager {
 
   showGameOver(game, faith = null) {
     this.hideAllModals();
+    document.getElementById('survivalHud').hidden = true;
     this.dom.hud.style.display = 'none';
     this.dom.gameOverModal.classList.add('active');
     this.dom.finalScore.textContent = GameState.player.score;
@@ -440,6 +447,7 @@ export class UIManager {
 
   showEvening(game) {
     this.hideAllModals();
+    document.getElementById('survivalHud').hidden = true;
     this.dom.hud.style.display = 'none';
     if (this.dom.eveningModal) this.dom.eveningModal.classList.add('active');
     this.refreshEvening(game, {});

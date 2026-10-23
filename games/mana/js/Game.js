@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
-import { GUI } from 'lil-gui';
-import FastNoiseLite from 'fastnoise-lite'; // Your FastNoiseLite import is correct
+import { GUI } from 'https://cdn.jsdelivr.net/npm/lil-gui@0.19/dist/lil-gui.esm.js';
+import FastNoiseLite from '../plugins/FastNoiseLite.js'; // Your FastNoiseLite import is correct
 import { config as gameConfig } from './config.js'; // This was correct, but I'm confirming it's here.
 import { GameState, GameSummary, createWildernessState } from './GameState.js';import { AudioManager } from './AudioManager.js';
+import { WeatherManager, weatherForDay, weatherExposure } from './WeatherManager.js';
 import { PlayerManager } from './PlayerManager.js';
 import { SceneManager } from './SceneManager.js';
 import { UIManager } from './UIManager.js';
@@ -27,7 +28,8 @@ export class Game {
     this.marketSimulation = new MarketSimulation();
     this.input = { up: false, down: false, left: false, right: false };
     this.clickTarget = null;
-    this.mobileVisible = false;
+    this.mobileVisible = matchMedia('(pointer: coarse), (max-width: 650px), (max-height: 500px) and (max-width: 900px)').matches;
+    this.frameScale = 1;
     this.animationTime = 0;
 
     this.tileUpdateTimer = 0;
@@ -84,8 +86,8 @@ export class Game {
     this.obstacleColliders = [];
     this.birds = [];
     this.tiles = {};
-    this.TILE_SIZE = 1000;
-    this.GRID_RADIUS = 1;
+    this.TILE_SIZE = gameConfig.scene.tileSize;
+    this.GRID_RADIUS = gameConfig.scene.gridRadius;
   }
 
   async init() {
@@ -121,6 +123,7 @@ export class Game {
     this.loadingScreen.setProgress(40);
 
     this.createThreeJsScene();
+    this.weatherManager = new WeatherManager(this);
     this.loadingScreen.setProgress(85);
     if (this.dayNightManager) this.dayNightManager.init();
     this.setupPostProcessing();
@@ -252,7 +255,8 @@ export class Game {
     // Create a fine grainy pattern
     for (let x = 0; x < size; x++) {
       for (let y = 0; y < size; y++) {
-        const noise = Math.random() * 25;
+        const ripple = Math.sin(2 * Math.PI * (y / size * 12 + 0.3 * Math.sin(x / size * Math.PI * 2)));
+        const noise = Math.random() * 12 + ripple * 9;
         ctx.fillStyle = `rgb(${220 + noise}, ${190 + noise}, ${150 + noise})`;
         ctx.fillRect(x, y, 1, 1);
       }
@@ -261,7 +265,8 @@ export class Game {
     const texture = new THREE.CanvasTexture(canvas);
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(20, 20); // Tile the texture for finer grain
+    texture.repeat.set(1, 1);
+    texture.anisotropy = 4; // Tile the texture for finer grain
     return texture;
   }
 
@@ -317,9 +322,9 @@ export class Game {
     const h01 = grid[iy1 * gridSize + ix0];
     const h11 = grid[iy1 * gridSize + ix1];
 
-    const hTop = h00 + (h10 - h00) * tx;
-    const hBottom = h01 + (h11 - h01) * tx;
-    return hTop + (hBottom - hTop) * ty;
+    return tx + ty <= 1
+      ? h00 + (h10 - h00) * tx + (h01 - h00) * ty
+      : h11 + (h01 - h11) * (1 - tx) + (h10 - h11) * (1 - ty);
   }
 
   rebuildTerrain() {
@@ -327,7 +332,7 @@ export class Game {
     for (const key in this.tiles) {
       const mesh = this.tiles[key];
       this.scene.remove(mesh);
-      if (mesh.material && mesh.material.map) mesh.material.map.dispose();
+
       mesh.geometry.dispose();
       mesh.material.dispose();
       delete this.tiles[key];
@@ -339,18 +344,28 @@ export class Game {
   }
 
   rebuildWorld() {
-    // Clear existing scenery
-    this.scenery.forEach(obj => {
-      this.scene.remove(obj);
-      if (obj.geometry) obj.geometry.dispose();
-      if (obj.material) obj.material.dispose();
-    });
+    this.particleManager?.clear();
+    if (this.playerManager) this.playerManager.dustEmitter = null;
+    // Shared mesh resources are disposed once, including children of scenery groups.
+    const geometries = new Set();
+    const materials = new Set();
+    const textures = new Set();
+    const objects = new Set([...this.scenery, ...this.obstacleColliders, ...this.locationSprites]);
+    for (const object of objects) {
+      this.scene.remove(object);
+      object.traverse(child => {
+        if (child.geometry) geometries.add(child.geometry);
+        for (const material of [].concat(child.material || [])) {
+          materials.add(material);
+          if (material.map && material.map !== this.sandTexture) textures.add(material.map);
+        }
+      });
+    }
+    geometries.forEach(geometry => geometry.dispose());
+    materials.forEach(material => material.dispose());
+    textures.forEach(texture => texture.dispose());
     this.scenery = [];
-
-    this.obstacleColliders.forEach(c => this.scene.remove(c));
     this.obstacleColliders = [];
-
-    this.locationSprites.forEach(s => this.scene.remove(s));
     this.locationSprites = [];
 
     this.rebuildTerrain();
@@ -358,10 +373,9 @@ export class Game {
   }
 
   updateTileGrid() {
-    if (!this.player) return;
-    const TILE = this.TILE_SIZE; // TILE_SIZE is very large, likely a bug. Let's assume it's for a single large plane for now.
-    const px = this.player.position.x;
-    const pz = this.player.position.z;
+    const TILE = this.TILE_SIZE;
+    const px = this.player?.position.x || 0;
+    const pz = this.player?.position.z || 0;
     const playerGX = Math.floor((px + TILE / 2) / TILE);
     const playerGZ = Math.floor((pz + TILE / 2) / TILE);
 
@@ -372,9 +386,7 @@ export class Game {
       if (Math.abs(gx - playerGX) > this.GRID_RADIUS || Math.abs(gz - playerGZ) > this.GRID_RADIUS) {
         const mesh = this.tiles[key];
         this.scene.remove(mesh);
-        if (mesh.material && mesh.material.map) {
-          mesh.material.map.dispose();
-        }
+        delete this.tileHeightGrids[key];
         mesh.geometry.dispose();
         mesh.material.dispose();
         delete this.tiles[key];
@@ -473,6 +485,9 @@ export class Game {
     addClickListener('resumeBtn', this.togglePause);
     addClickListener('manualSaveBtn', this.manualSave);
     addClickListener('pauseMenuBtn', this.showMenu);
+    addClickListener('dayNightBtn', this.toggleDayNight);
+    addClickListener('faithBtn', this.toggleFaithPanel);
+    addClickListener('closeFaith', this.toggleFaithPanel);
   }
 
   setupEventListeners() {
@@ -480,50 +495,55 @@ export class Game {
     document.addEventListener('keyup', (e) => this.handleKeyUp(e));
     document.getElementById('canvas').addEventListener('click', (e) => this.handleClick(e));
 
-    document.getElementById('btnUp').addEventListener('mousedown', () => (this.input.up = true));
-    document.getElementById('btnUp').addEventListener('mouseup', () => (this.input.up = false));
-    document.getElementById('btnDown').addEventListener('mousedown', () => (this.input.down = true));
-    document.getElementById('btnDown').addEventListener('mouseup', () => (this.input.down = false));
-    document.getElementById('btnLeft').addEventListener('mousedown', () => (this.input.left = true));
-    document.getElementById('btnLeft').addEventListener('mouseup', () => (this.input.left = false));
-    document.getElementById('btnRight').addEventListener('mousedown', () => (this.input.right = true));
-    document.getElementById('btnRight').addEventListener('mouseup', () => (this.input.right = false));
-
-    ['btnUp', 'btnDown', 'btnLeft', 'btnRight'].forEach((id) => {
-      const btn = document.getElementById(id);
-      btn.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        const key = id.replace('btn', '').toLowerCase();
+    ['Up', 'Down', 'Left', 'Right'].forEach(direction => {
+      const button = document.getElementById('btn' + direction);
+      const key = direction.toLowerCase();
+      button.addEventListener('pointerdown', event => {
+        event.preventDefault();
+        if (GameState.world.gameState !== 'playing' || GameState.world.paused) return;
+        button.setPointerCapture(event.pointerId);
         this.input[key] = true;
+        this.clickTarget = null;
       });
-      btn.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        const key = id.replace('btn', '').toLowerCase();
-        this.input[key] = false;
+      ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => {
+        button.addEventListener(type, () => { this.input[key] = false; });
       });
     });
-
+    const release = () => {
+      Object.keys(this.input).forEach(key => { this.input[key] = false; });
+      this.clickTarget = null;
+    };
+    window.addEventListener('blur', release);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        release();
+        if (GameState.world.gameState === 'playing' && !GameState.world.paused) this.togglePause();
+      }
+    });
     window.addEventListener('resize', () => this.onWindowResize());
-
-    const jumpBtn = document.getElementById('btnJump');
-    if (jumpBtn) {
-      jumpBtn.addEventListener('mousedown', (e) => { e.preventDefault(); this.jump(); });
-      jumpBtn.addEventListener('touchstart', (e) => { e.preventDefault(); this.jump(); });
-    }
+    document.getElementById('btnJump').addEventListener('pointerdown', event => {
+      event.preventDefault(); this.jump();
+    });
+    document.getElementById('quickStartBtn').addEventListener('click', () => {
+      this.selectTribe('judah'); this.startGame('single');
+    });
+    document.getElementById('makeCampBtn').addEventListener('click', () => {
+      if (GameState.world.gameState !== 'playing' || GameState.world.paused) return;
+      if (Math.hypot(this.player.position.x - 20, this.player.position.z + 20) > 12) return;
+      this.endDay();
+    });
+    const credits = document.getElementById('creditsModal');
+    document.getElementById('creditsBtn').addEventListener('click', () => {
+      if (GameState.world.gameState === 'playing' && !GameState.world.paused) this.togglePause();
+      credits.classList.add('active');
+    });
+    document.getElementById('closeCredits').addEventListener('click', () => credits.classList.remove('active'));
 
     document.getElementById('audioBtn').addEventListener('click', () => this.toggleAudio());
     document.getElementById('aboutBtn').addEventListener('click', () => this.toggleAbout());
     document.getElementById('closeAbout').addEventListener('click', () => this.toggleAbout());
     document.getElementById('pauseBtn').addEventListener('click', () => this.togglePause());
     document.getElementById('mobileToggleBtn').addEventListener('click', () => this.toggleMobileControls());
-
-    // Use the deduplicating helper for these too, so repeated calls to
-    // setupUIEventListeners() (every state transition) don't stack listeners.
-    // Stacked listeners made a single click toggle the faith panel several
-    // times, often leaving it stuck open over the canvas/toolbar.
-    document.getElementById('dayNightBtn').addEventListener('click', () => this.toggleDayNight());
-    document.getElementById('faithBtn').addEventListener('click', () => this.toggleFaithPanel());
-    document.getElementById('closeFaith').addEventListener('click', () => this.toggleFaithPanel());
 
     // Setup for buttons that trigger game state changes
     document.querySelectorAll('.btn-difficulty').forEach(btn => {
@@ -550,7 +570,7 @@ export class Game {
   }
 
   jump() {
-    if (GameState.world.gameState !== 'playing') return;
+    if (GameState.world.gameState !== 'playing' || GameState.world.paused) return;
     this.playerManager.jump();
   }
 
@@ -563,7 +583,7 @@ export class Game {
 
   handleClick(e) {
     if (GameState.world.gameState !== 'playing') return;
-    if (e.target.id !== 'canvas') return;
+    if (e.target.id !== 'canvas' || GameState.world.paused) return;
 
     const mouse = new THREE.Vector2((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1);
 
@@ -572,7 +592,7 @@ export class Game {
     const raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(mouse, this.camera);
 
-    const grounds = this.scene.children.filter((obj) => obj.geometry && obj.geometry instanceof THREE.PlaneGeometry);
+    const grounds = Object.values(this.tiles);
     if (grounds.length === 0) return;
 
     const intersection = raycaster.intersectObjects(grounds);
@@ -698,14 +718,8 @@ export class Game {
     const spawnMult = gameConfig.manna.spawnMultiplier ?? 1;
     if (!tribe) {
       // Fallback if tribes failed to load.
-      const legacy = {
-        single: { moveSpeed: gameConfig.player.moveSpeed.single, manaCount: gameConfig.manna.count.single, moveDrain: gameConfig.player.healthDrain.single, quota: gameConfig.manna.quota.single },
-        couple: { moveSpeed: gameConfig.player.moveSpeed.couple, manaCount: gameConfig.manna.count.couple, moveDrain: gameConfig.player.healthDrain.couple, quota: gameConfig.manna.quota.couple },
-        family: { moveSpeed: gameConfig.player.moveSpeed.family, manaCount: gameConfig.manna.count.family, moveDrain: gameConfig.player.healthDrain.family, quota: gameConfig.manna.quota.family },
-      };
-      const profile = legacy[GameState.world.difficulty];
-      profile.manaCount = Math.max(1, Math.round(profile.manaCount * spawnMult));
-      return profile;
+      return { moveSpeed: 0.12 * mod.moveSpeed, manaCount: Math.round(100 * mod.manaCount),
+        moveDrain: 0.02 * mod.moveDrain, quota: Math.round(35 * mod.quota), startHealth: 100, startMoney: 0 };
     }
     const s = tribe.settings;
     return {
@@ -729,6 +743,8 @@ export class Game {
   }
 
   showMenu() {
+    if (this.dayTimerInterval) clearInterval(this.dayTimerInterval);
+    GameState.world.paused = false;
     GameState.world.gameState = 'menu';
     this.clickTarget = null;
     if (this.dayNightManager) this.dayNightManager.disable();
@@ -860,7 +876,7 @@ export class Game {
     let baseQuota = settings.quota;
 
     // On day 6 or 7, the quota is doubled.
-    if (GameState.world.day === 6 || GameState.world.day === 7) {
+    if (GameState.world.day % 7 === 6) {
       baseQuota *= gameConfig.gameplay.quotaDoubleDay6;
     }
     this.manaQuota = baseQuota;
@@ -870,24 +886,30 @@ export class Game {
     let message;
     if (this.wildernessManager && this.wildernessManager.isSabbath) {
       message = `Day ${GameState.world.day}: The Sabbath. Rest — no manna is gathered, yet the tithe is given.`;
-    } else if (GameState.world.day === 6) {
+    } else if (GameState.world.day % 7 === 6) {
       message = `Day 6: A great need is felt in the land. The quota is doubled to ${this.manaQuota}!`;
     } else {
       message = `Day ${GameState.world.day}: Collect ${this.manaQuota} manna to survive.`;
     }
-    this.uiManager.showDayMessage(message);
+    this.uiManager.showDayMessage(message + ' ' + weatherForDay(GameState.world.day).name + ': ' + weatherForDay(GameState.world.day).forecast);
   }
 
   startGame(household) {
     GameState.world.difficulty = household;
     const profile = this.getDifficultySettings();
     GameState.world.gameState = 'playing';
+    GameState.world.paused = false;
+    GameState.player.hydration = 100;
+    this.player.position.set(0, this.getSurfaceHeight(0, 0), 0);
+    this.cameraHeading.set(0, 0, -1);
+    this.clearPickups();
     GameState.player.score = 0;
     GameState.world.timeLeft = gameConfig.game.dayLength;
     GameState.world.day = 1;
     GameState.player.health = profile.startHealth;
     GameState.session.dayManaCollected = 0;
     GameState.session.dayManaGathered = 0;
+    GameState.session.foodReserved = 0;
     GameState.session.dayWaterHealed = 0;
     GameState.session.dayRestHealed = 0;
     GameState.player.money = gameConfig.player.initialMoney + (profile.startMoney || 0);
@@ -905,7 +927,7 @@ export class Game {
     this.runDawn();
     this.uiManager.showGameUI();
     this.uiManager.updateHUD();
-    if (GameState.world.day !== 7) {
+    if (!this.wildernessManager?.isSabbath) {
       this.sceneManager.spawnPickups();
     }
     this.setupUIEventListeners();
@@ -934,13 +956,15 @@ export class Game {
 
   resumeFromLoad() {
     // Called by SaveManager after loading a game state
-    if (GameState.world.gameState === 'playing' || GameState.world.gameState === 'dayend') {
-      const settings = this.getDifficultySettings();
-      this.manaQuota = settings.quota;
+    if (['playing', 'dayend', 'market', 'evening'].includes(GameState.world.gameState)) {
+      this.updateManaQuota();
+      GameState.player.hydration ??= 100;
       this.uiManager.showGameUI();
       this.uiManager.updateHUD();
       this.player.position.set(GameState.player.position.x, GameState.player.position.y, GameState.player.position.z);
       this.playerManager.updatePlayerAppearance();
+      Howler.mute(GameState.settings.muted);
+      this.uiManager.toggleAudioIcon(GameState.settings.muted);
       this.setupUIEventListeners();
       this.uiManager.togglePause(GameState.world.paused);
       if (GameState.world.gameState === 'playing') {
@@ -948,15 +972,17 @@ export class Game {
         this.audioManager.playGameMusic();
         if (this.dayNightManager) this.dayNightManager.enable();
       }
+      if (GameState.world.gameState === 'dayend') this.uiManager.showDayEnd(this, 0);
+      if (GameState.world.gameState === 'market') this.uiManager.showMarket(this);
+      if (GameState.world.gameState === 'evening') this.uiManager.showEvening(this);
       if (GameState.world.timeLeft > 0 && GameState.world.gameState === 'playing') this.startDayTimer();
     }
   }
 
   startDayTimer() {
     if (this.dayTimerInterval) clearInterval(this.dayTimerInterval);
-    GameState.world.timeLeft = gameConfig.game.dayLength;
     this.dayTimerInterval = setInterval(() => {
-      if (GameState.world.paused) return;
+      if (GameState.world.paused || GameState.world.gameState !== 'playing') return;
       GameState.world.timeLeft--;
       this.uiManager.updateHUD();
       if (GameState.world.timeLeft <= 0) {
@@ -968,7 +994,7 @@ export class Game {
 
   endDay() {
     if (this.dayTimerInterval) clearInterval(this.dayTimerInterval);
-    if (GameState.world.gameState !== 'playing' && GameState.world.gameState !== 'market') return;
+    if (GameState.world.gameState !== 'playing') return;
 
     // Sabbath: no market and no evening trade — the dawn already collected the
     // tithe and granted rest. Go straight to the day's reckoning.
@@ -981,7 +1007,13 @@ export class Game {
       return;
     }
 
+    const food = Math.min(this.manaQuota, GameState.session.dayManaCollected);
+    GameState.session.foodReserved = food;
+    GameState.session.dayManaCollected -= food;
+    this.clickTarget = null;
+    Object.keys(this.input).forEach(key => { this.input[key] = false; });
     GameState.world.gameState = 'market';
+    this.uiManager.updateHUD();
     this.uiManager.showMarket(this);
   }
 
@@ -990,6 +1022,11 @@ export class Game {
    * and the player is tempted by the Golden Calf / offered the Bronze Serpent.
    */
   enterEvening() {
+    // Bought manna first fills any missing household food.
+    const needed = Math.max(0, this.manaQuota - (GameState.session.foodReserved || 0));
+    const used = Math.min(needed, GameState.session.dayManaCollected);
+    GameState.session.foodReserved = (GameState.session.foodReserved || 0) + used;
+    GameState.session.dayManaCollected -= used;
     const wasted = GameState.session.dayManaCollected;
     if (this.wildernessManager) {
       this.wildernessManager.recordWaste(wasted, GameState.session.dayManaGathered, this.manaQuota);
@@ -1036,8 +1073,8 @@ export class Game {
     const wasted = GameState.session.dayManaCollected;
     let healthDelta = 0;
     if (!isSabbath) {
-      if (GameState.session.dayManaGathered < this.manaQuota) {
-        healthDelta = (GameState.session.dayManaGathered - this.manaQuota) * gameConfig.gameplay.healthPenaltyMultiplier;
+      if ((GameState.session.foodReserved ?? 0) < this.manaQuota) {
+        healthDelta = ((GameState.session.foodReserved ?? 0) - this.manaQuota) * gameConfig.gameplay.healthPenaltyMultiplier;
       } else if (GameState.session.dayManaGathered >= this.manaQuota && wasted === 0) {
         healthDelta += gameConfig.gameplay.healthBonusNoWaste;
       } else if (wasted > 0) {
@@ -1062,9 +1099,11 @@ export class Game {
       return;
     }
     GameState.world.day++;
+    GameState.player.hydration = Math.min(100, (GameState.player.hydration ?? 100) + 45);
     GameState.world.timeLeft = gameConfig.game.dayLength;
     GameState.session.dayManaCollected = 0;
     GameState.session.dayManaGathered = 0;
+    GameState.session.foodReserved = 0;
     GameState.session.dayWaterHealed = 0;
     GameState.session.dayRestHealed = 0;
     GameState.market.manaSoldToday = 0;
@@ -1090,7 +1129,7 @@ export class Game {
     this.uiManager.updateHUD();
     this.setupUIEventListeners();
     this.audioManager.playGameMusic();
-    if (GameState.world.day !== 7) {
+    if (!this.wildernessManager?.isSabbath) {
       this.sceneManager.spawnPickups();
     }
     this.startDayTimer();
@@ -1121,7 +1160,8 @@ export class Game {
     if (GameState.player.health <= 0) return;
     // On the Sabbath the journey wearies no one — no movement drain.
     if (this.wildernessManager && this.wildernessManager.isSabbath) return;
-    const drain = settings.moveDrain * (gameConfig.gameplay.moveDrainScale ?? 1);
+    const exposure = this.getWeatherExposure();
+    const drain = settings.moveDrain * (gameConfig.gameplay.moveDrainScale ?? 1) * this.frameScale * exposure.effort;
     GameState.player.health = Math.max(0, GameState.player.health - drain);
     this.uiManager.updateHUD();
     if (GameState.player.health <= 0) {
@@ -1140,13 +1180,14 @@ export class Game {
     if (GameState.player.health <= 0) return 0;
     const cfg = gameConfig.gameplay.healthCollectibles[type];
     if (!cfg) return 0;
+    if (type === 'water') GameState.player.hydration = Math.min(100, (GameState.player.hydration ?? 100) + 24);
     const maxHealth = gameConfig.player.initialHealth;
     const cap = maxHealth * cfg.dailyCapPct;
     const trackerKey = type === 'water' ? 'dayWaterHealed' : 'dayRestHealed';
     const alreadyHealed = GameState.session[trackerKey];
     const remaining = Math.max(0, cap - alreadyHealed);
     if (remaining <= 0) return 0;
-    const gained = Math.min(cfg.healthPer, remaining);
+    const gained = Math.min(cfg.healthPer, remaining, maxHealth - GameState.player.health);
     GameState.player.health = Math.min(maxHealth, GameState.player.health + gained);
     GameState.session[trackerKey] = alreadyHealed + gained;
     this.uiManager.updateHUD();
@@ -1175,11 +1216,52 @@ export class Game {
         }
 
         this.scene.remove(p);
-        this.audioManager.play('pickup');
+        this.audioManager.play(type === 'water' ? 'water' : 'pickup');
+        this.particleManager.createEmitter('manaPickup', p.position.clone());
         return false;
       }
       return true;
     });
+  }
+
+  dayForWeather() { return GameState.world.day; }
+
+  getWeatherExposure() {
+    const x = this.player.position.x, z = this.player.position.z;
+    const sheltered = Math.hypot(x + 25, z + 15) < 8 || Math.hypot(x, z - 25) < 11 || Math.hypot(x + 20, z - 20) < 13 || Math.hypot(x - 20, z + 20) < 10;
+    return weatherExposure(GameState.world.day, (gameConfig.game.dayLength - GameState.world.timeLeft) / gameConfig.game.dayLength, sheltered, this.wildernessManager?.isSabbath);
+  }
+
+  clearPickups() {
+    ['manaPickups', 'waterPickups', 'restPickups'].forEach(key => {
+      this[key].forEach(pickup => { this.scene.remove(pickup); pickup.geometry.dispose(); pickup.material.dispose(); });
+      this[key] = [];
+    });
+  }
+
+  updateSurvival(dt) {
+    const sabbath = this.wildernessManager?.isSabbath;
+    const elapsed = gameConfig.game.dayLength - GameState.world.timeLeft;
+
+    const near = (x, z, radius = 10) => Math.hypot(this.player.position.x - x, this.player.position.z - z) < radius;
+    const water = near(-25, -15, 8) || near(0, 25, 11);
+    const shade = water || near(-20, 20, 13) || near(20, -20);
+    const { weather, heat, thirst } = weatherExposure(GameState.world.day, elapsed / gameConfig.game.dayLength, shade, sabbath);
+    let hydration = GameState.player.hydration ?? 100;
+    hydration = Math.max(0, Math.min(100, hydration + (water ? 12 : -thirst) * dt));
+    GameState.player.hydration = hydration;
+    if (hydration <= 0) {
+      GameState.player.health = Math.max(0, GameState.player.health - 2.5 * dt);
+      if (GameState.player.health <= 0) this.gameOver();
+    }
+    const remaining = Math.max(0, this.manaQuota - GameState.session.dayManaGathered);
+    const camp = near(20, -20, 12);
+    const button = document.getElementById('makeCampBtn');
+    button.disabled = !camp;
+    button.textContent = camp ? 'Make camp · finish day' : 'Camp ↗ · ' + Math.round(Math.hypot(this.player.position.x - 20, this.player.position.z + 20)) + 'm';
+    document.getElementById('survivalObjective').textContent = sabbath ? 'Sabbath · rest and explore' : hydration < 30 ? 'Find water · Oasis or Split Rock' : remaining ? `Gather ${remaining} more manna for your household` : 'Food secured · return to Camp or gather surplus';
+    document.getElementById('survivalWeather').textContent = `${weather.name}${heat ? shade ? ' · sheltered' : ' · seek shade' : ''} · Water ${Math.round(hydration)}%`;
+    document.getElementById('survivalGuide').textContent = 'Camp: NE · Oasis: NW · Split Rock: S · Temple: SW';
   }
 
   animate() {
@@ -1187,7 +1269,8 @@ export class Game {
 
     requestAnimationFrame(() => this.animate());
 
-    const deltaTime = this.clock.getDelta();
+    const deltaTime = Math.min(this.clock.getDelta(), 0.05);
+    this.frameScale = deltaTime * 60;
     this.animationTime++;
 
     if (this.particleManager) {
@@ -1200,6 +1283,8 @@ export class Game {
 
     if (GameState.world.gameState === 'playing' && this.player && !GameState.world.paused) {
       this.playerManager.update();
+      this.updateSurvival(deltaTime);
+      this.weatherManager?.update(deltaTime);
 
       this.tileUpdateTimer += deltaTime;
       if (this.tileUpdateTimer > this.tileUpdateInterval) {
@@ -1233,6 +1318,7 @@ export class Game {
             this.uiManager.createStarBurst(screenX, screenY);
           }
 
+          this.particleManager.createEmitter('manaPickup', mana.position.clone());
           this.scene.remove(mana);
           GameState.player.score += mana.userData.points;
           GameState.session.dayManaCollected++;
@@ -1249,6 +1335,8 @@ export class Game {
       this.waterPickups = this.collectHealthPickups(this.waterPickups);
       this.restPickups = this.collectHealthPickups(this.restPickups);
     }
+
+    if (GameState.world.gameState !== 'playing' || GameState.world.paused) this.weatherManager?.hide();
 
     if (this.player && this.camera) {
       const playerPos = this.player.position;

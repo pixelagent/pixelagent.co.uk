@@ -1,3 +1,5 @@
+> Historical design note. The current rules and implementation status are in [SOURCE_OF_TRUTH.md](SOURCE_OF_TRUTH.md), updated 23 October 2026. Conflicting rules below are superseded.
+
 # Manna Collector: Core Gameplay Loop
 
 ## Core Concept

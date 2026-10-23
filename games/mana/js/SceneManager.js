@@ -65,7 +65,7 @@ export class SceneManager {
     ];
 
     locations.forEach((loc) => {
-      const locY = this.game.getTerrainHeight(loc.pos[0], loc.pos[2]);
+      const locY = this.game.getSurfaceHeight(loc.pos[0], loc.pos[2]);
 
       const markerGeometry = new THREE.CylinderGeometry(1.5, 1.5, 0.3, 8);
       const markerMaterial = new THREE.MeshLambertMaterial({
@@ -84,6 +84,9 @@ export class SceneManager {
 
       this.game.scene.add(flagGroup);
       this.game.locationSprites.push(flagGroup);
+      if (loc.name === 'Oasis' && this.game.particleManager) {
+        this.game.particleManager.createEmitter('oasis', new THREE.Vector3(loc.pos[0], locY + 0.3, loc.pos[2]));
+      }
 
       if (loc.name === 'Camp') {
         this.createCampfire(loc.pos[0] + 2, locY, loc.pos[2] - 2);
@@ -108,7 +111,7 @@ export class SceneManager {
           const dist = 3 + Math.random() * 5;
           const itemX = loc.pos[0] + Math.cos(angle) * dist;
           const itemZ = loc.pos[2] + Math.sin(angle) * dist;
-          const itemY = this.game.getTerrainHeight(itemX, itemZ);
+          const itemY = this.game.getSurfaceHeight(itemX, itemZ);
 
           const roll = Math.random();
           if (roll < 0.45) {
@@ -240,6 +243,7 @@ export class SceneManager {
     log2.castShadow = true;
     firePitGroup.add(log2);
 
+    this.game.scenery.push(firePitGroup);
     this.game.scene.add(firePitGroup);
 
     // Add particle effects for smoke, embers, and the flames themselves
@@ -393,7 +397,7 @@ export class SceneManager {
       const dist = 8 + Math.random() * 40;
       const x = Math.cos(angle) * dist;
       const z = Math.sin(angle) * dist;
-      const y = this.game.getTerrainHeight(x, z);
+      const y = this.game.getSurfaceHeight(x, z);
       this.createRock(x, y, z);
     }
   }
@@ -441,18 +445,19 @@ createBirds() {
    */
   updateBirds(deltaTime) {
     const bounds = gameConfig.scene.birds.bounds;
+    const frameScale = deltaTime * 60;
     this.game.birds.forEach((bird) => {
       const data = bird.userData;
 
       // Occasionally drift the heading so birds wander instead of flying dead straight
       const driftAngle = Math.sin(this.game.animationTime * gameConfig.scene.birds.turn.speed + data.turnSeed) * gameConfig.scene.birds.turn.amount;
       const speed = Math.hypot(data.vx, data.vz);
-      const currentHeading = Math.atan2(data.vx, data.vz) + driftAngle;
+      const currentHeading = Math.atan2(data.vx, data.vz) + driftAngle * frameScale;
       data.vx = Math.sin(currentHeading) * speed;
       data.vz = Math.cos(currentHeading) * speed;
 
-      bird.position.x += data.vx;
-      bird.position.z += data.vz;
+      bird.position.x += data.vx * frameScale;
+      bird.position.z += data.vz * frameScale;
 
       // Wrap around when a bird flies past the edge of the flyable area
       if (bird.position.x > bounds) bird.position.x = -bounds;
@@ -472,13 +477,28 @@ createBirds() {
     });
   }
 
+  findClearPosition(x, z) {
+    for (let attempt = 0; attempt < 100; attempt++) {
+      const radius = attempt * 0.55;
+      const angle = attempt * 2.399963;
+      const px = x + Math.cos(angle) * radius;
+      const pz = z + Math.sin(angle) * radius;
+      const blocked = this.game.obstacleColliders.some(c => {
+        const shape = c.geometry.parameters;
+        const r = (shape.radius || Math.max(shape.radiusTop || 0, shape.radiusBottom || 0)) * Math.max(Math.abs(c.scale.x), Math.abs(c.scale.z)) + 1.8;
+        return Math.hypot(px - c.position.x, pz - c.position.z) < r;
+      });
+      if (!blocked) return [px, pz];
+    }
+    return [100 + Math.random() * 10, 100 + Math.random() * 10];
+  }
+
   spawnPickups() {
     const settings = this.game.getDifficultySettings();
     for (let i = 0; i < settings.manaCount; i++) {
       const angle = (Math.PI * 2 * i) / settings.manaCount;
       const distance = 15 + Math.random() * 10;
-      const px = Math.cos(angle) * distance;
-      const pz = Math.sin(angle) * distance;
+      const [px, pz] = this.findClearPosition(Math.cos(angle) * distance, Math.sin(angle) * distance);
       const py = this.game.getSurfaceHeight(px, pz) + gameConfig.scene.manaPickup.bobOffset;
 
       const mana = this.createManaPickup(px, py, pz);
@@ -501,8 +521,7 @@ createBirds() {
     for (let i = 0; i < cfg.count; i++) {
       const angle = Math.random() * Math.PI * 2;
       const dist = 2 + Math.random() * cfg.spawnRadius;
-      const px = cx + Math.cos(angle) * dist;
-      const pz = cz + Math.sin(angle) * dist;
+      const [px, pz] = this.findClearPosition(cx + Math.cos(angle) * dist, cz + Math.sin(angle) * dist);
       const py = this.game.getSurfaceHeight(px, pz) + gameConfig.scene.manaPickup.bobOffset;
       const pickup = type === 'water'
         ? this.createWaterPickup(px, py, pz)
@@ -587,7 +606,7 @@ createBirds() {
     for (let i = 0; i < heights.length; i++) {
       const worldX = posAttr.getX(i) + centerX;
       const worldZ = -posAttr.getY(i) + centerZ;
-      const norm = hasVariation ? (heights[i] - minH) / range : 0.5; // Normalize height
+      const norm = Math.max(0, Math.min(1, (heights[i] + 2) / 4)); // Normalize height
 
       const bx = ((Math.floor(worldX / DITHER_CELL) % 4) + 4) % 4;
       const bz = ((Math.floor(worldZ / DITHER_CELL) % 4) + 4) % 4;
@@ -595,10 +614,12 @@ createBirds() {
       const dNorm = norm + ditherOffset;
 
       const c = new THREE.Color(); // Re-use the color object
-      if (dNorm < 0.25) c.set(gameConfig.scene.colors.terrainColor1);
-      else if (dNorm < 0.45) c.set(gameConfig.scene.colors.terrainColor2);
-      else if (dNorm < 0.65) c.set(gameConfig.scene.colors.terrainColor3);
-      else c.set(gameConfig.scene.colors.terrainColor4);
+      const palette = [gameConfig.scene.colors.terrainColor1, gameConfig.scene.colors.terrainColor2, gameConfig.scene.colors.terrainColor3, gameConfig.scene.colors.terrainColor4];
+      const band = Math.max(0, Math.min(2.999, dNorm * 3));
+      const index = Math.floor(band);
+      c.set(palette[index]).lerp(new THREE.Color(palette[index + 1]), band - index);
+      const uv = geometry.getAttribute('uv');
+      uv.setXY(i, worldX / 12, -worldZ / 12);
       colorArray.push(c.r, c.g, c.b); // Push the RGB components
     }
 
@@ -654,6 +675,9 @@ createBirds() {
     const pole = new THREE.Mesh(poleGeometry, tentPoleMaterial);
     pole.position.y = 1.1;
     group.add(pole);
+
+    this.game.scenery.push(group);
+    this.game.scene.add(group);
 
     const tentColliderGeometry = new THREE.CylinderGeometry(1, 1, 2, 8);
     const tentColliderMaterial = new THREE.MeshBasicMaterial({ visible: false });
@@ -808,6 +832,8 @@ createBirds() {
     awning.rotation.x = -0.2;
     awning.castShadow = true;
     group.add(awning);
+    this.game.scenery.push(group);
+    this.game.scene.add(group);
 
     const colliderGeometry = new THREE.CylinderGeometry(1, 1, 2, 8);
     const colliderMaterial = new THREE.MeshBasicMaterial({ visible: false });

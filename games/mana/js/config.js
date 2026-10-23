@@ -192,7 +192,7 @@ export const config = {
         radius: 2,
       },
     },
-    tileSize: 1000,
+    tileSize: 96,
     gridRadius: 1,
     manaPickup: {
       bobOffset: 0.5,
