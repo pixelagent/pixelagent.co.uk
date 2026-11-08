@@ -34,8 +34,8 @@
         }
       }
     </script>
-  <script type="module" crossorigin src="./assets/index-D237TEGZ.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BzjOZCMP.css">
+  <script type="module" crossorigin src="./assets/index-Buv5X1_g.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-jQi7eSbe.css">
 </head>
 
 <body>
@@ -106,16 +106,17 @@
 
         <div class="about-panel" id="faithPanel">
             <button class="close-btn" id="closeFaith"><i class="fas fa-times"></i></button>
-            <h2>The Camp's Faith</h2>
-            <p>The Lord's portion is gathered each dawn; temptation stirs each night. So stands your reckoning:</p>
+            <h2>Moses &amp; the Camp</h2>
+            <p>Lead the people through hunger, thirst, affliction, and disobedience.</p>
             <div class="faith-stats">
+                <div class="faith-row"><span>Camp Population</span><span id="faithPopulation">0</span></div>
+                <div class="faith-row"><span>Disobeyed</span><span id="faithDisobeyed">0</span></div>
+                <div class="faith-row"><span>Hungry</span><span id="faithHungry">0</span></div>
+                <div class="faith-row"><span>Thirsty</span><span id="faithThirsty">0</span></div>
+                <div class="faith-row"><span>Afflicted</span><span id="faithAfflicted">0</span></div>
+                <div class="faith-row"><span>People Cared For</span><span id="faithCared">0</span></div>
                 <div class="faith-row"><span>Silver Tithed</span><span id="faithTithed">0</span></div>
-                <div class="faith-row"><span>Perfect Days</span><span id="faithPerfect">0</span></div>
-                <div class="faith-row"><span>Manna Wasted</span><span id="faithWasted">0</span></div>
-                <div class="faith-row"><span>Golden Calf Uses</span><span id="faithCalf">0</span></div>
                 <div class="faith-row"><span>Divine Wrath</span><span id="faithWrath">0</span></div>
-                <div class="faith-row"><span>Plagues Endured</span><span id="faithPlagues">0</span></div>
-                <div class="faith-row"><span>Bronze Serpent Uses</span><span id="faithSerpent">0</span></div>
                 <div class="faith-row"><span>Afflictions</span><span id="faithConditions">None</span></div>
             </div>
         </div>
@@ -155,6 +156,15 @@
             <span id="survivalWeather">Water 100%</span>
             <small id="survivalGuide">Camp: NE · Oasis: NW · Split Rock: S · Temple: SW</small>
             <button id="makeCampBtn" disabled>Return to Camp</button>
+        </section>
+        <section id="campStatusHud" class="camp-status-hud" aria-label="Camp status">
+            <strong>Moses: care for the camp</strong>
+            <div class="camp-status-grid">
+                <span>Disobeyed <b id="campDisobeyedHud">0</b></span>
+                <span>Hungry <b id="campHungryHud">0</b></span>
+                <span>Thirsty <b id="campThirstyHud">0</b></span>
+                <span>Afflicted <b id="campAfflictedHud">0</b></span>
+            </div>
         </section>
         <div class="status-bars">
             <div class="health-bar-container" id="healthBarContainer">
@@ -366,19 +376,30 @@
         </div>
 
         <div class="modal" id="eveningModal">
-            <h2><i class="fas fa-moon"></i> Nightfall</h2>
-            <p class="evening-narrative" id="eveningNarrative">Torches are lit as darkness falls over the camp.</p>
+            <h2><i class="fas fa-moon"></i> Nightfall at the Camp</h2>
+            <p class="evening-narrative" id="eveningNarrative">Moses, your people need your judgment before dawn.</p>
+            <div class="camp-report" id="eveningCampReport"></div>
 
             <div class="evening-option" id="calfOption">
                 <div class="evening-option-title"><i class="fas fa-crown"></i> The Golden Calf</div>
                 <div class="evening-option-desc" id="calfDesc"></div>
-                <button class="btn-primary" id="goldenCalfBtn">Bow before the Calf</button>
+                <div class="evening-actions">
+                    <button class="btn-primary" id="calfConfrontBtn">Confront</button>
+                    <button class="btn-secondary" id="calfIntercedeBtn">Intercede</button>
+                    <button class="btn-secondary" id="calfIgnoreBtn">Allow it</button>
+                </div>
+                <button class="btn-primary" id="goldenCalfBtn" hidden>Bow before the Calf</button>
             </div>
 
             <div class="evening-option" id="serpentOption">
                 <div class="evening-option-title"><i class="fas fa-staff-snake"></i> The Bronze Serpent</div>
                 <div class="evening-option-desc" id="serpentDesc"></div>
-                <button class="btn-primary" id="bronzeSerpentBtn">Look upon the Serpent</button>
+                <div class="evening-actions">
+                    <button class="btn-primary" id="serpentLiftBtn">Lift the Serpent</button>
+                    <button class="btn-secondary" id="serpentCareBtn">Organize care</button>
+                    <button class="btn-secondary" id="serpentIgnoreBtn">Do nothing</button>
+                </div>
+                <button class="btn-primary" id="bronzeSerpentBtn" hidden>Look upon the Serpent</button>
             </div>
 
             <button class="btn-continue" id="eveningRestBtn">Rest until Dawn</button>
