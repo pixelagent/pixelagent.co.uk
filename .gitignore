@@ -7,3 +7,5 @@ _site/
 .DS_Store
 */.DS_Store
 
+games/mana/.DS_Store
+games/.DS_Store
