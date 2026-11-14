@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Manna Collector — A Wilderness Chronicle</title>
+    <title>MANNA — Forty Years in the Wilderness</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
@@ -34,8 +34,8 @@
         }
       }
     </script>
-  <script type="module" crossorigin src="./assets/index-Buv5X1_g.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-jQi7eSbe.css">
+  <script type="module" crossorigin src="./assets/index-BMjjl81C.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DxJjZYN1.css">
 </head>
 
 <body>
@@ -63,8 +63,8 @@
 
     <div id="loadingScreen">
         <div class="loading-content">
-            <h1 class="loading-title">Manna Collector</h1>
-            <p class="loading-subtitle">Gathering provisions for the journey...</p>
+            <h1 class="loading-title">MANNA</h1>
+            <p class="loading-subtitle">Forty years in the wilderness...</p>
             <div class="loading-bar-track" id="loadingBarTrack">
                 <div class="loading-bar-fill" id="loadingBarFill"></div>
                 <div class="loading-mana-layer" id="loadingManaLayer"></div>
@@ -88,6 +88,9 @@
             </button>
             <button class="icon-btn" id="dayNightBtn" hidden title="Toggle Day / Night">
                 <i class="fas fa-sun"></i>
+            </button>
+            <button class="icon-btn" id="mapBtn" title="Wilderness Map (M)" aria-label="Wilderness map">
+                <i class="fas fa-map"></i>
             </button>
             <button class="icon-btn" id="faithBtn" title="Faith &amp; Tithe">
                 <i class="fas fa-scroll"></i>
@@ -123,28 +126,69 @@
 
         <div class="about-panel" id="aboutPanel">
             <button class="close-btn" id="closeAbout"><i class="fas fa-times"></i></button>
-            <h2>How to survive</h2><p><strong>Weather:</strong> Each dawn brings a forecast. Heatwaves increase thirst, wind increases exposed walking effort, and light rain slows water loss. Water sources refill your water; shelter protects you from extra exposure. Tomorrow follows a four-day cycle: clear, heat, wind, rain.</p><p>Gather your household quota first: this food is reserved at dusk. Trade only surplus. Midday heat drains water faster: shelter near Camp or the Temple, and refill at the Oasis or Split Rock. Return to Camp to finish early.</p>
-            <p>Each dawn the manna falls upon the desert. Gather it, but heed this: surplus manna spoils — food for your household is reserved first.</p>
-            <p><strong class="text-sage">Walk:</strong> Use arrow keys, WASD, or the on-screen controls. The
-                journey itself wearies you — walking slowly drains your wellbeing, so move with purpose.</p>
-            <p><strong class="text-sage-light">Gather:</strong> Touch the glowing manna to add it to your basket.</p>
-            <p><strong class="text-gold">Trade:</strong> Finish at Camp or wait until dusk. Household food is set aside first; then sell your surplus or buy food to cover a shortage.</p>
-            <p><strong class="text-crimson">Wellbeing &amp; Wealth:</strong> These are two separate fates. Gather
-                too little and you go hungry — wellbeing falls. Gather too much and cannot sell it all — the waste
-                also costs you wellbeing. Sell well and your wealth grows, but wealth alone cannot save a starving
-                soul. Gather what your household needs, then weigh the risk of collecting extra for trade.</p>
-            <p><strong class="text-parch-shadow">Places:</strong> Explore to find the Camp, the Oasis, Split Rock, the
-                Temple, and the Wilderness beyond.</p>
-            <p class="instructions-text">Your Tribe sets how you travel and how much manna falls; your
-                Household size then makes the journey easier or harder.</p>
+            <h2>The Journey</h2>
+            <p><strong>Follow the Pillar.</strong> A pillar of cloud by day and fire by night stands over the next station. The compass at the top of the screen points to it. Reach the station to hear its story and receive its blessing — then the pillar moves on.</p>
+            <p><strong>Survive.</strong> Hunger, water, warmth, stamina and faith all matter. Manna feeds you; the waterskin carries water; fire at Camp or the Temple restores warmth; the Sabbath restores faith.</p>
+            <p><strong class="text-sage">Walk:</strong> WASD or arrow keys. Hold <kbd>Shift</kbd> to run while stamina lasts.</p>
+            <p><strong class="text-sage-light">Gather:</strong> Touch the glowing manna flakes. Gather your household quota first — it is reserved at dusk. Surplus can be traded.</p>
+            <p><strong class="text-gold">Actions:</strong> <kbd>F</kbd> eat manna · <kbd>R</kbd> drink from your waterskin · <kbd>E</kbd> fill the waterskin at water or warm at a fire.</p>
+            <p><strong class="text-crimson">The Camp:</strong> The people need food, water and leadership. At nightfall you may confront the Golden Calf, lift the Bronze Serpent, or trade the surplus. Neglect them and faith falls.</p>
+            <p><strong class="text-parch-shadow">Forty Years:</strong> Each day is a year of the journey. Reach all eight stations before the fortieth year ends. If your wellbeing reaches zero, the journey ends.</p>
+            <p class="instructions-text">Your Tribe sets how you travel and how much manna falls; your Household size then makes the journey easier or harder.</p>
+        </div>
+
+        <div class="journey-hud" id="journeyHud" hidden aria-label="Journey status">
+            <div class="journey-year" id="yearLabel">Year <b>1</b><span>of 40</span></div>
+            <div class="journey-station">
+                <small>The Pillar leads to</small>
+                <strong id="stationName">The Red Sea Shore</strong>
+                <span id="stationDistance">—</span>
+                <span class="terrain-source" id="terrainSource">Wadi Rum · 1 km tiles</span>
+            </div>
+            <div class="compass" id="compass" aria-label="Compass pointing to the Pillar">
+                <div class="compass-face">
+                    <span class="c c-n">N</span><span class="c c-e">E</span><span class="c c-s">S</span><span class="c c-w">W</span>
+                    <div class="compass-arrow" id="compassArrow"></div>
+                    <div class="compass-hub"></div>
+                </div>
+                <span class="compass-cardinal" id="compassCardinal">NE</span>
+            </div>
         </div>
 
         <div class="hud" id="hud">
             <div class="hud-item">Score: <span id="score">0</span></div>
-            <div class="hud-item" id="mana-display">Mana: <span id="mana">0</span>/<span id="mana-quota">40</span></div>
-            <div class="hud-time">Day <span id="day">1</span> · <span id="time">60</span>s</div>
+            <div class="hud-item" id="mana-display">Manna: <span id="mana">0</span>/<span id="mana-quota">40</span></div>
+            <div class="hud-time">Year <span id="day">1</span> · <span id="time">75</span>s</div>
             <div class="hud-location" id="location-display">Location: --</div>
             <div class="hud-item" id="money-display">Silver: <span id="gold">50</span></div>
+        </div>
+
+        <div class="vitals" id="vitals" hidden aria-label="Survival needs">
+            <div class="vital" data-vital="health">
+                <span class="vital-icon">✦</span><span class="vital-name">Wellbeing</span>
+                <div class="vital-track"><i id="vitalHealth"></i></div><b id="vitalHealthVal">100</b>
+            </div>
+            <div class="vital" data-vital="hunger">
+                <span class="vital-icon">◍</span><span class="vital-name">Fed</span>
+                <div class="vital-track"><i id="vitalHunger"></i></div><b id="vitalHungerVal">88</b>
+            </div>
+            <div class="vital" data-vital="thirst">
+                <span class="vital-icon">◈</span><span class="vital-name">Water</span>
+                <div class="vital-track"><i id="vitalThirst"></i></div><b id="vitalThirstVal">100</b>
+            </div>
+            <div class="vital" data-vital="warmth">
+                <span class="vital-icon">✧</span><span class="vital-name">Warmth</span>
+                <div class="vital-track"><i id="vitalWarmth"></i></div><b id="vitalWarmthVal">100</b>
+            </div>
+            <div class="vital" data-vital="faith">
+                <span class="vital-icon">✶</span><span class="vital-name">Faith</span>
+                <div class="vital-track"><i id="vitalFaith"></i></div><b id="vitalFaithVal">68</b>
+            </div>
+            <div class="vital vital-stamina" data-vital="stamina">
+                <span class="vital-icon">➤</span><span class="vital-name">Stamina</span>
+                <div class="vital-track"><i id="vitalStamina"></i></div><b id="vitalStaminaVal">100</b>
+            </div>
+            <div class="waterskin" id="waterskinHud" title="Waterskin charges">Waterskin <span class="skins">◉</span><span class="skins">○</span><span class="skins">○</span></div>
         </div>
 
         <div class="location-popup" id="locationPopup">
@@ -154,8 +198,13 @@
         <section id="survivalHud" hidden aria-label="Survival objectives">
             <strong id="survivalObjective">Gather food for your household</strong>
             <span id="survivalWeather">Water 100%</span>
-            <small id="survivalGuide">Camp: NE · Oasis: NW · Split Rock: S · Temple: SW</small>
-            <button id="makeCampBtn" disabled>Return to Camp</button>
+            <small id="survivalGuide">Follow the Pillar · Camp NE · Oasis NW · Temple SW</small>
+            <div class="survival-actions">
+                <button id="eatBtn" class="survival-action" type="button">Eat manna <kbd>F</kbd></button>
+                <button id="drinkBtn" class="survival-action" type="button">Drink <kbd>R</kbd></button>
+                <button id="interactBtn" class="survival-action" type="button">Draw / warm <kbd>E</kbd></button>
+                <button id="makeCampBtn" type="button" disabled>Return to Camp</button>
+            </div>
         </section>
         <section id="campStatusHud" class="camp-status-hud" aria-label="Camp status">
             <strong>Moses: care for the camp</strong>
@@ -194,20 +243,22 @@
             <div></div>
         </div>
 
-        <div class="modal active" id="menuModal">
-            <h1>✦ Manna Collector ✦</h1>
-            <p>Feed your household. Find water. Reach camp before dusk.</p>
-            <p class="menu-subtitle">A wilderness survival journey inspired by Exodus 16.</p>
-            <button class="btn-primary" id="quickStartBtn">Play · guided first journey</button>
+        <div class="modal active menu-modal" id="menuModal">
+            <div class="menu-crest">✦</div>
+            <h1 class="menu-title">MANNA</h1>
+            <p class="menu-tagline">Forty Years in the Wilderness</p>
+            <p class="menu-lede">You are Moses. Follow the Pillar of Cloud by day and Fire by night; gather manna, find water, and lead Israel home.</p>
+            <button class="btn-primary menu-play" id="quickStartBtn">Begin the Exodus</button>
             <div id="saveGameContainer">
                 <h3>A Previous Journey Awaits...</h3>
-                <div id="saveGameInfo" style="margin-bottom: 15px; font-size: 16px; line-height: 1.6;">
-                    Day: <span id="saveDay"></span> | Score: <span id="saveScore"></span><br>
-                    Tribe: <span id="saveTribe"></span> | Household: <span id="saveDifficulty"></span><br>
-                    Wellbeing: <span id="saveHealth">100</span> | Silver: <span id="saveMoney">50</span>
+                <div id="saveGameInfo">
+                    <div class="save-line"><span id="saveYear"></span> · <span id="saveStation"></span></div>
+                    <div class="save-meta"><span id="saveTribe"></span> · <span id="saveDifficulty"></span> · Wellbeing <span id="saveHealth">100</span> · <span id="saveScore">0</span> renown<span id="saveMoney" hidden>50</span></div>
                 </div>
-                <button class="btn-primary" id="continueJourneyBtn">Continue Journey</button>
-                <button class="btn-secondary" id="newGameBtn" style="margin-left: 10px;">Start Anew</button>
+                <div class="menu-actions">
+                    <button class="btn-primary" id="continueJourneyBtn">Continue Journey</button>
+                    <button class="btn-secondary" id="newGameBtn">Start Anew</button>
+                </div>
             </div>
 
             <button class="btn-primary" id="beginJourneyBtn">Customise tribe &amp; household</button>
@@ -285,7 +336,7 @@
         </div>
 
         <div class="modal" id="dayEndModal">
-            <h1 id="dayEndTitle" class="text-crimson">Day 1 Complete!</h1>
+            <h1 id="dayEndTitle" class="text-crimson">Year 1 Complete</h1>
 
             <div class="stats-grid">
                 <div class="stat-item">Gathered: <span id="dayManaCount">0</span></div>
@@ -319,7 +370,7 @@
                 </div>
             </div>
 
-            <button class="btn-continue" id="dayEndBtn">Continue to Day 2</button>
+            <button class="btn-continue" id="dayEndBtn">Continue to the next year</button>
         </div>
 
         <div class="modal" id="gameOverModal">
@@ -378,6 +429,7 @@
         <div class="modal" id="eveningModal">
             <h2><i class="fas fa-moon"></i> Nightfall at the Camp</h2>
             <p class="evening-narrative" id="eveningNarrative">Moses, your people need your judgment before dawn.</p>
+            <p class="evening-hint">Choose a response to each crisis, then rest until dawn.</p>
             <div class="camp-report" id="eveningCampReport"></div>
 
             <div class="evening-option" id="calfOption">
@@ -405,14 +457,103 @@
             <button class="btn-continue" id="eveningRestBtn">Rest until Dawn</button>
         </div>
 
+        <div class="modal prologue-modal" id="prologueModal">
+            <div class="prologue-kicker">Exodus 13:21</div>
+            <h1>The Pillar Goes Before You</h1>
+            <p class="prologue-text">Egypt is behind you. The sea has closed over the chariots. Before you lies the great and terrible wilderness — and forty years in which to learn what it means to be a free people.</p>
+            <p class="prologue-text">You are <strong>Moses</strong>. The Pillar of Cloud will lead you by day; by night it becomes a Pillar of Fire. Follow it to each station. Gather manna. Find water. Keep the camp alive. Guard the faith of Israel.</p>
+            <div class="prologue-controls">
+                <span><kbd>WASD</kbd> / arrows — walk</span>
+                <span><kbd>Shift</kbd> — run</span>
+                <span><kbd>F</kbd> — eat manna</span>
+                <span><kbd>R</kbd> — drink</span>
+                <span><kbd>E</kbd> — draw water / warm at fire</span>
+            </div>
+            <button class="btn-primary" id="prologueStartBtn">Take up the staff</button>
+        </div>
+
+        <div class="modal station-modal" id="stationModal">
+            <div class="station-kicker" id="stationKicker">A station in the wilderness</div>
+            <h1 id="stationTitle">The Red Sea Shore</h1>
+            <p class="station-scripture" id="stationScripture">Exodus 14:31</p>
+            <p class="station-text" id="stationNarrative"></p>
+            <p class="station-trial" id="stationTrial"></p>
+            <div class="station-blessing" id="stationBlessing"></div>
+            <button class="btn-primary" id="stationContinueBtn">Continue the journey</button>
+        </div>
+
+        <div class="modal victory-modal" id="victoryModal">
+            <div class="victory-glow"></div>
+            <div class="station-kicker">Forty years are ended</div>
+            <h1>The Promised Land</h1>
+            <p class="victory-text">Moses, you have led the people through hunger and thirst, through murmurings and plagues, through fire and cloud. The pillar stands still upon the plains of Moab, and the land lies open before Israel.</p>
+            <div class="victory-stats" id="victoryStats"></div>
+            <button class="btn-primary" id="victoryBtn">Begin a new journey</button>
+            <button class="btn-secondary" id="victoryMenuBtn">Menu</button>
+        </div>
+
+        <div class="modal ending-modal" id="endingModal">
+            <div class="station-kicker">The fortieth year</div>
+            <h1>A Generation in the Wilderness</h1>
+            <p class="victory-text" id="endingText">The years have run out before the journey was finished. The pillar still burns at the edge of the camp, and the people still wait for a leader who will not turn back.</p>
+            <div class="victory-stats" id="endingStats"></div>
+            <button class="btn-secondary" id="endingMenuBtn">Return to the menu</button>
+        </div>
+
+        <div class="modal map-modal" id="mapModal" role="dialog" aria-modal="true" aria-labelledby="mapTitle">
+            <button class="close-btn" id="closeMap"><i class="fas fa-times"></i></button>
+            <h2 id="mapTitle">The Wilderness Map</h2>
+            <p class="map-subtitle" id="mapSubtitle">Explored sections appear as you walk.</p>
+            <div class="map-controls">
+                <button class="map-control" id="mapZoomOut" aria-label="Zoom out">−</button>
+                <span class="map-zoom-label" id="mapZoomLevel">13 × 13 km</span>
+                <button class="map-control" id="mapZoomIn" aria-label="Zoom in">+</button>
+                <button class="map-control map-recenter" id="mapRecenter">Recenter</button>
+            </div>
+            <canvas id="mapCanvas" width="720" height="460" aria-label="Pan and zoom map of explored terrain"></canvas>
+            <div class="map-legend">
+                <span><i class="legend-swatch sand"></i> Sand</span>
+                <span><i class="legend-swatch rock"></i> Sandstone</span>
+                <span><i class="legend-swatch known"></i> Explored</span>
+                <span><i class="legend-swatch satellite"></i> Satellite</span>
+                <span><i class="legend-swatch unknown"></i> Unknown</span>
+            </div>
+            <p class="map-note">Drag to pan · scroll or pinch to zoom. Each square is a 1 km terrain section. Imagery © Esri, Maxar, Earthstar Geographics. Progress and explored terrain save automatically in this browser.</p>
+            <div class="map-actions">
+                <button class="btn-primary" id="closeMapBtn">Close map</button>
+            </div>
+        </div>
+
         <div class="modal" id="creditsModal" role="dialog" aria-modal="true" aria-labelledby="creditsTitle">
             <h2 id="creditsTitle">Credits</h2>
-            <p>Sound effects from <a href="https://dailysounds.org/" target="_blank" rel="noopener">DailySounds.org</a>.</p>
-            <p><a href="https://dailysounds.org/sounds/1439">Desert Winds Ambiance</a> ·
-            <a href="https://dailysounds.org/sounds/1497">Water Bubbling</a> ·
-            <a href="https://dailysounds.org/sounds/1744">Picking Up Pocket Change</a></p>
-            <p>Used under the <a href="https://dailysounds.org/license">DailySounds license</a>. Existing music and other prototype sounds retained.</p>
-            <p>Built with Three.js, Partykals, Howler.js, FastNoiseLite and localForage.</p>
+            <div class="credits-grid">
+                <section class="credits-section">
+                    <h3>Audio</h3>
+                    <p>Sound effects from <a href="https://dailysounds.org/" target="_blank" rel="noopener">DailySounds.org</a>.</p>
+                    <p><a href="https://dailysounds.org/sounds/1439">Desert Winds Ambiance</a><br>
+                    <a href="https://dailysounds.org/sounds/1497">Water Bubbling</a><br>
+                    <a href="https://dailysounds.org/sounds/1744">Picking Up Pocket Change</a></p>
+                    <p>Used under the <a href="https://dailysounds.org/license">DailySounds license</a>. Existing music and prototype sounds retained.</p>
+                </section>
+                <section class="credits-section">
+                    <h3>APIs &amp; Data</h3>
+                    <p><strong>Terrain pilot:</strong> Wadi Rum, Jordan.</p>
+                    <p>Real elevation, when available, comes from <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Mapzen Terrarium / SRTM</a> tiles hosted on AWS Open Data.</p>
+                    <p>The map basemap uses <strong>Esri World Imagery</strong> (satellite, no API key). If external tiles are blocked, the map falls back to the explored-section relief drawing.</p>
+                    <p>If external elevation tiles are blocked, the game uses a deterministic Wadi Rum terrain model generated in-engine.</p>
+                </section>
+                <section class="credits-section">
+                    <h3>3D Models</h3>
+                    <p>World, Moses, camp, stations and pickups are built from procedural Three.js geometry.</p>
+                    <p>Blender sources and GLB exports live in <code>models/blender</code> and <code>models/glb</code>: wanderer, tent, campfire, market stall, palm, acacia, rock, split rock, shrine, oasis, manna, water and banner.</p>
+                    <p>Runtime currently uses the procedural versions; the GLBs are retained for future integration.</p>
+                </section>
+                <section class="credits-section">
+                    <h3>Technology</h3>
+                    <p>Three.js · Vite · Howler.js · localForage · FastNoiseLite · GSAP · Partykals / three.quarks.</p>
+                </section>
+            </div>
+            <p class="credits-note">Scripture references are paraphrased from Exodus, Numbers and Deuteronomy. A game, not a commentary.</p>
             <button class="btn-primary" id="closeCredits">Close credits</button>
         </div>
         <div class="modal" id="pauseModal">
