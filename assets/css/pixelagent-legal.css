@@ -57,7 +57,7 @@
   .legal-table td::before{content:attr(data-label) ": ";color:var(--paper);font:.6rem var(--mono);letter-spacing:.06em;text-transform:uppercase}
 }
 @media print{
-  .site-header,.bg-canvas,.page-canvas,.hero-grid,.legal-toc,.inner-footer,.legal-nav{display:none!important}
+  .site-header,.bg-canvas,.page-canvas,.hero-grid,.legal-toc,.site-footer,.legal-nav{display:none!important}
   html,body{background:#fff;color:#111}
   .inner-hero{min-height:auto;padding:1rem 0;background:#fff}
   .inner-title h1,.legal-content h2,.legal-content strong,.legal-table th{color:#111}
